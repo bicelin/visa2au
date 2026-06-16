@@ -172,26 +172,36 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       ).run();
     }
 
-    // --- Send email via Resend ---
-    await sendNotificationEmail(env, {
-      firstName, lastName, email, phone, country, citizenship,
-      enquiryType, visaType, preferredDate, applicants, message,
-      submissionId,
-      files: uploadedFiles,
-    });
+    // --- Send email via Resend (non-blocking) ---
+    let emailSent = true;
+    try {
+      await sendNotificationEmail(env, {
+        firstName, lastName, email, phone, country, citizenship,
+        enquiryType, visaType, preferredDate, applicants, message,
+        submissionId,
+        files: uploadedFiles,
+      });
+    } catch (emailErr: any) {
+      console.error('Email sending failed (but data saved):', emailErr?.message || emailErr);
+      emailSent = false;
+    }
 
     // Return success
     return jsonResponse({
       success: true,
-      message: 'Your enquiry has been submitted successfully. We will contact you within 24 hours.',
+      message: emailSent
+        ? 'Your enquiry has been submitted successfully. We will contact you within 24 hours.'
+        : 'Your enquiry has been saved, but email notification failed. Our team will still review it.',
       submissionId,
+      emailSent,
     });
 
   } catch (err: any) {
     console.error('Contact form error:', err);
+    const errorMessage = err?.message || String(err) || 'Unknown error';
     return jsonResponse({
       success: false,
-      errors: ['An unexpected error occurred. Please try again or email us directly at info@visa2.au']
+      errors: [`Error: ${errorMessage}. If this persists, email us directly at info@visa2.au`]
     }, 500);
   }
 };
