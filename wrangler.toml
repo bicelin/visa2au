@@ -3,6 +3,7 @@
 
 name = "visa2au"
 compatibility_date = "2026-04-24"
+pages_build_output_dir = "dist"
 
 # D1 Database — stores form submissions and file metadata
 # Created via: npx wrangler d1 create visa2au-db
