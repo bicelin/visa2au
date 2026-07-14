@@ -174,6 +174,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     // --- Send email via Resend (non-blocking) ---
     let emailSent = true;
+    let emailError = '';
     try {
       await sendNotificationEmail(env, {
         firstName, lastName, email, phone, country, citizenship,
@@ -182,7 +183,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         files: uploadedFiles,
       });
     } catch (emailErr: any) {
-      console.error('Email sending failed (but data saved):', emailErr?.message || emailErr);
+      emailError = emailErr?.message || String(emailErr) || 'Unknown email error';
+      console.error('Email sending failed (but data saved):', emailError);
       emailSent = false;
     }
 
@@ -194,6 +196,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         : 'Your enquiry has been saved, but email notification failed. Our team will still review it.',
       submissionId,
       emailSent,
+      emailError: emailSent ? undefined : emailError,
     });
 
   } catch (err: any) {
