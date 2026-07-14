@@ -360,7 +360,7 @@ ${data.files.length > 0 ? `Files (${data.files.length}):\n${data.files.map(f => 
   if (!res.ok) {
     const errorText = await res.text();
     console.error('Resend API error:', res.status, errorText);
-    throw new Error(`Email delivery failed: ${res.status}`);
+    throw new Error(`Email delivery failed: ${res.status} — ${errorText}`);
   }
 }
 
