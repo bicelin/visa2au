@@ -196,7 +196,6 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         : 'Your enquiry has been saved, but email notification failed. Our team will still review it.',
       submissionId,
       emailSent,
-      emailError: emailSent ? undefined : emailError,
     });
 
   } catch (err: any) {
