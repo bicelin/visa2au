@@ -1,0 +1,60 @@
+media:
+  input: app/imgs
+  output: /imgs
+
+content:
+  - name: blog
+    label: Blog
+    type: collection
+    path: cms/blog
+    filename: "{slug}.md"
+    format: yaml-frontmatter
+    subfolders: false
+    view:
+      primary: title
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: slug
+        type: string
+        required: true
+      - name: date
+        type: date
+        required: true
+      - name: category
+        type: select
+        required: true
+        options:
+          - Partner Visas
+          - Employer Sponsorship
+          - Visitor Visas
+          - Skills Assessment
+          - Family Visas
+          - Citizenship
+          - Visa Refusals
+          - Skilled Visas
+          - Protection Visas
+          - Work Visas
+      - name: description
+        type: text
+        required: true
+      - name: excerpt
+        type: text
+      - name: author
+        type: string
+      - name: image
+        type: image
+      - name: reading_time
+        type: number
+      - name: lang
+        type: string
+        readonly: true
+      - name: body
+        type: rich-text
+
+settings:
+  content:
+    merge: true
