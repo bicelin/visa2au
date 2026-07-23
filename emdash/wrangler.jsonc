@@ -1,0 +1,57 @@
+/**
+ * EmDash CMS — wrangler configuration template (PENDING deployment)
+ *
+ * Status: NOT DEPLOYED. Blocked on Cloudflare API token scopes (see ../CMS_DEPLOYMENT.md).
+ * The placeholder IDs below must be replaced after the D1 database, R2 bucket
+ * and KV namespace are created (steps in ../CMS_DEPLOYMENT.md).
+ *
+ * Important notes:
+ * - EmDash is an Astro integration; this Worker only makes sense together with
+ *   an EmDash Astro project (see emdash/README.md). This repo currently contains
+ *   only static build output, so a separate Astro source project is required.
+ * - Dynamic Workers (worker_loaders) require a paid Workers plan. Comment the
+ *   block out to disable sandboxed plugins on a free plan.
+ * - Routing: attach this Worker to staging.visa2.au/_emdash/* (and optionally
+ *   /admin/*) via a Workers route so it never conflicts with the Pages site
+ *   or its Pages Functions under /api/*.
+ */
+{
+  "name": "visa2au-emdash",
+  "main": "./dist/_worker.js/index.js",
+  "compatibility_date": "2026-06-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
+  // Comment out on free plan (Dynamic Workers are paid-only):
+  "worker_loaders": [
+    { "binding": "LOADER" }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "visa2au-emdash",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "migrations_dir": "./node_modules/emdash/dist/migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "visa2au-emdash-media"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "SESSIONS",
+      "id": "REPLACE_WITH_KV_NAMESPACE_ID"
+    }
+  ],
+  "vars": {
+    "EMDASH_BASE_PATH": "/_emdash"
+  }
+  // Secrets to set via `wrangler secret put` once a scoped token exists:
+  //   EMDASH_AUTH_SECRET   (random 32+ char string)
+  //   EMDASH_OAUTH_GITHUB_ID / EMDASH_OAUTH_GITHUB_SECRET (optional OAuth login)
+}
