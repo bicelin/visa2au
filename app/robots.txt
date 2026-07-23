@@ -1,0 +1,27 @@
+# Visa2AU robots.txt
+# Content Signals (Cloudflare-managed standard, 2025): allow search indexing and
+# AI answer-engine citation (ai-input), decline use of content for model training.
+User-agent: *
+Allow: /
+Content-Signal: search=yes, ai-input=yes, ai-train=no
+
+# AI retrieval / answer-engine crawlers — welcome (they drive cited traffic)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://visa2.au/sitemap.xml

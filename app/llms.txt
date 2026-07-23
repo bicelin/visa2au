@@ -1,0 +1,46 @@
+# Visa2AU — Australian Immigration & Visa Services
+
+> Visa2AU Pty Ltd (ABN 36676512397) is a MARN-registered migration agency in North Sydney, NSW, operating since 2004. Agents: MARN 0534230 (N. Arens), MARN 2418663 (S. Vinnichenko). NAATI CPN0VW21W. Languages: English, Russian (site also in French at /fr/).
+
+Registration: migration agents are bound by the OMARA Code of Conduct. Government charges adjust annually (fees below current as of 1 July 2026). Consultations AUD 330/hour; most matters quoted as fixed professional fees before engagement.
+
+## Visa guides (markdown)
+
+- [Partner Visas 820/801](https://visa2.au/visas/partner-visa-820-801.md): For partners of Australian citizens, PR holders or eligible NZ citizens. Professional fee $5,500 AUD; government charge From AUD 11,710 (main applicant); processing 12–24 months (typical).
+- [Partner Visa (Offshore) 309/100](https://visa2.au/visas/partner-visa-309-100.md): Apply from outside Australia, then settle permanently. Professional fee $5,500 AUD; government charge From AUD 11,710 (main applicant); processing 12–24 months (typical).
+- [Prospective Marriage Visa 300](https://visa2.au/visas/prospective-marriage-300.md): Come to Australia to marry your fiancé(e). Professional fee $5,500 AUD; government charge From AUD 11,710; processing 12–18 months (typical).
+- [Visitor Visa 600](https://visa2.au/visas/visitor-visa-600.md): Tourist and business visitor streams. Professional fee $700 AUD; government charge From AUD 250 (offshore); processing 2–4 weeks (typical).
+- [Student Visa 500](https://visa2.au/visas/student-visa-500.md): Study at Australian schools, colleges and universities. Professional fee $3,300 AUD; government charge From AUD 2,500; processing 4–8 weeks (typical).
+- [Work & Holiday Visas 417/462](https://visa2.au/visas/work-holiday-417-462.md): Work and travel Australia for young adults. Professional fee $2,200 AUD; government charge From AUD 650; processing 2–6 weeks (typical).
+- [Training Visa 407](https://visa2.au/visas/training-visa-407.md): Structured workplace training and professional development. Professional fee $3,300 AUD; government charge From AUD 415; processing 3–6 months (typical).
+- [Short Stay Specialist 400/408](https://visa2.au/visas/short-stay-400-408.md): Highly specialised short-term work. Professional fee $3,300 AUD; government charge From AUD 415 (400) / AUD 415 (408); processing 2–8 weeks (stream dependent).
+- [Skills in Demand (SID) 482](https://visa2.au/visas/skills-in-demand-482.md): Employer-sponsored work visa — the TSS successor. Professional fee $3,300 AUD (employee side); government charge From AUD 3,210 (Core/Specialist, main applicant); processing 2–4 months (accredited sponsors faster).
+- [Skilled Employer Sponsored Regional 494](https://visa2.au/visas/skilled-regional-494.md): Regional sponsorship with a PR pathway — incl. DAMA concessions. Professional fee $5,500 AUD (employee side); government charge From AUD 4,910 (main applicant); processing 3–6 months (typical).
+- [Employer Nomination Scheme 186](https://visa2.au/visas/employer-nomination-186.md): Permanent residency through employer nomination. Professional fee $5,500 AUD (employee side); government charge From AUD 4,910 (main applicant); processing 6–12 months (typical).
+- [Skilled Independent & State Nominated 189/190](https://visa2.au/visas/skilled-independent-189-190.md): Points-tested permanent residency — no sponsor needed. Professional fee $5,500 AUD; government charge From AUD 4,910 (main applicant); processing 6–12 months after invitation.
+- [Parent Visas 103/143/870](https://visa2.au/visas/parent-visa-103.md): Reunite with your parents — standard, contributory and sponsored streams. Professional fee $5,500 AUD; government charge 103: from AUD 7,055 · 143: staged contributory charges · 870: from AUD 1,145; processing 103: 20+ years queue · Contributory: 6–12 years · 870: 3–6 months.
+- [Skills Assessments VETASSESS · TRA · EA · ACS](https://visa2.au/visas/skills-assessment.md): Get your qualifications recognised for skilled migration. Professional fee $3,300 AUD; government charge AUD 500–3,000+ (authority dependent); processing 8–16 weeks (authority dependent).
+- [Australian Citizenship Conferral / Descent](https://visa2.au/visas/australian-citizenship.md): The final step in your migration journey. Professional fee $3,300 AUD; government charge From AUD 575 (conferral); processing 4–8 months (conferral, typical).
+- [Visa Refusals & ART Appeals ART review](https://visa2.au/visas/visa-refusals-art-appeals.md): Refused, cancelled, or facing a deadline? Act fast. Professional fee $5,500 AUD; government charge ART fee: AUD 3,496 (refundable 50% if successful, exemptions exist); processing Deadlines: usually 21–28 days to lodge · Review: 6–18 months.
+- [Bridging Visas BVA–BVE](https://visa2.au/visas/bridging-visas.md): Keep your status lawful between visas. Professional fee From $1,100 AUD; government charge No charge (linked grant); processing Usually granted automatically with the linked application.
+- [Protection Visa 866](https://visa2.au/visas/protection-visa-866.md): Protection claims handled with care and confidentiality. Professional fee $5,500 AUD; government charge From AUD 45; processing Varies widely; often 12+ months.
+
+## Services
+
+- [Pricing](https://visa2.au/pricing.md): full fee schedule — consultations, professional fees per visa type, government charges.
+- [Urgent visa help](https://visa2.au/urgent-visa-help.md): s56 requests, refusals, cancellations — response deadlines (7–28 days) and immediate steps.
+- [Employer sponsorship](https://visa2.au/employers.md): SBS, 482/494/186 nominations, DAMA labour agreements, employer obligations.
+- [Contact](https://visa2.au/contact.md): email, phone, office, online assessment link, enquiry form with encrypted uploads.
+
+## Urgent deadlines (citation-ready)
+
+- s56 request response: usually 28 days from the letter; cannot be extended.
+- ART appeal after refusal: 21 days (most visas); 7 working days for protection (866) refusals.
+- NOICC (cancellation) responses: days, not weeks — immediate advice essential.
+
+## Optional
+
+- [Blog — agent-written guides](https://visa2.au/blog) (12 articles)
+- [Our team](https://visa2.au/team)
+- [Sitemap](https://visa2.au/sitemap.xml)
+- Russian locale: https://visa2.au/ru/ · French locale: https://visa2.au/fr/
