@@ -1,0 +1,38 @@
+name: Build blog from CMS sources
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "cms/**"
+      - "scripts/build_blog.py"
+      - "scripts/blog_template.html"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build blog pages
+        run: python3 scripts/build_blog.py
+
+      - name: Commit generated files
+        run: |
+          git config user.name "bicelin"
+          git config user.email "bicelin@users.noreply.github.com"
+          git add app/blog app/blog.html app/search-index.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(blog): rebuild static pages from cms/ sources [skip ci]"
+            git push
+          fi
