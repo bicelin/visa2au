@@ -32,6 +32,15 @@
   Content-Type: text/markdown; charset=utf-8
   Cache-Control: public, max-age=3600
 
+# Agent skills discovery (RFC v0.2.0)
+/.well-known/agent-skills/index.json
+  Content-Type: application/json
+  Cache-Control: public, max-age=3600
+
+/.well-known/agent-skills/*/SKILL.md
+  Content-Type: text/markdown; charset=utf-8
+  Cache-Control: public, max-age=3600
+
 /content-index.json
   Content-Type: application/json
   Cache-Control: public, max-age=300, must-revalidate
