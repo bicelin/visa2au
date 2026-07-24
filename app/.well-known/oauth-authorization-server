@@ -26,9 +26,10 @@
       ],
       "credential_types_supported": [
         "client_secret_basic"
-      ]
+      ],
+      "claim_uri": "https://staging.visa2.au/auth.md#claim"
     },
-    "claim_uri": "mailto:info@visa2.au",
+    "claim_uri": "https://staging.visa2.au/auth.md#claim",
     "note": "Self-serve client registration is not automated on staging; request credentials per /auth.md."
   }
 }

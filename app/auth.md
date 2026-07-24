@@ -14,11 +14,10 @@ instead (see "Public, unauthenticated access" below).
 Everything else (`/mcp`, `/llms.txt`, `*.md` twins, the api-catalog, OAuth
 metadata) is public.
 
-## Step 1 — Obtain client credentials
+## Step 1 — Obtain client credentials {#claim}
 
-Self-serve client registration is **not yet automated on staging**. To
-request a `client_id` / `client_secret` pair, email
-[info@visa2.au](mailto:info@visa2.au) with:
+Registration method: **verified email**. To claim a `client_id` /
+`client_secret` pair, email [info@visa2.au](mailto:info@visa2.au) with:
 
 - your agent's name and purpose,
 - the operator (person or organisation) responsible for it,
