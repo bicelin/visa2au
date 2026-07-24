@@ -68,6 +68,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     if (!v.success) return json({ ok: false, error: "Bot check failed — please retry" }, 403);
   }
 
+  let step = "r2-files";
+  try {
   // Attachments → R2
   const files = fd.getAll("files").filter((f): f is File => f instanceof File && f.size > 0);
   const total = files.reduce((s, f) => s + f.size, 0);
@@ -90,6 +92,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   }
 
   // Store enquiry metadata
+  step = "r2-meta";
   await env.ENQUIRIES.put(`${enquiryId}/_meta.json`, JSON.stringify({ name, email, topic, message, at: new Date().toISOString() }));
 
   // Notify via Resend
@@ -107,6 +110,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     ${filesHtml}
     <p style="color:#888;font-size:12px">Enquiry ID: ${enquiryId}</p>`;
 
+  step = "resend";
   const er = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
@@ -124,4 +128,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   }
 
   return json({ ok: true, id: enquiryId, files: links.length });
+  } catch (err) {
+    return json({ ok: false, error: "Internal error", step, detail: String(err).slice(0, 200) }, 500);
+  }
 };
