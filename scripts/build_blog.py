@@ -6,6 +6,8 @@ cms/blog-fr/*.md (YAML front matter + Markdown body) and regenerates:
   - app/blog/<slug>.html      (EN, from scripts/blog_template.html)
   - app/ru/blog/<slug>.html   (RU, from scripts/blog_template_ru.html)
   - app/fr/blog/<slug>.html   (FR, from scripts/blog_template_fr.html)
+  - app/ru/blog.html          (RU index, from scripts/blog_index_template_ru.html)
+  - app/fr/blog.html          (FR index, from scripts/blog_index_template_fr.html)
   - the post-card grid in app/blog.html (EN only, sorted newest first)
   - the blog entries in app/search-index.json (EN only, slug order)
 
@@ -37,8 +39,8 @@ MONTHS_FR = [
 ]
 
 # Per-language blog pipelines. "en" additionally maintains app/blog.html and
-# the blog entries in app/search-index.json; ru/fr build post pages only
-# (blog index and search index stay EN-only for now).
+# the blog entries in app/search-index.json; ru/fr also rebuild their own
+# localized blog index pages (translated posts only).
 LANGS = [
     {
         "lang": "en",
@@ -55,6 +57,11 @@ LANGS = [
         "out": "app/ru/blog",
         "url": SITE + "/ru/blog/{slug}.html",
         "rel_prefix": "../../",
+        "index_template": "scripts/blog_index_template_ru.html",
+        "index_out": "app/ru/blog.html",
+        "index_img_prefix": "../",
+        "index_img_alt": "Обложка статьи",
+        "index_reading": "мин чтения",
     },
     {
         "lang": "fr",
@@ -63,6 +70,11 @@ LANGS = [
         "out": "app/fr/blog",
         "url": SITE + "/fr/blog/{slug}.html",
         "rel_prefix": "../../",
+        "index_template": "scripts/blog_index_template_fr.html",
+        "index_out": "app/fr/blog.html",
+        "index_img_prefix": "../",
+        "index_img_alt": "Image d'illustration",
+        "index_reading": "min de lecture",
     },
 ]
 
@@ -215,6 +227,35 @@ CARD = (
     " \u00b7 {reading} min read</p> </div> </a>"
 )
 
+# Localized variant for the ru/fr index pages: image path and meta line use
+# the language's own prefixes/labels (see LANGS index_* keys).
+CARD_LOC = (
+    '<a href="./blog/{slug}.html" class="reveal group flex flex-col overflow-hidden'
+    " rounded-2xl border border-navy-800/10 bg-white transition hover:-translate-y-1"
+    " hover:shadow-lg dark:border-white/10 dark:bg-navy-900\"> "
+    '<div class="h-48 overflow-hidden bg-navy-800"> '
+    '<img src="{img_prefix}{img}" alt="{img_alt}: {title}" class="h-full w-full'
+    ' object-cover transition group-hover:scale-105" loading="lazy"> </div> '
+    '<div class="flex flex-1 flex-col p-5"> '
+    '<p class="font-tech text-xs font-semibold uppercase tracking-wider'
+    ' text-gold-600 dark:text-gold-400">{category}</p> '
+    '<h2 class="mt-1.5 font-display text-lg font-bold leading-snug text-navy-800'
+    ' dark:text-white">{title}</h2> '
+    '<p class="mt-2 line-clamp-3 flex-1 text-sm text-slate-600'
+    ' dark:text-slate-400">{desc}</p> '
+    '<p class="mt-4 font-tech text-xs text-slate-400">{author} \u00b7 {date}'
+    " \u00b7 {reading} {reading_label}</p> </div> </a>"
+)
+
+
+def fmt_card_date(iso, lang):
+    y, m, d = (int(x) for x in iso.split("-"))
+    if lang == "ru":
+        return f"{d} {MONTHS_RU[m - 1]} {y} г."
+    if lang == "fr":
+        return f"{d} {MONTHS_FR[m - 1]} {y}"
+    return f"{d} {MONTHS_SHORT[m - 1]} {y}"
+
 
 def write_if_changed(path, content):
     if os.path.exists(path) and open(path, encoding="utf-8").read() == content:
@@ -253,6 +294,33 @@ def main():
             if os.path.basename(stale)[:-5] not in live_slugs:
                 os.remove(stale)
                 changed.append(stale + " (deleted)")
+
+        # 1c. localized blog index (ru/fr): translated posts only, newest first
+        if "index_out" in cfg:
+            by_date_loc = sorted(posts, key=lambda p: p[0]["date"], reverse=True)
+            cards = "".join(
+                CARD_LOC.format(
+                    slug=fm["slug"],
+                    img_prefix=cfg["index_img_prefix"],
+                    img=fm["image"].lstrip("/"),
+                    img_alt=cfg["index_img_alt"],
+                    title=html.escape(fm["title"], quote=False),
+                    category=fm["category"],
+                    desc=html.escape(fm["excerpt"], quote=False),
+                    author=fm["author"],
+                    date=fmt_card_date(fm["date"], cfg["lang"]),
+                    reading=fm["reading_time"],
+                    reading_label=cfg["index_reading"],
+                )
+                for fm, _ in by_date_loc
+            )
+            tmpl = open(
+                os.path.join(ROOT, cfg["index_template"]), encoding="utf-8"
+            ).read()
+            page = tmpl.replace("{{CARDS}}", cards)
+            dest = os.path.join(ROOT, cfg["index_out"])
+            if write_if_changed(dest, page):
+                changed.append(dest)
 
     posts = posts_en
 
