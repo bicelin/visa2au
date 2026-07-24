@@ -100,6 +100,10 @@ ServiceMode SVCB records published 2026-07-24 via the Cloudflare dashboard
 session (API tokens lack DNS scope):
 - `_index._agents.visa2.au SVCB 1 staging.visa2.au. mandatory=alpn,port alpn="h2" port=443`
 - `_a2a._agents.visa2.au SVCB 1 staging.visa2.au. mandatory=alpn,port alpn="h2" port=443`
+- `_index._agents.staging.visa2.au` and `_a2a._agents.staging.visa2.au` (same
+  SVCB data) — required because scanners resolve the `_agents` namespace under
+  the scanned hostname (staging.visa2.au), not the zone apex. Added 2026-07-24
+  after isitagentready still reported records missing.
 
 Verified resolving publicly (e.g. `https://dns.google/resolve?name=_index._agents.visa2.au&type=SVCB`).
 
