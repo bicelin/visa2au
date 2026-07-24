@@ -169,11 +169,19 @@ def main():
     changed = []
 
     # 1. post pages
+    live_slugs = set()
     for fm, md in posts:
+        live_slugs.add(fm["slug"])
         page = render_post(template, fm, render_markdown(md))
         dest = os.path.join(ROOT, "app/blog", fm["slug"] + ".html")
         if write_if_changed(dest, page):
             changed.append(dest)
+
+    # 1b. remove pages whose source was deleted
+    for stale in glob.glob(os.path.join(ROOT, "app/blog/*.html")):
+        if os.path.basename(stale)[:-5] not in live_slugs:
+            os.remove(stale)
+            changed.append(stale + " (deleted)")
 
     # 2. blog.html card grid (date desc)
     by_date = sorted(posts, key=lambda p: p[0]["date"], reverse=True)
