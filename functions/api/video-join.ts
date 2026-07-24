@@ -68,7 +68,6 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         properties: {
           enable_chat: true,
           enable_screenshare: true,
-          enable_recording: "off",
           enable_prejoin_ui: true,
           eject_at_room_exp: true,
           exp: Math.floor(Date.now() / 1000) + 24 * 3600, // room valid 24h, refreshed per day
@@ -92,7 +91,6 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         room_name: ROOM_NAME,
         user_name: name,
         is_owner: false,
-        enable_recording: "off",
         exp: Math.floor(Date.now() / 1000) + TOKEN_TTL_S,
       },
     }),
