@@ -103,14 +103,34 @@ Join Consultation →
           const wrap = document.getElementById('v-wrap');
           const card = document.getElementById('v-card');
           wrap.classList.remove('max-w-md');
-          wrap.classList.add('max-w-4xl');
-          card.innerHTML = '<div id="daily-frame" class="aspect-video w-full overflow-hidden rounded-2xl"></div>' +
-            '<p class="mt-4 text-center text-xs text-slate-400">Connected as ' +
+          wrap.style.width = '95vw';
+          wrap.style.maxWidth = '1600px';
+          card.style.padding = '12px';
+          card.innerHTML = '<div id="daily-frame" style="width:100%;height:85vh;min-height:480px;" class="overflow-hidden rounded-2xl bg-black"></div>' +
+            '<div class="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-center text-xs text-slate-400">' +
+            '<span>Connected as ' +
             name.value.trim().replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])) +
-            ' · If your camera or microphone is blocked, allow access in the browser prompt.</p>';
+            ' · If your camera or microphone is blocked, allow access in the browser prompt.</span>' +
+            '<button id="v-fs" type="button" style="border:1px solid rgba(255,255,255,.25);padding:5px 14px;border-radius:8px;color:#f0a000;background:transparent;cursor:pointer;font-size:12px;line-height:1.4;">⛶ Fullscreen</button>' +
+            '</div>';
           const frame = window.DailyIframe.createFrame(document.getElementById('daily-frame'), {
             showLeaveButton: true,
             iframeStyle: { width: '100%', height: '100%', border: '0' },
+          });
+          const dailyIframeEl = frame.iframe && frame.iframe();
+          if (dailyIframeEl) {
+            dailyIframeEl.setAttribute('allow', 'camera; microphone; fullscreen; speaker; display-capture; autoplay; clipboard-write');
+            dailyIframeEl.setAttribute('allowfullscreen', '');
+          }
+          document.getElementById('v-fs').addEventListener('click', () => {
+            const el = document.getElementById('daily-frame');
+            if (document.fullscreenElement) {
+              document.exitFullscreen();
+            } else if (el.requestFullscreen) {
+              el.requestFullscreen();
+            } else if (el.webkitRequestFullscreen) {
+              el.webkitRequestFullscreen();
+            }
           });
           frame.on('left-meeting', () => window.location.reload());
           await frame.join({ url: data.url });
