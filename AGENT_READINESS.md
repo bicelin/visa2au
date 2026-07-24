@@ -45,20 +45,18 @@ raw markdown (front matter intact) to `app/blog/<slug>.md`,
 mirroring the HTML logic; `app/index.md` is a hand-written markdown twin of
 the homepage.
 
-### DNS-AID (draft-mozleywilliams-dnsop-dnsaid)
-**Blocked on token scope.** Plan: publish ServiceMode SVCB records
-(`_index._agents.visa2.au`, `_a2a._agents.visa2.au` → `staging.visa2.au`,
-`alpn="h2" port=443 mandatory=alpn,port`, per the draft and the
-isitagentready.com DNS-AID skill) and enable DNSSEC on the zone
-(`PATCH /zones/{id}/dnssec`). Both API tokens are active
-(`/user/tokens/verify` OK) but lack DNS permissions entirely — even
-`GET /zones/{id}/dns_records` returns error 10000, and
-`POST .../dns_records` and `PATCH .../dnssec` fail with the same code on both
-tokens. To unblock, the owner must grant **Zone → DNS → Edit** for zone
-visa2.au to `CLOUDFLARE_API_TOKEN` (or issue a new token with that scope);
-DNSSEC needs **Zone → DNS Settings → Edit** (or DNS edit covers it via the
-dnssec endpoint with a DNS-scoped token). Re-run the record creation and
-verify with `dig +short SVCB _index._agents.visa2.au` and `dig DNSKEY visa2.au`.
+### DNS-AID (draft-mozleywilliams-dnsop-dnsaid) — IMPLEMENTED
+ServiceMode SVCB records published 2026-07-24 via the Cloudflare dashboard
+session (API tokens lack DNS scope):
+- `_index._agents.visa2.au SVCB 1 staging.visa2.au. mandatory=alpn,port alpn="h2" port=443`
+- `_a2a._agents.visa2.au SVCB 1 staging.visa2.au. mandatory=alpn,port alpn="h2" port=443`
+
+Verified resolving publicly (e.g. `https://dns.google/resolve?name=_index._agents.visa2.au&type=SVCB`).
+
+DNSSEC: enabled on the zone (Cloudflare, key tag 2371, ECDSAP256SHA256) and
+the DS record was added at the registrar (GoDaddy → DNS Management → DS
+Records) on the same day. Chain of trust verified:
+`dig visa2.au A +dnssec @8.8.8.8` returns the `ad` (authenticated data) flag.
 
 ## Skipped — with justification
 
