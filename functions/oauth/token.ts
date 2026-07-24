@@ -96,7 +96,17 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   }
   const expected = clients[clientId];
   if (!expected || !timingSafeStr(expected, clientSecret)) {
-    return json({ error: "invalid_client", error_description: "Unknown client or bad secret" }, 401, {
+    return json({
+      error: "invalid_client",
+      error_description: "Unknown client or bad secret",
+      debug: {
+        received_id_len: clientId.length,
+        received_secret_len: clientSecret.length,
+        id_known: clientId in clients,
+        known_ids_len: Object.keys(clients).map((k) => k.length),
+        secret_len_match: expected ? expected.length === clientSecret.length : null,
+      },
+    }, 401, {
       "WWW-Authenticate": 'Basic realm="oauth"',
     });
   }
