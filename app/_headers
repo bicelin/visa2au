@@ -8,7 +8,7 @@
   Permissions-Policy: camera=("https://*.daily.co"), geolocation=(), payment=(self), microphone=(self "https://*.elevenlabs.io" "https://*.daily.co")
   Cross-Origin-Opener-Policy: same-origin
   Link: </.well-known/api-catalog>; rel="api-catalog", </llms.txt>; rel="help"; type="text/plain", </.well-known/oauth-authorization-server>; rel="oauth-authorization-server"; type="application/json", </.well-known/mcp/server-card.json>; rel="mcp-server-card"; type="application/json", </auth.md>; rel="auth"; type="text/markdown"
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://*.elevenlabs.io https://*.daily.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https: wss:; media-src 'self' https:; worker-src 'self' blob:; child-src blob: https://*.elevenlabs.io https://*.daily.co; frame-src https://*.elevenlabs.io https://*.daily.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://visa2au.mmportal.cloud; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' blob: https://unpkg.com https://cdn.jsdelivr.net https://*.elevenlabs.io https://*.daily.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https: wss:; media-src 'self' https:; worker-src 'self' blob:; child-src blob: https://*.elevenlabs.io https://*.daily.co; frame-src https://*.elevenlabs.io https://*.daily.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://visa2au.mmportal.cloud; upgrade-insecure-requests
 
 # API catalog (RFC 9727) — machine-readable linkset
 /.well-known/api-catalog
