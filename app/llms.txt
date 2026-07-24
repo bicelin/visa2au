@@ -35,6 +35,9 @@ Registration: migration agents are bound by the OMARA Code of Conduct. Governmen
 ## API endpoints (agent-facing)
 
 - API catalog (RFC 9727 linkset): https://visa2.au/.well-known/api-catalog
+- GET /api/content — agent content API (Bearer token required, scope `content:read`): `?list=1` returns a JSON index of all blog posts (en/ru/fr); `?path=/blog/<slug>&lang=en|ru|fr` returns the raw markdown twin. On staging: https://staging.visa2.au/api/content
+- POST /oauth/token — OAuth 2.0 client-credentials grant (HTTP Basic client auth) issuing 1-hour HS256 JWTs for /api/content. Discovery: /.well-known/oauth-authorization-server (RFC 8414) and /.well-known/oauth-protected-resource (RFC 9728). To request client credentials, see https://staging.visa2.au/auth.md (self-serve registration not automated on staging).
+- POST /mcp — stateless MCP server (Streamable HTTP, JSON-RPC 2.0, no auth, read-only public content). Tools: search_posts({query, lang?}), get_post({slug, lang?}). Server card: /.well-known/mcp/server-card.json
 - POST /api/video-join — body `{"name": "...", "passcode": "..."}`; validates the lobby passcode and returns `{"ok": true, "url": "https://<daily-domain>/<room>?t=<token>"}` for the Daily.co video consultation lobby.
 - POST /api/enquiry — multipart enquiry form (name, email, topic, message, optional files, Turnstile token).
 - POST /api/checkout — Stripe Checkout session creation (consultation payment / donation).
