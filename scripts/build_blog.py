@@ -271,6 +271,7 @@ def write_if_changed(path, content):
 def main():
     changed = []
     posts_en = []
+    content_index = []  # all langs, for app/content-index.json
 
     # 1. post pages, per language (each language manages only its own dir)
     for cfg in LANGS:
@@ -280,6 +281,16 @@ def main():
             fm, md = parse_md(path)
             fm.setdefault("slug", os.path.basename(path)[:-3])
             posts.append((fm, md))
+            content_index.append(
+                {
+                    "slug": fm["slug"],
+                    "lang": cfg["lang"],
+                    "title": fm["title"],
+                    "date": fm["date"],
+                    "category": fm["category"],
+                    "description": fm.get("description", fm.get("excerpt", "")),
+                }
+            )
         if cfg["lang"] == "en":
             posts_en = posts
 
@@ -390,6 +401,17 @@ def main():
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
     if write_if_changed(si_path, blob):
         changed.append(si_path)
+
+    # 4. content-index.json — slug/lang/title/date/category/description for
+    # every post in every language (consumed by /api/content?list=1 and the
+    # MCP search_posts tool).
+    content_index.sort(key=lambda e: (e["lang"], e["slug"]))
+    ci_path = os.path.join(ROOT, "app/content-index.json")
+    ci_blob = json.dumps(
+        {"posts": content_index}, ensure_ascii=False, indent=2
+    ) + "\n"
+    if write_if_changed(ci_path, ci_blob):
+        changed.append(ci_path)
 
     print(f"{len(posts)} EN posts built; {len(changed)} file(s) updated")
     for c in changed:
