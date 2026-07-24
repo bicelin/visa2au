@@ -84,6 +84,23 @@ def render_markdown(md):
         elif all(l.startswith("- ") for l in lines):
             items = "\n".join("<li>" + render_inline(l[2:]) + "</li>" for l in lines)
             out.append(f"<ul>\n{items}\n</ul>")
+        elif all(l.lstrip().startswith("|") for l in lines) and len(lines) >= 2:
+            def cells(row):
+                return [c.strip() for c in row.strip().strip("|").split("|")]
+            header = cells(lines[0])
+            body = [cells(r) for r in lines[2:]]
+            thead = "".join(f"<th>{render_inline(c)}</th>" for c in header)
+            rows = "\n".join(
+                "<tr>" + "".join(f"<td>{render_inline(c)}</td>" for c in r) + "</tr>"
+                for r in body
+            )
+            out.append(
+                '<table class="fee-table">\n<thead><tr>'
+                + thead
+                + "</tr></thead>\n<tbody>\n"
+                + rows
+                + "\n</tbody></table>"
+            )
         else:
             inner = "\n".join(render_inline(l) for l in lines)
             out.append(f"<p>{inner}</p>")
