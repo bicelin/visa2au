@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 """Build the static blog from Markdown sources.
 
-Reads cms/blog/*.md (YAML front matter + Markdown body) and regenerates:
-  - app/blog/<slug>.html   (full pages from scripts/blog_template.html)
-  - the post-card grid in app/blog.html (sorted by date, newest first)
-  - the blog entries in app/search-index.json (type "Guide", slug order)
+Reads cms/blog/*.md plus the translated sources cms/blog-ru/*.md and
+cms/blog-fr/*.md (YAML front matter + Markdown body) and regenerates:
+  - app/blog/<slug>.html      (EN, from scripts/blog_template.html)
+  - app/ru/blog/<slug>.html   (RU, from scripts/blog_template_ru.html)
+  - app/fr/blog/<slug>.html   (FR, from scripts/blog_template_fr.html)
+  - the post-card grid in app/blog.html (EN only, sorted newest first)
+  - the blog entries in app/search-index.json (EN only, slug order)
 
-Pure Python 3 stdlib. Idempotent: re-running produces identical output.
+Each language manages only its own output directory, including orphan
+cleanup. Pure Python 3 stdlib. Idempotent: re-running produces identical
+output.
 """
 import glob
 import html
@@ -22,6 +27,44 @@ MONTHS_LONG = [
     "August", "September", "October", "November", "December",
 ]
 MONTHS_SHORT = [m[:3] for m in MONTHS_LONG]
+MONTHS_RU = [  # genitive case for dates
+    "января", "февраля", "марта", "апреля", "мая", "июня",
+    "июля", "августа", "сентября", "октября", "ноября", "декабря",
+]
+MONTHS_FR = [
+    "janvier", "février", "mars", "avril", "mai", "juin", "juillet",
+    "août", "septembre", "octobre", "novembre", "décembre",
+]
+
+# Per-language blog pipelines. "en" additionally maintains app/blog.html and
+# the blog entries in app/search-index.json; ru/fr build post pages only
+# (blog index and search index stay EN-only for now).
+LANGS = [
+    {
+        "lang": "en",
+        "src": "cms/blog",
+        "template": "scripts/blog_template.html",
+        "out": "app/blog",
+        "url": SITE + "/blog/{slug}.html",
+        "rel_prefix": "../",
+    },
+    {
+        "lang": "ru",
+        "src": "cms/blog-ru",
+        "template": "scripts/blog_template_ru.html",
+        "out": "app/ru/blog",
+        "url": SITE + "/ru/blog/{slug}.html",
+        "rel_prefix": "../../",
+    },
+    {
+        "lang": "fr",
+        "src": "cms/blog-fr",
+        "template": "scripts/blog_template_fr.html",
+        "out": "app/fr/blog",
+        "url": SITE + "/fr/blog/{slug}.html",
+        "rel_prefix": "../../",
+    },
+]
 
 
 # ---------------------------------------------------------------- front matter
@@ -119,11 +162,22 @@ def fmt_short(iso):
     return f"{d} {MONTHS_SHORT[m - 1]} {y}"
 
 
+def meta_line(fm, lang):
+    y, m, d = (int(x) for x in fm["date"].split("-"))
+    author = fm["author"]
+    rt = fm["reading_time"]
+    if lang == "ru":
+        return f"{author} · {d} {MONTHS_RU[m - 1]} {y} г. · {rt} мин чтения"
+    if lang == "fr":
+        return f"{author} · {d} {MONTHS_FR[m - 1]} {y} · {rt} min de lecture"
+    return f"{author} · {d} {MONTHS_LONG[m - 1]} {y} · {rt} min read"
+
+
 def json_str(s):
     return json.dumps(s, ensure_ascii=False)[1:-1]
 
 
-def render_post(template, fm, body_html):
+def render_post(template, fm, body_html, cfg):
     slug = fm["slug"]
     img = fm["image"].lstrip("/")  # e.g. imgs/hero-coast.jpg
     page = template
@@ -131,16 +185,13 @@ def render_post(template, fm, body_html):
     page = page.replace("{{TITLE_JSON}}", json_str(fm["title"]))
     page = page.replace("{{DESC_HTML}}", html.escape(fm["description"], quote=False))
     page = page.replace("{{DESC_JSON}}", json_str(fm["description"]))
-    page = page.replace("{{URL_ABS}}", f"{SITE}/blog/{slug}.html")
+    page = page.replace("{{URL_ABS}}", cfg["url"].format(slug=slug))
     page = page.replace("{{SLUG}}", slug)
     page = page.replace("{{AUTHOR}}", fm["author"])
     page = page.replace("{{DATE_JSON}}", f"{fm['date']}T00:00:00.000Z")
     page = page.replace("{{CATEGORY}}", fm["category"])
-    page = page.replace(
-        "{{META_LINE}}",
-        f"{fm['author']} \u00b7 {fmt_long(fm['date'])} \u00b7 {fm['reading_time']} min read",
-    )
-    page = page.replace("{{IMAGE_REL}}", f"../{img}")
+    page = page.replace("{{META_LINE}}", meta_line(fm, cfg["lang"]))
+    page = page.replace("{{IMAGE_REL}}", cfg["rel_prefix"] + img)
     page = page.replace("{{IMAGE_ABS}}", f"{SITE}/{img}")
     page = page.replace("{{BODY}}", body_html)
     return page
@@ -173,32 +224,37 @@ def write_if_changed(path, content):
 
 
 def main():
-    template = open(
-        os.path.join(ROOT, "scripts/blog_template.html"), encoding="utf-8"
-    ).read()
-
-    posts = []
-    for path in sorted(glob.glob(os.path.join(ROOT, "cms/blog/*.md"))):
-        fm, md = parse_md(path)
-        fm.setdefault("slug", os.path.basename(path)[:-3])
-        posts.append((fm, md))
-
     changed = []
+    posts_en = []
 
-    # 1. post pages
-    live_slugs = set()
-    for fm, md in posts:
-        live_slugs.add(fm["slug"])
-        page = render_post(template, fm, render_markdown(md))
-        dest = os.path.join(ROOT, "app/blog", fm["slug"] + ".html")
-        if write_if_changed(dest, page):
-            changed.append(dest)
+    # 1. post pages, per language (each language manages only its own dir)
+    for cfg in LANGS:
+        template = open(os.path.join(ROOT, cfg["template"]), encoding="utf-8").read()
+        posts = []
+        for path in sorted(glob.glob(os.path.join(ROOT, cfg["src"], "*.md"))):
+            fm, md = parse_md(path)
+            fm.setdefault("slug", os.path.basename(path)[:-3])
+            posts.append((fm, md))
+        if cfg["lang"] == "en":
+            posts_en = posts
 
-    # 1b. remove pages whose source was deleted
-    for stale in glob.glob(os.path.join(ROOT, "app/blog/*.html")):
-        if os.path.basename(stale)[:-5] not in live_slugs:
-            os.remove(stale)
-            changed.append(stale + " (deleted)")
+        out_dir = os.path.join(ROOT, cfg["out"])
+        os.makedirs(out_dir, exist_ok=True)
+        live_slugs = set()
+        for fm, md in posts:
+            live_slugs.add(fm["slug"])
+            page = render_post(template, fm, render_markdown(md), cfg)
+            dest = os.path.join(out_dir, fm["slug"] + ".html")
+            if write_if_changed(dest, page):
+                changed.append(dest)
+
+        # 1b. remove pages whose source was deleted (this language only)
+        for stale in glob.glob(os.path.join(out_dir, "*.html")):
+            if os.path.basename(stale)[:-5] not in live_slugs:
+                os.remove(stale)
+                changed.append(stale + " (deleted)")
+
+    posts = posts_en
 
     # 2. blog.html card grid (date desc)
     by_date = sorted(posts, key=lambda p: p[0]["date"], reverse=True)
@@ -249,7 +305,7 @@ def main():
     if write_if_changed(si_path, blob):
         changed.append(si_path)
 
-    print(f"{len(posts)} posts built; {len(changed)} file(s) updated")
+    print(f"{len(posts)} EN posts built; {len(changed)} file(s) updated")
     for c in changed:
         print("  updated", os.path.relpath(c, ROOT))
 

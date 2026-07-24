@@ -56,6 +56,118 @@ content:
       - name: body
         type: rich-text
 
+  - name: blog-ru
+    label: Blog (RU)
+    type: collection
+    path: cms/blog-ru
+    filename: "{slug}.md"
+    format: yaml-frontmatter
+    subfolders: false
+    view:
+      primary: title
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: slug
+        type: string
+        required: true
+      - name: date
+        type: date
+        required: true
+      # category is a display string rendered per language; the RU list keeps
+      # the EN options for reference plus the established RU translations.
+      - name: category
+        type: select
+        required: true
+        options:
+          - Новости и политика
+          - News & Policy
+          - Partner Visas
+          - Employer Sponsorship
+          - Visitor Visas
+          - Skills Assessment
+          - Family Visas
+          - Citizenship
+          - Visa Refusals
+          - Skilled Visas
+          - Protection Visas
+          - Work Visas
+      - name: description
+        type: text
+        required: true
+      - name: excerpt
+        type: text
+      - name: author
+        type: string
+      - name: image
+        type: image
+      - name: reading_time
+        type: number
+      - name: lang
+        type: string
+        readonly: true
+      - name: body
+        type: rich-text
+
+  - name: blog-fr
+    label: Blog (FR)
+    type: collection
+    path: cms/blog-fr
+    filename: "{slug}.md"
+    format: yaml-frontmatter
+    subfolders: false
+    view:
+      primary: title
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        type: string
+        required: true
+      - name: slug
+        type: string
+        required: true
+      - name: date
+        type: date
+        required: true
+      # category is a display string rendered per language; the FR list keeps
+      # the EN options for reference plus the established FR translations.
+      - name: category
+        type: select
+        required: true
+        options:
+          - Actualités et politique
+          - News & Policy
+          - Partner Visas
+          - Employer Sponsorship
+          - Visitor Visas
+          - Skills Assessment
+          - Family Visas
+          - Citizenship
+          - Visa Refusals
+          - Skilled Visas
+          - Protection Visas
+          - Work Visas
+      - name: description
+        type: text
+        required: true
+      - name: excerpt
+        type: text
+      - name: author
+        type: string
+      - name: image
+        type: image
+      - name: reading_time
+        type: number
+      - name: lang
+        type: string
+        readonly: true
+      - name: body
+        type: rich-text
+
 settings:
   content:
     merge: true
