@@ -18,7 +18,7 @@
     "skill": "https://staging.visa2.au/auth.md",
     "register_uri": "https://staging.visa2.au/auth.md",
     "identity_types_supported": [
-      "verified_email"
+      "identity_assertion"
     ],
     "identity_assertion": {
       "assertion_types_supported": [
