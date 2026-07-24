@@ -4,8 +4,11 @@
 Reads cms/blog/*.md plus the translated sources cms/blog-ru/*.md and
 cms/blog-fr/*.md (YAML front matter + Markdown body) and regenerates:
   - app/blog/<slug>.html      (EN, from scripts/blog_template.html)
+  - app/blog/<slug>.md        (raw markdown twin, front matter intact)
   - app/ru/blog/<slug>.html   (RU, from scripts/blog_template_ru.html)
+  - app/ru/blog/<slug>.md     (raw markdown twin)
   - app/fr/blog/<slug>.html   (FR, from scripts/blog_template_fr.html)
+  - app/fr/blog/<slug>.md     (raw markdown twin)
   - app/ru/blog.html          (RU index, from scripts/blog_index_template_ru.html)
   - app/fr/blog.html          (FR index, from scripts/blog_index_template_fr.html)
   - the post-card grid in app/blog.html (EN only, sorted newest first)
@@ -20,6 +23,7 @@ import html
 import json
 import os
 import re
+import shutil
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://visa2.au"
@@ -289,9 +293,23 @@ def main():
             if write_if_changed(dest, page):
                 changed.append(dest)
 
+        # 1a-ii. raw markdown twins (front matter intact) for agent
+        # content negotiation via functions/_middleware.ts
+        for path in glob.glob(os.path.join(ROOT, cfg["src"], "*.md")):
+            dest = os.path.join(out_dir, os.path.basename(path))
+            if not (os.path.exists(dest) and
+                    open(dest, encoding="utf-8").read() ==
+                    open(path, encoding="utf-8").read()):
+                shutil.copyfile(path, dest)
+                changed.append(dest)
+
         # 1b. remove pages whose source was deleted (this language only)
         for stale in glob.glob(os.path.join(out_dir, "*.html")):
             if os.path.basename(stale)[:-5] not in live_slugs:
+                os.remove(stale)
+                changed.append(stale + " (deleted)")
+        for stale in glob.glob(os.path.join(out_dir, "*.md")):
+            if os.path.basename(stale)[:-3] not in live_slugs:
                 os.remove(stale)
                 changed.append(stale + " (deleted)")
 
