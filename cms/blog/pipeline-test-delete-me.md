@@ -7,7 +7,7 @@ description: "Temporary post to verify the PagesCMS AI publishing pipeline end t
 excerpt: "Temporary verification post — safe to delete."
 author: "Visa2AU Automation"
 image: /imgs/hero-coast.jpg
-reading_time: 1
+reading_time: 2
 lang: en
 ---
 This is an automated **end-to-end pipeline test**. If you can read this page on staging, the flow works:
