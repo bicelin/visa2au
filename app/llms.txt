@@ -32,6 +32,13 @@ Registration: migration agents are bound by the OMARA Code of Conduct. Governmen
 - [Employer sponsorship](https://visa2.au/employers.md): SBS, 482/494/186 nominations, DAMA labour agreements, employer obligations.
 - [Contact](https://visa2.au/contact.md): email, phone, office, online assessment link, enquiry form with encrypted uploads.
 
+## API endpoints (agent-facing)
+
+- API catalog (RFC 9727 linkset): https://visa2.au/.well-known/api-catalog
+- POST /api/video-join — body `{"name": "...", "passcode": "..."}`; validates the lobby passcode and returns `{"ok": true, "url": "https://<daily-domain>/<room>?t=<token>"}` for the Daily.co video consultation lobby.
+- POST /api/enquiry — multipart enquiry form (name, email, topic, message, optional files, Turnstile token).
+- POST /api/checkout — Stripe Checkout session creation (consultation payment / donation).
+
 ## Urgent deadlines (citation-ready)
 
 - s56 request response: usually 28 days from the letter; cannot be extended.

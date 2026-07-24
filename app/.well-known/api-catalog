@@ -1,0 +1,22 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://visa2.au/api/enquiry",
+      "service-doc": [
+        { "href": "https://visa2.au/llms.txt", "type": "text/plain" }
+      ]
+    },
+    {
+      "anchor": "https://visa2.au/api/checkout",
+      "service-doc": [
+        { "href": "https://visa2.au/llms.txt", "type": "text/plain" }
+      ]
+    },
+    {
+      "anchor": "https://visa2.au/api/video-join",
+      "service-doc": [
+        { "href": "https://visa2.au/llms.txt", "type": "text/plain" }
+      ]
+    }
+  ]
+}
