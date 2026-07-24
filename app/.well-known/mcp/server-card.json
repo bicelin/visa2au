@@ -1,0 +1,23 @@
+{
+  "serverInfo": {
+    "name": "visa2au-content",
+    "version": "0.1.0"
+  },
+  "transport": {
+    "type": "streamable-http",
+    "url": "https://staging.visa2.au/mcp",
+    "endpoint": "https://staging.visa2.au/mcp"
+  },
+  "capabilities": {
+    "tools": {}
+  },
+  "tools": [
+    { "name": "search_posts", "description": "Search Visa2AU blog posts by keyword against titles and descriptions." },
+    { "name": "get_post", "description": "Fetch the full markdown source of a blog post by slug." }
+  ],
+  "authentication": {
+    "required": false,
+    "note": "Read-only public content; no auth on /mcp."
+  },
+  "documentation": "https://staging.visa2.au/llms.txt"
+}
