@@ -360,4 +360,70 @@
             document.body.appendChild(s);
           };
         })();
-      </script> <button onclick="window.__loadVoice(); this.remove();" aria-label="Talk to our voice assistant (27+ languages). Not a substitute for professional migration advice." class="fixed bottom-5 left-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-navy-800 shadow-lg ring-2 ring-gold-500 transition hover:scale-105 dark:bg-navy-700"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f0a000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <path d="M12 2a4 4 0 0 0-4 4v6a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4Z"></path> <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path> <path d="M12 19v3"></path> </svg> </button>  </body></html>
+      </script> <button onclick="window.__loadVoice(); this.remove();" aria-label="Talk to our voice assistant (27+ languages). Not a substitute for professional migration advice." class="fixed bottom-5 left-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-navy-800 shadow-lg ring-2 ring-gold-500 transition hover:scale-105 dark:bg-navy-700"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f0a000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <path d="M12 2a4 4 0 0 0-4 4v6a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4Z"></path> <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path> <path d="M12 19v3"></path> </svg> </button>  <script>
+      // WebMCP — expose real site tools to in-browser AI agents (feature-detected; inert without the API)
+      (function () {
+        var mc = navigator.modelContext;
+        if (!mc || typeof mc.registerTool !== 'function') return;
+        var ac = new AbortController();
+        var signal = ac.signal;
+        function mcpCall(name, args) {
+          return fetch('/mcp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ jsonrpc: '2.0', id: Date.now(), method: 'tools/call', params: { name: name, arguments: args } })
+          }).then(function (r) { return r.json(); })
+            .then(function (res) {
+              if (res.error) throw new Error(res.error.message || 'MCP error');
+              var text = res.result && res.result.content && res.result.content[0] && res.result.content[0].text;
+              try { return JSON.parse(text); } catch (e) { return text; }
+            });
+        }
+        var tools = [
+          {
+            name: 'search_posts',
+            description: 'Search Visa2AU blog posts about Australian immigration (visas, policy changes, guides) by keyword.',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                query: { type: 'string', description: 'Keywords to search for, e.g. "482 visa" or "partner visa".' },
+                lang: { type: 'string', enum: ['en', 'ru', 'fr'], description: 'Content language. Defaults to en.' }
+              },
+              required: ['query']
+            },
+            execute: function (input) { return mcpCall('search_posts', { query: input.query, lang: input.lang || 'en' }); }
+          },
+          {
+            name: 'get_post',
+            description: 'Fetch the full markdown source of a Visa2AU blog post by its slug.',
+            inputSchema: {
+              type: 'object',
+              properties: {
+                slug: { type: 'string', description: 'Post slug as returned by search_posts.' },
+                lang: { type: 'string', enum: ['en', 'ru', 'fr'], description: 'Content language. Defaults to en.' }
+              },
+              required: ['slug']
+            },
+            execute: function (input) { return mcpCall('get_post', { slug: input.slug, lang: input.lang || 'en' }); }
+          },
+          {
+            name: 'book_consultation',
+            description: 'Get the URL where a user can book a paid consultation with a registered migration agent.',
+            inputSchema: { type: 'object', properties: {} },
+            execute: function () {
+              return Promise.resolve({ url: location.origin + '/contact.html', note: 'Direct the user to this page to book a consultation.' });
+            }
+          }
+        ];
+        tools.forEach(function (t) {
+          try {
+            mc.registerTool({
+              name: t.name,
+              description: t.description,
+              inputSchema: t.inputSchema,
+              execute: t.execute
+            }, { signal: signal });
+          } catch (e) { /* API shape not supported in this build — stay inert */ }
+        });
+      })();
+    </script> </body></html>
