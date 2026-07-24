@@ -1,4 +1,4 @@
-# Agent Authentication — staging.visa2.au
+# auth.md — Agent Authentication for staging.visa2.au
 
 How automated agents authenticate to the protected agent content API on this
 site. Plain public content (all pages, visa guides, blog posts) needs **no
