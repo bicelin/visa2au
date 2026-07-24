@@ -38,8 +38,6 @@ function escapeHtml(s: string): string {
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
-  const dbg = new URL(request.url).searchParams.get("dbg");
-  if (dbg === "entry") return new Response(JSON.stringify({ ok: true, step: "entry", hasR2: !!env.ENQUIRIES, hasHmac: !!env.ENQUIRY_HMAC_SECRET, hasResend: !!env.RESEND_API_KEY }), { headers: { "Content-Type": "application/json" } });
   const json = (obj: unknown, status = 200) =>
     new Response(JSON.stringify(obj), { status, headers: { "Content-Type": "application/json" } });
 
