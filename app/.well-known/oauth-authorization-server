@@ -1,0 +1,13 @@
+{
+  "issuer": "https://staging.visa2.au",
+  "token_endpoint": "https://staging.visa2.au/oauth/token",
+  "grant_types_supported": ["client_credentials"],
+  "token_endpoint_auth_methods_supported": ["client_secret_basic"],
+  "scopes_supported": ["content:read"],
+  "service_documentation": "https://staging.visa2.au/llms.txt",
+  "response_types_supported": ["token"],
+  "agent_auth": {
+    "register_uri": "https://staging.visa2.au/auth.md",
+    "note": "Self-serve client registration is not automated on staging; request credentials per /auth.md."
+  }
+}

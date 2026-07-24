@@ -1,0 +1,7 @@
+{
+  "resource": "https://staging.visa2.au/api",
+  "authorization_servers": ["https://staging.visa2.au"],
+  "scopes_supported": ["content:read"],
+  "bearer_methods_supported": ["header"],
+  "resource_documentation": "https://staging.visa2.au/llms.txt"
+}

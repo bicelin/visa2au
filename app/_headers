@@ -7,13 +7,34 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=("https://*.daily.co"), geolocation=(), payment=(self), microphone=(self "https://*.elevenlabs.io" "https://*.daily.co")
   Cross-Origin-Opener-Policy: same-origin
-  Link: </.well-known/api-catalog>; rel="api-catalog", </llms.txt>; rel="help"; type="text/plain"
+  Link: </.well-known/api-catalog>; rel="api-catalog", </llms.txt>; rel="help"; type="text/plain", </.well-known/oauth-authorization-server>; rel="oauth-authorization-server"; type="application/json", </.well-known/mcp/server-card.json>; rel="mcp-server-card"; type="application/json", </auth.md>; rel="auth"; type="text/markdown"
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://*.elevenlabs.io https://*.daily.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https: wss:; media-src 'self' https:; worker-src 'self' blob:; child-src blob: https://*.elevenlabs.io https://*.daily.co; frame-src https://*.elevenlabs.io https://*.daily.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://visa2au.mmportal.cloud; upgrade-insecure-requests
 
 # API catalog (RFC 9727) — machine-readable linkset
 /.well-known/api-catalog
   Content-Type: application/linkset+json
   Cache-Control: public, max-age=3600
+
+# Agent discovery documents — correct content types
+/.well-known/oauth-authorization-server
+  Content-Type: application/json
+  Cache-Control: public, max-age=3600
+
+/.well-known/oauth-protected-resource
+  Content-Type: application/json
+  Cache-Control: public, max-age=3600
+
+/.well-known/mcp/server-card.json
+  Content-Type: application/json
+  Cache-Control: public, max-age=3600
+
+/auth.md
+  Content-Type: text/markdown; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/content-index.json
+  Content-Type: application/json
+  Cache-Control: public, max-age=300, must-revalidate
 
 # Hashed Astro assets — immutable long cache
 /_astro/*

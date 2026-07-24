@@ -17,6 +17,28 @@
       "service-doc": [
         { "href": "https://visa2.au/llms.txt", "type": "text/plain" }
       ]
+    },
+    {
+      "anchor": "https://staging.visa2.au/api/content",
+      "service-desc": [
+        { "href": "https://staging.visa2.au/.well-known/oauth-protected-resource", "type": "application/json" }
+      ],
+      "service-doc": [
+        { "href": "https://staging.visa2.au/llms.txt", "type": "text/plain" },
+        { "href": "https://staging.visa2.au/auth.md", "type": "text/markdown" }
+      ],
+      "oauth-as": [
+        { "href": "https://staging.visa2.au/.well-known/oauth-authorization-server", "type": "application/json" }
+      ]
+    },
+    {
+      "anchor": "https://staging.visa2.au/mcp",
+      "service-desc": [
+        { "href": "https://staging.visa2.au/.well-known/mcp/server-card.json", "type": "application/json" }
+      ],
+      "service-doc": [
+        { "href": "https://staging.visa2.au/llms.txt", "type": "text/plain" }
+      ]
     }
   ]
 }
