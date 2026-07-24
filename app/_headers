@@ -5,9 +5,15 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), geolocation=(), payment=(self), microphone=(self)
+  Permissions-Policy: camera=("https://*.daily.co"), geolocation=(), payment=(self), microphone=(self "https://*.elevenlabs.io" "https://*.daily.co")
   Cross-Origin-Opener-Policy: same-origin
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https: wss:; media-src 'self' https:; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://visa2au.mmportal.cloud; upgrade-insecure-requests
+  Link: </.well-known/api-catalog>; rel="api-catalog", </llms.txt>; rel="help"; type="text/plain"
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://*.elevenlabs.io https://*.daily.co; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https: wss:; media-src 'self' https:; worker-src 'self' blob:; child-src blob: https://*.elevenlabs.io https://*.daily.co; frame-src https://*.elevenlabs.io https://*.daily.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://visa2au.mmportal.cloud; upgrade-insecure-requests
+
+# API catalog (RFC 9727) — machine-readable linkset
+/.well-known/api-catalog
+  Content-Type: application/linkset+json
+  Cache-Control: public, max-age=3600
 
 # Hashed Astro assets — immutable long cache
 /_astro/*
