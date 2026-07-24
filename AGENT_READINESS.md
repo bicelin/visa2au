@@ -51,7 +51,38 @@ Real, minimal endpoints (Cloudflare Pages Functions, no external services):
   transport URL, capabilities, tool list.
 
 
-### Link headers (RFC 8288)
+### Agent skills discovery index (RFC v0.2.0) — IMPLEMENTED 2026-07-25
+- `/.well-known/agent-skills/index.json` — skills discovery document with
+  `$schema` `https://schemas.agentskills.io/discovery/0.2.0/schema.json` and
+  three real skills, each with `name`, `type: "skill-md"`, `description`,
+  absolute `url` and `digest` (`sha256:{hex}` of the deployed file).
+- Skills published (all describe capabilities that genuinely exist):
+  - `content-search` — using the public MCP server (`/mcp`,
+    `search_posts` / `get_post`, no auth).
+  - `content-api` — using the OAuth client-credentials content API
+    (registration via `/auth.md`, token flow, `/api/content`).
+  - `markdown-access` — markdown via `Accept: text/markdown` negotiation or
+    direct `.md` URLs, no auth.
+- Content types pinned in `app/_headers` (`application/json` for the index,
+  `text/markdown` for SKILL.md files).
+- **Maintenance note:** the `digest` values are real SHA-256 hashes of the
+  SKILL.md files. If any `app/.well-known/agent-skills/*/SKILL.md` changes,
+  regenerate the hashes (`shasum -a 256 <file>`) and rewrite `index.json` —
+  a stale digest is a false claim.
+
+### WebMCP tools — IMPLEMENTED 2026-07-25
+Inline, dependency-free, feature-detected snippet in `app/index.html`,
+`app/ru.html` and `app/fr.html` (identical block before `</body>`). It calls
+`navigator.modelContext.registerTool()` per tool when the API exists and is
+completely inert otherwise (CSP-safe: inline scripts allowed, no eval).
+Three tools, all backed by real endpoints:
+- `search_posts({query, lang?})` → JSON-RPC `tools/call` against `/mcp`.
+- `get_post({slug, lang?})` → JSON-RPC `tools/call` against `/mcp`.
+- `book_consultation({})` → returns the booking URL `/contact.html`.
+Registration uses an `AbortController` signal; each `registerTool` call is
+wrapped in try/catch so unsupported API shapes stay silent.
+
+
 Every response (`/*` in `app/_headers`) carries:
 
 ```
@@ -117,5 +148,4 @@ Records) on the same day. Chain of trust verified:
 | Item | Why skipped |
 |---|---|
 | **OpenID Connect** (`.well-known/openid-configuration`) | OAuth 2.0 client-credentials is implemented (above); OIDC adds identity-layer semantics the site does not need — there are no user accounts or login flows. |
-| **agent-skills index** | No agent skills are published. |
-| **WebMCP** | Experimental, Chrome-only API; no cross-browser support. Revisit when it matures. |
+| **A2A agent card** | The site is a content publisher, not a task-taking agent; there is no agent-to-agent task surface to describe honestly. |
