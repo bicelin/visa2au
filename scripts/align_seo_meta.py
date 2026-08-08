@@ -34,7 +34,7 @@ COUNTER_FIX = [
 # ── hero founding-year consistency (2005 -> 2004, matches schema/footer/llms) ─
 YEAR_FIX = [
     (re.compile(r"Experienced since 2005"), "Experienced since 2004"),
-    (re.compile(r"на рынке с 2005"), "на рынке с 2004"),
+    (re.compile(r"Опыт с 2005 года"), "Опыт с 2004 года"),
     (re.compile(r"expérience depuis 2005"), "expérience depuis 2004"),
 ]
 
@@ -135,6 +135,27 @@ def main() -> None:
         # 5) founding-year consistency
         for rx, rep in YEAR_FIX:
             html = rx.sub(rep, html)
+
+        # 6) performance: LCP preload, cdn-cgi story images, mobile JS gating
+        if rel in ("index.html", "ru/index.html", "fr/index.html") and 'rel="preload" as="image"' not in html:
+            preload = ('<link rel="preload" as="image" href="/cdn-cgi/image/width=1280,quality=80,format=auto,onerror=redirect/story/hero-dawn.jpg" '
+                       'imagesrcset="/cdn-cgi/image/width=640,quality=80,format=auto,onerror=redirect/story/hero-dawn.jpg 640w, '
+                       '/cdn-cgi/image/width=1280,quality=80,format=auto,onerror=redirect/story/hero-dawn.jpg 1280w, '
+                       '/cdn-cgi/image/width=1920,quality=80,format=auto,onerror=redirect/story/hero-dawn.jpg 1920w" '
+                       'imagesizes="100vw" fetchpriority="high">')
+            html = html.replace("</head>", preload + "</head>", 1)
+        html = re.sub(r'src="(?:\.\./)?story/([^"]+\.jpg)"',
+                      lambda m: 'src="/cdn-cgi/image/width=1280,quality=80,format=auto,onerror=redirect/story/'
+                      + m.group(1) + '"', html)
+        html = html.replace(
+            "initField('coastCanvas', 'coast');\n      initField('crossCanvas', 'cross');",
+            "if (window.matchMedia('(min-width: 768px)').matches) {\n"
+            "        initField('coastCanvas', 'coast');\n"
+            "        initField('crossCanvas', 'cross');\n"
+            "      }")
+        html = html.replace(
+            "/* ————— parallax on story panels ————— */\n      if (!reduced) {",
+            "/* ————— parallax on story panels ————— */\n      if (!reduced && window.matchMedia('(min-width: 768px)').matches) {")
 
         if html != orig:
             open(path, "w", encoding="utf-8").write(html)

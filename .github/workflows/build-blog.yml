@@ -7,6 +7,12 @@ on:
       - "cms/**"
       - "scripts/build_blog.py"
       - "scripts/blog_template.html"
+      - "scripts/blog_template_ru.html"
+      - "scripts/blog_template_fr.html"
+      - "scripts/align_seo_meta.py"
+      - "scripts/build_sitemap.py"
+      - "scripts/check_seo_invariants.py"
+      - "scripts/build_locale_pages.py"
   workflow_dispatch:
 
 permissions:
@@ -25,11 +31,23 @@ jobs:
       - name: Build blog pages
         run: python3 scripts/build_blog.py
 
+      - name: Build locale pages (if translation maps present)
+        run: python3 scripts/build_locale_pages.py || true
+
+      - name: Align SEO meta (canonical/hreflang/og/perf)
+        run: python3 scripts/align_seo_meta.py
+
+      - name: Build sitemap
+        run: python3 scripts/build_sitemap.py
+
+      - name: Check SEO invariants
+        run: python3 scripts/check_seo_invariants.py
+
       - name: Commit generated files
         run: |
           git config user.name "bicelin"
           git config user.email "bicelin@users.noreply.github.com"
-          git add app/blog app/blog.html app/search-index.json
+          git add app/
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else

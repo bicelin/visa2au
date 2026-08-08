@@ -178,11 +178,13 @@
         resize();
       }
 
-      initField('coastCanvas', 'coast');
-      initField('crossCanvas', 'cross');
+      if (window.matchMedia('(min-width: 768px)').matches) {
+        initField('coastCanvas', 'coast');
+        initField('crossCanvas', 'cross');
+      }
 
       /* ————— parallax on story panels ————— */
-      if (!reduced) {
+      if (!reduced && window.matchMedia('(min-width: 768px)').matches) {
         var plx = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
         var ticking = false;
         function applyParallax() {
