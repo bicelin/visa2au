@@ -13,6 +13,7 @@ on:
       - "scripts/build_sitemap.py"
       - "scripts/check_seo_invariants.py"
       - "scripts/build_locale_pages.py"
+      - "scripts/localize_homepage_cards.py"
   workflow_dispatch:
 
 permissions:
@@ -33,6 +34,9 @@ jobs:
 
       - name: Build locale pages (if translation maps present)
         run: python3 scripts/build_locale_pages.py || true
+
+      - name: Localize homepage cards (carousel EN names + localized blog cards)
+        run: python3 scripts/localize_homepage_cards.py || true
 
       - name: Align SEO meta (canonical/hreflang/og/perf)
         run: python3 scripts/align_seo_meta.py
