@@ -114,10 +114,40 @@ def localized_head(lang, page, title, desc, rel_depth="../"):
 
 ALLOW_SINGLE = {"Topic"}  # short single-word keys that are safe labels
 
+# Official visa names / program terminology that must stay in English
+# (user directive: be gentle with translation — preserve key names)
+TERM_PRESERVE = [
+    "Partner Visas", "Visitor Visa", "Student Visa", "Skills in Demand (SID)",
+    "Skilled Independent & State Nominated", "Skilled Employer Sponsored Regional",
+    "Employer Nomination Scheme", "Work & Holiday Visas", "Prospective Marriage Visa",
+    "Parent Visas", "Partner Visa (Onshore)", "Partner Visa (Offshore)",
+    "Skilled Regional", "Employer Sponsorship", "Skilled Migration",
+    "Genuine Student", "Skills Assessment", "Standard Business Sponsorship",
+    "Labour Agreement", "Code of Conduct", "Registered Migration Agent",
+    "Migration Agents Registration Authority", "Migration Agent",
+    "Points-tested", "Points Test", "Visa Grant", "Visa Application",
+    "Bridging Visa", "visa application", "Department of Home Affairs",
+]
+
+
+def protect_terms(text):
+    """Replace preserved English terms with placeholders so maps can't touch them."""
+    for i, t in enumerate(TERM_PRESERVE):
+        if t in text:
+            text = text.replace(t, f"\x00T{i}\x00")
+    return text
+
+
+def restore_terms(text):
+    for i, t in enumerate(TERM_PRESERVE):
+        text = text.replace(f"\x00T{i}\x00", t)
+    return text
+
 
 def translate_main(en_main, tmap):
-    # protect brand tokens from being split by broad keys like "Visa"
+    # protect brand tokens and official terms from being split by broad keys
     out = en_main.replace("Visa2AU", "\x00B\x00").replace("visa2.au", "\x00D\x00")
+    out = protect_terms(out)
     for k in sorted(tmap, key=len, reverse=True):
         if len(k) < 5:
             continue
@@ -125,7 +155,7 @@ def translate_main(en_main, tmap):
             continue  # short bare words are risky outside their page
         if k in out:
             out = out.replace(k, tmap[k])
-    return out.replace("\x00B\x00", "Visa2AU").replace("\x00D\x00", "visa2.au")
+    return restore_terms(out).replace("\x00B\x00", "Visa2AU").replace("\x00D\x00", "visa2.au")
 
 
 def coverage_hits(en_main, tmap):

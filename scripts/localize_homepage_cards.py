@@ -25,29 +25,30 @@ def main():
         html = open(p, encoding="utf-8").read()
         orig = html
 
-        # 1) carousel cards: h3 title inside <a href="...<slug>.html"> cards
-        def fix_card(m):
+        # 1) carousel cards: RESTORE English official visa names (user directive —
+        #    key names preserved in English; surrounding UI text stays localized)
+        en_html = open(os.path.join(APP, "index.html"), encoding="utf-8").read()
+        en_cards = {}
+        for m in re.finditer(r'<a href="(?:\./)?visas/([^"]+\.html)" class="[^"]*group relative flex[^>]*>(.*?)</a>',
+                             en_html, re.S):
+            slug = re.search(r"([a-z0-9-]+)\.html$", m.group(1))
+            h3 = re.search(r"<h3[^>]*>([^<]*)</h3>", m.group(2))
+            if slug and h3:
+                en_cards[slug.group(1)] = h3.group(1).strip()
+
+        def restore_card(m):
             href = m.group(1)
             slug = re.search(r"([a-z0-9-]+)\.html$", href)
-            if not slug:
+            if not slug or slug.group(1) not in en_cards:
                 return m.group(0)
-            vp = os.path.join(APP, lang, "visas", slug.group(1) + ".html")
-            if not os.path.isfile(vp):
-                return m.group(0)
-            vhtml = open(vp, encoding="utf-8").read()
-            h1 = re.search(r"<h1[^>]*>(.*?)</h1>", vhtml, re.S)
-            if not h1:
-                return m.group(0)
-            loc = re.sub(r"<[^>]+>", "", h1.group(1)).strip()
-            # replace the first <h3> text node in this card block
             block = m.group(0)
             h3 = re.search(r"(<h3[^>]*>)([^<]*)(</h3>)", block)
             if h3 and h3.group(2).strip():
-                return block[:h3.start()] + h3.group(1) + loc + h3.group(3) + block[h3.end():]
+                return block[:h3.start()] + h3.group(1) + en_cards[slug.group(1)] + h3.group(3) + block[h3.end():]
             return block
 
         html = re.sub(r'<a href="(?:\./)?visas/([^"]+\.html)" class="[^"]*group relative flex[^>]*>.*?</a>',
-                      fix_card, html, flags=re.S)
+                      restore_card, html, flags=re.S)
 
         # 2) blog cards: <a href="./blog/<slug>.html" ...> with <h4> + <p> desc
         def fix_blog(m):
