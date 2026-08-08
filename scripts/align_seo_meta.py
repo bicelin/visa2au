@@ -137,15 +137,35 @@ def main() -> None:
             html = rx.sub(rep, html)
 
         # 6) performance: LCP preload, cdn-cgi story images, mobile JS gating
-        if rel in ("index.html", "ru/index.html", "fr/index.html") and 'rel="preload" as="image"' not in html:
-            preload = ('<link rel="preload" as="image" href="/cdn-cgi/image/width=1280,quality=80,format=auto,onerror=redirect/story/hero-dawn.jpg" '
-                       'imagesrcset="/cdn-cgi/image/width=640,quality=80,format=auto,onerror=redirect/story/hero-dawn.jpg 640w, '
-                       '/cdn-cgi/image/width=1280,quality=80,format=auto,onerror=redirect/story/hero-dawn.jpg 1280w, '
-                       '/cdn-cgi/image/width=1920,quality=80,format=auto,onerror=redirect/story/hero-dawn.jpg 1920w" '
-                       'imagesizes="100vw" fetchpriority="high">')
-            html = html.replace("</head>", preload + "</head>", 1)
+        HERO = "/cdn-cgi/image/width=1080,quality=72,format=auto,onerror=redirect/story/hero-dawn.jpg"
+        if rel in ("index.html", "ru/index.html", "fr/index.html"):
+            # compress harder everywhere (quality 80 -> 72)
+            html = html.replace("quality=80,format=auto,onerror=redirect/story/",
+                                "quality=72,format=auto,onerror=redirect/story/")
+            # hero ladder: phones (DPR 1.75 x 412px) should grab 720w, not 1280w
+            html = re.sub(r'(/cdn-cgi/image/width=)640(,quality=\d+,format=auto,onerror=redirect/story/hero-dawn\.jpg)',
+                          r'\g<1>480\g<2>', html)
+            html = re.sub(r'(/cdn-cgi/image/width=)1280(,quality=\d+,format=auto,onerror=redirect/story/hero-dawn\.jpg)',
+                          r'\g<1>1080\g<2>', html)
+            html = re.sub(r'(/cdn-cgi/image/width=)1920(,quality=\d+,format=auto,onerror=redirect/story/hero-dawn\.jpg)',
+                          r'\g<1>1600\g<2>', html)
+            # keep the width descriptors in sync with the URL widths
+            html = html.replace("hero-dawn.jpg 640w", "hero-dawn.jpg 480w")
+            html = html.replace("hero-dawn.jpg 1280w", "hero-dawn.jpg 1080w")
+            html = html.replace("hero-dawn.jpg 1920w", "hero-dawn.jpg 1600w")
+            html = html.replace(
+                "hero-dawn.jpg 480w, /cdn-cgi/image/width=1080,quality=72,format=auto,onerror=redirect/story/hero-dawn.jpg",
+                "hero-dawn.jpg 480w, /cdn-cgi/image/width=720,quality=72,format=auto,onerror=redirect/story/hero-dawn.jpg 720w, /cdn-cgi/image/width=1080,quality=72,format=auto,onerror=redirect/story/hero-dawn.jpg")
+            if 'rel="preload" as="image"' not in html:
+                preload = (f'<link rel="preload" as="image" href="{HERO}" '
+                           'imagesrcset="/cdn-cgi/image/width=480,quality=72,format=auto,onerror=redirect/story/hero-dawn.jpg 480w, '
+                           '/cdn-cgi/image/width=720,quality=72,format=auto,onerror=redirect/story/hero-dawn.jpg 720w, '
+                           '/cdn-cgi/image/width=1080,quality=72,format=auto,onerror=redirect/story/hero-dawn.jpg 1080w, '
+                           '/cdn-cgi/image/width=1600,quality=72,format=auto,onerror=redirect/story/hero-dawn.jpg 1600w" '
+                           'imagesizes="100vw" fetchpriority="high">')
+                html = html.replace("</head>", preload + "</head>", 1)
         html = re.sub(r'src="(?:\.\./)?story/([^"]+\.jpg)"',
-                      lambda m: 'src="/cdn-cgi/image/width=1280,quality=80,format=auto,onerror=redirect/story/'
+                      lambda m: 'src="/cdn-cgi/image/width=1280,quality=72,format=auto,onerror=redirect/story/'
                       + m.group(1) + '"', html)
         html = html.replace(
             "initField('coastCanvas', 'coast');\n      initField('crossCanvas', 'cross');",
