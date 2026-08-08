@@ -197,6 +197,20 @@ def render_post(template, fm, body_html, cfg):
     slug = fm["slug"]
     img = fm["image"].lstrip("/")  # e.g. imgs/hero-coast.jpg
     page = template
+
+    # Conditional hreflang for locale twins: only emit when the translated
+    # page actually exists (avoids hreflang pointing at 404s).
+    def twin_exists(tlang):
+        return os.path.isfile(os.path.join(ROOT, "app", tlang, "blog", slug + ".html"))
+
+    hreflang_ru = ""
+    hreflang_fr = ""
+    if cfg["lang"] != "ru" and twin_exists("ru"):
+        hreflang_ru = f'<link rel="alternate" hreflang="ru" href="https://visa2.au/ru/blog/{slug}.html">'
+    if cfg["lang"] != "fr" and twin_exists("fr"):
+        hreflang_fr = f'<link rel="alternate" hreflang="fr" href="https://visa2.au/fr/blog/{slug}.html">'
+    page = page.replace("{{HREFLANG_RU}}", hreflang_ru)
+    page = page.replace("{{HREFLANG_FR}}", hreflang_fr)
     page = page.replace("{{TITLE_HTML}}", html.escape(fm["title"], quote=False))
     page = page.replace("{{TITLE_JSON}}", json_str(fm["title"]))
     page = page.replace("{{DESC_HTML}}", html.escape(fm["description"], quote=False))

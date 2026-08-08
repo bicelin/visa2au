@@ -5,11 +5,17 @@ User-agent: *
 Allow: /
 Content-Signal: search=yes, ai-input=yes, ai-train=no
 
-# AI retrieval / answer-engine crawlers — welcome (they drive cited traffic)
+# AI retrieval / answer-engine crawlers — welcome (they drive cited traffic).
+# NOTE: if the DEPLOYED robots.txt also contains a conflicting "Disallow: /"
+# block for these agents, disable Cloudflare's managed robots.txt content
+# ("Block AI crawlers") in the zone dashboard — this repo file is authoritative.
 User-agent: GPTBot
 Allow: /
 
 User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
 Allow: /
 
 User-agent: ClaudeBot
@@ -22,6 +28,9 @@ User-agent: PerplexityBot
 Allow: /
 
 User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
 Allow: /
 
 Sitemap: https://visa2.au/sitemap.xml

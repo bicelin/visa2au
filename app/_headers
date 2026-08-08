@@ -62,9 +62,9 @@
 /motifs/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 
-# HTML + data — always fresh
+# HTML — 5-minute cache with revalidation (reduces origin hits, still fresh)
 /*.html
-  Cache-Control: public, max-age=0, must-revalidate
+  Cache-Control: public, max-age=300, must-revalidate
 
 /search-index.json
   Cache-Control: public, max-age=300, must-revalidate

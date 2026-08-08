@@ -1,0 +1,20 @@
+# Legacy Odoo site URL map — production cutover prep (no effect on staging).
+# Old paths -> new static pages. Exact matches only; no wildcards to avoid
+# shadowing new /blog/* or /visas/* pages.
+/fees             /pricing  301
+/fees/            /pricing  301
+/contactus        /contact  301
+/contactus/       /contact  301
+/consultation     /contact  301
+/consultation/    /contact  301
+/shop             /pricing  301
+/shop/            /pricing  301
+/our-services     /visas    301
+/our-services/    /visas    301
+/about-us         /team     301
+/about-us/        /team     301
+/donations        /donate   301
+/donations/       /donate   301
+/blog/news-2      /blog     301
+/pt_BR            /fr/      301
+/pt_BR/           /fr/      301
