@@ -35,7 +35,7 @@ COUNTER_FIX = [
 YEAR_FIX = [
     (re.compile(r"Experienced since 2005"), "Experienced since 2004"),
     (re.compile(r"Опыт с 2005 года"), "Опыт с 2004 года"),
-    (re.compile(r"expérience depuis 2005"), "expérience depuis 2004"),
+    (re.compile(r"[Ee]xpérience depuis 2005"), "Expérience depuis 2004"),
 ]
 
 
