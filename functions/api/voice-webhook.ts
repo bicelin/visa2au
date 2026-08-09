@@ -2,13 +2,14 @@
 // On call end: extracts transcript + call summary (collected data: contact,
 // visa type, consultation need), emails the Visa2AU team via Resend.
 // Env: RESEND_API_KEY (required), NOTIFY_TO?, FROM_EMAIL?,
-//      VOICE_WEBHOOK_SECRET? (verify X-ElevenLabs-Signature / X-ElevenLabs-Secret),
-//      ELEVENLABS_API_KEY? (fetch full transcript when webhook omits it)
+//      VOICE_WEBHOOK_SECRET? (verify `elevenlabs-signature: t=<ts>,v0=<hex>`
+//      HMAC-SHA256(secret, "<ts>."+rawBody), 30-min window),
+//      ELEVENLABS_API_KEY? (fetch full transcript/analysis when omitted).
 //
-// Agent dashboard (ElevenLabs → Your agent → Security/Webhook):
+// Agent dashboard (ElevenLabs → agent → Security/Webhook):
 //   URL: https://staging.visa2.au/api/voice-webhook  (production: https://visa2.au/api/voice-webhook)
-//   Events: conversation_initiation, conversation_completed
-//   Include: transcript + analysis  ·  Secret: <VOICE_WEBHOOK_SECRET>
+//   Events: post-call transcription (webhook type "post_call_transcription")
+//   Secret: <VOICE_WEBHOOK_SECRET> — staging: wsec_6074…, prod: wsec_06f2…
 
 interface Env {
   RESEND_API_KEY: string;
@@ -39,6 +40,38 @@ async function safeEqual(a: string, b: string): Promise<boolean> {
   let diff = 0;
   for (let i = 0; i < ua.length; i++) diff |= ua[i] ^ ub[i];
   return diff === 0;
+}
+
+// ElevenLabs webhook signature: header `elevenlabs-signature: t=<ts>,v0=<hex>`
+// with v0 = HMAC-SHA256(secret, "<ts>." + rawBody), valid within 30 minutes.
+async function hmacHex(secret: string, msg: string): Promise<string> {
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"]
+  );
+  const sig = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(msg));
+  return [...new Uint8Array(sig)].map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function verifySignature(rawBody: string, header: string | null, secret: string): Promise<boolean> {
+  if (!header) return false;
+  const params = new Map<string, string>();
+  for (const kv of header.split(",")) {
+    const i = kv.indexOf("=");
+    if (i > 0) params.set(kv.slice(0, i), kv.slice(i + 1));
+  }
+  const ts = params.get("t") || "";
+  if (!/^\d+$/.test(ts)) return false;
+  if (Math.abs(Date.now() / 1000 - Number(ts)) > 1800) return false; // 30-min window
+  const expected = await hmacHex(secret, `${ts}.${rawBody}`);
+  const provided = [...params.entries()].filter(([k]) => k.startsWith("v")).map(([, v]) => v);
+  for (const sig of provided) {
+    if (await safeEqual(expected.toLowerCase(), sig.toLowerCase())) return true;
+  }
+  return false;
 }
 
 function get(obj: unknown, path: string): unknown {
@@ -72,67 +105,71 @@ function fmtTranscript(t: unknown): string {
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
 
+  const rawBody = await request.text();
+
   // --- verify the caller (when a secret is configured) ---
   if (env.VOICE_WEBHOOK_SECRET) {
-    const sig =
-      request.headers.get("X-ElevenLabs-Signature") ||
-      request.headers.get("X-ElevenLabs-Secret") ||
-      "";
-    const ok = await safeEqual(sig, env.VOICE_WEBHOOK_SECRET);
+    const ok = await verifySignature(rawBody, request.headers.get("elevenlabs-signature"), env.VOICE_WEBHOOK_SECRET);
     if (!ok) return json({ ok: false, error: "Bad signature" }, 401);
   }
 
   let payload: Record<string, unknown>;
   try {
-    payload = (await request.json()) as Record<string, unknown>;
+    payload = JSON.parse(rawBody) as Record<string, unknown>;
   } catch {
     return json({ ok: false, error: "Invalid JSON" }, 400);
   }
 
-  const eventType = String(payload.event_type || "");
-  const conversationId = String(get(payload, "conversation_id") || payload.id || "");
-  const status = String(get(payload, "status") || "");
+  // ElevenLabs post-call webhooks wrap everything under `data`
+  // {type:"post_call_transcription", data:{conversation_id, status, transcript,
+  //  metadata, analysis, conversation_initiation_client_data}}
+  const data = (payload.data && typeof payload.data === "object" && !Array.isArray(payload.data))
+    ? (payload.data as Record<string, unknown>)
+    : payload;
+  const type = String(payload.type || data.type || "");
+  const conversationId = String(get(data, "conversation_id") || data.id || "");
+  const status = String(get(data, "status") || "");
 
   // Only terminal events carry a useful transcript
-  const terminal = /completed|ended|interrupted|canceled|cancelled/i.test(status) ||
-    /conversation_completed|conversation_end/i.test(eventType);
+  const terminal = /post_call_transcription/i.test(type) ||
+    /done|completed|ended|interrupted|canceled|cancelled/i.test(status) ||
+    /conversation_completed|conversation_end/i.test(type);
   if (!terminal || !conversationId) {
     return json({ ok: true, skipped: "non-terminal event" });
   }
 
   // --- assemble the pieces ---
-  let transcript = fmtTranscript(get(payload, "transcript"));
-  let analysis = get(payload, "analysis") as Record<string, unknown> | undefined;
-  let collected = get(payload, "metadata.data_collection_results") as unknown[] | undefined;
-  if (!analysis && payload.conversation && typeof payload.conversation === "object") {
-    analysis = get(payload.conversation, "analysis") as Record<string, unknown> | undefined;
-    collected = get(payload.conversation, "metadata.data_collection_results") as unknown[] | undefined;
-  }
-  if (!transcript && env.ELEVENLABS_API_KEY) {
-    // fetch full transcript from the Conversations API
-    try {
-      const r = await fetch(`https://api.elevenlabs.io/v1/convai/conversations/${conversationId}`, {
-        headers: { "xi-api-key": env.ELEVENLABS_API_KEY },
-      });
-      if (r.ok) {
-        const conv = (await r.json()) as Record<string, unknown>;
-        transcript = fmtTranscript(get(conv, "transcript") ?? get(conv, "conversation.transcript"));
-        if (!analysis) analysis = get(conv, "analysis") as Record<string, unknown> | undefined;
-        if (!collected) collected = get(conv, "metadata.data_collection_results") as unknown[] | undefined;
+  let transcript = fmtTranscript(get(data, "transcript"));
+  let analysis = get(data, "analysis") as Record<string, unknown> | undefined;
+  let collected = get(data, "analysis.data_collection_results") as unknown[] | undefined;
+  if (env.ELEVENLABS_API_KEY) {
+    // fetch full transcript + analysis from the Conversations API when missing
+    if (!transcript || !analysis) {
+      try {
+        const r = await fetch(`https://api.elevenlabs.io/v1/convai/conversations/${conversationId}`, {
+          headers: { "xi-api-key": env.ELEVENLABS_API_KEY },
+        });
+        if (r.ok) {
+          const conv = (await r.json()) as Record<string, unknown>;
+          if (!transcript) transcript = fmtTranscript(get(conv, "transcript") ?? get(conv, "conversation.transcript"));
+          if (!analysis) analysis = get(conv, "analysis") as Record<string, unknown> | undefined;
+          if (!collected) collected = get(conv, "metadata.data_collection_results") as unknown[] | undefined;
+        }
+      } catch {
+        /* transcript fetch is best-effort */
       }
-    } catch {
-      /* transcript fetch is best-effort */
     }
   }
 
   const summary = String(
     (analysis && (analysis.transcript_summary ?? analysis.summary)) || ""
   );
-  const dv = (get(payload, "metadata.dynamic_variables") ||
-    get(payload, "dynamic_variables")) as Record<string, unknown> | undefined;
+  const dv = (get(data, "conversation_initiation_client_data.dynamic_variables") ||
+    get(data, "dynamic_variables")) as Record<string, unknown> | undefined;
   const userName = String(
     dv?.user_name || (collected?.find((c) => String((c as any)?.collection_name).toLowerCase().includes("name")) as any)?.result || "Guest"
   );
+  const durationSecs = Number(get(data, "metadata.call_duration_secs") ?? 0);
 
   const fields: { label: string; value: string }[] = [];
   if (Array.isArray(collected)) {
@@ -160,6 +197,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       <table cellpadding="6" style="border-collapse:collapse;font-size:14px">
         <tr><td style="font-weight:bold">Status</td><td>${escapeHtml(status || "completed")}</td></tr>
         <tr><td style="font-weight:bold">Caller</td><td>${escapeHtml(userName)}</td></tr>
+        ${durationSecs > 0 ? `<tr><td style="font-weight:bold">Duration</td><td>${Math.floor(durationSecs / 60)}m ${Math.round(durationSecs % 60)}s</td></tr>` : ""}
         <tr><td style="font-weight:bold">Conversation</td><td><a href="${DASHBOARD}/${encodeURIComponent(conversationId)}?tab=transcript">${escapeHtml(conversationId)}</a></td></tr>
         ${summary ? `<tr><td style="font-weight:bold">Summary</td><td>${escapeHtml(summary)}</td></tr>` : ""}
       </table>
