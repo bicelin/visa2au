@@ -177,6 +177,18 @@ def main() -> None:
             "/* ————— parallax on story panels ————— */\n      if (!reduced) {",
             "/* ————— parallax on story panels ————— */\n      if (!reduced && window.matchMedia('(min-width: 768px)').matches) {")
 
+        # 7) ElevenLabs voice widget: the agent's first message requires dynamic
+        # variables (agent_name, greeting, user_name) — provide per-locale values
+        if "dynamic-variables" not in html and "agent_7001k1zx1vf1fxrbhpawb7980gy1" in html:
+            html = html.replace(
+                "el.setAttribute('agent-id', 'agent_7001k1zx1vf1fxrbhpawb7980gy1');",
+                "el.setAttribute('agent-id', 'agent_7001k1zx1vf1fxrbhpawb7980gy1');\n"
+                "            const lng0 = (document.documentElement.lang || 'en').toLowerCase();\n"
+                "            const dv0 = lng0.startsWith('ru') ? { agent_name: 'Ассистент Visa2AU', greeting: 'Здравствуйте!', user_name: '' }\n"
+                "              : lng0.startsWith('fr') ? { agent_name: 'Assistant Visa2AU', greeting: 'Bonjour !', user_name: '' }\n"
+                "              : { agent_name: 'Visa2AU Assistant', greeting: 'Hi there!', user_name: 'there' };\n"
+                "            el.setAttribute('dynamic-variables', JSON.stringify(dv0));")
+
         if html != orig:
             open(path, "w", encoding="utf-8").write(html)
             changed += 1

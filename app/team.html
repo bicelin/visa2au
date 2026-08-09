@@ -148,6 +148,11 @@
             loaded = true;
             const el = document.createElement('elevenlabs-convai');
             el.setAttribute('agent-id', 'agent_7001k1zx1vf1fxrbhpawb7980gy1');
+            const lng0 = (document.documentElement.lang || 'en').toLowerCase();
+            const dv0 = lng0.startsWith('ru') ? { agent_name: 'Ассистент Visa2AU', greeting: 'Здравствуйте!', user_name: '' }
+              : lng0.startsWith('fr') ? { agent_name: 'Assistant Visa2AU', greeting: 'Bonjour !', user_name: '' }
+              : { agent_name: 'Visa2AU Assistant', greeting: 'Hi there!', user_name: 'there' };
+            el.setAttribute('dynamic-variables', JSON.stringify(dv0));
             document.body.appendChild(el);
             const s = document.createElement('script');
             s.src = 'https://unpkg.com/@elevenlabs/convai-widget-embed';
