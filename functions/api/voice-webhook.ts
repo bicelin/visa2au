@@ -102,6 +102,17 @@ function fmtTranscript(t: unknown): string {
   return "";
 }
 
+function toCollectedList(v: unknown): { collection_name: string; result: unknown }[] {
+  if (Array.isArray(v)) return v as { collection_name: string; result: unknown }[];
+  if (v && typeof v === "object") {
+    return Object.entries(v as Record<string, unknown>).map(([k, val]) => ({
+      collection_name: k,
+      result: val && typeof val === "object" ? (val as any)?.value ?? (val as any)?.result ?? val : val,
+    }));
+  }
+  return [];
+}
+
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
 
@@ -141,7 +152,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   // --- assemble the pieces ---
   let transcript = fmtTranscript(get(data, "transcript"));
   let analysis = get(data, "analysis") as Record<string, unknown> | undefined;
-  let collected = get(data, "analysis.data_collection_results") as unknown[] | undefined;
+  let collected = toCollectedList(get(data, "analysis.data_collection_results"));
   if (env.ELEVENLABS_API_KEY) {
     // fetch full transcript + analysis from the Conversations API when missing
     if (!transcript || !analysis) {
@@ -153,7 +164,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
           const conv = (await r.json()) as Record<string, unknown>;
           if (!transcript) transcript = fmtTranscript(get(conv, "transcript") ?? get(conv, "conversation.transcript"));
           if (!analysis) analysis = get(conv, "analysis") as Record<string, unknown> | undefined;
-          if (!collected) collected = get(conv, "metadata.data_collection_results") as unknown[] | undefined;
+          if (!collected.length) collected = toCollectedList(get(conv, "metadata.data_collection_results"));
         }
       } catch {
         /* transcript fetch is best-effort */
