@@ -2,6 +2,7 @@
 RU_TITLE = {"contact": "Контакты — запись на консультацию | Visa2AU"}
 RU_DESC = {"contact": "Свяжитесь с зарегистрированными миграционными агентами Visa2AU (MARN). Консультации по видео, телефону или email; удобные способы оплаты; приложите паспорт, текущую визу и подтверждающие документы для проверки."}
 RU_MAP = {
+    "Contact ": "Свяжитесь с ",
     "Every engagement starts with a conversation. A consultation lets us better understand your situation — clearly identify the issue and strategise the right pathways for you.":
     "Любое сотрудничество начинается с разговора. Консультация позволяет нам лучше понять вашу ситуацию — точно определить вопрос и выработать стратегию по подходящим визовым путям.",
     "What a professional consultation": "Что даёт профессиональная консультация",

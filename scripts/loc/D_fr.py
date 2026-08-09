@@ -2,6 +2,7 @@
 FR_TITLE = {"contact": "Contact — Réserver une consultation | Visa2AU"}
 FR_DESC = {"contact": "Parlez aux agents de migration agréés MARN de Visa2AU. Consultations par vidéo, téléphone ou e-mail ; options de paiement flexibles ; joignez votre passeport, votre visa actuel et vos documents à l'appui."}
 FR_MAP = {
+    "Contact ": "Contactez ",
     "Every engagement starts with a conversation. A consultation lets us better understand your situation — clearly identify the issue and strategise the right pathways for you.":
     "Chaque engagement commence par une conversation. Une consultation nous permet de mieux comprendre votre situation — d'identifier clairement le problème et de définir la stratégie adaptée.",
     "What a professional consultation": "Ce qu'apporte une consultation professionnelle",
