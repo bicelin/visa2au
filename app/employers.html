@@ -166,9 +166,9 @@ Sponsors take on legal obligations for the life of the sponsorship. None of them
             const el = document.createElement('elevenlabs-convai');
             el.setAttribute('agent-id', 'agent_7001k1zx1vf1fxrbhpawb7980gy1');
             const lng0 = (document.documentElement.lang || 'en').toLowerCase();
-            const dv0 = lng0.startsWith('ru') ? { agent_name: 'Ассистент Visa2AU', greeting: 'Здравствуйте!', user_name: '' }
-              : lng0.startsWith('fr') ? { agent_name: 'Assistant Visa2AU', greeting: 'Bonjour !', user_name: '' }
-              : { agent_name: 'Visa2AU Assistant', greeting: 'Hi there!', user_name: 'there' };
+            const dv0 = lng0.startsWith('ru') ? { agent_name: 'Ассистент Visa2AU', greeting: "Здравствуйте! Я — ассистент Visa2AU. Чем могу помочь?", user_name: '' }
+              : lng0.startsWith('fr') ? { agent_name: 'Assistant Visa2AU', greeting: "Bonjour ! Je suis l'assistant Visa2AU. Comment puis-je vous aider ?", user_name: '' }
+              : { agent_name: 'Visa2AU Assistant', greeting: "Hi there! I'm the Visa2AU assistant. What can I do for you?", user_name: 'there' };
             el.setAttribute('dynamic-variables', JSON.stringify(dv0));
             document.body.appendChild(el);
             const s = document.createElement('script');

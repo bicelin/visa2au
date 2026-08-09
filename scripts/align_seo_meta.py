@@ -178,15 +178,22 @@ def main() -> None:
             "/* ————— parallax on story panels ————— */\n      if (!reduced && window.matchMedia('(min-width: 768px)').matches) {")
 
         # 7) ElevenLabs voice widget: the agent's first message requires dynamic
-        # variables (agent_name, greeting, user_name) — provide per-locale values
+        # variables — agent first_message is now "{{greeting}}", so greeting
+        # carries the full localized opener (per-locale values)
+        html = html.replace("greeting: 'Здравствуйте!',",
+                            "greeting: \"Здравствуйте! Я — ассистент Visa2AU. Чем могу помочь?\",")
+        html = html.replace("greeting: 'Bonjour !',",
+                            "greeting: \"Bonjour ! Je suis l'assistant Visa2AU. Comment puis-je vous aider ?\",")
+        html = html.replace("greeting: 'Hi there!',",
+                            "greeting: \"Hi there! I'm the Visa2AU assistant. What can I do for you?\",")
         if "dynamic-variables" not in html and "agent_7001k1zx1vf1fxrbhpawb7980gy1" in html:
             html = html.replace(
                 "el.setAttribute('agent-id', 'agent_7001k1zx1vf1fxrbhpawb7980gy1');",
                 "el.setAttribute('agent-id', 'agent_7001k1zx1vf1fxrbhpawb7980gy1');\n"
                 "            const lng0 = (document.documentElement.lang || 'en').toLowerCase();\n"
-                "            const dv0 = lng0.startsWith('ru') ? { agent_name: 'Ассистент Visa2AU', greeting: 'Здравствуйте!', user_name: '' }\n"
-                "              : lng0.startsWith('fr') ? { agent_name: 'Assistant Visa2AU', greeting: 'Bonjour !', user_name: '' }\n"
-                "              : { agent_name: 'Visa2AU Assistant', greeting: 'Hi there!', user_name: 'there' };\n"
+                "            const dv0 = lng0.startsWith('ru') ? { agent_name: 'Ассистент Visa2AU', greeting: \"Здравствуйте! Я — ассистент Visa2AU. Чем могу помочь?\", user_name: '' }\n"
+                "              : lng0.startsWith('fr') ? { agent_name: 'Assistant Visa2AU', greeting: \"Bonjour ! Je suis l'assistant Visa2AU. Comment puis-je vous aider ?\", user_name: '' }\n"
+                "              : { agent_name: 'Visa2AU Assistant', greeting: \"Hi there! I'm the Visa2AU assistant. What can I do for you?\", user_name: 'there' };\n"
                 "            el.setAttribute('dynamic-variables', JSON.stringify(dv0));")
 
         if html != orig:
