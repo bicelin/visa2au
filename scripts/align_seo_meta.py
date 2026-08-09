@@ -164,7 +164,7 @@ def main() -> None:
                            '/cdn-cgi/image/width=1600,quality=72,format=auto,onerror=redirect/story/hero-dawn.jpg 1600w" '
                            'imagesizes="100vw" fetchpriority="high">')
                 html = html.replace("</head>", preload + "</head>", 1)
-        html = re.sub(r'src="(?:\.\./)?story/([^"]+\.jpg)"',
+        html = re.sub(r'src="(?:\.\./|\./)?story/([^"]+\.jpg)"',
                       lambda m: 'src="/cdn-cgi/image/width=1280,quality=72,format=auto,onerror=redirect/story/'
                       + m.group(1) + '"', html)
         html = html.replace(
