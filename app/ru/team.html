@@ -135,7 +135,15 @@
         // ElevenLabs voice assistant — lazy load on first interaction (feature flag: PUBLIC_VOICE_ASSISTANT)
         (function () {
           let loaded = false;
+          fetch('/api/voice-status').then(function (r) { return r.json(); }).then(function (s) {
+            if (s && s.enabled === false) {
+              window.__v2auVoiceDisabled = true;
+              var vb = document.getElementById('voice-cta');
+              if (vb && vb.closest) { var vs = vb.closest('section'); if (vs) vs.style.display = 'none'; }
+            }
+          }).catch(function () {});
           window.__loadVoice = function () {
+            if (window.__v2auVoiceDisabled) return;
             if (loaded) return;
             loaded = true;
             const el = document.createElement('elevenlabs-convai');

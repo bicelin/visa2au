@@ -196,6 +196,12 @@ def main() -> None:
                 "              : { agent_name: 'Visa2AU Assistant', greeting: \"Hi there! I'm the Visa2AU assistant. What can I do for you?\", user_name: 'there' };\n"
                 "            el.setAttribute('dynamic-variables', JSON.stringify(dv0));")
 
+        # 8) voice assistant availability: hide section + skip widget when disabled
+        if "voice-status" not in html and "agent_7001k1zx1vf1fxrbhpawb7980gy1" in html:
+            html = html.replace(
+                "        (function () {\n          let loaded = false;\n          window.__loadVoice = function () {\n            if (loaded) return;",
+                "        (function () {\n          let loaded = false;\n          fetch('/api/voice-status').then(function (r) { return r.json(); }).then(function (s) {\n            if (s && s.enabled === false) {\n              window.__v2auVoiceDisabled = true;\n              var vb = document.getElementById('voice-cta');\n              if (vb && vb.closest) { var vs = vb.closest('section'); if (vs) vs.style.display = 'none'; }\n            }\n          }).catch(function () {});\n          window.__loadVoice = function () {\n            if (window.__v2auVoiceDisabled) return;\n            if (loaded) return;")
+
         if html != orig:
             open(path, "w", encoding="utf-8").write(html)
             changed += 1
