@@ -149,3 +149,27 @@ Records) on the same day. Chain of trust verified:
 |---|---|
 | **OpenID Connect** (`.well-known/openid-configuration`) | OAuth 2.0 client-credentials is implemented (above); OIDC adds identity-layer semantics the site does not need — there are no user accounts or login flows. |
 | **A2A agent card** | The site is a content publisher, not a task-taking agent; there is no agent-to-agent task surface to describe honestly. |
+
+## Voice assistant call reports — IMPLEMENTED 2026-08-09
+
+`POST /api/voice-webhook` (`functions/api/voice-webhook.ts`) receives ElevenLabs
+Conversational AI webhooks and emails the team (Resend) a call report: status,
+caller, collected data (contact email, phone, visa type, consultation need),
+call summary and full transcript, plus a link to the ElevenLabs conversation.
+
+**ElevenLabs agent dashboard configuration (agent → Security → Webhook):**
+- URL: `https://visa2.au/api/voice-webhook` (staging: `https://staging.visa2.au/api/voice-webhook`)
+- Events: **conversation_initiation**, **conversation_completed**
+- Include: **transcript** and **analysis** in the payload
+- Secret: set `VOICE_WEBHOOK_SECRET` (Pages env) and the same value in the
+  dashboard — the function verifies `X-ElevenLabs-Signature` / `X-ElevenLabs-Secret`.
+
+**For structured leads, the agent prompt must collect:** contact email, phone,
+visa type (e.g. subclass or category), and consultation need — they arrive as
+`data_collection_results` (or `analysis.data_collection_results`) and render as
+the "Collected on call" table. Optional: set `ELEVENLABS_API_KEY` (Pages env) so
+the function fetches the full transcript from the Conversations API when the
+webhook payload omits it.
+
+Pages env used: `RESEND_API_KEY` (required), `NOTIFY_TO`, `FROM_EMAIL`,
+`VOICE_WEBHOOK_SECRET` (recommended), `ELEVENLABS_API_KEY` (optional).
