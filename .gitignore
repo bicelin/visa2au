@@ -1,3 +1,8 @@
 .env.staging
 .env
 .env.local
+node_modules/
+package-lock.json
+__pycache__/
+*.pyc
+worker-configuration.d.ts

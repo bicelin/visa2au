@@ -66,6 +66,10 @@ RU_MAP = {
     "Employer sponsorship": "Спонсорство работодателя",
     "Skilled migration": "Профессиональная миграция",
     "Urgent / refused / cancelled visa": "Срочно / отказ / аннулирование визы",
+    "NAATI translation": "Перевод NAATI",
+    "Mobile phone": "Мобильный телефон",
+    "(quick contact)": "(для быстрой связи)",
+    "Preferred messenger": "Предпочтительный мессенджер",
     "Your Message *": "Ваше сообщение *",
     "Attachments": "Вложения",
     "(recommended — attach your passport, current visa and any supporting files or evidence so we can prepare properly)":

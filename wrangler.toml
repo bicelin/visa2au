@@ -1,0 +1,11 @@
+# Documentation-only Wrangler config for the Visa2AU Pages site.
+# The Pages project itself is deployed via git (main -> Cloudflare Pages, CI).
+# This file documents the R2 binding (so `wrangler types` surfaces it) and the
+# Pages output directory. Secrets live in the dashboard / .env.staging, not here.
+name = "visa2au"
+compatibility_date = "2024-11-01"
+pages_build_output_dir = "app"
+
+[[r2_buckets]]
+binding = "ENQUIRIES"
+bucket_name = "visa2au-enquiries"

@@ -52,6 +52,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const email = String(fd.get("email") || "").trim();
   const topic = String(fd.get("topic") || "").trim();
   const message = String(fd.get("message") || "").trim();
+  const phone = String(fd.get("phone") || "").trim();
+  const messenger = String(fd.get("messenger") || "").trim();
   const token = String(fd.get("cf-turnstile-response") || "");
 
   if (!name || !email || !message) return json({ ok: false, error: "Name, email and message are required" }, 400);
@@ -93,7 +95,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   // Store enquiry metadata
   step = "r2-meta";
-  await env.ENQUIRIES.put(`${enquiryId}/_meta.json`, JSON.stringify({ name, email, topic, message, at: new Date().toISOString() }));
+  await env.ENQUIRIES.put(`${enquiryId}/_meta.json`, JSON.stringify({ name, email, phone, messenger, topic, message, at: new Date().toISOString() }));
 
   // Notify via Resend
   const to = env.NOTIFY_TO || "info@visa2.au";
@@ -106,6 +108,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const html = `
     <h2>New website enquiry — ${escapeHtml(topic || "General")}</h2>
     <p><b>Name:</b> ${escapeHtml(name)}<br><b>Email:</b> ${escapeHtml(email)}</p>
+    <p><b>Phone:</b> ${escapeHtml(phone || "—")}<br><b>Messenger:</b> ${escapeHtml(messenger || "—")}</p>
     <p><b>Message:</b></p><p>${escapeHtml(message).replace(/\n/g, "<br>")}</p>
     ${filesHtml}
     <p style="color:#888;font-size:12px">Enquiry ID: ${enquiryId}</p>`;

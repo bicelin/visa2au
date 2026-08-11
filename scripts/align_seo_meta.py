@@ -39,6 +39,33 @@ YEAR_FIX = [
 ]
 
 
+# ── Yandex.Metrika counter (injected early in <head> on every page) ─────────
+METRIKA = '''<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111501119', 'ym');
+
+    ym(111501119, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/111501119" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->'''
+
+
+# ── Google Analytics 4 (gtag.js) — injected early in <head> on every page ────
+GA4 = '''<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TS8EK9K6W4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TS8EK9K6W4');
+</script>'''
+
+
 def canonicalize(url: str) -> str:
     """Strip .html; map /ru /fr home to trailing-slash form."""
     if not url.startswith(BASE):
@@ -113,7 +140,7 @@ def main() -> None:
             if "og-share-card.png" in url:
                 return m.group(0)  # already the branded card
             if plain.endswith("/imgs/hero-coast.jpg"):
-                return (m.group(1) + BASE + "/imgs/og-share-card.png" + m.group(3)
+                return (m.group(1) + BASE + "/imgs/og-share-card.png" + m.group(3) + ">"
                         + '<meta property="og:image:width" content="1200">'
                         + '<meta property="og:image:height" content="630">')
             return m.group(1) + BASE + "/cdn-cgi/image/width=1200,quality=80,format=auto/" \
@@ -121,6 +148,11 @@ def main() -> None:
 
         html = re.sub(r'(<meta property="og:image" content=")(https://visa2\.au/[^"]+)(")',
                       fix_og_image, html)
+
+        # repair malformed og:image (missing ">" after URL / stray trailing ">")
+        html = html.replace('og:image" content="https://visa2.au/imgs/og-share-card.png"<meta',
+                            'og:image" content="https://visa2.au/imgs/og-share-card.png"><meta')
+        html = html.replace('content="630">>', 'content="630">')
 
         # 3) og:site_name + theme-color
         if "og:site_name" not in html:
@@ -201,6 +233,12 @@ def main() -> None:
             html = html.replace(
                 "        (function () {\n          let loaded = false;\n          window.__loadVoice = function () {\n            if (loaded) return;",
                 "        (function () {\n          let loaded = false;\n          fetch('/api/voice-status').then(function (r) { return r.json(); }).then(function (s) {\n            if (s && s.enabled === false) {\n              window.__v2auVoiceDisabled = true;\n              var vb = document.getElementById('voice-cta');\n              if (vb && vb.closest) { var vs = vb.closest('section'); if (vs) vs.style.display = 'none'; }\n            }\n          }).catch(function () {});\n          window.__loadVoice = function () {\n            if (window.__v2auVoiceDisabled) return;\n            if (loaded) return;")
+
+        # 9) analytics: Yandex.Metrika + GA4 tags early in <head> (idempotent)
+        if "mc.yandex.ru" not in html and "<head>" in html:
+            html = html.replace("<head>", "<head>" + METRIKA, 1)
+        if "googletagmanager.com/gtag/js" not in html and "<head>" in html:
+            html = html.replace("<head>", "<head>" + GA4, 1)
 
         if html != orig:
             open(path, "w", encoding="utf-8").write(html)

@@ -44,6 +44,8 @@ FR_MAP = {
     "Available in exceptional cases only": "Disponible uniquement dans des cas exceptionnels",
     "Crypto (USDT / USDC)": "Cryptomonnaie (USDT / USDC)",
     "Payment to our wallet in USD stablecoin": "Paiement en stablecoin USD sur notre portefeuille",
+    "We prefer online consultations and remote access to speed up our work.":
+    "Nous privilégions les consultations en ligne et l'accès à distance pour accélérer notre travail.",
     "(voicemail)": "(messagerie vocale)",
     "Office": "Bureau",
     "Video consultations available": "Consultations vidéo disponibles",
@@ -66,6 +68,10 @@ FR_MAP = {
     "Employer sponsorship": "Parrainage d'employeur",
     "Skilled migration": "Migration qualifiée",
     "Urgent / refused / cancelled visa": "Urgent / refusé / visa annulé",
+    "NAATI translation": "Traduction NAATI",
+    "Mobile phone": "Téléphone mobile",
+    "(quick contact)": "(contact rapide)",
+    "Preferred messenger": "Messagerie préférée",
     "Your Message *": "Votre message *",
     "Attachments": "Pièces jointes",
     "(recommended — attach your passport, current visa and any supporting files or evidence so we can prepare properly)":

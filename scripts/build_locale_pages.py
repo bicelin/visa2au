@@ -204,6 +204,26 @@ def main():
             main_loc = translate_main(en_main, tmap_all)
             if page == "contact":
                 main_loc = main_loc.replace("'api/enquiry'", "'/api/enquiry'")
+                if lang == "ru":
+                    # The muted payment note is EN/FR only — drop it from RU.
+                    _note = ('<p class="mt-4 text-sm text-slate-500 dark:text-slate-400">'
+                             'We prefer online consultations and remote access to speed up our work.</p>')
+                    main_loc = main_loc.replace(_note, "", 1)
+                    # RU-only payment cards (Russian bank + Crypto) re-injected after the Stripe card.
+                    # EN source intentionally carries only the 2 common cards; RU gets all 4.
+                    _extra = ('<div class="reveal rounded-2xl border border-navy-800/10 bg-white p-5 dark:border-white/10 dark:bg-navy-900"> '
+                              '<div class="flex flex-wrap items-baseline justify-between gap-2"> '
+                              '<h3 class="font-display font-bold text-navy-800 dark:text-white">Банковский счёт в России</h3>  </div> '
+                              '<p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Оплата в рублях на наш российский счёт</p> '
+                              '<p class="mt-1 font-tech text-xs text-slate-400">Доступно только в исключительных случаях</p> </div>'
+                              '<div class="reveal rounded-2xl border border-navy-800/10 bg-white p-5 dark:border-white/10 dark:bg-navy-900"> '
+                              '<div class="flex flex-wrap items-baseline justify-between gap-2"> '
+                              '<h3 class="font-display font-bold text-navy-800 dark:text-white">Криптовалюта (USDT / USDC)</h3>  </div> '
+                              '<p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Оплата в стейблкоинах USD на наш кошелёк</p> '
+                              '<p class="mt-1 font-tech text-xs text-slate-400">Доступно только в исключительных случаях</p> </div>')
+                    _anchor = "детализация до оплаты</p> </div>"
+                    assert _anchor in main_loc, "RU payment injection anchor missing"
+                    main_loc = main_loc.replace(_anchor, _anchor + " " + _extra, 1)
             if page == "visas":
                 # H1 "Visa Services" split across a span: fix the leading word
                 main_loc = main_loc.replace(">Visa <span",
