@@ -270,6 +270,8 @@ def main() -> None:
                 css_path = os.path.join(APP, "_astro", mcss.group(1))
                 if os.path.isfile(css_path):
                     css = open(css_path, encoding="utf-8").read()
+                    # keep only woff2 (modern browsers) -> halves font requests
+                    css = re.sub(r'url\([^)]*\.woff\)\s*format\([^)]*\)\s*,?', '', css)
                     html = html.replace(mcss.group(0), '<style id="v2au-inline-css">\n' + css + '\n</style>')
 
         # 11) point the "Detailed Visa Assessment" CTA at the assessment root
@@ -278,6 +280,33 @@ def main() -> None:
 
         # 12) drop Metrika webvisor (heavy + opens a WS that fails -> console error)
         html = html.replace("webvisor:true, ", "")
+
+        # 12b) strip .woff (non-woff2) font srcs from any inline <style> on the page
+        html = re.sub(r'url\([^)]*\.woff\)\s*format\([^)]*\)\s*,?', '', html)
+
+        # 13) defer GA4 + Yandex Metrika to after window load (removes their
+        #     main-thread parse/execute cost from TBT)
+        ANALYTICS_DEFERRED = '''<script>
+(function () {
+  function onLoad() {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'G-TS8EK9K6W4');
+    var g = document.createElement('script'); g.async = true;
+    g.src = 'https://www.googletagmanager.com/gtag/js?id=G-TS8EK9K6W4'; document.head.appendChild(g);
+    var m = document.createElement('script'); m.async = true;
+    m.src = 'https://mc.yandex.ru/metrika/tag.js?id=111501119'; document.head.appendChild(m);
+    window.ym = window.ym || function(){ (window.ym.a = window.ym.a || []).push(arguments); };
+    ym(111501119, 'init', {ssr:true, clickmap:true, ecommerce:'dataLayer', accurateTrackBounce:true, trackLinks:true});
+  }
+  if (document.readyState === 'complete') onLoad(); else window.addEventListener('load', onLoad);
+})();
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/111501119" style="position:absolute; left:-9999px;" alt="" /></div></noscript>'''
+        if "Google tag (gtag.js)" in html and "Yandex.Metrika counter" in html and "deferred analytics" not in html:
+            html = re.sub(r'<!-- Google tag \(gtag\.js\) -->.*?<!-- /Yandex\.Metrika counter -->',
+                          '<!-- Google tag (gtag.js) --><!-- Yandex.Metrika counter --><!-- deferred analytics -->\n' + ANALYTICS_DEFERRED,
+                          html, flags=re.S, count=1)
 
         if html != orig:
             open(path, "w", encoding="utf-8").write(html)
