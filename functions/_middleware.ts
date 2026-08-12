@@ -1,85 +1,12 @@
-// Markdown content negotiation ("Markdown for Agents" without a Pro plan).
-// For GET/HEAD requests whose Accept header prefers text/markdown over
-// text/html, serve the deployed markdown twin (<path>.md) when one exists.
-// Browsers always rank text/html first, so human traffic is unaffected.
-// /api/* is never intercepted. Vary: Accept is added to every response.
+// Served via Pages middleware: the CSP exceeds Cloudflare Pages' _headers
+// per-header limit, so _headers would drop it. Regenerate via scripts/update_csp_hashes.py.
+const CSP = `default-src 'self'; script-src 'self' blob: https://unpkg.com https://cdn.jsdelivr.net https://*.elevenlabs.io https://*.daily.co https://static.cloudflareinsights.com https://challenges.cloudflare.com https://js.stripe.com https://www.googletagmanager.com https://www.google-analytics.com https://mc.yandex.ru https://mc.yandex.net 'unsafe-hashes' 'sha256-xVfF5+FsvPAWqEXoVt7s+q/d/3fjwUnL7gNwC6Qgpfw=' 'sha256-+9FlUUCam8X634psXzeP62VKHlpHPJ/DbfRcfjkHh7Y=' 'sha256-0M29VA57kl3vc9kcyQ1FToUKT/jLRlQSTlk2LX5cSnk=' 'sha256-3kW9993Ne8+mDp+csDitVYXBalPUwE4d5hEADwr/MX0=' 'sha256-6LF/vc2LxcoAFjSxsOCw3Lq+OD01r424lEJb0aeBKoU=' 'sha256-7861mUokmlWI7t1i0S//khktYxtT3TigMg0/GIPmCb4=' 'sha256-Fv2b9fVssVYAn7iEevw0s1nDkwxmA4UJlAZldhzFliE=' 'sha256-H/HSQfg54e/Cf8Jzp49Y6DLAtrmFF6H1KJXebRgdHSw=' 'sha256-Kemx63LDruLxKdNrdRHHEQRo/Mkns8Au44YT3DdKUJw=' 'sha256-KzgM/a8rU56geKXQUC6Zx+xijW4iv5jwoEEFgrv+GdE=' 'sha256-MpamLzCudE3GPoeg9JKmEGrDwJ5RU0W+jh1ch4Ho1sk=' 'sha256-NbjxWSGQG841ShzZ8VfkhOXSsK/ByAguassbYU5TgGI=' 'sha256-OI9Gnj73p3FcAMEnyM0di+W5BixGz0CMMpwM5aWa1TA=' 'sha256-Rh7qbl9n7Kd60k862sR6HcY9W01f4Jc6UVXG7IjekTU=' 'sha256-Vvpgp+0Y1riTI1qZPAGEvXvGjWc6qKy0MVOQb2UdA58=' 'sha256-W/lu+G69Dhf1cKS+aurAdi3+r4wmmGSZDrGYIAF+8L0=' 'sha256-ZbVbteGPjTGmh0dqE2jFEnidYZt5iaL05m2bqZEQ8MI=' 'sha256-a8BkMfbbzBLYGOAOKsIgd71jtpe+2wRyLzkhFiX5m+Q=' 'sha256-du2gOB8t+aUadeMlRuh7ey2HRPsuFhEIy2hg1WpIgAw=' 'sha256-fExybY0nqRDDTeJJkAX8keU2cD55dsIQzqNfTymzi98=' 'sha256-gRiOalZ7KmBHsvrCNcmUCZ50AgQd/ObHn2FCmZIoYkU=' 'sha256-hmMYkVVs0+U45wFUw6tJHUsN9gk6hiXYEDWmaYgzqZM=' 'sha256-i1cNDBrlxLet2tO0lW+c+sKiVZeOHARpdIs4AToYfqc=' 'sha256-l8ldgAcfv2FQaQ7MNEVJnHsGPzSmLS2XZpSvjBYw7QA=' 'sha256-mgpeRamjV/7s7s/ughu8G5dhq1nIgTqSOrVW/qaCYOI=' 'sha256-ntCFaxY3ulniiIyC672vuaO8dAS9EImQjnmQir7Oc54=' 'sha256-p1K7oBfA1N3/5wOTT3A9qTSVTgL3/gVdVMaDfizgt14=' 'sha256-uEfTgWG50RdUAyr75DnnLER7rBZWauNcvei1n+4eQPw=' 'sha256-wBcdvStyI5/LWYTjgVJFQI/SCbpI4FD87vfmb3b9i2k=' 'sha256-xNi0aleFCWF6z6DH/0ZVOXKUpFrfXEvVvsQE8NtzhxM='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https: wss:; media-src 'self' https:; worker-src 'self' blob:; child-src blob: https://*.elevenlabs.io https://*.daily.co https://challenges.cloudflare.com https://js.stripe.com; frame-src https://*.elevenlabs.io https://*.daily.co https://challenges.cloudflare.com https://js.stripe.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://visa2au.mmportal.cloud; upgrade-insecure-requests`;
 
-function withVaryAccept(res: Response): Response {
-  const headers = new Headers(res.headers);
-  const vary = headers.get("Vary");
-  const parts = vary ? vary.split(",").map((v) => v.trim().toLowerCase()) : [];
-  if (!parts.includes("accept")) {
-    headers.set("Vary", vary ? `${vary}, Accept` : "Accept");
-  }
-  return new Response(res.body, {
-    status: res.status,
-    statusText: res.statusText,
-    headers,
-  });
-}
-
-// Returns true when text/markdown outranks text/html per q-values.
-function prefersMarkdown(accept: string): boolean {
-  let md = 0;
-  let htmlQ = 0;
-  for (const part of accept.split(",")) {
-    const [type, ...params] = part.trim().split(";");
-    let q = 1;
-    for (const p of params) {
-      const m = p.trim().match(/^q\s*=\s*([0-9.]+)/);
-      if (m) q = parseFloat(m[1]);
-    }
-    const t = type.trim().toLowerCase();
-    if (t === "text/markdown") md = Math.max(md, q);
-    else if (t === "text/html") htmlQ = Math.max(htmlQ, q);
-    else if (t === "text/*" || t === "*/*") htmlQ = Math.max(htmlQ, q);
-  }
-  return md > 0 && md > htmlQ;
-}
-
-export const onRequest: PagesFunction = async (context) => {
-  const { request, env, next } = context;
-
-  // Cheap early exit: only GET/HEAD that explicitly prefer markdown.
-  const accept = request.headers.get("Accept") || "";
-  if (
-    (request.method !== "GET" && request.method !== "HEAD") ||
-    !accept.toLowerCase().includes("text/markdown") ||
-    !prefersMarkdown(accept)
-  ) {
-    return withVaryAccept(await next());
-  }
-
-  const url = new URL(request.url);
-  // Never intercept API routes.
-  if (url.pathname.startsWith("/api/")) {
-    return withVaryAccept(await next());
-  }
-
-  // Map the requested page to its markdown twin path.
-  let p = url.pathname;
-  if (p.endsWith("/")) p += "index"; // "/" -> "/index.md"
-  if (p.endsWith(".html")) p = p.slice(0, -".html".length);
-  const mdUrl = new URL(p + ".md", url);
-
-  const mdRes = await env.ASSETS.fetch(
-    new Request(mdUrl.toString(), { method: "GET" })
-  );
-  if (mdRes.status === 404) {
-    return withVaryAccept(await next());
-  }
-
-  const body = await mdRes.arrayBuffer();
-  const headers = new Headers(mdRes.headers);
-  headers.set("Content-Type", "text/markdown; charset=utf-8");
-  headers.set("X-Markdown-Tokens", String(Math.ceil(body.byteLength / 4)));
-  const vary = headers.get("Vary");
-  const parts = vary ? vary.split(",").map((v) => v.trim().toLowerCase()) : [];
-  if (!parts.includes("accept")) {
-    headers.set("Vary", vary ? `${vary}, Accept` : "Accept");
-  }
-  return new Response(request.method === "HEAD" ? null : body, {
-    status: 200,
-    headers,
-  });
+export const onRequest: PagesFunction = async ({ request, next }) => {
+  const res = await next();
+  const ct = res.headers.get("content-type") || "";
+  if (!ct.includes("text/html")) return res; // CSP only matters for documents
+  const r = new Response(res.body, res);
+  r.headers.set("Content-Security-Policy", CSP);
+  return r;
 };

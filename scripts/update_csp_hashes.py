@@ -78,10 +78,9 @@ def main():
     headers = open(HEADERS, encoding="utf-8").read()
     new_headers = re.sub(r"script-src [^;]*;", new_src, headers, count=1)
     if new_headers == headers:
-        print("NO CHANGE (script-src already tightened?)")
-        return
-
-    # verification: every page's inline script + handler must be covered
+        print("NO CHANGE (script-src already tightened); ensuring middleware in sync")
+    else:
+        open(HEADERS, "w", encoding="utf-8").write(new_headers)
     covered = set(handler_hashes) | set(script_hashes)
     missing = []
     for path in html_files():
@@ -107,6 +106,28 @@ def main():
         sys.exit(1)
 
     open(HEADERS, "w", encoding="utf-8").write(new_headers)
+
+    # Pages' _headers drops CSP values over its per-header limit, so also emit a
+    # middleware that sets the header at runtime (no size limit). Regenerate both.
+    csp_value = re.search(r"Content-Security-Policy: ([^\n]+)", new_headers).group(1).strip()
+    mw = '''// Served via Pages middleware: the CSP exceeds Cloudflare Pages' _headers
+// per-header limit, so _headers would drop it. Regenerate via scripts/update_csp_hashes.py.
+const CSP = `%CSP%`;
+
+export const onRequest: PagesFunction = async ({ request, next }) => {
+  const res = await next();
+  const ct = res.headers.get("content-type") || "";
+  if (!ct.includes("text/html")) return res; // CSP only matters for documents
+  const r = new Response(res.body, res);
+  r.headers.set("Content-Security-Policy", CSP);
+  return r;
+};
+'''.replace("%CSP%", csp_value)
+    mw_path = os.path.join(os.path.dirname(os.path.dirname(HEADERS)), "functions", "_middleware.ts")
+    os.makedirs(os.path.dirname(mw_path), exist_ok=True)
+    open(mw_path, "w", encoding="utf-8").write(mw)
+    print(f"wrote middleware CSP ({len(csp_value)} chars) to {mw_path}")
+
     print(f"tightened CSP: {len(script_hashes)} script hashes + {len(handler_hashes)} handler hashes; 'unsafe-inline' removed")
     print("verified: every inline script/handler is hashed")
 
