@@ -40,9 +40,9 @@ def s3_request(method, bucket, key="", query=""):
     date_stamp = now.strftime("%Y%m%d")
     service, region = "s3", "auto"
     payload_hash = hashlib.sha256(b"").hexdigest() if method == "GET" else hashlib.sha256(b"").hexdigest()
-    canonical_uri = "/" + (bucket + "/" + key if key else bucket)
-    canonical_uri = "/" + urllib.parse.quote(bucket + ("/" + key if key else ""))
     canonical_qs = query or ""
+    path = "/" + urllib.parse.quote(bucket) + (("/" + urllib.parse.quote(key)) if key else "")
+    canonical_uri = path
     canonical_headers = f"host:{urllib.parse.urlparse(ENDPOINT).netloc}\nx-amz-content-sha256:{payload_hash}\nx-amz-date:{amz_date}\n"
     signed_headers = "host;x-amz-content-sha256;x-amz-date"
     canonical_request = "\n".join([method, canonical_uri, canonical_qs, canonical_headers, signed_headers, payload_hash])
@@ -54,7 +54,7 @@ def s3_request(method, bucket, key="", query=""):
     k_signing = _sign(k_service, "aws4_request")
     signature = _hmac_hex(k_signing, string_to_sign)
     auth = f"AWS4-HMAC-SHA256 Credential={ACCESS}/{scope}, SignedHeaders={signed_headers}, Signature={signature}"
-    url = f"{ENDPOINT}/{bucket}/{urllib.parse.quote(key)}" + (f"?{query}" if query else "")
+    url = f"{ENDPOINT}{path}" + (f"?{query}" if query else "")
     req = urllib.request.Request(url, method=method, headers={
         "Authorization": auth, "x-amz-date": amz_date,
         "x-amz-content-sha256": payload_hash, "Host": urllib.parse.urlparse(ENDPOINT).netloc})
