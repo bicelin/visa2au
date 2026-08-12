@@ -10,6 +10,7 @@ on:
       - "scripts/blog_template_ru.html"
       - "scripts/blog_template_fr.html"
       - "scripts/align_seo_meta.py"
+      - "scripts/update_csp_hashes.py"
       - "scripts/build_sitemap.py"
       - "scripts/check_seo_invariants.py"
       - "scripts/build_locale_pages.py"
@@ -40,6 +41,9 @@ jobs:
 
       - name: Align SEO meta (canonical/hreflang/og/perf)
         run: python3 scripts/align_seo_meta.py
+
+      - name: Regenerate CSP hashes + middleware (keep inline-script hashes in sync)
+        run: python3 scripts/update_csp_hashes.py
 
       - name: Build sitemap
         run: python3 scripts/build_sitemap.py
