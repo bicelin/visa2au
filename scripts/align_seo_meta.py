@@ -330,6 +330,15 @@ def main() -> None:
         if "v2au-failopen" not in html and "<head>" in html:
             html = html.replace("<head>", "<head>\n" + FAILOPEN, 1)
 
+        # 14) replace inline voice-button onclick with a JS-bound click (removes the
+        #     need for 'unsafe-hashes' in the CSP — Lighthouse flags it as dangerous)
+        if "onclick=\"window.__loadVoice(); this.remove();\"" in html:
+            html = html.replace('<button onclick="window.__loadVoice(); this.remove();"', '<button id="voice-fab"')
+            VOICE_BIND = ('<script id="v2au-voice-bind">(function(){var f=document.getElementById("voice-fab");'
+                          'if(f)f.addEventListener("click",function(){window.__loadVoice();this.remove();});})();</script>')
+            if "v2au-voice-bind" not in html:
+                html = html.replace("</body>", VOICE_BIND + "</body>", 1)
+
         if html != orig:
             open(path, "w", encoding="utf-8").write(html)
             changed += 1

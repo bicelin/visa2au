@@ -34,8 +34,9 @@ SCRIPT_ALLOW = [
     "https://mc.yandex.net",
 ]
 
-# Inline event-handler attribute values that must be allowed (via 'unsafe-hashes')
-INLINE_HANDLERS = ["window.__loadVoice(); this.remove();"]
+# Inline event-handler attribute values via 'unsafe-hashes' — NONE now (voice button
+# click is JS-bound in align step 14), so 'unsafe-hashes' is dropped from the CSP.
+INLINE_HANDLERS = []
 
 
 def sha256_b64(text: str) -> str:
@@ -71,7 +72,7 @@ def main():
     handler_hashes = sorted("'sha256-" + sha256_b64(h) + "'" for h in INLINE_HANDLERS)
     if not script_hashes:
         print("WARN: no inline executable scripts found — nothing to hash")
-    new_src = "script-src " + " ".join(SCRIPT_ALLOW + ["'unsafe-hashes'"] + handler_hashes + script_hashes) + ";"
+    new_src = "script-src " + " ".join(SCRIPT_ALLOW + handler_hashes + script_hashes) + ";"
 
     headers = open(HEADERS, encoding="utf-8").read()
     new_headers = re.sub(r"script-src [^;]*;", new_src, headers, count=1)
