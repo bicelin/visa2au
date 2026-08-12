@@ -62,12 +62,10 @@ def inline_script_hashes():
             t = re.search(r'type\s*=\s*["\']([^"\']+)["\']', attrs)
             if t and t.group(1).lower() in ("application/ld+json", "application/json"):
                 continue  # not executable
-            body = body.strip()
+            # hash the exact raw body — CSP hashes include leading/trailing whitespace
             if body:
                 hashes.add("'sha256-" + sha256_b64(body) + "'")
     return hashes
-
-
 def main():
     script_hashes = sorted(inline_script_hashes())
     handler_hashes = sorted("'sha256-" + sha256_b64(h) + "'" for h in INLINE_HANDLERS)
@@ -92,7 +90,6 @@ def main():
             t = re.search(r'type\s*=\s*["\']([^"\']+)["\']', attrs)
             if t and t.group(1).lower() in ("application/ld+json", "application/json"):
                 continue
-            body = body.strip()
             if body and "'sha256-" + sha256_b64(body) + "'" not in covered:
                 missing.append((path, body[:40]))
         for hm in re.finditer(r'\bon(?:click|load|error|change|submit|mouseover|keyup|input|toggle)\s*=\s*["\']([^"\']*)["\']', html):
