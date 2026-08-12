@@ -21,8 +21,25 @@ import argparse, json, os, sys, time, urllib.parse, urllib.request
 API = "https://www.googleapis.com/pagespeedonline/v5/runPagespeed"
 
 DEFAULT_URLS = [
+    # top-level
     "https://staging.visa2.au/",
     "https://staging.visa2.au/visas",
+    "https://staging.visa2.au/employers",
+    "https://staging.visa2.au/contact",
+    "https://staging.visa2.au/team",
+    "https://staging.visa2.au/pricing",
+    "https://staging.visa2.au/urgent-visa-help",
+    "https://staging.visa2.au/blog",
+    # core visa guides
+    "https://staging.visa2.au/visas/partner-visa-820-801",
+    "https://staging.visa2.au/visas/skilled-independent-189-190",
+    "https://staging.visa2.au/visas/skills-in-demand-482",
+    "https://staging.visa2.au/visas/student-visa-500",
+    "https://staging.visa2.au/visas/visitor-visa-600",
+    "https://staging.visa2.au/visas/work-holiday-417-462",
+    "https://staging.visa2.au/visas/parent-visa-103",
+    "https://staging.visa2.au/visas/skilled-regional-494",
+    # locales
     "https://staging.visa2.au/ru/",
     "https://staging.visa2.au/fr/",
 ]
