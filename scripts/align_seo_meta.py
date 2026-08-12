@@ -49,7 +49,7 @@ METRIKA = '''<!-- Yandex.Metrika counter -->
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
     })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111501119', 'ym');
 
-    ym(111501119, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    ym(111501119, 'init', {ssr:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/111501119" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->'''
@@ -275,6 +275,9 @@ def main() -> None:
         # 11) point the "Detailed Visa Assessment" CTA at the assessment root
         html = html.replace("https://visa2au.mmportal.cloud/assessment/enquiry/",
                             "https://visa2au.mmportal.cloud/assessment/")
+
+        # 12) drop Metrika webvisor (heavy + opens a WS that fails -> console error)
+        html = html.replace("webvisor:true, ", "")
 
         if html != orig:
             open(path, "w", encoding="utf-8").write(html)
