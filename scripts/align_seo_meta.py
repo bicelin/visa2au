@@ -275,7 +275,15 @@ def main() -> None:
                     css = open(css_path, encoding="utf-8").read()
                     # keep only woff2 (modern browsers) -> halves font requests
                     css = re.sub(r'url\([^)]*\.woff\)\s*format\([^)]*\)\s*,?', '', css)
+                    # the CSS lived in /_astro/, so its relative urls() must be
+                    # rewritten now that it is inlined into the page (./X -> /_astro/X)
+                    css = (css.replace('url("./', 'url("/_astro/').replace("url('./", "url('/_astro/").replace('url(./', 'url(/_astro/')
+                               .replace('url("../', 'url("/').replace("url('../", "url('/").replace('url(../', 'url(/'))
                     html = html.replace(mcss.group(0), '<style id="v2au-inline-css">\n' + css + '\n</style>')
+
+        # 10b) fix relative url() in any already-inlined stylesheet (fonts were 404ing)
+        html = (html.replace('url("./', 'url("/_astro/').replace("url('./", "url('/_astro/").replace('url(./', 'url(/_astro/')
+                   .replace('url("../', 'url("/').replace("url('../", "url('/").replace('url(../', 'url(/'))
 
         # 11) point the "Detailed Visa Assessment" CTA at the assessment root
         html = html.replace("https://visa2au.mmportal.cloud/assessment/enquiry/",
