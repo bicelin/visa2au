@@ -112,7 +112,7 @@ def localized_head(lang, page, title, desc, rel_depth="../"):
             f'<meta name="theme-color" content="#0a0f1c"></head> ')
 
 
-ALLOW_SINGLE = {"Topic"}  # short single-word keys that are safe labels
+ALLOW_SINGLE = {"Topic", "Team"}  # short single-word keys that are safe labels
 
 # Official visa names / program terminology that must stay in English
 # (user directive: be gentle with translation — preserve key names)
@@ -145,16 +145,21 @@ def restore_terms(text):
 
 
 def translate_main(en_main, tmap):
-    # protect brand tokens and official terms from being split by broad keys
-    out = en_main.replace("Visa2AU", "\x00B\x00").replace("visa2.au", "\x00D\x00")
+    # protect brand tokens and official terms from being split by broad keys;
+    # normalize map KEYS the same way so keys containing "Visa2AU" still match
+    def norm(s: str) -> str:
+        return s.replace("Visa2AU", "\x00B\x00").replace("visa2.au", "\x00D\x00")
+
+    out = norm(en_main)
     out = protect_terms(out)
-    for k in sorted(tmap, key=len, reverse=True):
+    tmap_norm = {protect_terms(norm(k)): v for k, v in tmap.items()}
+    for k in sorted(tmap_norm, key=len, reverse=True):
         if len(k) < 5:
             continue
         if len(k) < 8 and k not in ALLOW_SINGLE and " " not in k and "·" not in k and "—" not in k and "*" not in k:
             continue  # short bare words are risky outside their page
         if k in out:
-            out = out.replace(k, tmap[k])
+            out = out.replace(k, tmap_norm[k])
     return restore_terms(out).replace("\x00B\x00", "Visa2AU").replace("\x00D\x00", "visa2.au")
 
 
