@@ -228,17 +228,53 @@ def main() -> None:
                 "              : { agent_name: 'Visa2AU Assistant', greeting: \"Hi there! I'm the Visa2AU assistant. What can I do for you?\", user_name: 'there' };\n"
                 "            el.setAttribute('dynamic-variables', JSON.stringify(dv0));")
 
-        # 8) voice assistant availability: hide section + skip widget when disabled
-        if "voice-status" not in html and "agent_7001k1zx1vf1fxrbhpawb7980gy1" in html:
+        # 8) voice assistant availability: hide section + skip widget when disabled.
+        #    Fetch is deferred to idle so /api/voice-status stays off the critical path.
+        if "agent_7001k1zx1vf1fxrbhpawb7980gy1" in html:
+            # upgrade an already-inserted immediate fetch -> deferred (open + close)
             html = html.replace(
-                "        (function () {\n          let loaded = false;\n          window.__loadVoice = function () {\n            if (loaded) return;",
-                "        (function () {\n          let loaded = false;\n          fetch('/api/voice-status').then(function (r) { return r.json(); }).then(function (s) {\n            if (s && s.enabled === false) {\n              window.__v2auVoiceDisabled = true;\n              var vb = document.getElementById('voice-cta');\n              if (vb && vb.closest) { var vs = vb.closest('section'); if (vs) vs.style.display = 'none'; }\n            }\n          }).catch(function () {});\n          window.__loadVoice = function () {\n            if (window.__v2auVoiceDisabled) return;\n            if (loaded) return;")
+                "let loaded = false;\n          fetch('/api/voice-status')",
+                "let loaded = false;\n          (window.requestIdleCallback || function (cb) { setTimeout(cb, 2000); })(function () {\n            fetch('/api/voice-status')")
+            html = html.replace(
+                "}).catch(function () {});\n          window.__loadVoice = function () {\n            if (loaded) return;",
+                "}).catch(function () {});\n          });\n          window.__loadVoice = function () {\n            if (window.__v2auVoiceDisabled) return;\n            if (loaded) return;")
+            # brand-new pages: insert the deferred block
+            if "voice-status" not in html:
+                html = html.replace(
+                    "        (function () {\n          let loaded = false;\n          window.__loadVoice = function () {\n            if (loaded) return;",
+                    "        (function () {\n          let loaded = false;\n"
+                    "          (window.requestIdleCallback || function (cb) { setTimeout(cb, 2000); })(function () {\n"
+                    "            fetch('/api/voice-status').then(function (r) { return r.json(); }).then(function (s) {\n"
+                    "              if (s && s.enabled === false) {\n"
+                    "                window.__v2auVoiceDisabled = true;\n"
+                    "                var vb = document.getElementById('voice-cta');\n"
+                    "                if (vb && vb.closest) { var vs = vb.closest('section'); if (vs) vs.style.display = 'none'; }\n"
+                    "              }\n"
+                    "            }).catch(function () {});\n"
+                    "          });\n"
+                    "          window.__loadVoice = function () {\n"
+                    "            if (window.__v2auVoiceDisabled) return;\n"
+                    "            if (loaded) return;")
 
         # 9) analytics: Yandex.Metrika + GA4 tags early in <head> (idempotent)
         if "mc.yandex.ru" not in html and "<head>" in html:
             html = html.replace("<head>", "<head>" + METRIKA, 1)
         if "googletagmanager.com/gtag/js" not in html and "<head>" in html:
             html = html.replace("<head>", "<head>" + GA4, 1)
+
+        # 10) inline the render-blocking stylesheet on homepages (removes the CSS
+        #     request from the critical path; gzips to similar total weight)
+        if rel in ("index.html", "ru/index.html", "fr/index.html") and "v2au-inline-css" not in html:
+            mcss = re.search(r'<link rel="stylesheet" href="[^"]*_astro/([^"]+\.css)"[^>]*>', html)
+            if mcss:
+                css_path = os.path.join(APP, "_astro", mcss.group(1))
+                if os.path.isfile(css_path):
+                    css = open(css_path, encoding="utf-8").read()
+                    html = html.replace(mcss.group(0), '<style id="v2au-inline-css">\n' + css + '\n</style>')
+
+        # 11) point the "Detailed Visa Assessment" CTA at the assessment root
+        html = html.replace("https://visa2au.mmportal.cloud/assessment/enquiry/",
+                            "https://visa2au.mmportal.cloud/assessment/")
 
         if html != orig:
             open(path, "w", encoding="utf-8").write(html)
