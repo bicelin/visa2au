@@ -319,6 +319,15 @@ def main() -> None:
                           '<!-- Google tag (gtag.js) --><!-- Yandex.Metrika counter --><!-- deferred analytics -->\n' + ANALYTICS_DEFERRED,
                           html, flags=re.S, count=1)
 
+        # 7) FAIL-OPEN: force reveal/line-mask text visible so content can never
+        #    be stuck hidden if the reveal JS doesn't trigger (reliability > entrance animation)
+        FAILOPEN = ('<style id="v2au-failopen">'
+                    '.line-mask>span{transform:none!important}'
+                    '.reveal{opacity:1!important;transform:none!important}'
+                    '</style>')
+        if "v2au-failopen" not in html and "<head>" in html:
+            html = html.replace("<head>", "<head>\n" + FAILOPEN, 1)
+
         if html != orig:
             open(path, "w", encoding="utf-8").write(html)
             changed += 1
