@@ -356,6 +356,27 @@ def main() -> None:
         #     same background and stays decorative on light sections. Idempotent.
         html = html.replace("dark:text-slate-400", "dark:text-slate-300")
 
+        # 16) WCAG AA colour contrast: eyebrows with `text-ochre-500` / `text-gold-400`
+        #     class but no inline `style=` render as #c1622b on bg-paper (3.86:1, FAILS
+        #     4.5:1) and on bg-sand (~3.4:1, FAILS). The hero eyebrows already carry an
+        #     inline `style="color:#5a1a0a"` (12:1 on paper); replicate that for border-y
+        #     / paper-section eyebrows, and use #2a1205 (~10:1) for bg-sand eyebrows.
+        #     Idempotent — skips tags that already have a `style=` attribute.
+        for m in re.finditer(r'<p\s+class="([^"]*eyebrow[^"]*)"([^>]*)>', html):
+            tag = m.group(0)
+            if 'style=' in tag:
+                continue  # already has inline style
+            idx = m.start()
+            sec_start = html.rfind('<section', 0, idx)
+            sec_end = html.find('</section>', idx)
+            if sec_start < 0 or sec_end < 0:
+                continue
+            section = html[sec_start:sec_end + 9]
+            if 'bg-sand' in section:
+                html = html.replace(tag, tag.replace('>', ' style="color:#2a1205">', 1), 1)
+            elif 'bg-paper' in section or 'border-y' in section:
+                html = html.replace(tag, tag.replace('>', ' style="color:#5a1a0a">', 1), 1)
+
         if html != orig:
             open(path, "w", encoding="utf-8").write(html)
             changed += 1
