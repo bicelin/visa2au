@@ -351,6 +351,11 @@ def main() -> None:
             if "v2au-voice-bind" not in html:
                 html = html.replace("</body>", VOICE_BIND + "</body>", 1)
 
+        # 15) WCAG AA colour contrast: `dark:text-slate-400` on `bg-navy-950` sections
+        #     fails at 3.90:1 (need 4.5:1). `dark:text-slate-300` yields 9.21:1 on the
+        #     same background and stays decorative on light sections. Idempotent.
+        html = html.replace("dark:text-slate-400", "dark:text-slate-300")
+
         if html != orig:
             open(path, "w", encoding="utf-8").write(html)
             changed += 1
