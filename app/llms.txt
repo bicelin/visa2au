@@ -32,6 +32,13 @@ Registration: migration agents are bound by the OMARA Code of Conduct. Governmen
 - [Employer sponsorship](https://visa2.au/employers.md): SBS, 482/494/186 nominations, DAMA labour agreements, employer obligations.
 - [Contact](https://visa2.au/contact.md): email, phone, office, online assessment link, enquiry form with encrypted uploads.
 
+## Locations
+
+- [Migration Agent Melbourne](https://visa2.au/migration-agent-melbourne): Registered migration agent (MARN 2418663) serving Melbourne, Victoria and all of Australia — plus worldwide via secure video consultation.
+- [Migration Agent Sydney](https://visa2.au/migration-agent-sydney): Registered migration agents (MARN 0534230/2418663), North Sydney HQ — serving Sydney, NSW, Australia and worldwide.
+- [Migration Agent Brisbane](https://visa2.au/migration-agent-brisbane): Registered migration agent serving Brisbane, Queensland and all of Australia — plus worldwide.
+- [Migration Agent Cairns](https://visa2.au/migration-agent-cairns): Registered migration agent (MARN 0534230, NAATI) serving Cairns, Far North Queensland and all of Australia — plus worldwide.
+
 ## API endpoints (agent-facing)
 
 - API catalog (RFC 9727 linkset): https://visa2.au/.well-known/api-catalog
