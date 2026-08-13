@@ -373,9 +373,11 @@ def main() -> None:
                 continue
             section = html[sec_start:sec_end + 9]
             if 'bg-sand' in section:
-                html = html.replace(tag, tag.replace('>', ' style="color:#2a1205">', 1), 1)
+                html = html.replace(tag, tag.replace('>', ' style="color:#5a1a0a">', 1), 1)
             elif 'bg-paper' in section or 'border-y' in section:
                 html = html.replace(tag, tag.replace('>', ' style="color:#5a1a0a">', 1), 1)
+            elif any(t in section for t in ('bg-navy-950', 'bg-night', 'bg-gradient', 'from-navy', 'from-night')):
+                html = html.replace(tag, tag.replace('>', ' style="color:#f0a000">', 1), 1)
 
         # 17) `text-navy-700` is not a generated Tailwind utility (only navy-800,
         #     navy-900 and navy-950 have text color classes in the config), so it
