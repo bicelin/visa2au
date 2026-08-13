@@ -377,6 +377,12 @@ def main() -> None:
             elif 'bg-paper' in section or 'border-y' in section:
                 html = html.replace(tag, tag.replace('>', ' style="color:#5a1a0a">', 1), 1)
 
+        # 17) `text-navy-700` is not a generated Tailwind utility (only navy-800,
+        #     navy-900 and navy-950 have text color classes in the config), so it
+        #     leaves section text colorless on light backgrounds like bg-sand. Replace
+        #     with text-navy-800. Idempotent.
+        html = html.replace("text-navy-700", "text-navy-800")
+
         if html != orig:
             open(path, "w", encoding="utf-8").write(html)
             changed += 1
