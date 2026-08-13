@@ -32,6 +32,7 @@ SCRIPT_ALLOW = [
     "https://www.google-analytics.com",
     "https://mc.yandex.ru",
     "https://mc.yandex.net",
+    "https://mc.yandex.com",
 ]
 
 # Inline event-handler attribute values via 'unsafe-hashes' — NONE now (voice button
