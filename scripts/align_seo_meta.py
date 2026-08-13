@@ -356,28 +356,54 @@ def main() -> None:
         #     same background and stays decorative on light sections. Idempotent.
         html = html.replace("dark:text-slate-400", "dark:text-slate-300")
 
-        # 16) WCAG AA colour contrast: eyebrows with `text-ochre-500` / `text-gold-400`
-        #     class but no inline `style=` render as #c1622b on bg-paper (3.86:1, FAILS
-        #     4.5:1) and on bg-sand (~3.4:1, FAILS). The hero eyebrows already carry an
-        #     inline `style="color:#5a1a0a"` (12:1 on paper); replicate that for border-y
-        #     / paper-section eyebrows, and use #2a1205 (~10:1) for bg-sand eyebrows.
-        #     Idempotent — skips tags that already have a `style=` attribute.
+        # 16) WCAG AA colour contrast for eyebrows. Each eyebrow's inline colour must
+        #     match its SECTION background:
+        #       - light sections (bg-paper / bg-sand / bg-white / border-y) => dark
+        #         brown #5a1a0a (12.3:1 on paper, 11.4:1 on sand) — gold #f0a000 here
+        #         is only 2.00:1 and FAILS.
+        #       - dark sections (bg-night / bg-navy / bg-gradient-to-b/b from
+        #         navy·night) => gold #f0a000 (8.9:1 on navy-950) — dark #5a1a0a here
+        #         is 1.45:1 and FAILS.
+        #     Class `text-ochre-500` (default #c1622b) with no style fails on both.
+        #     The section background is read from the nearest enclosing <section>'s
+        #     OPENING TAG only (not the whole body), so nested/adjacent sections and
+        #     decorative `bg-gradient-to-r` overlays don't cause misclassification.
+        #     Corrective + idempotent: it overrides ANY existing inline color that
+        #     contradicts the section background, not just missing styles.
         for m in re.finditer(r'<p\s+class="([^"]*eyebrow[^"]*)"([^>]*)>', html):
             tag = m.group(0)
-            if 'style=' in tag:
-                continue  # already has inline style
             idx = m.start()
-            sec_start = html.rfind('<section', 0, idx)
-            sec_end = html.find('</section>', idx)
-            if sec_start < 0 or sec_end < 0:
+            sec_pos = html.rfind('<section', 0, idx)
+            if sec_pos < 0:
                 continue
-            section = html[sec_start:sec_end + 9]
-            if 'bg-sand' in section:
-                html = html.replace(tag, tag.replace('>', ' style="color:#5a1a0a">', 1), 1)
-            elif 'bg-paper' in section or 'border-y' in section:
-                html = html.replace(tag, tag.replace('>', ' style="color:#5a1a0a">', 1), 1)
-            elif any(t in section for t in ('bg-navy-950', 'bg-night', 'bg-gradient', 'from-navy', 'from-night')):
-                html = html.replace(tag, tag.replace('>', ' style="color:#f0a000">', 1), 1)
+            sec_tag_end = html.find('>', sec_pos)
+            if sec_tag_end < 0:
+                continue
+            sectag = html[sec_pos:sec_tag_end]
+            # classify section by its opening tag
+            if 'bg-night' in sectag or 'bg-navy' in sectag:
+                is_dark = True
+            elif 'bg-gradient-to-b' in sectag or 'bg-gradient-to-br' in sectag:
+                is_dark = 'from-navy' in sectag or 'from-night' in sectag or 'via-night' in sectag
+            elif 'bg-paper' in sectag or 'bg-sand' in sectag or 'bg-white' in sectag or 'border-y' in sectag:
+                is_dark = False
+            else:
+                is_dark = None
+            if is_dark is None:
+                continue
+            want = '#f0a000' if is_dark else '#5a1a0a'
+            # remove any existing inline color then set correct one
+            # easiest: if tag has color: replace it; else add style attr
+            col_m = re.search(r'style="([^"]*)color:#[0-9a-f]{3,6}([^"]*)"', tag)
+            if col_m:
+                prefix = col_m.group(1)
+                suffix = col_m.group(2)
+                new_style = f'style="{prefix}color:{want}{suffix}"'
+                new_tag = tag[:col_m.start()] + new_style + tag[col_m.end():]
+                if new_tag != tag:
+                    html = html.replace(tag, new_tag, 1)
+            else:
+                html = html.replace(tag, tag.replace('>', f' style="color:{want}">', 1), 1)
 
         # 17) `text-navy-700` is not a generated Tailwind utility (only navy-800,
         #     navy-900 and navy-950 have text color classes in the config), so it
