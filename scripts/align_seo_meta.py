@@ -261,6 +261,18 @@ def main() -> None:
                     "            if (window.__v2auVoiceDisabled) return;\n"
                     "            if (loaded) return;")
 
+            # 8b) REPAIR: ensure the requestIdleCallback callback is closed with a
+            #     `});` right after the voice-status fetch's .catch(). If the wrapper's
+            #     opening was applied but its closing wasn't (previously the case when
+            #     `__v2auVoiceDisabled` preceded `if (loaded) return;`), the outer IIFE
+            #     never closes -> SyntaxError "Unexpected end of input" -> __loadVoice
+            #     is never defined. Idempotent: no-op when the close is already present.
+            html = re.sub(
+                r'(\)\.catch\(function \(\) \{\}\);[ \t]*\r?\n)([ \t]*)(window\.__loadVoice = function \(\) \{)',
+                lambda m: m.group(1) + m.group(2) + "});\n" + m.group(2) + m.group(3),
+                html,
+            )
+
         # 9) analytics: Yandex.Metrika + GA4 tags early in <head> (idempotent)
         if "mc.yandex.ru" not in html and "<head>" in html:
             html = html.replace("<head>", "<head>" + METRIKA, 1)

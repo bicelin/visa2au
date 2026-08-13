@@ -275,6 +275,7 @@ Join Consultation →
               if (vb && vb.closest) { var vs = vb.closest('section'); if (vs) vs.style.display = 'none'; }
             }
           }).catch(function () {});
+          });
           window.__loadVoice = function () {
             if (window.__v2auVoiceDisabled) return;
             if (loaded) return;

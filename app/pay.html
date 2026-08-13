@@ -208,6 +208,7 @@ Stripe checkout in test mode — live keys are added at launch. Card details nev
               if (vb && vb.closest) { var vs = vb.closest('section'); if (vs) vs.style.display = 'none'; }
             }
           }).catch(function () {});
+          });
           window.__loadVoice = function () {
             if (window.__v2auVoiceDisabled) return;
             if (loaded) return;
