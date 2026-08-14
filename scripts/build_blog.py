@@ -51,7 +51,7 @@ LANGS = [
         "src": "cms/blog",
         "template": "scripts/blog_template.html",
         "out": "app/blog",
-        "url": SITE + "/blog/{slug}.html",
+        "url": SITE + "/blog/{slug}",
         "rel_prefix": "../",
     },
     {
@@ -59,7 +59,7 @@ LANGS = [
         "src": "cms/blog-ru",
         "template": "scripts/blog_template_ru.html",
         "out": "app/ru/blog",
-        "url": SITE + "/ru/blog/{slug}.html",
+        "url": SITE + "/ru/blog/{slug}",
         "rel_prefix": "../../",
         "index_template": "scripts/blog_index_template_ru.html",
         "index_out": "app/ru/blog.html",
@@ -72,7 +72,7 @@ LANGS = [
         "src": "cms/blog-fr",
         "template": "scripts/blog_template_fr.html",
         "out": "app/fr/blog",
-        "url": SITE + "/fr/blog/{slug}.html",
+        "url": SITE + "/fr/blog/{slug}",
         "rel_prefix": "../../",
         "index_template": "scripts/blog_index_template_fr.html",
         "index_out": "app/fr/blog.html",
@@ -206,9 +206,9 @@ def render_post(template, fm, body_html, cfg):
     hreflang_ru = ""
     hreflang_fr = ""
     if cfg["lang"] != "ru" and twin_exists("ru"):
-        hreflang_ru = f'<link rel="alternate" hreflang="ru" href="https://visa2.au/ru/blog/{slug}.html">'
+        hreflang_ru = f'<link rel="alternate" hreflang="ru" href="https://visa2.au/ru/blog/{slug}">'
     if cfg["lang"] != "fr" and twin_exists("fr"):
-        hreflang_fr = f'<link rel="alternate" hreflang="fr" href="https://visa2.au/fr/blog/{slug}.html">'
+        hreflang_fr = f'<link rel="alternate" hreflang="fr" href="https://visa2.au/fr/blog/{slug}">'
     page = page.replace("{{HREFLANG_RU}}", hreflang_ru)
     page = page.replace("{{HREFLANG_FR}}", hreflang_fr)
     page = page.replace("{{TITLE_HTML}}", html.escape(fm["title"], quote=False))
