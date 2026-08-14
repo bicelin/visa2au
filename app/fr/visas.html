@@ -92,7 +92,7 @@
         const stream = MAP[answers.situation] || [];
         stream.forEach((s, i) => add(s, 10 - i * 2, i === 0 ? 'correspond à votre situation' : null));
         if (answers.location === 'offshore') {
-          add('partner-visa-309-100', 4, 'vous déposeriez votre demande hors d’Australie');
+          add('partner-visa-309-100', 4, 'vous déposeriez votre demande hors d'Australie');
           add('partner-visa-820-801', -6);
         } else if (answers.location === 'onshore') {
           add('partner-visa-820-801', 4, 'vous êtes déjà en Australie');
@@ -102,7 +102,7 @@
         if (answers.age === '45plus') {
           add('skilled-independent-189-190', -8); add('skills-in-demand-482', -2);
           add('employer-nomination-186', -4); add('work-holiday-417-462', -10);
-          add('skilled-regional-494', 2, 'les voies régionales et DAMA peuvent accorder des concessions d’âge');
+          add('skilled-regional-494', 2, 'les voies régionales et DAMA peuvent accorder des concessions d'âge');
         }
         if (answers.age === '40-44') { add('skilled-independent-189-190', -2); add('work-holiday-417-462', -10); add('skilled-regional-494', 1); }
         if (answers.age === 'u30') {
@@ -122,13 +122,13 @@
         if (answers.occupation === 'other' || answers.occupation === 'none') {
           add('skilled-independent-189-190', -5); add('skills-assessment', -3);
         }
-        if (answers.english === 'fluent') { add('skilled-independent-189-190', 2, 'un bon niveau d’anglais ajoute des points précieux'); }
+        if (answers.english === 'fluent') { add('skilled-independent-189-190', 2, 'un bon niveau d'anglais ajoute des points précieux'); }
         if (answers.english === 'basic') {
           add('skilled-independent-189-190', -3); add('skills-in-demand-482', -1);
           add('skilled-regional-494', 2, 'les concessions DAMA peuvent accepter un anglais plus faible');
         }
         if (answers.regional === 'yes') {
-          add('skilled-regional-494', 4, 'vous êtes ouvert à l’Australie régionale — la porte la plus large');
+          add('skilled-regional-494', 4, 'vous êtes ouvert à l'Australie régionale — la porte la plus large');
           add('skilled-independent-189-190', 1);
         }
         if (answers.regional === 'maybe') { add('skilled-regional-494', 2, 'les voies régionales pourraient améliorer vos chances'); }
@@ -138,8 +138,8 @@
           add('parent-visa-103', -3); add('skilled-independent-189-190', -1);
         }
         if (answers.timeframe === 'plan') {
-          add('skilled-independent-189-190', 2, 'vous avez le temps d’accumuler des points et des documents');
-          add('parent-visa-103', 1, 'les files d’attente parents récompensent une planification précoce');
+          add('skilled-independent-189-190', 2, 'vous avez le temps d'accumuler des points et des documents');
+          add('parent-visa-103', 1, 'les files d'attente parents récompensent une planification précoce');
         }
         const ranked = Object.entries(out)
           .filter(([, v]) => v > 2)
@@ -152,13 +152,13 @@
       function ruledOutNote() {
         const notes = [];
         if (answers.age === '45plus' && answers.situation === 'skilled') {
-          notes.push('Les visas qualifiés indépendants (189/190) ferment généralement à 45 ans — c’est pourquoi des voies régionales, DAMA ou employeur apparaissent à la place.');
+          notes.push('Les visas qualifiés indépendants (189/190) ferment généralement à 45 ans — c'est pourquoi des voies régionales, DAMA ou employeur apparaissent à la place.');
         }
         if (answers.age !== 'u30' && answers.situation === 'visit') {
-          notes.push('Les visas vacances-travail sont limités par l’âge (généralement 30 ans, ou 35 pour certains passeports) — le visa visiteur 600 est l’option flexible.');
+          notes.push('Les visas vacances-travail sont limités par l'âge (généralement 30 ans, ou 35 pour certains passeports) — le visa visiteur 600 est l'option flexible.');
         }
         if (answers.english === 'basic' && answers.situation === 'skilled') {
-          notes.push('Les visas indépendants à points exigent un bon niveau d’anglais ; améliorer votre score peut les rouvrir — nous pouvons le planifier.');
+          notes.push('Les visas indépendants à points exigent un bon niveau d'anglais ; améliorer votre score peut les rouvrir — nous pouvons le planifier.');
         }
         return notes;
       }

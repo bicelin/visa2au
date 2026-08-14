@@ -211,9 +211,14 @@ def main():
                 main_loc = main_loc.replace("'api/enquiry'", "'/api/enquiry'")
                 if lang == "ru":
                     # The muted payment note is EN/FR only — drop it from RU.
-                    _note = ('<p class="mt-4 text-sm text-slate-500 dark:text-slate-400">'
-                             'We prefer online consultations and remote access to speed up our work.</p>')
-                    main_loc = main_loc.replace(_note, "", 1)
+                    # a11y step 15 rewrote dark:text-slate-400 -> dark:text-slate-300,
+                    # so match either shade.
+                    for _shade in ("300", "400"):
+                        _note = ('<p class="mt-4 text-sm text-slate-500 dark:text-slate-' + _shade + '">'
+                                 'We prefer online consultations and remote access to speed up our work.</p>')
+                        if _note in main_loc:
+                            main_loc = main_loc.replace(_note, "", 1)
+                            break
                     # RU-only payment cards (Russian bank + Crypto) re-injected after the Stripe card.
                     # EN source intentionally carries only the 2 common cards; RU gets all 4.
                     _extra = ('<div class="reveal rounded-2xl border border-navy-800/10 bg-white p-5 dark:border-white/10 dark:bg-navy-900"> '
