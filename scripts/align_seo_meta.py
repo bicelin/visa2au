@@ -170,9 +170,11 @@ def main() -> None:
         # og:image at it (idempotent; survives rebuilds). The mapping is keyed by
         # the page's relative path (e.g. "index.html", "ru/migration-agent-melbourne.html").
         _card = _PAGE_CARDS.get(rel[:-5] if rel.endswith(".html") else rel)
-        if _card and "imgs/" + _card not in html:
+        if _card:
+            _card_url = BASE + "/imgs/" + _card
+            # Force og:image to the exact card URL (strip any prior cdn-cgi wrap or generic card).
             html = re.sub(r'(<meta property="og:image" content=")[^"]*(")',
-                          r'\g<1>' + BASE + "/imgs/" + _card + r'\g<2>', html, count=1)
+                          lambda m: m.group(1) + _card_url + m.group(2), html, count=1)
             html = re.sub(r'(<meta property="og:image:width" content=")[^"]*(")',
                           r'\g<1>1200\g<2>', html, count=1)
             html = re.sub(r'(<meta property="og:image:height" content=")[^"]*(")',
