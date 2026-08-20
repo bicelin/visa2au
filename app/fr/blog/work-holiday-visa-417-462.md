@@ -35,3 +35,5 @@ Vous pouvez travailler pour n'importe quel employeur pendant 6 mois maximum et �
 ## Comment nous pouvons vous aider
 
 Visa2AU peut vous accompagner dans votre demande de visa Working Holiday et vous conseiller sur les voies permettant de prolonger votre séjour en Australie. [Contactez-nous](../../contact.html) pour en savoir plus.
+
+**Articles connexes :** [visas de qualification](../../visas/skilled-independent-189-190.html) · [visa Work Holiday 417/462](../../visas/work-holiday-417-462.html)

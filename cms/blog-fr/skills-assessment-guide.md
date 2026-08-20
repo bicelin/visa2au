@@ -42,3 +42,5 @@ L'évaluation des compétences vérifie que vos diplômes et votre expérience p
 ## Comment nous pouvons vous aider
 
 Visa2AU propose un service complet de préparation de l'évaluation des compétences, pour un dossier complet et exact. [Contactez-nous](../../contact.html) pour démarrer.
+
+**Articles connexes :** [visas de qualification](../../visas/skilled-independent-189-190.html) · [agents de migration agréés](../../migration-agent-brisbane.html)

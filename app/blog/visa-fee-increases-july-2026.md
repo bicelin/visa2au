@@ -70,3 +70,5 @@ We work with these numbers daily, and a few things worry us about where this is 
 If you are planning an application in the next 6–12 months and want a realistic, current cost breakdown for your specific pathway — including the fees most people forget — [book a consultation](../contact.html) and we will map it out with you.
 
 *Figures in this article reflect the Department of Home Affairs pricing schedule effective 1 July 2026 and are provided as general information, not migration advice for your individual circumstances.*
+
+**Related:** [current visa fees](../pricing.html) · [Protection Visa 866](../visas/protection-visa-866.html)

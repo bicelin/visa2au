@@ -44,3 +44,5 @@ After a successful application, you will be invited to attend a citizenship cere
 ## How We Can Help
 
 Visa2AU assists with citizenship applications, helping you gather the right documents and prepare for the test. Contact us to start your journey to becoming an Australian citizen.
+
+**Related:** [Australian citizenship pathways](../visas/australian-citizenship.html) · [registered migration agent](../migration-agent-sydney.html)

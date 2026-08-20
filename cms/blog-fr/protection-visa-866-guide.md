@@ -46,3 +46,5 @@ La procédure comprend le dépôt d'une demande de visa de protection, suivi d'u
 ## Comment nous pouvons vous aider
 
 Visa2AU offre un accompagnement professionnel et bienveillant pour les demandes de visa de protection. Nous comprenons la nature sensible de ces dossiers et les traitons avec soin et confidentialité. [Contactez-nous](../../contact.html) en toute confiance.
+
+**Articles connexes :** [Visa de protection 866](../../visas/protection-visa-866.html) · [refus de visa](../../blog/visa-refusal-what-to-do.html)

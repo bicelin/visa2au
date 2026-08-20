@@ -70,3 +70,5 @@ Nous travaillons avec ces chiffres au quotidien, et certaines évolutions nous p
 Si vous prévoyez une demande dans les 6 à 12 prochains mois et souhaitez une estimation réaliste et à jour pour votre parcours précis — y compris les frais que la plupart des gens oublient — [réservez une consultation](../../contact.html) et nous établirons le plan avec vous.
 
 *Les montants cités dans cet article reflètent la grille tarifaire du ministère de l'Intérieur en vigueur au 1er juillet 2026 et sont fournis à titre d'information générale, et non comme un conseil en migration adapté à votre situation individuelle.*
+
+**Articles connexes :** [frais de visa actuels](../../pricing.html) · [Visa de protection 866](../../visas/protection-visa-866.html)

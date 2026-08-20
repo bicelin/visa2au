@@ -48,3 +48,5 @@ La sous-classe 189 est un visa soumis à un test de points (points-tested). Vous
 ## Comment nous pouvons vous aider
 
 Visa2AU offre un accompagnement de bout en bout pour le visa sous-classe 189 : de la préparation de l'évaluation des compétences au dépôt de l'EOI et de la demande de visa. [Contactez-nous](../../contact.html) pour évaluer vos chances.
+
+**Articles connexes :** [visa indépendante 189/190](../../visas/skilled-independent-189-190.html) · [évaluation des compétences](../../blog/skills-assessment-guide.html)

@@ -45,3 +45,5 @@ The Sponsored Parent Visa (subclass 870) is a temporary visa that allows parents
 ## How We Can Help
 
 Visa2AU provides comprehensive assistance with both the sponsorship and visa applications for the subclass 870 pathway.
+
+**Related:** [Parent visa 103](../visas/parent-visa-103.html) · [parent visa options](../blog/parent-visa-options-australia.html)

@@ -42,3 +42,5 @@ For parents who are of pension age and are in Australia, this visa allows them t
 ## Choosing the Right Pathway
 
 The best option depends on your family’s circumstances, budget, and timeline. Contact Visa2AU for personalised advice on the most suitable parent visa pathway.
+
+**Related:** [Parent visa 103](../visas/parent-visa-103.html) · [Sponsored Parent visa 870](../blog/sponsored-parent-visa-870.html)

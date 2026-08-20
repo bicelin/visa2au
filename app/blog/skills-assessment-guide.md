@@ -42,3 +42,5 @@ A skills assessment evaluates whether your qualifications and work experience me
 ## How We Can Help
 
 Visa2AU provides comprehensive skills assessment preparation services, ensuring your application is complete and accurate.
+
+**Related:** [Skilled visa pathways](../visas/skilled-independent-189-190.html) · [registered migration agents](../migration-agent-brisbane.html)

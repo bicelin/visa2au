@@ -46,3 +46,5 @@ The process involves a Protection Visa Application, followed by an interview wit
 ## How We Can Help
 
 Visa2AU provides compassionate and professional assistance with Protection Visa applications. We understand the sensitive nature of these cases and handle them with care and confidentiality.
+
+**Related:** [Protection Visa 866](../visas/protection-visa-866.html) · [visa refusal options](../blog/visa-refusal-what-to-do.html)

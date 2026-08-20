@@ -35,3 +35,5 @@ You can work for any employer for up to 6 months and study for up to 4 months. C
 ## How We Can Help
 
 Visa2AU can assist with your Working Holiday visa application and advise on pathways to extend your stay in Australia.
+
+**Related:** [Skilled visa pathways](../visas/skilled-independent-189-190.html) · [Work Holiday visa 417/462](../visas/work-holiday-417-462.html)

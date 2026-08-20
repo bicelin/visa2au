@@ -48,3 +48,5 @@ The subclass 189 is a points-tested visa. You must submit an Expression of Inter
 ## How We Can Help
 
 Visa2AU provides end-to-end assistance with the subclass 189 visa, from skills assessment preparation to EOI submission and visa application.
+
+**Related:** [Skilled Independent 189/190](../visas/skilled-independent-189-190.html) · [skills assessment](../blog/skills-assessment-guide.html)

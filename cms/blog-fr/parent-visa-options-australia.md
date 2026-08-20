@@ -42,3 +42,5 @@ Destiné aux parents ayant atteint l'âge de la retraite et se trouvant déjà e
 ## Choisir la bonne voie
 
 La meilleure option dépend de la situation de votre famille, de votre budget et de votre calendrier. [Contactez Visa2AU](../../contact.html) pour un conseil personnalisé sur la voie de visa parent la plus adaptée.
+
+**Articles connexes :** [visa Parent 103](../../visas/parent-visa-103.html) · [visa Sponsored Parent 870](../../blog/sponsored-parent-visa-870.html)

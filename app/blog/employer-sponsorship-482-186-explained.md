@@ -40,3 +40,5 @@ Employers should budget for sponsorship, nomination, and Skilling Australia Fund
 ## How Visa2AU Helps Employers
 
 We provide end-to-end employer sponsorship services, from initial sponsorship approval through to visa grant. Our team ensures compliance with all Department of Home Affairs requirements.
+
+**Related:** [Skills in Demand (SID) 482 visa](../visas/skills-in-demand-482.html) · [Employer Nomination Scheme 186](../visas/employer-nomination-186.html)

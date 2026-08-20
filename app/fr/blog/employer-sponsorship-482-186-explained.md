@@ -40,3 +40,5 @@ Les employeurs doivent budgéter les frais de parrainage, de nomination et la co
 ## Comment Visa2AU accompagne les employeurs
 
 Nous proposons un service complet de parrainage employeur, de l'agrément initial jusqu'à l'octroi du visa. Notre équipe garantit la conformité avec toutes les exigences du ministère de l'Intérieur (Department of Home Affairs). [Contactez-nous](../../contact.html) pour discuter de vos besoins de recrutement.
+
+**Articles connexes :** [visa SID 482](../../visas/skills-in-demand-482.html) · [Employer Nomination Scheme 186](../../visas/employer-nomination-186.html)
