@@ -9,3 +9,7 @@ pages_build_output_dir = "app"
 [[r2_buckets]]
 binding = "ENQUIRIES"
 bucket_name = "visa2au-enquiries"
+
+[[r2_buckets]]
+binding = "VOICE_TRANSCRIPTS"
+bucket_name = "voice-transcripts"

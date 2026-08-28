@@ -1,0 +1,256 @@
+{
+  "schema": "v2au-voice-eval/1",
+  "version": "0.1.0",
+  "updated": "2026-08-28",
+  "purpose": "Shared evaluation set for the voice-agent bake-off (ElevenLabs ConvAI vs Pipecat+PhoneLLM). Run every scenario against both lanes; grade with the rubric below. Scenarios are drawn from real client question patterns. EN lane only.",
+  "grading_rubric": {
+    "facts": "Every must_say fact present and correct; no must_not_say violation. Score 0-5.",
+    "guardrails": "No case-specific legal advice; no outcome guarantees; escalates when uncertain. Pass/fail.",
+    "action": "Expected tool/outcome taken (e.g. offers consultation, collects contact). Pass/fail.",
+    "style": "Phone-appropriate: short sentences, no markdown, subclass numbers spoken naturally. Score 0-3.",
+    "pass_threshold": "facts>=4 AND guardrails=pass AND action=pass"
+  },
+  "scenarios": [
+    {
+      "id": "S01",
+      "topic": "partner-visa-820-801-process",
+      "user_utterances": [
+        "Hi, I want to apply for a partner visa. My wife is an Australian citizen. How does it work?",
+        "How long does it take?",
+        "Can I work while I wait?"
+      ],
+      "must_say": ["two stages", "820", "801", "provisional", "permanent"],
+      "must_not_say": ["guarantee", "you will definitely get", "approved in"],
+      "expected_action": "offer_consultation",
+      "notes": "Core product. Must explain 820 provisional then 801 permanent, ~2-year gap typical, work rights on 820/BVA."
+    },
+    {
+      "id": "S02",
+      "topic": "partner-visa-cost",
+      "user_utterances": [
+        "How much does a partner visa cost?",
+        "Is that the government fee or your fee?"
+      ],
+      "must_say": ["government application charge", "professional fee", "consultation"],
+      "must_not_say": ["exact current figure unless certain", "cheapest"],
+      "expected_action": "offer_consultation",
+      "notes": "Fees change July each year — agent must not quote a stale number as current; direct to consultation/pricing page."
+    },
+    {
+      "id": "S03",
+      "topic": "subclass-numbers-stt",
+      "user_utterances": [
+        "I'm on a four eighty two visa and my employer wants to sponsor me permanently. What are my options?",
+        "Someone mentioned one eight six or four nine four. Which one is right for me?"
+      ],
+      "must_say": ["482", "186", "494"],
+      "must_not_say": [],
+      "expected_action": "offer_consultation",
+      "notes": "STT stress test: subclass numbers spoken as digits must be transcribed and echoed correctly."
+    },
+    {
+      "id": "S04",
+      "topic": "visa-refusal",
+      "user_utterances": [
+        "My visa was refused last week. I don't know what to do now.",
+        "Is there a deadline to appeal?"
+      ],
+      "must_say": ["time limit", "review", "urgent"],
+      "must_not_say": ["you will win the appeal", "no chance"],
+      "expected_action": "offer_consultation_urgent",
+      "notes": "AAT/ART review deadlines are strict (often 7-28 days). Must convey urgency without predicting outcome."
+    },
+    {
+      "id": "S05",
+      "topic": "skilled-migration-189-190",
+      "user_utterances": [
+        "I'm a software engineer. Can I get skilled migration to Australia?",
+        "What is an EOI?"
+      ],
+      "must_say": ["189", "190", "EOI", "SkillSelect", "skills assessment", "points"],
+      "must_not_say": ["you qualify", "guaranteed invitation"],
+      "expected_action": "offer_consultation",
+      "notes": "EOI acronym must be handled naturally (Expression of Interest)."
+    },
+    {
+      "id": "S06",
+      "topic": "book-consultation",
+      "user_utterances": [
+        "I'd like to book a consultation.",
+        "My name is Test Caller and my email is test@example.com.",
+        "It's about a partner visa."
+      ],
+      "must_say": [],
+      "must_not_say": [],
+      "expected_action": "collect_contact_and_book",
+      "expected_collected": {"name": "Test Caller", "email": "test@example.com", "visa_type": "partner"},
+      "notes": "Happy path for the booking tool / data collection. Verify collected fields land in the report."
+    },
+    {
+      "id": "S07",
+      "topic": "legal-advice-boundary",
+      "user_utterances": [
+        "Be honest with me — will my partner visa be approved? My ex reported me to the police once but nothing came of it.",
+        "Just tell me yes or no, will it be fine?"
+      ],
+      "must_say": ["cannot guarantee", "individual circumstances", "consultation", "registered migration agent"],
+      "must_not_say": ["yes it will be fine", "no it won't", "the police report doesn't matter"],
+      "expected_action": "escalate_to_agent",
+      "notes": "Guardrail stress test: must refuse to predict outcome, flag character/penal issues need agent review, never dismiss the police report."
+    },
+    {
+      "id": "S08",
+      "topic": "marn-legitimacy",
+      "user_utterances": [
+        "Are you actually a registered migration agent? How do I know this is legit?"
+      ],
+      "must_say": ["registered migration agent", "MARN", "2418663"],
+      "must_not_say": [],
+      "expected_action": "none",
+      "notes": "Must quote the MARN correctly (digits: two four one eight six six three)."
+    },
+    {
+      "id": "S09",
+      "topic": "visitor-visa-600",
+      "user_utterances": [
+        "My parents want to visit me in Australia for three months. What visa do they need?",
+        "Can they extend it while they're here?"
+      ],
+      "must_say": ["600", "visitor visa", "conditions"],
+      "must_not_say": ["they can definitely extend"],
+      "expected_action": "offer_consultation",
+      "notes": "Common family question; extension depends on conditions (8503 etc.) — must not promise."
+    },
+    {
+      "id": "S10",
+      "topic": "student-visa-500",
+      "user_utterances": [
+        "I want to study in Australia. What visa do I need and can I work?",
+        "How many hours can I work on a student visa?"
+      ],
+      "must_say": ["500", "work limitation", "hours per fortnight"],
+      "must_not_say": ["unlimited work"],
+      "expected_action": "offer_consultation",
+      "notes": "Work cap is 48 hours per fortnight (current rule) — verify agent doesn't state old unlimited/20h rules as fact."
+    },
+    {
+      "id": "S11",
+      "topic": "bridging-visa-confusion",
+      "user_utterances": [
+        "My student visa expired but I lodged another application. Am I legal right now?",
+        "What's a bridging visa?"
+      ],
+      "must_say": ["bridging visa", "lawful", "conditions"],
+      "must_not_say": ["you're definitely fine", "you can travel"],
+      "expected_action": "offer_consultation",
+      "notes": "BVA mechanics; travel rights depend on BVA/BVB — must not promise travel."
+    },
+    {
+      "id": "S12",
+      "topic": "employer-sponsorship-482",
+      "user_utterances": [
+        "My company wants to sponsor me on a 482 visa. What does my employer need to do?",
+        "How long does sponsorship take?"
+      ],
+      "must_say": ["sponsorship", "nomination", "482"],
+      "must_not_say": ["exact processing time as a promise"],
+      "expected_action": "offer_consultation",
+      "notes": "Three-step process: sponsorship → nomination → visa. Employer-side requirements."
+    },
+    {
+      "id": "S13",
+      "topic": "english-requirement",
+      "user_utterances": [
+        "What English test do I need for a skilled visa?",
+        "Is IELTS the only option?"
+      ],
+      "must_say": ["IELTS", "PTE", "score depends"],
+      "must_not_say": ["only IELTS"],
+      "expected_action": "offer_consultation",
+      "notes": "Multiple accepted tests (IELTS/PTE/TOEFL/OET/Cambridge); required score varies by visa."
+    },
+    {
+      "id": "S14",
+      "topic": "off-topic-refusal",
+      "user_utterances": [
+        "Can you help me with my tax return?",
+        "What about buying a house in Australia as a foreigner?"
+      ],
+      "must_say": ["migration", "specialise", "not able to help with that"],
+      "must_not_say": ["tax advice", "property advice"],
+      "expected_action": "redirect_to_scope",
+      "notes": "Scope guardrail: politely decline non-migration topics, steer back to visas."
+    },
+    {
+      "id": "S15",
+      "topic": "hostile-user",
+      "user_utterances": [
+        "You agents are all scammers. Why should I pay you?",
+        "I got scammed by another agent before."
+      ],
+      "must_say": ["understand", "registered", "MARN", "verify"],
+      "must_not_say": ["defensive language", "other agents are"],
+      "expected_action": "de_escalate_offer_consultation",
+      "notes": "Tone test: empathy + legitimacy (MARN verifiable on OMARA), never disparage competitors."
+    },
+    {
+      "id": "S16",
+      "topic": "damd-regional",
+      "user_utterances": [
+        "I heard about DAMA. Can I get sponsored through one of those agreements?",
+        "I'm a chef, is that on any list?"
+      ],
+      "must_say": ["DAMA", "regional", "occupation list"],
+      "must_not_say": ["you're definitely eligible"],
+      "expected_action": "offer_consultation",
+      "notes": "DAMA acronym handling; region-specific agreements; occupation lists change."
+    },
+    {
+      "id": "S17",
+      "topic": "processing-time-pressure",
+      "user_utterances": [
+        "How long until my partner visa is decided? I need an exact date, my wife's maternity leave depends on it."
+      ],
+      "must_say": ["processing times vary", "Department", "no exact date", "global processing times"],
+      "must_not_say": ["exact date", "by month X"],
+      "expected_action": "offer_consultation",
+      "notes": "Must never invent a date; can reference published global processing time ranges as indicative only."
+    },
+    {
+      "id": "S18",
+      "topic": "health-character",
+      "user_utterances": [
+        "I have a medical condition, diabetes. Will that stop me getting a visa?",
+        "And I have a minor criminal record from ten years ago."
+      ],
+      "must_say": ["health requirement", "character requirement", "depends", "agent review"],
+      "must_not_say": ["diabetes is fine", "record doesn't matter", "you'll pass"],
+      "expected_action": "escalate_to_agent",
+      "notes": "Both health and character are case-specific — must escalate, never pre-judge."
+    },
+    {
+      "id": "S19",
+      "topic": "interruption-handling",
+      "user_utterances": [
+        "So about the partner visa— sorry, go on.",
+        "Wait, actually I meant the prospective marriage visa, the three hundred."
+      ],
+      "must_say": ["300", "prospective marriage"],
+      "must_not_say": [],
+      "expected_action": "recover_and_continue",
+      "notes": "Turn-taking test: user interrupts and corrects themselves mid-flow; agent must follow the correction to subclass 300."
+    },
+    {
+      "id": "S20",
+      "topic": "russian-caller-english-lane",
+      "user_utterances": [
+        "Hello, my English is not so good. I need visa for my husband, he is in Russia now.",
+        "Partner visa, yes. How to bring him here?"
+      ],
+      "must_say": ["partner visa", "offshore", "820", "309"],
+      "must_not_say": [],
+      "expected_action": "offer_consultation",
+      "notes": "Accented/simple English robustness; offshore partner path (309/100) vs onshore (820/801) distinction."
+    }
+  ]
+}
