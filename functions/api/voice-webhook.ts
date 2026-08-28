@@ -1,10 +1,15 @@
 // POST /api/voice-webhook — ElevenLabs Conversational AI webhook.
 // On call end: extracts transcript + call summary (collected data: contact,
 // visa type, consultation need), emails the Visa2AU team via Resend.
+// Phase 0 (voice-agent bake-off): also normalizes the call to the shared
+// schema v2au-voice-transcript/1 and stores it (plus the raw payload) in the
+// R2 bucket bound as VOICE_TRANSCRIPTS (voice-transcripts). Best-effort:
+// storage failure never blocks the email report.
 // Env: RESEND_API_KEY (required), NOTIFY_TO?, FROM_EMAIL?,
 //      VOICE_WEBHOOK_SECRET? (verify `elevenlabs-signature: t=<ts>,v0=<hex>`
 //      HMAC-SHA256(secret, "<ts>."+rawBody), 30-min window),
-//      ELEVENLABS_API_KEY? (fetch full transcript/analysis when omitted).
+//      ELEVENLABS_API_KEY? (fetch full transcript/analysis when omitted),
+//      VOICE_TRANSCRIPTS? (R2 bucket binding).
 //
 // Agent dashboard (ElevenLabs → agent → Security/Webhook):
 //   URL: https://staging.visa2.au/api/voice-webhook  (production: https://visa2.au/api/voice-webhook)
@@ -17,6 +22,7 @@ interface Env {
   FROM_EMAIL?: string;
   VOICE_WEBHOOK_SECRET?: string;
   ELEVENLABS_API_KEY?: string;
+  VOICE_TRANSCRIPTS?: R2Bucket; // voice-transcripts bucket (Phase 0: baseline capture)
 }
 
 const DASHBOARD = "https://elevenlabs.io/app/conversational-ai/conversations";
@@ -113,6 +119,87 @@ function toCollectedList(v: unknown): { collection_name: string; result: unknown
   return [];
 }
 
+// --- Phase 0: normalize to the shared voice-transcript schema (v2au-voice-transcript/1) ---
+// Both ElevenLabs (here) and the Pipecat agent emit this shape so the bake-off
+// comparison and any future fine-tuning corpus use one format.
+function normalizeTranscript(opts: {
+  conversationId: string;
+  status: string;
+  data: Record<string, unknown>;
+  collected: { collection_name: string; result: unknown }[];
+  summary: string;
+  durationSecs: number;
+}): Record<string, unknown> {
+  const rawT = get(opts.data, "transcript");
+  const turns: { role: string; text: string; t_ms: number }[] = [];
+  if (Array.isArray(rawT)) {
+    for (const m of rawT as { role?: string; message?: string; time_in_call_secs?: number }[]) {
+      turns.push({
+        role: m.role === "agent" ? "assistant" : "user",
+        text: String(m.message ?? "").trim(),
+        t_ms: Math.round((m.time_in_call_secs ?? 0) * 1000),
+      });
+    }
+  }
+  const dv = (get(opts.data, "conversation_initiation_client_data.dynamic_variables") ||
+    get(opts.data, "dynamic_variables")) as Record<string, unknown> | undefined;
+  const collectedObj: Record<string, unknown> = {};
+  for (const c of opts.collected) {
+    if (c.collection_name) collectedObj[String(c.collection_name)] = c.result ?? null;
+  }
+  return {
+    schema: "v2au-voice-transcript/1",
+    call_id: opts.conversationId,
+    solution: "elevenlabs",
+    started_at: new Date(Date.now() - opts.durationSecs * 1000).toISOString(),
+    ended_at: new Date().toISOString(),
+    duration_s: opts.durationSecs,
+    status: opts.status || "completed",
+    language: String(dv?.language || "en"),
+    page_url: String(dv?.page_url || dv?.page || ""),
+    transcript: turns,
+    tool_calls: [], // ElevenLabs data-collection is surfaced via outcome.collected
+    metrics: {
+      stt_provider: "elevenlabs-built-in",
+      llm: "elevenlabs-built-in",
+      ttft_p50_ms: null, // not exposed by ElevenLabs webhooks
+      ttft_p95_ms: null,
+      stt_latency_p95_ms: null,
+      interruptions: null,
+    },
+    outcome: {
+      collected: collectedObj,
+      summary: opts.summary,
+      escalated: false,
+    },
+  };
+}
+
+async function storeTranscript(
+  bucket: R2Bucket | undefined,
+  conversationId: string,
+  normalized: Record<string, unknown>,
+  rawPayload: string
+): Promise<string | null> {
+  if (!bucket) return null;
+  const day = new Date().toISOString().slice(0, 10);
+  const key = `elevenlabs/${day}/${conversationId}.json`;
+  try {
+    await Promise.all([
+      bucket.put(key, JSON.stringify(normalized, null, 2), {
+        httpMetadata: { contentType: "application/json" },
+        customMetadata: { solution: "elevenlabs", schema: "v2au-voice-transcript/1" },
+      }),
+      bucket.put(`elevenlabs/${day}/${conversationId}.raw.json`, rawPayload, {
+        httpMetadata: { contentType: "application/json" },
+      }),
+    ]);
+    return key;
+  } catch {
+    return null; // storage is best-effort; never block the email report
+  }
+}
+
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
 
@@ -182,6 +269,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   );
   const durationSecs = Number(get(data, "metadata.call_duration_secs") ?? 0);
 
+  // --- Phase 0: store normalized transcript JSON in R2 (best-effort) ---
+  const normalized = normalizeTranscript({ conversationId, status, data, collected, summary, durationSecs });
+  const storedKey = await storeTranscript(env.VOICE_TRANSCRIPTS, conversationId, normalized, rawBody);
+
   const fields: { label: string; value: string }[] = [];
   if (Array.isArray(collected)) {
     for (const c of collected) {
@@ -229,5 +320,5 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   if (!er.ok) {
     return json({ ok: false, error: "Email delivery failed", detail: (await er.text()).slice(0, 200) }, 502);
   }
-  return json({ ok: true, conversation_id: conversationId, email_to: to });
+  return json({ ok: true, conversation_id: conversationId, email_to: to, transcript_stored: storedKey });
 };
