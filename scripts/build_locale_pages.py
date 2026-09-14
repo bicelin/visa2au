@@ -217,6 +217,9 @@ def main():
                 main_loc = re.sub(r"(?<=[A-Za-zÀ-ÿ])'(?=[A-Za-zÀ-ÿ])", "’", main_loc)
             if page == "contact":
                 main_loc = main_loc.replace("'api/enquiry'", "'/api/enquiry'")
+                # video lobby is an EN-only page: keep the link pointing at /video
+                # (./video.html would resolve to /ru/video or /fr/video -> 404)
+                main_loc = main_loc.replace('href="./video.html"', 'href="../video.html"')
                 if lang == "ru":
                     # The muted payment note is EN/FR only — drop it from RU.
                     # a11y step 15 rewrote dark:text-slate-400 -> dark:text-slate-300,

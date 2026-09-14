@@ -15,6 +15,10 @@ on:
       - "scripts/check_seo_invariants.py"
       - "scripts/build_locale_pages.py"
       - "scripts/localize_homepage_cards.py"
+      - "scripts/fix_locale_links.py"
+      - "scripts/blog_index_template_ru.html"
+      - "scripts/blog_index_template_fr.html"
+      - "scripts/blog_index_template.html"
   workflow_dispatch:
 
 permissions:
@@ -38,6 +42,9 @@ jobs:
 
       - name: Localize homepage cards (carousel EN names + localized blog cards)
         run: python3 scripts/localize_homepage_cards.py || true
+
+      - name: Rewrite locale links to localized twins (must run after every rebuild)
+        run: python3 scripts/fix_locale_links.py
 
       - name: Align SEO meta (canonical/hreflang/og/perf)
         run: python3 scripts/align_seo_meta.py
