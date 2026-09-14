@@ -18,3 +18,8 @@
 /blog/news-2      /blog     301
 /pt_BR            /fr/      301
 /pt_BR/           /fr/      301
+
+# Pathway Finder moved into /visas (anchor) — legacy stub 301s instead of a redirect HTML page.
+/pathways          /visas   301
+/ru/pathways       /ru/visas  301
+/fr/pathways       /fr/visas  301
