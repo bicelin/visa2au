@@ -7,3 +7,4 @@ __pycache__/
 *.pyc
 worker-configuration.d.ts
 link_graph_report.json
+kb/
