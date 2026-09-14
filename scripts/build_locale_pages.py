@@ -205,8 +205,16 @@ def main():
             if page not in covered:
                 print(f"  SKIP {lang}/{page}.html (translation maps not ready)")
                 continue
-            en_main = re.search(r'<main id="main">(.*?)</main>', open(os.path.join(APP, page + ".html"), encoding="utf-8").read(), re.S).group(1)
+            en_main_m = re.search(r'<main id="main">(.*?)</main>', open(os.path.join(APP, page + ".html"), encoding="utf-8").read(), re.S)
+            assert en_main_m, f"EN source {page}.html has no <main id=main>"
+            en_main = en_main_m.group(1)
             main_loc = translate_main(en_main, tmap_all)
+            if lang == "fr":
+                # FR JS-safety guard: an ASCII apostrophe inside a translated string
+                # literal ('s'est produite', d'Australie…) terminates the literal early
+                # -> SyntaxError kills the form/quiz on the page. Normalize
+                # word-internal apostrophes to typographic ’ (also correct typography).
+                main_loc = re.sub(r"(?<=[A-Za-zÀ-ÿ])'(?=[A-Za-zÀ-ÿ])", "’", main_loc)
             if page == "contact":
                 main_loc = main_loc.replace("'api/enquiry'", "'/api/enquiry'")
                 if lang == "ru":

@@ -6,7 +6,7 @@
 # Schedule 3, LMT, 4.55%, URLs, emails, phone numbers, addresses, symbols.
 
 FR_TITLE = "Tarifs — honoraires fixes transparents | Visa2AU"
-FR_DESC = "Tarifs transparents pour les services de visa australiens : consultations à 330 $/heure, visas partenaires à partir de 5 500 $ d'honoraires professionnels, parrainage par l'employeur à partir de 3 300 $. Honoraires fixes chiffrés avant tout engagement."
+FR_DESC = "Tarifs transparents pour les services de visa australiens : consultations à 330 $/heure, visas partenaires à partir de 5 500 $ d’honoraires professionnels, parrainage par l’employeur à partir de 3 300 $. Honoraires fixes chiffrés avant tout engagement."
 
 FR_TITLES = {
     "pricing.html": "Tarifs — honoraires fixes transparents | Visa2AU",
@@ -15,9 +15,9 @@ FR_TITLES = {
 }
 
 FR_DESCS = {
-    "pricing.html": "Tarifs transparents pour les services de visa australiens : consultations à 330 $/heure, visas partenaires à partir de 5 500 $ d'honoraires professionnels, parrainage par l'employeur à partir de 3 300 $. Honoraires fixes chiffrés avant tout engagement.",
+    "pricing.html": "Tarifs transparents pour les services de visa australiens : consultations à 330 $/heure, visas partenaires à partir de 5 500 $ d’honoraires professionnels, parrainage par l’employeur à partir de 3 300 $. Honoraires fixes chiffrés avant tout engagement.",
     "pay.html": "Payez votre facture Visa2AU en toute sécurité par carte de crédit internationale. Frais transparents : les frais de traitement de carte de 4.55% sont détaillés avant le paiement.",
-    "donate.html": "Le programme de responsabilité sociale de Visa2AU soutient l'éducation, les causes humanitaires et la préservation de la culture aborigène. Découvrez où vont vos dons — des contributions sécurisées via Stripe.",
+    "donate.html": "Le programme de responsabilité sociale de Visa2AU soutient l’éducation, les causes humanitaires et la préservation de la culture aborigène. Découvrez où vont vos dons — des contributions sécurisées via Stripe.",
 }
 
 FR_MAP = {
@@ -29,7 +29,7 @@ FR_MAP = {
     "Transparent <span class=\"text-gold-400\">Pricing</span>": "Tarifs <span class=\"text-gold-400\">transparents</span>",
     "No surprises. Fixed professional fees quoted before you commit, government charges itemised, and the card fee on /pay disclosed before you pay.": "Aucune surprise. Des honoraires professionnels fixes annoncés avant tout engagement, des frais gouvernementaux détaillés, et les frais de carte sur /pay indiqués avant le paiement.",
     "Online Consultation (1 hour)": "Consultation en ligne (1 heure)",
-    "Professional visa assessment and advice — pro rata fees may apply": "Évaluation professionnelle du dossier et conseils — une facturation au prorata peut s'appliquer",
+    "Professional visa assessment and advice — pro rata fees may apply": "Évaluation professionnelle du dossier et conseils — une facturation au prorata peut s’appliquer",
     "DAMA Consultation (1 hour)": "Consultation DAMA (1 heure)",
     "Designated Area Migration Agreement advice": "Conseils sur les accords Designated Area Migration Agreement",
     "Nil": "Gratuit",
@@ -47,26 +47,26 @@ FR_MAP = {
     "NZ Citizen Family Relationship": "Relation familiale avec un citoyen néo-zélandais (NZ)",
     "Child Visa (Offshore)": "Visa enfant (offshore)",
     "Dependent Child (Temporary)": "Enfant à charge (temporaire)",
-    "Combined temporary and permanent partner pathway. Schedule 3 may apply if not holding a substantive visa.": "Parcours combiné temporaire et permanent pour les visas partenaires. La Schedule 3 peut s'appliquer si vous ne détenez pas de visa substantif.",
+    "Combined temporary and permanent partner pathway. Schedule 3 may apply if not holding a substantive visa.": "Parcours combiné temporaire et permanent pour les visas partenaires. La Schedule 3 peut s’appliquer si vous ne détenez pas de visa substantif.",
     "Skilled Migration": "Migration qualifiée",
     "Skilled Independent Visa": "Visa indépendant qualifié",
     "Skilled Nominated Visa": "Visa qualifié avec nomination",
     "Skilled Regional (Permanent Residence)": "Visa régional qualifié (résidence permanente)",
     "Skilled Work Regional (Provisional)": "Visa régional de travail qualifié (provisoire)",
-    "Employer-Sponsored": "Parrainés par l'employeur",
+    "Employer-Sponsored": "Parrainés par l’employeur",
     "Skills in Demand — Employee": "Skills in Demand — Employé",
     "Skills in Demand — Employer SBS": "Skills in Demand — Employeur SBS",
-    "Skills in Demand — Employer Nomination": "Skills in Demand — Nomination de l'employeur",
+    "Skills in Demand — Employer Nomination": "Skills in Demand — Nomination de l’employeur",
     "Itemised at engagement": "Détaillés à la signature du mandat",
     "Skilled Regional — Employee": "Skilled Regional — Employé",
     "Skilled Regional — Employer SBS": "Skilled Regional — Employeur SBS",
-    "Skilled Regional — Employer Nomination": "Skilled Regional — Nomination de l'employeur",
+    "Skilled Regional — Employer Nomination": "Skilled Regional — Nomination de l’employeur",
     "Temporary Work (Short Stay Specialist)": "Travail temporaire (spécialiste de court séjour)",
     "Training Visa": "Visa de formation",
-    "Temporary Activity Visa": "Visa d'activité temporaire",
+    "Temporary Activity Visa": "Visa d’activité temporaire",
     "Working Holiday Visa": "Visa vacances-travail",
     "Work and Holiday Visa": "Visa travail et vacances",
-    "Government charges for employer-sponsored visas include sponsorship, nomination and SAF levy components — we itemise them fully in your engagement letter.": "Les frais gouvernementaux des visas parrainés par l'employeur incluent les composantes sponsorship, nomination et la taxe SAF — nous les détaillons intégralement dans votre lettre de mission.",
+    "Government charges for employer-sponsored visas include sponsorship, nomination and SAF levy components — we itemise them fully in your engagement letter.": "Les frais gouvernementaux des visas parrainés par l’employeur incluent les composantes sponsorship, nomination et la taxe SAF — nous les détaillons intégralement dans votre lettre de mission.",
     "Visitor &amp; Short Stay": "Visiteur & court séjour",
     "Visitor — Tourist (offshore)": "Visiteur — Touriste (offshore)",
     "Visitor — Tourist (onshore)": "Visiteur — Touriste (onshore)",
@@ -89,7 +89,7 @@ FR_MAP = {
     "870 (Combined)": "870 (combiné)",
     "Sponsored Parent (Visa + Sponsorship)": "Visa parent parrainé (visa + parrainage)",
     "$1,145 (visa) + $420 (sponsorship)": "$1,145 (visa) + $420 (parrainage)",
-    "Parent strategy (queue vs contributory vs 870) should be mapped in a consultation before committing — the wrong choice is expensive.": "La stratégie parentale (file d'attente vs contributif vs 870) doit être définie lors d'une consultation avant tout engagement — un mauvais choix coûte cher.",
+    "Parent strategy (queue vs contributory vs 870) should be mapped in a consultation before committing — the wrong choice is expensive.": "La stratégie parentale (file d’attente vs contributif vs 870) doit être définie lors d’une consultation avant tout engagement — un mauvais choix coûte cher.",
     "Other Services": "Autres services",
     "Student Visa": "Visa étudiant",
     "Protection Visa (Onshore)": "Visa de protection (onshore)",
@@ -97,9 +97,9 @@ FR_MAP = {
     "Bridging Visa Application (other)": "Demande de visa relais (autre)",
     "Usually no charge": "Généralement sans frais",
     "Skills Assessment (Professional Occupation)": "Évaluation des compétences (profession qualifiée)",
-    "$500–$1,200 AUD (authority fee)": "$500–$1,200 AUD (frais de l'organisme d'évaluation)",
+    "$500–$1,200 AUD (authority fee)": "$500–$1,200 AUD (frais de l’organisme d’évaluation)",
     "Skills Assessment (Trade Occupation)": "Évaluation des compétences (métier technique)",
-    "$300–$1,000 AUD (authority fee)": "$300–$1,000 AUD (frais de l'organisme d'évaluation)",
+    "$300–$1,000 AUD (authority fee)": "$300–$1,000 AUD (frais de l’organisme d’évaluation)",
     "ART Tribunal Application (Visa Refusal Appeal)": "Recours au tribunal ART (appel de refus de visa)",
     "$3,496 AUD (50% refundable if successful)": "$3,496 AUD (50% remboursables en cas de succès)",
     "Citizenship by Conferral (general)": "Citoyenneté par attribution (général)",
@@ -108,7 +108,7 @@ FR_MAP = {
     "NAATI Certified Translation (per page)": "Traduction certifiée NAATI (par page)",
     "On demand": "Sur demande",
     "Document Authentication / Legalisation": "Authentification / légalisation de documents",
-    "Government fees are set by the Department of Home Affairs and are subject to annual adjustment. Fees shown are current as of 1 July 2026. Additional charges may apply for health checks, police clearances, and biometrics. Professional fees are quoted and fixed in your engagement letter before work begins.": "Les frais gouvernementaux sont fixés par le ministère de l'Intérieur et peuvent être ajustés chaque année. Les frais indiqués sont en vigueur au 1er juillet 2026. Des frais supplémentaires peuvent s'appliquer pour les examens médicaux, les extraits de casier judiciaire et la biométrie. Les honoraires professionnels sont chiffrés et fixés dans votre lettre de mission avant le début du travail.",
+    "Government fees are set by the Department of Home Affairs and are subject to annual adjustment. Fees shown are current as of 1 July 2026. Additional charges may apply for health checks, police clearances, and biometrics. Professional fees are quoted and fixed in your engagement letter before work begins.": "Les frais gouvernementaux sont fixés par le ministère de l’Intérieur et peuvent être ajustés chaque année. Les frais indiqués sont en vigueur au 1er juillet 2026. Des frais supplémentaires peuvent s’appliquer pour les examens médicaux, les extraits de casier judiciaire et la biométrie. Les honoraires professionnels sont chiffrés et fixés dans votre lettre de mission avant le début du travail.",
     "Want an exact quote for your case?": "Vous voulez un devis exact pour votre dossier ?",
     "Book a consultation — you&#39;ll leave with a clear plan and a fixed fee in writing.": "Réservez une consultation — vous repartirez avec un plan clair et des honoraires fixes par écrit.",
     "Book a consultation →": "Réserver une consultation →",
@@ -126,26 +126,26 @@ FR_MAP = {
     "We are open about fees: when you choose to pay by international credit card, the Stripe processing cost (4.55%) is passed on to you — itemised here before you pay. To avoid the card fee, ask us for bank transfer details at <a href=\"mailto:info@visa2.au\" class=\"underline\">info@visa2.au</a>.": "Nous sommes transparents sur les frais : si vous choisissez de payer par carte de crédit internationale, le coût de traitement Stripe (4.55%) vous est refacturé — il est détaillé ici avant le paiement. Pour éviter ces frais de carte, demandez-nous les coordonnées bancaires pour un virement à <a href=\"mailto:info@visa2.au\" class=\"underline\">info@visa2.au</a>.",
     "Proceed to Secure Payment →": "Passer au paiement sécurisé →",
     "Stripe checkout in test mode — live keys are added at launch. Card details never touch our servers.": "Paiement Stripe en mode test — les clés de production seront ajoutées au lancement. Les données de carte ne touchent jamais nos serveurs.",
-    "As shown on the invoice": "Tel qu'indiqué sur la facture",
+    "As shown on the invoice": "Tel qu’indiqué sur la facture",
     "e.g. V2AU-2026-041": "p. ex. V2AU-2026-041",
     # ===== donate.html =====
     "Our <span class=\"text-gold-400\">Commitment</span>": "Notre <span class=\"text-gold-400\">engagement</span>",
-    "Smart immigration comes with social responsibility. Our giving program supports education, cultural preservation and humanitarian causes — in Australia and beyond.": "Une immigration intelligente va de pair avec la responsabilité sociale. Notre programme de dons soutient l'éducation, la préservation culturelle et les causes humanitaires — en Australie et au-delà.",
-    "Visa2AU is committed to giving back": "Visa2AU s'engage à redonner à la communauté",
-    "\nWe believe success comes with responsibility. Whether it's helping a child access education or preserving\n        Australia's rich Indigenous heritage, your support matters. Every contribution — big or small — helps build\n        a stronger, more connected community. Thank you for being part of our mission to create lasting positive change.\n": "\nNous croyons que le succès s'accompagne de responsabilité. Qu'il s'agisse d'aider un enfant à accéder à l'éducation ou de préserver\n        le riche héritage autochtone de l'Australie, votre soutien compte. Chaque contribution — grande ou petite — aide à construire\n        une communauté plus forte et plus unie. Merci de faire partie de notre mission de créer un changement positif durable.\n",
+    "Smart immigration comes with social responsibility. Our giving program supports education, cultural preservation and humanitarian causes — in Australia and beyond.": "Une immigration intelligente va de pair avec la responsabilité sociale. Notre programme de dons soutient l’éducation, la préservation culturelle et les causes humanitaires — en Australie et au-delà.",
+    "Visa2AU is committed to giving back": "Visa2AU s’engage à redonner à la communauté",
+    "\nWe believe success comes with responsibility. Whether it’s helping a child access education or preserving\n        Australia’s rich Indigenous heritage, your support matters. Every contribution — big or small — helps build\n        a stronger, more connected community. Thank you for being part of our mission to create lasting positive change.\n": "\nNous croyons que le succès s’accompagne de responsabilité. Qu’il s’agisse d’aider un enfant à accéder à l’éducation ou de préserver\n        le riche héritage autochtone de l’Australie, votre soutien compte. Chaque contribution — grande ou petite — aide à construire\n        une communauté plus forte et plus unie. Merci de faire partie de notre mission de créer un changement positif durable.\n",
     "Where your donation <span class=\"text-gold-600 dark:text-gold-400\">goes</span>": "Où va votre <span class=\"text-gold-600 dark:text-gold-400\">don</span>",
     "We direct our efforts toward causes that create lasting, meaningful impact.": "Nous orientons nos efforts vers des causes qui créent un impact durable et significatif.",
-    "Education support": "Soutien à l'éducation",
-    "Education changes lives. Contributions help provide access to learning for underprivileged communities — scholarships, educational resources and skill-building programs.": "L'éducation change des vies. Les contributions aident à offrir l'accès à l'apprentissage aux communautés défavorisées — bourses, ressources pédagogiques et programmes de développement des compétences.",
+    "Education support": "Soutien à l’éducation",
+    "Education changes lives. Contributions help provide access to learning for underprivileged communities — scholarships, educational resources and skill-building programs.": "L’éducation change des vies. Les contributions aident à offrir l’accès à l’apprentissage aux communautés défavorisées — bourses, ressources pédagogiques et programmes de développement des compétences.",
     "Humanitarian causes": "Causes humanitaires",
     "We support organisations providing relief, protection and assistance to displaced individuals and families — standing with people rebuilding their lives in new communities.": "Nous soutenons des organisations qui apportent secours, protection et assistance aux personnes et familles déplacées — aux côtés de ceux qui reconstruisent leur vie dans de nouvelles communautés.",
     "Aboriginal cultural programs": "Programmes culturels aborigènes",
-    "Australia&#39;s Indigenous heritage is deeply woven into its identity. We support programs that preserve Aboriginal culture, language and arts — honouring the world&#39;s oldest continuous culture.": "L'héritage autochtone de l'Australie est profondément tissé dans son identité. Nous soutenons des programmes qui préservent la culture, la langue et les arts aborigènes — honorant la plus ancienne culture continue du monde.",
+    "Australia&#39;s Indigenous heritage is deeply woven into its identity. We support programs that preserve Aboriginal culture, language and arts — honouring the world&#39;s oldest continuous culture.": "L’héritage autochtone de l’Australie est profondément tissé dans son identité. Nous soutenons des programmes qui préservent la culture, la langue et les arts aborigènes — honorant la plus ancienne culture continue du monde.",
     "Choose an amount (AUD)": "Choisissez un montant (AUD)",
     "Or a custom amount": "Ou un montant personnalisé",
     "Donate Securely →": "Faire un don sécurisé →",
-    "Secure payment via Stripe (test mode until launch keys are added). Donations are not tax-deductible.": "Paiement sécurisé via Stripe (mode test jusqu'à l'ajout des clés de lancement). Les dons ne sont pas déductibles des impôts.",
-    "Prefer to give with your visa services? Ask us to add a voluntary donation to your invoice.": "Vous préférez donner avec vos services de visa ? Demandez-nous d'ajouter un don volontaire à votre facture.",
+    "Secure payment via Stripe (test mode until launch keys are added). Donations are not tax-deductible.": "Paiement sécurisé via Stripe (mode test jusqu’à l’ajout des clés de lancement). Les dons ne sont pas déductibles des impôts.",
+    "Prefer to give with your visa services? Ask us to add a voluntary donation to your invoice.": "Vous préférez donner avec vos services de visa ? Demandez-nous d’ajouter un don volontaire à votre facture.",
 }
 
 FR_SKIPPED = [
