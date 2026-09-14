@@ -20,7 +20,7 @@ const FIELDS = [
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   if (!env.CARTESIA_TOOL_SECRET || request.headers.get("X-V2AU-Secret") !== env.CARTESIA_TOOL_SECRET)
-    return json({ error: "unauthorized" }, 401);
+    return json({ error: "unauthorized", dbg: { have: !!env.CARTESIA_TOOL_SECRET, len: (env.CARTESIA_TOOL_SECRET || "").length, got: (request.headers.get("X-V2AU-Secret") || "").length } }, 401);
   if (!env.VOICE_TRANSCRIPTS) return json({ error: "storage unavailable" }, 503);
 
   let body: Record<string, unknown>;
