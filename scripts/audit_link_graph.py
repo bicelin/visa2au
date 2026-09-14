@@ -171,7 +171,8 @@ def main():
         "external_links": sorted(externals),
         "pages_scanned": len(files),
     }
-    out = "/tmp/link_graph_report.json"
+    fail = "--fail-on-issue" in sys.argv
+    out = os.path.join(os.path.dirname(APP), "link_graph_report.json")
     json.dump(report, open(out, "w"), indent=1, ensure_ascii=False)
 
     print(f"pages: {len(files)} | internal links: {stats['internal_total']} | dead: "
@@ -181,6 +182,18 @@ def main():
     print(f"root-prefix links: {stats['root_prefix']} | via _redirects ok: {stats['redirected_ok']}")
     print(f"orphans: {len(orphans)} | EN pages w/o full ru+fr twins: {len(no_twin)} | external URLs: {len(externals)}")
     print(f"report: {out}")
+
+    if fail:
+        blocking = [i for i in issues if i["type"] in ("DEAD", "SWITCHER_DEAD", "EN_FALLBACK")]
+        if blocking:
+            print(f"\nGATE FAILED — {len(blocking)} blocking link issue(s):")
+            for i in blocking[:20]:
+                print(f"  {i['type']}: {i['src']} -> {i['href']}"
+                      + (f" (twin: {i['twin_exists']})" if i.get("twin_exists") else ""))
+            if len(blocking) > 20:
+                print(f"  ... and {len(blocking) - 20} more (see {out})")
+            sys.exit(1)
+        print("\nGATE OK: 0 dead, 0 EN-fallback-with-twin, switcher links valid")
 
 if __name__ == "__main__":
     main()

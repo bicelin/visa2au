@@ -16,6 +16,7 @@ on:
       - "scripts/build_locale_pages.py"
       - "scripts/localize_homepage_cards.py"
       - "scripts/fix_locale_links.py"
+      - "scripts/audit_link_graph.py"
       - "scripts/blog_index_template_ru.html"
       - "scripts/blog_index_template_fr.html"
       - "scripts/blog_index_template.html"
@@ -57,6 +58,9 @@ jobs:
 
       - name: Check SEO invariants
         run: python3 scripts/check_seo_invariants.py
+
+      - name: Link graph gate (dead links + locale leaks block the build)
+        run: python3 scripts/audit_link_graph.py --fail-on-issue
 
       - name: Commit generated files
         run: |
