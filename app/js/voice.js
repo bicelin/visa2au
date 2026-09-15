@@ -10,7 +10,7 @@
   'use strict';
   var AGENT_IDS = null, TK = null, TK_EXP = 0, ws = null, active = false;
   var audioCtx = null, micNode = null, mediaStream = null;
-  var outCtx = null, nextPlayTime = 0, playing = [];
+  var outCtx = null, nextPlayTime = 0, playing = [], speechStartAt = 0;
   var els = {};
   var CALL_LANG = 'en';
 
@@ -131,7 +131,7 @@
   });
 
   /* ---------------- audio plumbing ---------------- */
-  var RATE = 16000;
+  var RATE = 44100;  // allowed enum; AudioContext resamples from device 48k
 
   async function startMic(send) {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: RATE });
@@ -149,12 +149,13 @@
       }
       send(b64(pcm.buffer));
     };
-    src.connect(sp); sp.connect(audioCtx.destination);
+    var sink = audioCtx.createGain(); sink.gain.value = 0; sink.connect(audioCtx.destination);
+    src.connect(sp); sp.connect(sink);
     micNode = sp;
   }
 
   function ensureOut() {
-    if (!outCtx) outCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (!outCtx) outCtx = new (window.AudioContext || window.webkitAudioContext)();  // device rate; buffers carry 44.1k metadata and are resampled by the browser
     return outCtx;
   }
 
@@ -234,9 +235,11 @@
           startMic(function (a) { if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'audio_input', audio: a })); })
             .catch(function () { say('Microphone blocked — allow mic access and try again.'); stop(); });
         } else if (ev.type === 'audio_output') {
+          if (playing.length === 0) speechStartAt = Date.now();  // new utterance begins
           playPcm(ev.audio);
         } else if (ev.type === 'audio_output_clear') {
-          clearPlayback();
+          if (Date.now() - speechStartAt < 700) { /* clear within 0.7 s of speech start = echo artifact, ignore */ }
+          else clearPlayback();
         } else if (ev.type === 'client_tool_call') {
           handleToolCall(ev);
         } else if (ev.type === 'turn_ended') {
