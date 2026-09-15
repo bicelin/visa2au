@@ -23,7 +23,6 @@ SCRIPT_ALLOW = [
     "blob:",
     "https://unpkg.com",
     "https://cdn.jsdelivr.net",
-    "https://*.elevenlabs.io",
     "https://*.daily.co",
     "https://static.cloudflareinsights.com",
     "https://challenges.cloudflare.com",

@@ -177,19 +177,27 @@
       );
       document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
     </script>  <script>
-        // ElevenLabs voice assistant — lazy load on first interaction (feature flag: PUBLIC_VOICE_ASSISTANT)
+        // Visa2AU voice assistant (Cartesia managed agent) — lazy load on first
+        // click of #voice-fab. Kill switch: VOICE_ASSISTANT_ENABLED=false ->
+        // /api/voice-status enabled:false -> section hidden, script never loaded.
         (function () {
-          let loaded = false;
+          (window.requestIdleCallback || function (cb) { setTimeout(cb, 2000); })(function () {
+            fetch('/api/voice-status').then(function (r) { return r.json(); }).then(function (s) {
+              if (s && s.enabled === false) {
+                window.__v2auVoiceDisabled = true;
+                var vb = document.getElementById('voice-cta');
+                if (vb && vb.closest) { var vs = vb.closest('section'); if (vs) vs.style.display = 'none'; }
+              }
+            }).catch(function () {});
+          });
           window.__loadVoice = function () {
-            if (loaded) return;
-            loaded = true;
-            const el = document.createElement('elevenlabs-convai');
-            el.setAttribute('agent-id', 'sbc5vWaEfYENNm21h3Sd');
-            document.body.appendChild(el);
-            const s = document.createElement('script');
-            s.src = 'https://unpkg.com/@elevenlabs/convai-widget-embed';
-            s.async = true;
+            if (window.__v2auVoiceDisabled) return;
+            if (window.__v2auVoiceBooted) return;
+            window.__v2auVoiceBooted = true;
+            var s = document.createElement('script');
+            s.src = '/js/voice.js';
+            s.onload = function () { window.__v2auVoiceStart(); };
             document.body.appendChild(s);
           };
         })();
-      </script> <button id="voice-fab" aria-label="Поговорите с нашим голосовым ассистентом (27+ языков). Не заменяет профессиональную миграционную консультацию." class="fixed bottom-5 left-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-navy-800 shadow-lg ring-2 ring-gold-500 transition hover:scale-105 dark:bg-navy-700"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f0a000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <path d="M12 2a4 4 0 0 0-4 4v6a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4Z"></path> <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path> <path d="M12 19v3"></path> </svg> </button>  <script id="v2au-voice-bind">(function(){var f=document.getElementById("voice-fab");if(f)f.addEventListener("click",function(){window.__loadVoice();this.remove();});})();</script></body></html>
+      </script> <button id="voice-fab" aria-label="Поговорите с нашим голосовым ассистентом (русский, английский, французский). Не заменяет профессиональную миграционную консультацию." class="fixed bottom-5 left-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-navy-800 shadow-lg ring-2 ring-gold-500 transition hover:scale-105 dark:bg-navy-700"> <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#f0a000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <path d="M12 2a4 4 0 0 0-4 4v6a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4Z"></path> <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path> <path d="M12 19v3"></path> </svg> </button>  <script id="v2au-voice-bind">(function(){var f=document.getElementById("voice-fab");if(f)f.addEventListener("click",function(){window.__loadVoice();this.remove();});})();</script></body></html>
