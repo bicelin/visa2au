@@ -10,7 +10,7 @@
   'use strict';
   var AGENT_IDS = null, TK = null, TK_EXP = 0, ws = null, active = false;
   var audioCtx = null, micNode = null, mediaStream = null;
-  var outCtx = null, nextPlayTime = 0, playing = [], speechStartAt = 0;
+  var outCtx = null, nextPlayTime = 0, playing = [], speechEndAt = 0;
   var els = {};
   var CALL_LANG = 'en';
 
@@ -141,6 +141,11 @@
     var sp = audioCtx.createScriptProcessor(4096, 1, 1);
     sp.onaudioprocess = function (e) {
       if (!ws || ws.readyState !== 1 || !active) return;
+      // Half-duplex gate: browser AEC has no reference for WebAudio playback,
+      // so the agent would hear itself through our mic and the server VAD
+      // would interrupt it (the ~1s cut-off + clear-storm crackle). Stay quiet
+      // while it speaks; resume 350 ms after its last chunk ends.
+      if (playing.length > 0 || Date.now() - speechEndAt < 350) return;
       var inp = e.inputBuffer.getChannelData(0);
       var pcm = new Int16Array(inp.length);
       for (var i = 0; i < inp.length; i++) {
@@ -170,13 +175,16 @@
     var buf = ctx.createBuffer(1, f.length, RATE);
     buf.getChannelData(0).set(f);
     var now = ctx.currentTime;
-    if (nextPlayTime < now + 0.05) nextPlayTime = now + 0.05;
+    if (nextPlayTime < now + 0.02) nextPlayTime = now + 0.02;
     var node = ctx.createBufferSource();
     node.buffer = buf; node.connect(ctx.destination);
     node.start(nextPlayTime);
     nextPlayTime += buf.duration;
     playing.push(node);
-    node.onended = function () { playing = playing.filter(function (x) { return x !== node; }); };
+    node.onended = function () {
+      playing = playing.filter(function (x) { return x !== node; });
+      if (playing.length === 0) speechEndAt = Date.now();
+    };
   }
 
   function clearPlayback() {
@@ -235,11 +243,9 @@
           startMic(function (a) { if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'audio_input', audio: a })); })
             .catch(function () { say('Microphone blocked — allow mic access and try again.'); stop(); });
         } else if (ev.type === 'audio_output') {
-          if (playing.length === 0) speechStartAt = Date.now();  // new utterance begins
           playPcm(ev.audio);
         } else if (ev.type === 'audio_output_clear') {
-          if (Date.now() - speechStartAt < 700) { /* clear within 0.7 s of speech start = echo artifact, ignore */ }
-          else clearPlayback();
+          clearPlayback();  // real user barge-in (mic is gated while agent speaks, so no self-echo)
         } else if (ev.type === 'client_tool_call') {
           handleToolCall(ev);
         } else if (ev.type === 'turn_ended') {
