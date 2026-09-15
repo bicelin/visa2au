@@ -41,6 +41,12 @@ Registration: migration agents are bound by the OMARA Code of Conduct. Governmen
 - POST /api/video-join — body `{"name": "...", "passcode": "..."}`; validates the lobby passcode and returns `{"ok": true, "url": "https://<daily-domain>/<room>?t=<token>"}` for the Daily.co video consultation lobby.
 - POST /api/enquiry — multipart enquiry form (name, email, topic, message, optional files, Turnstile token).
 - POST /api/checkout — Stripe Checkout session creation (consultation payment / donation).
+- GET /api/voice-status — voice assistant flag + per-language Cartesia agent IDs. GET /api/voice-token — 300-second browser access token for a voice call (public, no visitor credentials required).
+
+## Voice assistant (public information only)
+
+The site offers an AI voice assistant in English, Russian and French (Cartesia managed agents, voices Ella/Sergei/Inès). It explains general, publicly available information about Australian visa categories and Visa2AU services from this site's content, can read pages aloud, and can record an enquiry (name, email, phone/messenger preference, visa interest) so a registered migration agent (MARA) contacts you. It does NOT give immigration advice, eligibility assessments, strategy or recommendations — that is reserved to registered migration agents. Consultations with a registered agent are AUD 330 (professional fee; government visa charges are separate). Call enquiries are emailed to the Visa2AU team.
+
 
 ## Urgent deadlines (citation-ready)
 
