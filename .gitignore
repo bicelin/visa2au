@@ -8,3 +8,4 @@ __pycache__/
 worker-configuration.d.ts
 link_graph_report.json
 kb/
+cartesia_state.json
