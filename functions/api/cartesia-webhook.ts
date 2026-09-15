@@ -81,7 +81,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     if (await r2.get(`calls/${callId}/done`)) return json({ ok: true, deduped: "call" });
 
     // lead: find the tool_call(s) for this call, read the stored args
+    const call = (ev.call ?? {}) as { transcript?: Array<{ role?: string; text?: string }>;
+      start_time?: string; end_time?: string; agent_name?: string; error_message?: string };
     let lead: Record<string, string> | null = null;
+    let leadTsKey = "";
     try {
       const listing = await r2.list({ prefix: `calls/${callId}/toolcall-`, limit: 10 });
       for (const obj of listing.objects) {
@@ -90,12 +93,52 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
         const map = JSON.parse(await gm.text()) as { tool_call_id?: string };
         if (!map.tool_call_id) continue;
         const f = await r2.get(`leads/by-tool/${safeId(map.tool_call_id)}.json`);
-        if (f) { lead = JSON.parse(await f.text()).lead; break; }
+        if (f) {
+          const rec = JSON.parse(await f.text());
+          lead = rec.lead; leadTsKey = `leads/by-tool/${safeId(map.tool_call_id)}.json`;
+          break;
+        }
       }
-    } catch { /* transcript email still goes out */ }
+    } catch { /* fall through to time-window claim */ }
 
-    const call = (ev.call ?? {}) as { transcript?: Array<{ role?: string; text?: string }>;
-      start_time?: string; end_time?: string; agent_name?: string; error_message?: string };
+    // Fallback correlation (call_turn may never arrive — Bot Fight Mode drops
+    // Cartesia's webhook POSTs): claim the most recent UNclaimed lead whose
+    // timestamp falls inside this call's window (+/- 120 s slack).
+    if (!lead) {
+      try {
+        const startMs = Date.parse(String(call.start_time ?? "")) - 120000;
+        const endMs = Date.parse(String(call.end_time ?? "")) + 120000;
+        if (Number.isFinite(startMs) && Number.isFinite(endMs)) {
+          const listing = await r2.list({ prefix: "leads/ts/", limit: 100 });
+          let best: { key: string; at: number; lead: Record<string, string> } | null = null;
+          for (const obj of listing.objects) {
+            const gm = await r2.get(obj.key);
+            if (!gm) continue;
+            const rec = JSON.parse(await gm.text()) as
+              { at?: string; claimed?: boolean; lead?: Record<string, string> };
+            if (rec.claimed || !rec.at || !rec.lead) continue;
+            const at = Date.parse(rec.at);
+            if (at < startMs || at > endMs) continue;
+            if (!best || at > best.at) best = { key: obj.key, at, lead: rec.lead };
+          }
+          if (best) {
+            lead = best.lead; leadTsKey = best.key;
+            // mark claimed under both storage copies so a later call can't reuse it
+            try {
+              const gm = await r2.get(best.key);
+              if (gm) {
+                const rec = JSON.parse(await gm.text()); rec.claimed = true;
+                await r2.put(best.key, JSON.stringify(rec, null, 1));
+                const bt = `leads/by-tool/${safeId(rec.tool_call_id)}.json`;
+                const gf = await r2.get(bt);
+                if (gf) { const r2c = JSON.parse(await gf.text()); r2c.claimed = true; await r2.put(bt, JSON.stringify(r2c, null, 1)); }
+              }
+            } catch { /* best-effort marking */ }
+          }
+        }
+      } catch { /* transcript email still goes out */ }
+    }
+
     const transcript: Array<{ role?: string; text?: string }> = call.transcript ?? [];
 
     // recording (best-effort): WAV from Cartesia -> ENQUIRIES bucket -> signed link
@@ -120,7 +163,6 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     }
 
     if (!lead && transcript.length === 0 && !recLink) return json({ ok: true, skipped: "empty call" });
-
     const to = env.NOTIFY_TO || "sergey@visa2.au";
     const from = env.FROM_EMAIL || "noreply@visa2.au";
     const leadHtml = lead ? `<h2>Captured enquiry</h2><table cellpadding="4">` +
