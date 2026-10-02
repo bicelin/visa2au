@@ -3,7 +3,7 @@
 # Keys are exact substrings as they appear in the EN source (HTML entities preserved).
 # Kept as-is (not translated): Visa2AU, visa2.au, MARN+numbers, subclass numbers,
 # AUD, SBS, DAMA, SAF, Stripe, ABN, ANZSCO, CSOL, SSIT, TSS, SID, ENS, NAATI,
-# Schedule 3, LMT, 4.55%, URLs, emails, phone numbers, addresses, symbols.
+# Schedule 3, LMT, URLs, emails, phone numbers, addresses, symbols.
 
 RU_TITLE = "Цены — прозрачные фиксированные гонорары | Visa2AU"
 RU_DESC = "Прозрачные цены на услуги по австралийским визам: консультации — $330/час, партнёрские визы — от $5,500 профессионального гонорара, спонсорство работодателя — от $3,300. Фиксированные гонорары называются до начала работы."
@@ -16,7 +16,12 @@ RU_TITLES = {
 
 RU_DESCS = {
     "pricing.html": "Прозрачные цены на услуги по австралийским визам: консультации — $330/час, партнёрские визы — от $5,500 профессионального гонорара, спонсорство работодателя — от $3,300. Фиксированные гонорары называются до начала работы.",
-    "pay.html": "Безопасно оплатите счёт Visa2AU международной кредитной картой. Прозрачные комиссии: комиссия за обработку карты 4.55% указывается до оплаты.",
+    "pay.html": "Безопасно оплатите счёт Visa2AU картой через Stripe. Сумма, которую вы вводите, — это точная сумма, которая будет списана с вашей карты.",
+    "Prefer a bank transfer? Email <a href=\"mailto:info@visa2.au\" class=\"underline\">info@visa2.au</a> for our account details.": "Предпочитаете банковский перевод? Напишите на <a href=\"mailto:info@visa2.au\" class=\"underline\">info@visa2.au</a> для получения реквизитов счёта.",
+    "Amount to be charged": "Сумма к списанию",
+    "Pay your Visa2AU invoice securely by card via Stripe. The amount you enter is the exact amount charged to your card.": "Безопасно оплатите счёт Visa2AU картой через Stripe. Сумма, которую вы вводите, — это точная сумма, которая будет списана с вашей карты.",
+    "Stripe checkout in test mode. Card details never touch our servers.": "Оплата Stripe в тестовом режиме. Данные карты никогда не попадают на наши серверы.",
+    "Secure card payment via Stripe. Card payment via the Stripe platform": "Безопасная оплата картой через Stripe. Оплата картой через платформу Stripe",
     "donate.html": "Программа социальной ответственности Visa2AU поддерживает образование, гуманитарные инициативы и сохранение культуры аборигенов. Узнайте, куда идут ваши пожертвования, — безопасные взносы через Stripe.",
 }
 
@@ -27,7 +32,7 @@ RU_MAP = {
     "Other Services": "Другие услуги",
     "Invoice / Service Order Number *": "Номер счёта / заказа на услуги *",
     "Transparent <span class=\"text-gold-400\">Pricing</span>": "Прозрачные <span class=\"text-gold-400\">цены</span>",
-    "No surprises. Fixed professional fees quoted before you commit, government charges itemised, and the card fee on /pay disclosed before you pay.": "Никаких сюрпризов. Фиксированные профессиональные гонорары называются до начала работы, государственные сборы указаны отдельно, а комиссия за карту на /pay раскрывается до оплаты.",
+    "No surprises. Fixed professional fees quoted before you commit, government charges itemised.": "Никаких сюрпризов. Фиксированные профессиональные гонорары называются до начала работы, государственные сборы указаны отдельно.",
     "Online Consultation (1 hour)": "Онлайн-консультация (1 час)",
     "Professional visa assessment and advice — pro rata fees may apply": "Профессиональная оценка визового дела и консультация — возможен пропорциональный расчёт",
     "DAMA Consultation (1 hour)": "Консультация по DAMA (1 час)",
@@ -119,9 +124,7 @@ RU_MAP = {
     "Invoice Amount (AUD) *": "Сумма счёта (AUD) *",
     "Payment summary": "Сводка платежа",
     "Invoice amount": "Сумма счёта",
-    "International card processing fee (4.55%)": "Комиссия за обработку международной карты (4.55%)",
     "Total charged to your card": "Итого к списанию с вашей карты",
-    "We are open about fees: when you choose to pay by international credit card, the Stripe processing cost (4.55%) is passed on to you — itemised here before you pay. To avoid the card fee, ask us for bank transfer details at <a href=\"mailto:info@visa2.au\" class=\"underline\">info@visa2.au</a>.": "Мы открыто говорим о комиссиях: при оплате международной кредитной картой стоимость обработки Stripe (4.55%) перекладывается на вас — она указана здесь до оплаты. Чтобы избежать комиссии за карту, запросите реквизиты банковского перевода по адресу <a href=\"mailto:info@visa2.au\" class=\"underline\">info@visa2.au</a>.",
     "Proceed to Secure Payment →": "Перейти к безопасной оплате →",
     "Stripe checkout in test mode — live keys are added at launch. Card details never touch our servers.": "Оплата Stripe в тестовом режиме — рабочие ключи будут добавлены при запуске. Данные карты никогда не попадают на наши серверы.",
     "As shown on the invoice": "Как указано в счёте",

@@ -38,7 +38,7 @@ RU_MAP = {
     "International card (Stripe)": "Международная карта (Stripe)",
     "Pay online": "Оплатить онлайн",
     "Card payment via the Stripe platform": "Оплата картой через платформу Stripe",
-    "A 4.55% processing fee applies — itemised before you pay": "Взимается комиссия за обработку 4,55% — детализация до оплаты",
+    "Secure card payment via Stripe": "Безопасная оплата картой через Stripe",
     "Russian bank account": "Банковский счёт в России",
     "Payment in rubles to our Russian account": "Оплата в рублях на наш российский счёт",
     "Available in exceptional cases only": "Доступно только в исключительных случаях",
