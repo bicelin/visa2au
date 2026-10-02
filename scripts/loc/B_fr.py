@@ -3,7 +3,7 @@
 # Keys are exact substrings as they appear in the EN source (HTML entities preserved).
 # Kept as-is (not translated): Visa2AU, visa2.au, MARN+numbers, subclass numbers,
 # AUD, SBS, DAMA, SAF, Stripe, ABN, ANZSCO, CSOL, SSIT, TSS, SID, ENS, NAATI,
-# Schedule 3, LMT, URLs, emails, phone numbers, addresses, symbols.
+# Schedule 3, LMT, 4.55%, URLs, emails, phone numbers, addresses, symbols.
 
 FR_TITLE = "Tarifs — honoraires fixes transparents | Visa2AU"
 FR_DESC = "Tarifs transparents pour les services de visa australiens : consultations à 330 $/heure, visas partenaires à partir de 5 500 $ d’honoraires professionnels, parrainage par l’employeur à partir de 3 300 $. Honoraires fixes chiffrés avant tout engagement."
@@ -16,12 +16,7 @@ FR_TITLES = {
 
 FR_DESCS = {
     "pricing.html": "Tarifs transparents pour les services de visa australiens : consultations à 330 $/heure, visas partenaires à partir de 5 500 $ d’honoraires professionnels, parrainage par l’employeur à partir de 3 300 $. Honoraires fixes chiffrés avant tout engagement.",
-    "pay.html": "Payez votre facture Visa2AU en toute sécurité par carte via Stripe. Le montant que vous saisissez est le montant exact débité sur votre carte.",
-    "Prefer a bank transfer? Email <a href=\"mailto:info@visa2.au\" class=\"underline\">info@visa2.au</a> for our account details.": "Vous préférez un virement bancaire ? Écrivez à <a href=\"mailto:info@visa2.au\" class=\"underline\">info@visa2.au</a> pour obtenir nos coordonnées bancaires.",
-    "Amount to be charged": "Montant à débiter",
-    "Pay your Visa2AU invoice securely by card via Stripe. The amount you enter is the exact amount charged to your card.": "Payez votre facture Visa2AU en toute sécurité par carte via Stripe. Le montant que vous saisissez est le montant exact débité sur votre carte.",
-    "Stripe checkout in test mode. Card details never touch our servers.": "Paiement Stripe en mode test. Les données de carte ne touchent jamais nos serveurs.",
-    "Secure card payment via Stripe. Card payment via the Stripe platform": "Paiement sécurisé par carte via Stripe. Paiement par carte via la plateforme Stripe",
+    "pay.html": "Payez votre facture Visa2AU en toute sécurité par carte de crédit internationale. Frais transparents : les frais de traitement de carte de 4.55% sont détaillés avant le paiement.",
     "donate.html": "Le programme de responsabilité sociale de Visa2AU soutient l’éducation, les causes humanitaires et la préservation de la culture aborigène. Découvrez où vont vos dons — des contributions sécurisées via Stripe.",
 }
 
@@ -32,7 +27,7 @@ FR_MAP = {
     "Other Services": "Autres services",
     "Invoice / Service Order Number *": "N° de facture / de bon de commande *",
     "Transparent <span class=\"text-gold-400\">Pricing</span>": "Tarifs <span class=\"text-gold-400\">transparents</span>",
-    "No surprises. Fixed professional fees quoted before you commit, government charges itemised.": "Aucune surprise. Des honoraires professionnels fixes annoncés avant tout engagement, des frais gouvernementaux détaillés.",
+    "No surprises. Fixed professional fees quoted before you commit, government charges itemised, and the card fee on /pay disclosed before you pay.": "Aucune surprise. Des honoraires professionnels fixes annoncés avant tout engagement, des frais gouvernementaux détaillés, et les frais de carte sur /pay indiqués avant le paiement.",
     "Online Consultation (1 hour)": "Consultation en ligne (1 heure)",
     "Professional visa assessment and advice — pro rata fees may apply": "Évaluation professionnelle du dossier et conseils — une facturation au prorata peut s’appliquer",
     "DAMA Consultation (1 hour)": "Consultation DAMA (1 heure)",
@@ -126,7 +121,9 @@ FR_MAP = {
     "Invoice Amount (AUD) *": "Montant de la facture (AUD) *",
     "Payment summary": "Résumé du paiement",
     "Invoice amount": "Montant de la facture",
+    "International card processing fee (4.55%)": "Frais de traitement de carte internationale (4.55%)",
     "Total charged to your card": "Total débité sur votre carte",
+    "We are open about fees: when you choose to pay by international credit card, the Stripe processing cost (4.55%) is passed on to you — itemised here before you pay. To avoid the card fee, ask us for bank transfer details at <a href=\"mailto:info@visa2.au\" class=\"underline\">info@visa2.au</a>.": "Nous sommes transparents sur les frais : si vous choisissez de payer par carte de crédit internationale, le coût de traitement Stripe (4.55%) vous est refacturé — il est détaillé ici avant le paiement. Pour éviter ces frais de carte, demandez-nous les coordonnées bancaires pour un virement à <a href=\"mailto:info@visa2.au\" class=\"underline\">info@visa2.au</a>.",
     "Proceed to Secure Payment →": "Passer au paiement sécurisé →",
     "Stripe checkout in test mode — live keys are added at launch. Card details never touch our servers.": "Paiement Stripe en mode test — les clés de production seront ajoutées au lancement. Les données de carte ne touchent jamais nos serveurs.",
     "As shown on the invoice": "Tel qu’indiqué sur la facture",

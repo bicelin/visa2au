@@ -38,7 +38,7 @@ FR_MAP = {
     "International card (Stripe)": "Carte internationale (Stripe)",
     "Pay online": "Payer en ligne",
     "Card payment via the Stripe platform": "Paiement par carte via la plateforme Stripe",
-    "Secure card payment via Stripe": "Paiement sécurisé par carte via Stripe",
+    "A 4.55% processing fee applies — itemised before you pay": "Des frais de traitement de 4,55 % s’appliquent — détaillés avant le paiement",
     "Russian bank account": "Compte bancaire russe",
     "Payment in rubles to our Russian account": "Paiement en roubles sur notre compte russe",
     "Available in exceptional cases only": "Disponible uniquement dans des cas exceptionnels",
