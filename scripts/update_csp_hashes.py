@@ -17,7 +17,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APP = os.path.join(ROOT, "app")
 HEADERS = os.path.join(APP, "_headers")
 
-# External script sources allowed alongside 'self' (keep in sync with needs)
+# External script sources allowed alongside 'self' (keep in sync with needs).
+#
+# NOTE: googletagmanager.com / google-analytics.com were REMOVED from script-src.
+# GA4 is served by Cloudflare Zaraz at the edge, so the browser never loads gtag.js
+# and no page needs those origins for scripts. Removing them narrows the CSP attack
+# surface. Do not re-add them unless client-side GA4 is deliberately reintroduced.
+# (Zaraz's GA4 component talks to Google via connect-src, which stays 'self' https:.)
 SCRIPT_ALLOW = [
     "'self'",
     "blob:",
@@ -27,8 +33,6 @@ SCRIPT_ALLOW = [
     "https://static.cloudflareinsights.com",
     "https://challenges.cloudflare.com",
     "https://js.stripe.com",
-    "https://www.googletagmanager.com",
-    "https://www.google-analytics.com",
     "https://mc.yandex.ru",
     "https://mc.yandex.net",
     "https://mc.yandex.com",
