@@ -72,11 +72,11 @@ Level 17, 1 Denison Street, North Sydney NSW 2060
 
 ## Consultations vidéo disponibles
 
-Wherever you are in the world, meet your agent face to face. We’ll send you a link and passcode for our secure [lobby vidéo sécurisé](https://visa2.au/fr/video.html).
+Wherever you are in the world, meet your agent face to face. We’ll send you a link and passcode for our secure [lobby vidéo sécurisé](https://visa2.au/fr/video).
 
 ## Vous ne savez pas par où commencer ?
 
-Essayez le [guide de parcours de visa](https://visa2.au/fr/visas.html#pathway-finder) ou remplissez notre [évaluation détaillée de visa](https://visa2au.mmportal.cloud/assessment/) — Un agent l’examine avant votre consultation.
+Essayez le [guide de parcours de visa](https://visa2.au/fr/visas#pathway-finder) ou remplissez notre [évaluation détaillée de visa](https://visa2au.mmportal.cloud/assessment/) — Un agent l’examine avant votre consultation.
 
 Static divider — gold hairline with Southern Cross spark
 

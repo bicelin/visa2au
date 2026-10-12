@@ -17,6 +17,7 @@ on:
       - "scripts/build_locale_pages.py"
       - "scripts/localize_homepage_cards.py"
       - "scripts/fix_locale_links.py"
+      - "scripts/clean_internal_urls.py"
       - "scripts/audit_link_graph.py"
       - "scripts/blog_index_template_ru.html"
       - "scripts/blog_index_template_fr.html"
@@ -47,6 +48,9 @@ jobs:
 
       - name: Rewrite locale links to localized twins (must run after every rebuild)
         run: python3 scripts/fix_locale_links.py
+
+      - name: Clean internal URLs to canonical (extensionless) form
+        run: python3 scripts/clean_internal_urls.py
 
       - name: Align SEO meta (canonical/hreflang/og/perf)
         run: python3 scripts/align_seo_meta.py

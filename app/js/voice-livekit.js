@@ -200,6 +200,29 @@
       room.on(LK.RoomEvent.ConnectionStateChanged, function (st) {
         if (typeof st === 'string' && st.toLowerCase() === 'reconnecting') say('Reconnecting…');
       });
+      // Real-path latency: the only honest way to measure the guest->region RTT.
+      // A plain TCP probe to the signalling host does NOT represent the media path
+      // (region routing is decided at join), so log what the SDK actually sees.
+      if (LK.RoomEvent.ConnectionQualityChanged) {
+        room.on(LK.RoomEvent.ConnectionQualityChanged, function (q, participant) {
+          if (participant && participant.isLocal) say('Connection: ' + q);
+        });
+      }
+      var statTicks = 0;
+      var statTimer = setInterval(async function () {
+        if (!room || !active || statTicks++ > 6) { clearInterval(statTimer); return; }
+        try {
+          var stats = await room.getStats();
+          var rtt = null;
+          (stats || []).forEach(function (s) {
+            (s.candidatePairs || []).forEach(function (p) {
+              if (typeof p.currentRoundTripTime === 'number' && (rtt === null || p.currentRoundTripTime < rtt))
+                rtt = p.currentRoundTripTime;
+            });
+          });
+          if (rtt !== null) window.__v2auVoiceRttMs = Math.round(rtt * 1000);
+        } catch (e) { clearInterval(statTimer); }
+      }, 3000);
 
       await room.connect(s.url, s.token);
       // WebRTC: the agent and the caller can both talk — no mic gating needed.
