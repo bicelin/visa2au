@@ -32,6 +32,14 @@ Case management & coordination
 
 Coordinates casework from first instruction to lodgement, keeping clients, employers and authorities aligned at every step.
 
+## Franz
+
+Administration Support, Client Coordination
+
+Consultations, assessments & document checklists
+
+Keeps the office running and supports client coordination — organising consultations, assessments and document checklists.
+
 values
 
 Our Values

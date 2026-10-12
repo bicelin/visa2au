@@ -1,0 +1,206 @@
+{
+  "schema": "v2au-voice-lanes/1",
+  "updated": "2026-10-12",
+  "purpose": "Single source of truth for the interchangeable Visa2AU website voice-agent lanes. Three lanes can be built and run side by side; the live site picks one with ONE server-side flag (VOICE_PROVIDER). Nothing in the site hardcodes a vendor.",
+  "switch": {
+    "env": "VOICE_PROVIDER",
+    "values": [
+      "el-v4",
+      "cartesia",
+      "pipecat-v4"
+    ],
+    "default": "cartesia",
+    "kill_switch": "VOICE_ASSISTANT_ENABLED=false",
+    "resolution": "functions/api/voice-config.ts reads VOICE_PROVIDER and returns {provider, agents{en,ru,fr}, tokenEndpoint}. The page loads /js/voice.js (cartesia), /js/voice-el.js (el-v4) or /js/voice-pipecat.js (pipecat-v4). Unknown/absent -> default lane."
+  },
+  "lanes": [
+    {
+      "id": "el-v4",
+      "ordinal": 1,
+      "provider": "elevenlabs",
+      "engine": "eleven_v4_turbo",
+      "label": "ElevenLabs Agents (Eleven v4 Turbo)",
+      "status": "PROVISIONED 2026-10-12 — KB + tool + webhook + 3 agents live in the global workspace (voice must be switched to Starter to unlock the library voices)",
+      "voice_provider": "ElevenLabs Agents Platform (hosted)",
+      "transport": "WebSocket via signed URL minted server-side (single-use, 15 min)",
+      "token_endpoint": "/api/voice-el-token",
+      "browser_adapter": "/js/voice-el.js",
+      "agent_ids": {
+        "en": "agent_5901m4r2g50pfgaa629a98vcqnfv",
+        "ru": "agent_3701m4r2g75hevts9nahnbxsw979",
+        "fr": "agent_8401m4r2g8z1fb0bdmmkaeskbhrn"
+      },
+      "env_keys": [
+        "ELEVENLABS_API_KEY",
+        "ELEVENLABS_AGENT_EN",
+        "ELEVENLABS_AGENT_RU",
+        "ELEVENLABS_AGENT_FR"
+      ],
+      "voices": {
+        "en": {
+          "id": "snyKKuaGYk1VUEh42zbW",
+          "name": "Oliver - Friendly Professional",
+          "accent": "australian",
+          "gender": "male",
+          "tier": "library/professional",
+          "needs": "Starter $5+/month"
+        },
+        "en_fallback": {
+          "id": "IKne3meq5aSn9XLyUdCD",
+          "name": "Charlie - Deep, Confident, Energetic",
+          "accent": "australian",
+          "gender": "male",
+          "tier": "premade",
+          "needs": "free tier OK"
+        },
+        "ru": {
+          "id": "3EuKHIEZbSzrHGNmdYsx",
+          "name": "Nikolay - Confident, Clear and Engaging",
+          "accent": "russian",
+          "gender": "male",
+          "tier": "library/professional",
+          "needs": "Starter $5+/month"
+        },
+        "fr": {
+          "id": "AmMsHJaCw4BtwV3KoUXF",
+          "name": "Nicolas Petit - Convincing and Bright",
+          "accent": "french",
+          "gender": "male",
+          "tier": "library/high_quality",
+          "needs": "Starter $5+/month"
+        }
+      },
+      "assets": {
+        "knowledge_base": "ElevenLabs KB folders v2au-secretary-{en,ru,fr} — 142 site docs (en 48 / ru 47 / fr 47) uploaded from kb/manifest.json; folders g69MgBJWP3yihSpcM8yU, Fzl26OD0n2KyUanf7ghq, 3DX1EwR8yQ0lilboh0Cr",
+        "transcript_webhook": "workspace webhook 77b3116dd2ee44ceb88b3483967cbadb (HMAC) -> /api/voice-webhook, post_call_transcription",
+        "tool": "tool_4901m4r209yjec5a2ynwbv2gxjhr (record_v2au_enquiry -> {host}/api/voice-lead, X-V2AU-Secret)",
+        "data_collection": "12 fields incl. urgency, is_employer, consultation_ready (post-call analysis)"
+      },
+      "cost_note": "Credits, not per-minute. Free tier = 10k credits/month (~10 min talk). Starter $5 = 30k. Library voices + ConvAI need Starter or $5 pay-as-you-go credits.",
+      "residency": "Global/US by default. Singapore residency exists but is Enterprise-only (separate blank workspace, no free or self-serve tier).",
+      "privacy": {
+        "retention_days": 180,
+        "delete_transcript_and_pii": true,
+        "delete_audio": true,
+        "note": "client PII in transcripts — retention bounded, PII stripped on retention"
+      }
+    },
+    {
+      "id": "cartesia",
+      "ordinal": 2,
+      "provider": "cartesia",
+      "engine": "Cartesia Managed Agents (Sonic)",
+      "label": "Cartesia Managed Agents",
+      "status": "LIVE on staging.visa2.au",
+      "voice_provider": "Cartesia",
+      "transport": "WebSocket + short-lived access token",
+      "token_endpoint": "/api/voice-token",
+      "browser_adapter": "/js/voice.js",
+      "agent_ids": {
+        "en": "agent_bDvGwYdVAh9N366cUcjkp8",
+        "ru": "agent_4xn8U1yvfhUa49Jssa3h4v",
+        "fr": "agent_JU5Rp4SPom7A9QLKxYZQy2"
+      },
+      "env_keys": [
+        "CARTESIA_API_KEY",
+        "CARTESIA_AGENT_EN",
+        "CARTESIA_AGENT_RU",
+        "CARTESIA_AGENT_FR"
+      ],
+      "voices": {
+        "en": {
+          "name": "Ella (AU female)"
+        },
+        "ru": {
+          "name": "Sergei (RU male)"
+        },
+        "fr": {
+          "name": "Inès (FR female)"
+        }
+      },
+      "assets": {
+        "knowledge_base": "per-language folders, 141 site docs (scripts/provision_cartesia.py, state in cartesia_state.json)",
+        "transcript_webhook": "/api/cartesia-webhook (lead capture via /api/cartesia-tool)"
+      },
+      "cost_note": "Per-minute/credit pricing on Cartesia plans; current staging lane.",
+      "role": "Kept as option 2 - the incumbent lane and the fallback if a new lane is worse or cheaper."
+    },
+    {
+      "id": "pipecat-v4",
+      "ordinal": 3,
+      "provider": "pipecat",
+      "engine": "v4",
+      "label": "Pipecat (self-hosted orchestration)",
+      "status": "scoped in voice-eval/scenarios.json (bake-off lane B); NOT built yet",
+      "voice_provider": "pluggable (ElevenLabs / Cartesia / other TTS behind Pipecat)",
+      "transport": "self-hosted WebRTC/WebSocket to a container we run",
+      "token_endpoint": "/api/voice-pipecat-token (to be added)",
+      "browser_adapter": "/js/voice-pipecat.js (to be added)",
+      "agent_ids": {
+        "en": null,
+        "ru": null,
+        "fr": null
+      },
+      "env_keys": [
+        "PIPECAT_ENDPOINT",
+        "PIPECAT_TOKEN_SECRET"
+      ],
+      "voices": {
+        "en": null,
+        "ru": null,
+        "fr": null
+      },
+      "assets": {
+        "knowledge_base": "same kb/ mirror, served by our own retrieval",
+        "transcript_webhook": "/api/voice-pipecat-webhook"
+      },
+      "cost_note": "Infra cost only (container) + TTS/STT/LLM usage - the cheapest at volume, the most work to operate.",
+      "role": "Option 3 / labelled v4 - the self-hosted lane for cost control once volume justifies it."
+    }
+  ],
+  "shared_contract": {
+    "desc": "Every lane must implement the same browser contract so pages never need editing when a lane changes.",
+    "globals": [
+      "window.__v2auVoiceStart()",
+      "window.__v2auVoiceStop()",
+      "window.__v2auVoiceDisabled"
+    ],
+    "dom": [
+      "#voice-cta (section CTA button)",
+      "#voice-fab (floating button)",
+      "#v2au-voice-panel (call UI)"
+    ],
+    "client_tools": [
+      "navigate_website(path) - soft-navigates the site without dropping the call"
+    ],
+    "lead_model": {
+      "endpoint": "/api/voice-lead",
+      "fields": [
+        "full_name",
+        "email",
+        "phone",
+        "messenger",
+        "visa_interest",
+        "situation",
+        "wants_agent_contact",
+        "consultation_ready",
+        "urgency",
+        "is_employer",
+        "preferred_language",
+        "notes"
+      ]
+    },
+    "transcript_model": {
+      "schema": "v2au-voice-transcript/1",
+      "sink": "Resend email to the team + R2 bucket voice-transcripts"
+    }
+  },
+  "compliance": {
+    "disclosure": "Agent must identify as an AI assistant; states it is not a migration agent and cannot give immigration advice.",
+    "mara": "Only MARN-registered agents may give advice: Natasha Arens MARN 0534230, Sergey Vinnichenko MARN 2418663.",
+    "pii": "Collect contact details only. Never passport numbers, card numbers, passwords or ID images.",
+    "dv": "Family/domestic violence disclosures -> no fee for victims, handled with priority and care.",
+    "residency_note": "DECIDED 2026-10-12: US/global residency accepted by the account owner. Caller PII in transcripts therefore lives in ElevenLabs' US environment. Singapore residency was investigated and rejected as a path: it is Enterprise-only, a separate blank workspace, with no free or self-serve tier, and it would not carry over the agents or the 142-doc KB. Revisit only if a client contract or regulator demands AU/SG data residency.",
+    "residency_decision": "us-global"
+  }
+}

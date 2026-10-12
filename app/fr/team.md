@@ -32,6 +32,14 @@ Gestion et coordination des dossiers
 
 Coordonne les dossiers de la première instruction au dépôt, en gardant clients, employeurs et autorités alignés à chaque étape.
 
+## Franz
+
+Soutien administratif, coordination client
+
+Consultations, évaluations et listes de documents
+
+Assure le fonctionnement du bureau et la coordination client — organisation des consultations, évaluations et listes de documents.
+
 values
 
 Nos valeurs
