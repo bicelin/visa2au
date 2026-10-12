@@ -19,10 +19,11 @@ HEADERS = os.path.join(APP, "_headers")
 
 # External script sources allowed alongside 'self' (keep in sync with needs).
 #
-# NOTE: googletagmanager.com / google-analytics.com were REMOVED from script-src.
-# GA4 is served by Cloudflare Zaraz at the edge, so the browser never loads gtag.js
-# and no page needs those origins for scripts. Removing them narrows the CSP attack
-# surface. Do not re-add them unless client-side GA4 is deliberately reintroduced.
+# NOTE: googletagmanager.com, google-analytics.com AND mc.yandex.* were REMOVED from
+# script-src. GA4 is served by Cloudflare Zaraz at the edge, and the Yandex Metrika
+# counter was dropped entirely, so the browser loads no third-party analytics script
+# at all. Removing them narrows the CSP attack surface. Do not re-add any of them
+# unless client-side analytics is deliberately reintroduced.
 # (Zaraz's GA4 component talks to Google via connect-src, which stays 'self' https:.)
 SCRIPT_ALLOW = [
     "'self'",
@@ -33,9 +34,6 @@ SCRIPT_ALLOW = [
     "https://static.cloudflareinsights.com",
     "https://challenges.cloudflare.com",
     "https://js.stripe.com",
-    "https://mc.yandex.ru",
-    "https://mc.yandex.net",
-    "https://mc.yandex.com",
 ]
 
 # Inline event-handler attribute values via 'unsafe-hashes' — NONE now (voice button
