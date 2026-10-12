@@ -4,9 +4,24 @@ const CSP = `default-src 'self'; script-src 'self' blob: https://unpkg.com https
 
 export const onRequest: PagesFunction = async ({ request, next }) => {
   const res = await next();
+  const host = new URL(request.url).hostname;
+  // Staging / preview deployments must never be indexed — they otherwise
+  // compete with the production domain and split ranking signals.
+  // Production hosts (visa2.au, www.visa2.au) never match these predicates.
+  const isStaging = host.startsWith("staging.") || host.endsWith(".pages.dev");
   const ct = res.headers.get("content-type") || "";
-  if (!ct.includes("text/html")) return res; // CSP only matters for documents
+
+  if (!ct.includes("text/html")) {
+    // CSP only matters for documents, but the noindex tag must apply to every
+    // response (JSON, .md twins, llms.txt, …) or those get indexed instead.
+    if (!isStaging) return res;
+    const r0 = new Response(res.body, res);
+    r0.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return r0;
+  }
+
   const r = new Response(res.body, res);
+  if (isStaging) r.headers.set("X-Robots-Tag", "noindex, nofollow");
   r.headers.set("Content-Security-Policy", CSP);
   return r;
 };

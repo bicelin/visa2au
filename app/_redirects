@@ -23,3 +23,39 @@
 /pathways          /visas   301
 /ru/pathways       /ru/visas  301
 /fr/pathways       /fr/visas  301
+
+# ---------------------------------------------------------------------------
+# Legacy deep-path coverage. A GSC audit (180d) showed ~6.3k impressions landing
+# on old Odoo URLs that the exact-match rules above did NOT catch (they were
+# 404s waiting to happen at cutover). Splats are scoped to legacy-only prefixes.
+#
+# DELIBERATELY NO blanket "/ru/*" rule — it would shadow every new /ru/ page.
+# ---------------------------------------------------------------------------
+
+# old Odoo blog posts live at /blog/news-2/<slug>
+/blog/news-2/*            /blog      301
+/ru/blog/news-2           /ru/blog   301
+/ru/blog/news-2/*         /ru/blog   301
+
+# old Brazilian-Portuguese locale -> French locale
+/pt_BR/*                  /fr/       301
+
+# legacy shop / product URLs -> pricing
+/shop/*                   /pricing    301
+/ru/shop/*                /ru/pricing 301
+
+# legacy RU equivalents of the EN rules above
+/ru                       /ru/        301
+/ru/fees                  /ru/pricing 301
+/ru/about-us              /ru/team    301
+/ru/our-services          /ru/visas   301
+/ru/consultation          /ru/contact 301
+/ru/contactus             /ru/contact 301
+/ru/website/info          /ru/privacy 301
+
+# misc legacy
+/terms                    /privacy    301
+
+# dead Odoo app endpoints (client portal / auth) -> homepage
+/web/*                    /           301
+/website/*                /           301
