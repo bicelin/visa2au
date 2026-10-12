@@ -178,6 +178,7 @@
         (function () {
           (window.requestIdleCallback || function (cb) { setTimeout(cb, 2000); })(function () {
             fetch('/api/voice-status').then(function (r) { return r.json(); }).then(function (s) {
+              if (s && s.adapter) { window.__v2auVoiceAdapter = s.adapter; }
               if (s && s.enabled === false) {
                 window.__v2auVoiceDisabled = true;
                 var vb = document.getElementById('voice-cta');
@@ -190,7 +191,7 @@
             if (window.__v2auVoiceBooted) return;
             window.__v2auVoiceBooted = true;
             var s = document.createElement('script');
-            s.src = '/js/voice.js';
+            s.src = (window.__v2auVoiceAdapter || '/js/voice.js');
             s.onload = function () { window.__v2auVoiceStart(); };
             document.body.appendChild(s);
           };

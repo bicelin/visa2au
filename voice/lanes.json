@@ -7,11 +7,13 @@
     "values": [
       "el-v4",
       "cartesia",
+      "livekit",
       "pipecat-v4"
     ],
     "default": "cartesia",
     "kill_switch": "VOICE_ASSISTANT_ENABLED=false",
-    "resolution": "functions/api/voice-config.ts reads VOICE_PROVIDER and returns {provider, agents{en,ru,fr}, tokenEndpoint}. The page loads /js/voice.js (cartesia), /js/voice-el.js (el-v4) or /js/voice-pipecat.js (pipecat-v4). Unknown/absent -> default lane."
+    "resolution": "functions/api/voice-config.ts reads VOICE_PROVIDER and returns {provider, agents{en,ru,fr}, tokenEndpoint}. The page loads /js/voice.js (cartesia), /js/voice-el.js (el-v4) or /js/voice-pipecat.js (pipecat-v4). Unknown/absent -> default lane.",
+    "note": "user-chosen order 2026-10-12: 1 ElevenLabs v4 Turbo, 2 Cartesia (live/incumbent), 3 LiveKit, 4 Pipecat"
   },
   "lanes": [
     {
@@ -127,7 +129,7 @@
     },
     {
       "id": "pipecat-v4",
-      "ordinal": 3,
+      "ordinal": 4,
       "provider": "pipecat",
       "engine": "v4",
       "label": "Pipecat (self-hosted orchestration)",
@@ -155,7 +157,46 @@
         "transcript_webhook": "/api/voice-pipecat-webhook"
       },
       "cost_note": "Infra cost only (container) + TTS/STT/LLM usage - the cheapest at volume, the most work to operate.",
-      "role": "Option 3 / labelled v4 - the self-hosted lane for cost control once volume justifies it."
+      "role": "Option 4 - the self-hosted lane for cost control once volume justifies it."
+    },
+    {
+      "id": "livekit",
+      "ordinal": 3,
+      "provider": "livekit",
+      "engine": "LiveKit Agents (WebRTC)",
+      "label": "LiveKit Agents (self-hosted orchestration, WebRTC)",
+      "status": "REGISTERED - not built; needs a LiveKit project (or self-hosted server) + an agent worker",
+      "voice_provider": "pluggable TTS/STT/LLM inside a LiveKit Agents worker (ElevenLabs, Cartesia, Deepgram, ...)",
+      "transport": "WebRTC (LiveKit room) - lower latency and better acoustic echo cancellation than the raw-WebSocket lanes; also the transport ElevenLabs' own JS SDK uses under the hood",
+      "token_endpoint": "/api/voice-livekit-token",
+      "browser_adapter": "/js/voice-livekit.js",
+      "agent_ids": {
+        "en": null,
+        "ru": null,
+        "fr": null
+      },
+      "env_keys": [
+        "LIVEKIT_URL",
+        "LIVEKIT_API_KEY",
+        "LIVEKIT_API_SECRET",
+        "LIVEKIT_AGENT_NAME"
+      ],
+      "voices": {
+        "en": null,
+        "ru": null,
+        "fr": null
+      },
+      "assets": {
+        "knowledge_base": "same kb/ mirror, served by our own retrieval inside the agent worker (no vendor KB lock-in)",
+        "transcript_webhook": "/api/voice-webhook (reuse) - the worker posts the normalised v2au-voice-transcript/1 payload"
+      },
+      "cost_note": "LiveKit Cloud has a free tier for dev, then usage-based (connection minutes + inference). Self-hosting moves cost to compute only. Cheaper than per-minute vendor agents at volume, more work to operate.",
+      "why": "WebRTC gives real echo cancellation (the raw-WebSocket lanes need a hand-rolled half-duplex mic gate), and it is the only lane where the STT/LLM/TTS stack is ours end to end.",
+      "setup_needed": [
+        "LiveKit project: cloud.livekit.io (or self-hosted) -> LIVEKIT_URL + API key/secret",
+        "Deploy the agent worker (LiveKit Agents, Python) with the V2AU prompt + kb/ retrieval",
+        "Add LIVEKIT_* to Pages env and point the agent at the same /api/voice-lead + /api/voice-webhook"
+      ]
     }
   ],
   "shared_contract": {

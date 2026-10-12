@@ -34,7 +34,7 @@ LOADER = '''<script>
             if (window.__v2auVoiceBooted) return;
             window.__v2auVoiceBooted = true;
             var s = document.createElement('script');
-            s.src = '/js/voice.js';
+            s.src = (window.__v2auVoiceAdapter || '/js/voice.js');
             s.onload = function () { window.__v2auVoiceStart(); };
             document.body.appendChild(s);
           };

@@ -230,6 +230,39 @@ def provision_tool(state, host, only_dry):
     print(f"  tool: {d['id']}")
     return d["id"]
 
+# ---------------------------------------------------------------- 2b. client tool
+def provision_client_tool(state, only_dry):
+    """navigate_website runs in the BROWSER (client tool), so the agent can open the
+    right page mid-call without dropping it. Verified protocol event: client_tool_call."""
+    if state.get("nav_tool_id"):
+        return state["nav_tool_id"]
+    if only_dry:
+        print("  [dry] create client tool navigate_website")
+        return None
+    tool = {"tool_config": {
+        "type": "client",
+        "name": "navigate_website",
+        "description": ("Open a page of the visa2.au website on the caller's screen while the call continues. "
+                        "Use a path from the site, e.g. /visas/partner-visa-820-801, /pricing, /contact, "
+                        "/urgent-visa-help, /employers, /visas/skills-in-demand-482."),
+        "expects_response": True,
+        "response_timeout_secs": 10,
+        "execution_mode": "immediate",
+        "pre_tool_speech": "off",
+        "parameters": {"type": "object", "properties": {
+            "path": {"type": "string", "description": "Site path starting with / — never a full external URL"}},
+            "required": ["path"]},
+    }}
+    code, d = req("POST", "/v1/convai/tools", tool)
+    d = _d(d)
+    if code not in (200, 201) or "id" not in d:
+        print(f"  client tool FAILED ({code}) — agent can still describe pages verbally", file=sys.stderr)
+        return None
+    state["nav_tool_id"] = d["id"]
+    save_state(state)
+    print(f"  client tool: {d['id']}")
+    return d["id"]
+
 # ---------------------------------------------------------------- 3. workspace webhook
 def provision_webhook(state, host, only_dry):
     if state.get("webhook_id"):
@@ -255,15 +288,16 @@ def provision_webhook(state, host, only_dry):
     return d["webhook_id"]
 
 # ---------------------------------------------------------------- 4. agents
-def agent_body(lang, lane, kb_folder, tool_id, webhook_id, host):
+def agent_body(lang, lane, kb_folder, tool_id, webhook_id, host, nav_tool_id=None):
     voices = lane["voices"]
     voice_id = (voices.get(lang) or {}).get("id") or (voices.get("en_fallback") or {}).get("id")
+    tool_ids = [t for t in (tool_id, nav_tool_id) if t]
     prompt = {
         "prompt": prompt_for(lang),
         "llm": "gemini-2.5-flash",
         "temperature": 0.4,
         "max_tokens": -1,
-        "tool_ids": [tool_id] if tool_id else [],
+        "tool_ids": tool_ids,
         "built_in_tools": {"end_call": {
             "type": "system", "name": "end_call", "description": "End the call politely when the caller says goodbye.",
             "params": {"system_tool_type": "end_call"}}},
@@ -311,11 +345,11 @@ def agent_body(lang, lane, kb_folder, tool_id, webhook_id, host):
     }
     return body
 
-def provision_agents(state, lane, kb, tool_id, webhook_id, host, only_dry, force=False):
+def provision_agents(state, lane, kb, tool_id, webhook_id, host, only_dry, force=False, nav_tool_id=None):
     agents = state.setdefault("agents", {})
     for lang in LANGS:
         aid = agents.get(lang)
-        body = agent_body(lang, lane, kb.get(f"folder_{lang}"), tool_id, webhook_id, host)
+        body = agent_body(lang, lane, kb.get(f"folder_{lang}"), tool_id, webhook_id, host, nav_tool_id)
         if aid and not force:
             print(f"  agent {lang}: exists {aid} (use --force to re-apply config)")
             continue
@@ -364,16 +398,19 @@ def main():
         provision_kb(state, docs, a.dry_run)
         kb = state.get("kb", {})
     tool_id = state.get("tool_id")
+    nav_tool_id = state.get("nav_tool_id")
     if "tool" in steps:
         print("2) webhook tool")
         tool_id = provision_tool(state, a.host, a.dry_run) or tool_id
+        print("2b) client tool (navigate_website)")
+        nav_tool_id = provision_client_tool(state, a.dry_run) or nav_tool_id
     webhook_id = state.get("webhook_id")
     if "webhook" in steps:
         print("3) workspace webhook (post-call transcript -> Resend)")
         webhook_id = provision_webhook(state, a.host, a.dry_run) or webhook_id
     if "agents" in steps:
         print("4) agents")
-        provision_agents(state, lane, kb, tool_id, webhook_id, a.host, a.dry_run, a.force)
+        provision_agents(state, lane, kb, tool_id, webhook_id, a.host, a.dry_run, a.force, nav_tool_id)
 
     save_state(state)
     print("\nstate:", STATE_P)

@@ -326,6 +326,21 @@ def main() -> None:
                 html,
             )
 
+        # 8c) LANE PORTABILITY: the lazy loader must load the adapter the server
+        #     names, not a hardcoded vendor file — that is what lets VOICE_PROVIDER
+        #     swap ElevenLabs / Cartesia / Pipecat without editing 148 pages.
+        #     Idempotent: keyed on __v2auVoiceAdapter. Self-healing: re-applied by
+        #     CI on every build, so a regeneration from another template cannot
+        #     silently revert the site to a single vendor.
+        if "js/voice.js" in html and "__v2auVoiceAdapter" not in html:
+            html = html.replace(
+                "if (s && s.enabled === false) {",
+                "if (s && s.adapter) { window.__v2auVoiceAdapter = s.adapter; }\n"
+                "              if (s && s.enabled === false) {")
+            html = html.replace(
+                "s.src = '/js/voice.js';",
+                "s.src = (window.__v2auVoiceAdapter || '/js/voice.js');")
+
         # 9) analytics: injected client-side analytics is GONE by design.
         #    GA4 is served by Cloudflare Zaraz at the edge; Yandex.Metrika was
         #    removed. Nothing is inserted into <head> here any more.

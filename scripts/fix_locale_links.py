@@ -46,6 +46,89 @@ def split_frag(href):
     return m.group(1), (m.group(2) or "")
 
 
+# ── asset references on locale pages ────────────────────────────────────────
+# Locale pages live one or more levels deep, but build_locale_pages.py copies the
+# EN markup verbatim — including root-relative "./imgs/..." refs. Resolved from
+# /ru/ (or /fr/) those point at /ru/imgs/... which does not exist, so the RU and
+# FR team portraits 404'd. The html pass above only handles <a href>, so repair
+# src/srcset here. Only refs that are genuinely broken get rewritten.
+SRC_ATTR_RE = re.compile(r'\b(src|data-cfsrc|poster)\s*=\s*"([^"]*)"', re.I)
+SRCSET_ATTR_RE = re.compile(r'\b(srcset|data-cfsrcset)\s*=\s*"([^"]*)"', re.I)
+LINK_HREF_RE = re.compile(r'(<link\b[^>]*?\bhref=")([^"]*)(")', re.I | re.S)
+
+
+def parse_srcset(value):
+    """HTML-spec srcset tokenizer. The URL is the run of NON-whitespace chars, so
+    commas are legal inside a URL (/cdn-cgi/image/width=400,quality=72,...)."""
+    urls, i, n = [], 0, len(value)
+    while i < n:
+        while i < n and (value[i].isspace() or value[i] == ","):
+            i += 1
+        if i >= n:
+            break
+        start = i
+        while i < n and not value[i].isspace():
+            i += 1
+        urls.append(value[start:i])
+        while i < n and value[i] != ",":
+            i += 1
+    return urls
+
+
+def disk_candidate(ref):
+    """Repo-relative disk path for a ref, unwrapping /cdn-cgi/image transform URLs."""
+    p = ref.split("?")[0].split("#")[0]
+    if p.startswith("cdn-cgi/image/"):
+        parts = p.split("/")
+        for i, seg in enumerate(parts):
+            if i >= 2 and "=" not in seg:
+                return "/".join(parts[i:])
+    return p
+
+
+def repair_asset_refs(html, filedir_rel, changes):
+    """Point broken './x' asset refs at the app root from a nested locale page."""
+    if not filedir_rel or filedir_rel == ".":
+        return html
+    prefix = "../" * len([s for s in filedir_rel.split("/") if s])
+    if not prefix:
+        return html
+
+    def fix(ref):
+        if not ref.startswith("./"):
+            return ref
+        rest = ref[2:]
+        cand = disk_candidate(rest)
+        # already valid from this directory? leave it alone
+        if os.path.isfile(os.path.join(APP, filedir_rel, cand)):
+            return ref
+        if os.path.isfile(os.path.join(APP, cand)):
+            changes.append(f"asset: {ref} -> {prefix}{rest}")
+            return prefix + rest
+        return ref
+
+    def fix_src(m):
+        return m.group(1) + '="' + fix(m.group(2)) + '"'
+
+    def fix_srcset(m):
+        val = m.group(2)
+        urls = parse_srcset(val)
+        new = val
+        for u in urls:
+            fixed = fix(u)
+            if fixed != u:
+                new = new.replace(u, fixed)
+        return m.group(1) + '="' + new + '"'
+
+    def fix_link(m):
+        return m.group(1) + fix(m.group(2)) + m.group(3)
+
+    html = SRC_ATTR_RE.sub(fix_src, html)
+    html = SRCSET_ATTR_RE.sub(fix_srcset, html)
+    html = LINK_HREF_RE.sub(fix_link, html)
+    return html
+
+
 def rewrite_file(path, lang):
     rel = posixpath.relpath(path, APP)          # e.g. ru/visas/x.html
     filedir_rel = posixpath.dirname(rel)        # e.g. ru/visas
@@ -152,6 +235,9 @@ def rewrite_file(path, lang):
     if switcher_block is not None:
         switcher_block = fix_switcher(re.match(r"(?s).*", switcher_block))
         html = html.replace(SWITCHER_TOKEN, switcher_block)
+
+    # --- asset refs (src/srcset/preload) that break at this directory depth ---
+    html = repair_asset_refs(html, filedir_rel, changes)
 
     if changes:
         open(path, "w", encoding="utf-8").write(html)

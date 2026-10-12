@@ -48,6 +48,14 @@ const LANES: Record<
     label: "Pipecat (self-hosted)",
     env: () => ({}),
   },
+  livekit: {
+    adapter: "/js/voice-livekit.js",
+    token: "/api/voice-livekit-token",
+    label: "LiveKit Agents (WebRTC)",
+    // one LiveKit room serves all languages — the worker picks the voice from the
+    // caller's audio, so there are no per-language agent ids to enumerate.
+    env: (env) => ({ en: env.LIVEKIT_AGENT_NAME || "v2au-secretary" }),
+  },
 };
 
 export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
