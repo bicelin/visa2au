@@ -24,7 +24,7 @@ LEGAL_JSONLD = ('<script type="application/ld+json">{"@context":"https://schema.
                 '"telephone":"+61 2 9136 2462","email":"info@visa2.au",'
                 '"address":{"@type":"PostalAddress","streetAddress":"Level 17, 1 Denison Street",'
                 '"addressLocality":"North Sydney","addressRegion":"NSW","postalCode":"2060","addressCountry":"AU"},'
-                '"foundingDate":"2004","hasCredential":[{"@type":"EducationalOccupationalCredential",'
+                '"foundingDate":"2024","hasCredential":[{"@type":"EducationalOccupationalCredential",'
                 '"credentialCategory":"MARN Registered Migration Agent","identifier":"0534230"},'
                 '{"@type":"EducationalOccupationalCredential","credentialCategory":"MARN Registered Migration Agent",'
                 '"identifier":"2418663"}]}</script>')

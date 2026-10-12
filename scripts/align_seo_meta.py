@@ -43,11 +43,13 @@ COUNTER_FIX = [
     (re.compile(r'(<span data-count="20" data-suffix="\+">)0(</span>)'), r"\g<1>20+\g<2>"),
 ]
 
-# ── hero founding-year consistency (2005 -> 2004, matches schema/footer/llms) ─
+# ── founding-year consistency: ANY "since 2004/2005" -> 2024, the year the
+# company was registered (ABN active 2024-04-11). Covers every variant seen in
+# copy ("Experienced since …", "worldwide since …", "Опыт с … года").
 YEAR_FIX = [
-    (re.compile(r"Experienced since 2005"), "Experienced since 2004"),
-    (re.compile(r"Опыт с 2005 года"), "Опыт с 2004 года"),
-    (re.compile(r"[Ee]xpérience depuis 2005"), "Expérience depuis 2004"),
+    (re.compile(r"since 200[45]\b"), "since 2024"),
+    (re.compile(r"с 200[45]\b"), "с 2024"),
+    (re.compile(r"depuis 200[45]\b"), "depuis 2024"),
 ]
 
 

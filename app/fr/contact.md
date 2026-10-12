@@ -72,7 +72,7 @@ Level 17, 1 Denison Street, North Sydney NSW 2060
 
 ## Consultations vidéo disponibles
 
-Wherever you are in the world, meet your agent face to face. We’ll send you a link and passcode for our secure [lobby vidéo sécurisé](https://visa2.au/fr/video.html).
+Wherever you are in the world, meet your agent face to face. We’ll send you a link and passcode for our secure [lobby vidéo sécurisé](https://visa2.au/video.html).
 
 ## Vous ne savez pas par où commencer ?
 
@@ -80,7 +80,7 @@ Essayez le [guide de parcours de visa](https://visa2.au/fr/visas.html#pathway-fi
 
 Static divider — gold hairline with Southern Cross spark
 
-Nous simplifions l'immigration australienne depuis 2004. Agents de migration enregistrés (MARN) à Sydney, Melbourne, Brisbane et dans le monde entier.
+Nous simplifions l'immigration australienne depuis 2024. Agents de migration enregistrés (MARN) à Sydney, Melbourne, Brisbane et dans le monde entier.
 
 - info@visa2.au
 - +61 2 9136 2462

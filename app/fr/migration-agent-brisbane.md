@@ -33,7 +33,7 @@ Des agents de migration certifiés, tenus à un code de conduite professionnel.
 
 ### 2 000+ dossiers, 99,8 % de succès
 
-Stratégie d'abord, honoraires fixes indiqués à l'avance — depuis 2004.
+Stratégie d'abord, honoraires fixes indiqués à l'avance — depuis 2024.
 
 ### À distance et dans le monde entier
 

@@ -22,7 +22,7 @@ Réserver une consultation
 
 Trouver votre voie 2 min
 
-2 000+ dossiers · 99,8 % de réussite · 5,0★ sur Google · Équipe russophone et anglophone · Expérience depuis 2004
+2 000+ dossiers · 99,8 % de réussite · 5,0★ sur Google · Équipe russophone et anglophone · Expérience depuis 2024
 
 scroll cue
 

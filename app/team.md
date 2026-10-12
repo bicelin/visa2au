@@ -6,7 +6,7 @@
 
 # Meet Our Team
 
-Simplifying Australian immigration since 2004 — with 2,000+ cases handled and a 99.8% success rate.
+Simplifying Australian immigration since 2024 — with 2,000+ cases handled and a 99.8% success rate.
 
 ## Natasha Arens
 
@@ -31,14 +31,6 @@ Client Coordination
 Case management & coordination
 
 Coordinates casework from first instruction to lodgement, keeping clients, employers and authorities aligned at every step.
-
-## Franz
-
-Administration Support, Client Coordination
-
-Multilingual support EN/RU
-
-Keeps the office running and supports client coordination — organising consultations, assessments and document checklists, in English and Russian.
 
 values
 
@@ -72,7 +64,7 @@ Our team speaks English and Russian and works with clients from diverse backgrou
 
 ## About Visa2AU
 
-Visa2AU Pty Ltd has guided individuals, families and employers through Australian immigration since 2004. From our North Sydney office we serve clients across Australia and worldwide — in English and Russian — with transparent fixed-fee pricing and a simple promise: honest advice about your prospects before you spend a dollar.
+Visa2AU Pty Ltd has guided individuals, families and employers through Australian immigration since 2024. From our North Sydney office we serve clients across Australia and worldwide — in English and Russian — with transparent fixed-fee pricing and a simple promise: honest advice about your prospects before you spend a dollar.
 
 - MARN 0534230 · 2418663
 - NAATI CPN0VW21W

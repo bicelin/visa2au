@@ -11,7 +11,7 @@ RU_TITLE = {
 }
 RU_DESC = {
     "visas": "Комплексные иммиграционные услуги по всем основным категориям австралийских виз: партнёрские, квалифицированные, спонсируемые работодателем, студенческие, гостевые, родительские и защитные.",
-    "team": "Познакомьтесь с командой Visa2AU: зарегистрированные миграционные агенты MARN, более 2000 успешных кейсов с 2004 года. Консультации на английском и русском.",
+    "team": "Познакомьтесь с командой Visa2AU: зарегистрированные миграционные агенты MARN, более 2000 успешных кейсов с 2024 года. Консультации на английском и русском.",
 }
 RU_MAP = {
     # ---- <head> titles & meta descriptions (both pages) ----
@@ -219,7 +219,7 @@ RU_MAP = {
     # ---- team.html ----
     "Meet Our": "Наша",
     "Team": "команда",
-    "Simplifying Australian immigration since 2004 — with 2,000+ cases handled and a 99.8% success rate.": "Упрощаем австралийскую иммиграцию с 2004 года — более 2 000 дел и 99,8% успешных результатов.",
+    "Simplifying Australian immigration since 2024 — with 2,000+ cases handled and a 99.8% success rate.": "Упрощаем австралийскую иммиграцию с 2024 года — более 2 000 дел и 99,8% успешных результатов.",
     "Principal Migration Agent": "Ведущий миграционный агент",
     "Founder of Visa2AU with over 20 years in Australian immigration law. Specialises in complex partner cases, refusals and ART appeals. NAATI-certified translator (Russian).": "Основатель Visa2AU с более чем 20-летним опытом в австралийском иммиграционном праве. Специализируется на сложных партнёрских делах, отказах и апелляциях в ART. Сертифицированный переводчик NAATI (русский).",
     "Registered Migration Agent": "Зарегистрированный миграционный агент",
@@ -246,13 +246,12 @@ RU_MAP = {
     "Multicultural understanding": "Понимание разных культур",
     "Our team speaks English and Russian and works with clients from diverse backgrounds. We understand the challenges migrants face — and provide culturally sensitive service.": "Наша команда говорит на английском и русском и работает с клиентами из разных культур. Мы понимаем трудности мигрантов — и оказываем услуги с учётом культурных особенностей.",
     "About Visa2AU": "О Visa2AU",
-    "Visa2AU Pty Ltd has guided individuals, families and employers through Australian immigration since 2004. From our North Sydney office we serve clients across Australia and worldwide — in English and Russian — with transparent fixed-fee pricing and a simple promise: honest advice about your prospects before you spend a dollar.": "Visa2AU Pty Ltd сопровождает частных лиц, семьи и работодателей в австралийской иммиграции с 2004 года. Из нашего офиса в North Sydney мы обслуживаем клиентов по всей Австралии и по всему миру — на английском и русском — с прозрачными фиксированными ценами и простым обещанием: честная оценка ваших перспектив до того, как вы потратите доллар.",
+    "Visa2AU Pty Ltd has guided individuals, families and employers through Australian immigration since 2024. From our North Sydney office we serve clients across Australia and worldwide — in English and Russian — with transparent fixed-fee pricing and a simple promise: honest advice about your prospects before you spend a dollar.": "Visa2AU Pty Ltd сопровождает частных лиц, семьи и работодателей в австралийской иммиграции с 2024 года. Из нашего офиса в North Sydney мы обслуживаем клиентов по всей Австралии и по всему миру — на английском и русском — с прозрачными фиксированными ценами и простым обещанием: честная оценка ваших перспектив до того, как вы потратите доллар.",
     "Natasha Arens, Principal Migration Agent at Visa2AU": "Natasha Arens, ведущий миграционный агент Visa2AU",
     "Denis, Client Coordination at Visa2AU": "Denis, координация клиентов в Visa2AU",
-    "Franz, Administration Support, Client Coordination at Visa2AU": "Franz, административная поддержка и координация клиентов в Visa2AU",
     "Meet Our": "Наша",
     "Team": "команда",
-    "Simplifying Australian immigration since 2004 — with 2,000+ cases handled and a 99.8% success rate.": "Упрощаем австралийскую иммиграцию с 2004 года — 2 000+ обработанных кейсов и 99,8% успеха.",
+    "Simplifying Australian immigration since 2024 — with 2,000+ cases handled and a 99.8% success rate.": "Упрощаем австралийскую иммиграцию с 2024 года — 2 000+ обработанных кейсов и 99,8% успеха.",
     "Principal Migration Agent": "Ведущий миграционный агент",
     "Founder of Visa2AU with over 20 years in Australian immigration law. Specialises in complex partner cases, refusals and ART appeals. NAATI-certified translator (Russian).": "Основатель Visa2AU, более 20 лет в австралийском иммиграционном праве. Специализируется на сложных партнёрских кейсах, отказах и апелляциях ART. Сертифицированный переводчик NAATI (русский).",
     "Registered Migration Agent": "Зарегистрированный миграционный агент",

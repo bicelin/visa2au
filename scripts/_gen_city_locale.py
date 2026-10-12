@@ -140,13 +140,13 @@ TALK_P = [
 # feature cards
 FEAT = [
     [("MARN-registered", "Certified migration agents, held to a professional code of conduct."),
-     ("2,000+ cases, 99.8% success", "Strategy first, fixed fees quoted upfront — since 2004."),
+     ("2,000+ cases, 99.8% success", "Strategy first, fixed fees quoted upfront — since 2024."),
      ("Remote &amp; worldwide", "Secure video consultations — serve you in {}, across Australia, or abroad.")],
     [("Зарегистрировано в MARN", "Сертифицированные миграционные агенты, соблюдающие профессиональный кодекс поведения."),
-     ("2,000+ дел, 99.8% успеха", "Сначала стратегия, фиксированные гонорары указаны заранее — с 2004 года."),
+     ("2,000+ дел, 99.8% успеха", "Сначала стратегия, фиксированные гонорары указаны заранее — с 2024 года."),
      ("Удалённо и по всему миру", "Защищённые видеоконсультации — обслужим вас в {}, по всей Австралии или за рубежом.")],
     [("Enregistré auprès de MARN", "Des agents de migration certifiés, tenus à un code de conduite professionnel."),
-     ("2 000+ dossiers, 99,8 % de succès", "Stratégie d'abord, honoraires fixes indiqués à l'avance — depuis 2004."),
+     ("2 000+ dossiers, 99,8 % de succès", "Stratégie d'abord, honoraires fixes indiqués à l'avance — depuis 2024."),
      ("À distance et dans le monde entier", "Des consultations vidéo sécurisées — nous vous servons à {}, dans toute l'Australie ou à l'étranger.")],
 ]
 # FAQ

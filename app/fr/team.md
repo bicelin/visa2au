@@ -2,11 +2,11 @@
 
 # Notre équipe — agents de migration agréés | Visa2AU
 
-> Rencontrez l’équipe de Visa2AU : agents de migration enregistrés MARN, plus de 2000 dossiers réussis depuis 2004. Consultations en anglais et en russe.
+> Rencontrez l’équipe de Visa2AU : agents de migration enregistrés MARN, plus de 2000 dossiers réussis depuis 2024. Consultations en anglais et en russe.
 
 # Notre Team
 
-Nous simplifions l’immigration australienne depuis 2004 — plus de 2 000 dossiers traités et 99,8 % de réussite.
+Nous simplifions l’immigration australienne depuis 2024 — plus de 2 000 dossiers traités et 99,8 % de réussite.
 
 ## Natasha Arens
 
@@ -31,14 +31,6 @@ Coordination client
 Gestion et coordination des dossiers
 
 Coordonne les dossiers de la première instruction au dépôt, en gardant clients, employeurs et autorités alignés à chaque étape.
-
-## Franz
-
-Soutien administratif, coordination client
-
-Support multilingue EN/RU
-
-Maintient le fonctionnement du bureau et soutient la coordination client — organisation des consultations, évaluations et listes de documents, en anglais et en russe.
 
 values
 
@@ -72,7 +64,7 @@ Notre équipe parle anglais et russe et travaille avec des clients d’horizons 
 
 ## À propos de Visa2AU
 
-Visa2AU Pty Ltd accompagne particuliers, familles et employeurs dans l’immigration australienne depuis 2004. Depuis notre bureau de North Sydney, nous servons des clients dans toute l’Australie et dans le monde — en anglais et en russe — avec des tarifs fixes transparents et une promesse simple : des conseils honnêtes sur vos chances avant que vous dépensiez un dollar.
+Visa2AU Pty Ltd accompagne particuliers, familles et employeurs dans l’immigration australienne depuis 2024. Depuis notre bureau de North Sydney, nous servons des clients dans toute l’Australie et dans le monde — en anglais et en russe — avec des tarifs fixes transparents et une promesse simple : des conseils honnêtes sur vos chances avant que vous dépensiez un dollar.
 
 - MARN 0534230 · 2418663
 - NAATI CPN0VW21W

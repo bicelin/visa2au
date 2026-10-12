@@ -33,7 +33,7 @@ Certified migration agents, held to a professional code of conduct.
 
 ### 2,000+ cases, 99.8% success
 
-Strategy first, fixed fees quoted upfront — since 2004.
+Strategy first, fixed fees quoted upfront — since 2024.
 
 ### Remote & worldwide
 

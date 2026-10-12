@@ -148,7 +148,7 @@ def card_svg(title: str, sub: str, footer: str, button: str = "Book a consultati
   {texts}
   <text x="80" y="452" font-family="Arial,Helvetica,sans-serif" font-size="27" fill="#aeb9d0">{sub}</text>
   <rect x="80" y="482" width="120" height="4" rx="2" fill="#f0a000"/>
-  <text x="80" y="545" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="25" fill="#f0a000">2,000+ cases · 99.8% success · since 2004</text>
+  <text x="80" y="545" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="25" fill="#f0a000">2,000+ cases · 99.8% success · since 2024</text>
   <text x="80" y="598" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="36" fill="#ffffff">{footer}</text>
   <rect x="872" y="560" width="{btn_w}" height="46" rx="23" fill="#f0a000"/>
   <text x="{872 + btn_w//2}" y="590" font-family="Arial,Helvetica,sans-serif" font-weight="700" font-size="{btn_fs}" fill="#0a0f1c" text-anchor="middle">{button}</text>
