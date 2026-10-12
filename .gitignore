@@ -11,3 +11,7 @@ kb/
 cartesia_state.json
 .wrangler/
 calls/
+
+# PSI sweep working artifact
+psi_results.jsonl
+psilogs/
