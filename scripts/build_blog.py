@@ -28,6 +28,47 @@ import shutil
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://visa2.au"
 
+# --- Image delivery ---------------------------------------------------------
+# Blog card thumbnails were shipping raw JPEGs (1344x683, up to 121 KB) into a
+# 378x192 box, and the blog hero motif was a 768x768 346 KB PNG rendered at
+# 80x80. Both are served through Cloudflare Image Resizing instead, which
+# negotiates AVIF/WebP by Accept header and resizes at the edge (measured:
+# card 93 KB -> 19 KB AVIF; motif 346 KB -> 5.3 KB AVIF). onerror=redirect
+# falls back to the original file if resizing ever fails.
+CARD_WIDTHS = (400, 756, 1024)          # 1x phone / 2x phone / lg column
+MOTIF_WIDTH = 160                        # 80x80 display at 2x
+
+
+def cdn_img(path, width, quality=72):
+    """Cloudflare Image Resizing URL for a zone-relative asset path."""
+    return (f"/cdn-cgi/image/width={width},quality={quality},format=auto,"
+            f"onerror=redirect/{path.lstrip('/')}")
+
+
+def card_img_attrs(first):
+    """The newest card is the /blog mobile LCP element: it must be eager and
+    high-priority, otherwise the lazy attribute alone delays LCP discovery
+    (measured 454 ms of resource load delay). Every other card stays lazy."""
+    if first:
+        return 'loading="eager" fetchpriority="high" decoding="async"'
+    return 'loading="lazy" decoding="async"'
+
+
+CARD_SIZES = "(min-width:1024px) 33vw, (min-width:768px) 50vw, 92vw"
+
+
+def card_fields(img, first):
+    """Template fields for one card image: edge-resized src/srcset + load hints."""
+    img = img.lstrip("/")
+    return {
+        "img_src": cdn_img(img, 756),
+        "img_srcset": ", ".join(f"{cdn_img(img, w)} {w}w" for w in CARD_WIDTHS),
+        "img_sizes": CARD_SIZES,
+        "img_attrs": card_img_attrs(first),
+    }
+
+
+
 MONTHS_LONG = [
     "January", "February", "March", "April", "May", "June", "July",
     "August", "September", "October", "November", "December",
@@ -232,8 +273,9 @@ CARD = (
     " rounded-2xl border border-navy-800/10 bg-white transition hover:-translate-y-1"
     " hover:shadow-lg dark:border-white/10 dark:bg-navy-900\"> "
     '<div class="h-48 overflow-hidden bg-navy-800"> '
-    '<img src="./{img}" alt="Feature image for: {title}" class="h-full w-full'
-    ' object-cover transition group-hover:scale-105" loading="lazy"> </div> '
+    '<img src="{img_src}" srcset="{img_srcset}" sizes="{img_sizes}" {img_attrs}'
+    ' alt="Feature image for: {title}" class="h-full w-full'
+    ' object-cover transition group-hover:scale-105"> </div> '
     '<div class="flex flex-1 flex-col p-5"> '
     '<p class="font-tech text-xs font-semibold uppercase tracking-wider'
     ' text-gold-600 dark:text-gold-400">{category}</p> '
@@ -252,8 +294,9 @@ CARD_LOC = (
     " rounded-2xl border border-navy-800/10 bg-white transition hover:-translate-y-1"
     " hover:shadow-lg dark:border-white/10 dark:bg-navy-900\"> "
     '<div class="h-48 overflow-hidden bg-navy-800"> '
-    '<img src="{img_prefix}{img}" alt="{img_alt}: {title}" class="h-full w-full'
-    ' object-cover transition group-hover:scale-105" loading="lazy"> </div> '
+    '<img src="{img_src}" srcset="{img_srcset}" sizes="{img_sizes}" {img_attrs}'
+    ' alt="{img_alt}: {title}" class="h-full w-full'
+    ' object-cover transition group-hover:scale-105"> </div> '
     '<div class="flex flex-1 flex-col p-5"> '
     '<p class="font-tech text-xs font-semibold uppercase tracking-wider'
     ' text-gold-600 dark:text-gold-400">{category}</p> '
@@ -344,9 +387,8 @@ def main():
             cards = "".join(
                 CARD_LOC.format(
                     slug=fm["slug"],
-                    img_prefix=cfg["index_img_prefix"],
-                    img=fm["image"].lstrip("/"),
                     img_alt=cfg["index_img_alt"],
+                    **card_fields(fm["image"], i == 0),
                     title=html.escape(fm["title"], quote=False),
                     category=fm["category"],
                     desc=html.escape(fm["excerpt"], quote=False),
@@ -355,7 +397,7 @@ def main():
                     reading=fm["reading_time"],
                     reading_label=cfg["index_reading"],
                 )
-                for fm, _ in by_date_loc
+                for i, (fm, _) in enumerate(by_date_loc)
             )
             tmpl = open(
                 os.path.join(ROOT, cfg["index_template"]), encoding="utf-8"
@@ -372,7 +414,7 @@ def main():
     cards = "".join(
         CARD.format(
             slug=fm["slug"],
-            img=fm["image"].lstrip("/"),
+            **card_fields(fm["image"], i == 0),
             title=html.escape(fm["title"], quote=False),
             category=fm["category"],
             desc=html.escape(fm["excerpt"], quote=False),
@@ -380,7 +422,7 @@ def main():
             date=fmt_short(fm["date"]),
             reading=fm["reading_time"],
         )
-        for fm, _ in by_date
+        for i, (fm, _) in enumerate(by_date)
     )
     index_path = os.path.join(ROOT, "app/blog.html")
     index = open(index_path, encoding="utf-8").read()
