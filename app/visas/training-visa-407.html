@@ -11,9 +11,14 @@
     var m = document.createElement('script'); m.async = true;
     m.src = 'https://mc.yandex.ru/metrika/tag.js?id=111501119'; document.head.appendChild(m);
     window.ym = window.ym || function(){ (window.ym.a = window.ym.a || []).push(arguments); };
-    ym(111501119, 'init', {ssr:true, clickmap:true, ecommerce:'dataLayer', accurateTrackBounce:true, trackLinks:true});
+    ym(111501119, 'init', {ssr:true, clickmap:false, ecommerce:'dataLayer', accurateTrackBounce:true, trackLinks:true});
   }
-  if (document.readyState === 'complete') onLoad(); else window.addEventListener('load', onLoad);
+  function schedule() {
+    // Run AFTER load in idle time so the ~107 KiB of third-party parse/execute
+    // stops landing inside the TBT window. Timeout guarantees it always runs.
+    (window.requestIdleCallback || function (cb) { setTimeout(cb, 2000); })(onLoad, { timeout: 2000 });
+  }
+  if (document.readyState === 'complete') schedule(); else window.addEventListener('load', schedule);
 })();
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/111501119" style="position:absolute; left:-9999px;" alt="" /></div></noscript><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Training Visa 407 | Visa2AU — MARN Registered Agents</title><meta name="description" content="The 407 visa supports occupational training and professional development in Australia under an approved sponsor. It suits employers building skills (e.g. c…"><link rel="canonical" href="https://visa2.au/visas/training-visa-407"><link rel="alternate" hreflang="en" href="https://visa2.au/visas/training-visa-407"><link rel="alternate" hreflang="ru" href="https://visa2.au/ru/visas/training-visa-407"><link rel="alternate" hreflang="fr" href="https://visa2.au/fr/visas/training-visa-407"><link rel="alternate" hreflang="x-default" href="https://visa2.au/visas/training-visa-407"><meta property="og:locale" content="en_AU"><meta property="og:title" content="Training Visa 407 | Visa2AU — MARN Registered Agents"><meta property="og:description" content="The 407 visa supports occupational training and professional development in Australia under an approved sponsor. It suits employers building skills (e.g. c…"><meta property="og:type" content="website"><meta property="og:url" content="https://visa2.au/visas/training-visa-407"><meta property="og:image" content="https://visa2.au/imgs/og-share-card.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><link rel="icon" type="image/svg+xml" href="../v2au-logo-blue.svg"><script>

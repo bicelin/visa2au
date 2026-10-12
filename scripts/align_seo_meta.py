@@ -63,7 +63,7 @@ METRIKA = '''<!-- Yandex.Metrika counter -->
         k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
     })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=111501119', 'ym');
 
-    ym(111501119, 'init', {ssr:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    ym(111501119, 'init', {ssr:true, clickmap:false, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/111501119" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->'''
@@ -351,16 +351,29 @@ def main() -> None:
     var m = document.createElement('script'); m.async = true;
     m.src = 'https://mc.yandex.ru/metrika/tag.js?id=111501119'; document.head.appendChild(m);
     window.ym = window.ym || function(){ (window.ym.a = window.ym.a || []).push(arguments); };
-    ym(111501119, 'init', {ssr:true, clickmap:true, ecommerce:'dataLayer', accurateTrackBounce:true, trackLinks:true});
+    ym(111501119, 'init', {ssr:true, clickmap:false, ecommerce:'dataLayer', accurateTrackBounce:true, trackLinks:true});
   }
-  if (document.readyState === 'complete') onLoad(); else window.addEventListener('load', onLoad);
+  function schedule() {
+    // Run AFTER load in idle time so the ~107 KiB of third-party parse/execute
+    // stops landing inside the TBT window. Timeout guarantees it always runs.
+    (window.requestIdleCallback || function (cb) { setTimeout(cb, 2000); })(onLoad, { timeout: 2000 });
+  }
+  if (document.readyState === 'complete') schedule(); else window.addEventListener('load', schedule);
 })();
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/111501119" style="position:absolute; left:-9999px;" alt="" /></div></noscript>'''
-        if "Google tag (gtag.js)" in html and "Yandex.Metrika counter" in html and "deferred analytics" not in html:
-            html = re.sub(r'<!-- Google tag \(gtag\.js\) -->.*?<!-- /Yandex\.Metrika counter -->',
-                          '<!-- Google tag (gtag.js) --><!-- Yandex.Metrika counter --><!-- deferred analytics -->\n' + ANALYTICS_DEFERRED,
-                          html, flags=re.S, count=1)
+        if "deferred analytics" in html:
+            # Refresh an existing deferred block so subsequent improvements to
+            # ANALYTICS_DEFERRED propagate on rebuild (idempotent).
+            html = re.sub(
+                r'<!-- deferred analytics -->\s*<script>.*?</script>\s*<noscript>.*?</noscript>',
+                lambda _m: "<!-- deferred analytics -->\n" + ANALYTICS_DEFERRED,
+                html, flags=re.S, count=1)
+        elif "Google tag (gtag.js)" in html and "Yandex.Metrika counter" in html:
+            html = re.sub(
+                r'<!-- Google tag \(gtag\.js\) -->.*?<!-- /Yandex\.Metrika counter -->',
+                lambda _m: '<!-- Google tag (gtag.js) --><!-- Yandex.Metrika counter --><!-- deferred analytics -->\n' + ANALYTICS_DEFERRED,
+                html, flags=re.S, count=1)
 
         # 7) FAIL-OPEN: force reveal/line-mask text visible so content can never
         #    be stuck hidden if the reveal JS doesn't trigger (reliability > entrance animation)
