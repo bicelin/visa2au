@@ -7,6 +7,7 @@
 - Insert og:site_name + theme-color where missing
 - Stats counters: real no-JS fallback values ("2,000+" not "0")
 """
+import glob
 import json
 import os
 import re
@@ -204,6 +205,24 @@ def main() -> None:
                 return tag.replace('style="', 'style="min-height:65px;', 1)
             return tag[:-1] + ' style="min-height:65px">'
         html = re.sub(r'<div class="cf-turnstile"[^>]*>', _reserve_ts, html)
+
+        # 4c) Preload the two critical web fonts. Lighthouse attributed the
+        #     contact-page CLS (0.224) to "Web font loaded" on
+        #     space-grotesk-latin-700: the fallback renders first, then the font
+        #     swaps in and reflows the block. Preloading removes that reflow.
+        #     Filename is content-hashed, so resolve it from disk each run.
+        if 'as="font"' not in html and "<head>" in html:
+            _depth = rel.count("/")
+            _prefix = "../" * _depth if _depth else "./"
+            _pre = []
+            for _stem in ("space-grotesk-latin-700-normal", "dm-sans-latin-400-normal"):
+                _hits = sorted(glob.glob(os.path.join(APP, "_astro", _stem + ".*.woff2")))
+                if _hits:
+                    _pre.append('<link rel="preload" as="font" type="font/woff2" '
+                                'crossorigin href="' + _prefix + "_astro/"
+                                + os.path.basename(_hits[0]) + '">')
+            if _pre:
+                html = html.replace("<head>", "<head>" + "".join(_pre), 1)
 
         # 5) founding-year consistency
         for rx, rep in YEAR_FIX:
