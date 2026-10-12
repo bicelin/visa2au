@@ -15,3 +15,7 @@ calls/
 # PSI sweep working artifact
 psi_results.jsonl
 psilogs/
+
+# macOS
+.DS_Store
+**/.DS_Store
