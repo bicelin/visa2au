@@ -193,6 +193,18 @@ def main() -> None:
         for rx, rep in COUNTER_FIX:
             html = rx.sub(rep, html)
 
+        # 4b) Reserve space for the Cloudflare Turnstile widget. The widget's
+        #     api.js injects a ~65px iframe into an empty div, which shifted the
+        #     whole form below it (CLS 0.224 on the 3 contact pages).
+        def _reserve_ts(m):
+            tag = m.group(0)
+            if "min-height" in tag:
+                return tag
+            if 'style="' in tag:
+                return tag.replace('style="', 'style="min-height:65px;', 1)
+            return tag[:-1] + ' style="min-height:65px">'
+        html = re.sub(r'<div class="cf-turnstile"[^>]*>', _reserve_ts, html)
+
         # 5) founding-year consistency
         for rx, rep in YEAR_FIX:
             html = rx.sub(rep, html)
