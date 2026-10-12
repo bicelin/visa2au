@@ -78,7 +78,8 @@ def call(url, strategy, key):
         "lcp": dv("largest-contentful-paint"), "fcp": dv("first-contentful-paint"),
         "tbt": dv("total-blocking-time"), "cls": dv("cumulative-layout-shift"),
         "si": dv("speed-index"), "ttfb": dv("server-response-time"),
-        "console": "OK" if (a.get("errors-in-console") or {}).get("score") in (1, True) else "FAIL",
+        "console": ("OK" if (a.get("errors-in-console") or {}).get("score") in (1, True)
+                    else ("n/a" if "errors-in-console" not in a else "FAIL")),
         "ts": int(time.time()),
     }
 
