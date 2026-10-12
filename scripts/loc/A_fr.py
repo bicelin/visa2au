@@ -5,9 +5,14 @@
 # WARNING: short keys "Visa", "Services", "Team" are substring-hazardous ("Visa2AU", "Our Team").
 # Apply keys in DESCENDING length order and protect "Visa2AU" with a placeholder before replacing "Visa".
 
-FR_TITLE = "Services de visas | Tous les types de visas australiens | Visa2AU"
-FR_DESC = "Services d’immigration complets couvrant toutes les principales catégories de visas australiens : partenaire, qualifié, parrainé par l’employeur, étudiant, visiteur, parent et protection."
-
+FR_TITLE = {
+    "visas": "Services de visas | Tous les types de visas australiens | Visa2AU",
+    "team": "Notre équipe — agents de migration agréés | Visa2AU",
+}
+FR_DESC = {
+    "visas": "Services d’immigration complets couvrant toutes les principales catégories de visas australiens : partenaire, qualifié, parrainé par l’employeur, étudiant, visiteur, parent et protection.",
+    "team": "Rencontrez l’équipe de Visa2AU : agents de migration enregistrés MARN, plus de 2000 dossiers réussis depuis 2004. Consultations en anglais et en russe.",
+}
 FR_MAP = {
     # ---- <head> titles & meta descriptions (both pages) ----
     "Visa Services | All Australian Visa Types | Visa2AU": "Services de visas | Tous les types de visas australiens | Visa2AU",

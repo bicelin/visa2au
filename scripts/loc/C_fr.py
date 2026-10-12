@@ -2,9 +2,14 @@
 # FR translation map for app/employers.html + app/privacy.html
 # Keys are EXACT substrings of the source files (HTML entities preserved).
 
-FR_TITLE = "Espace employeurs — Parrainez des travailleurs qualifiés | Visa2AU"
-FR_DESC = "Pourquoi les entreprises australiennes parrainent des migrants qualifiés : 482 Skills in Demand, 494 régional avec concessions DAMA et 186 nomination permanente. Seuils salariaux, listes de métiers, régions DAMA et conformité — expliqués par des agents enregistrés MARN."
-
+FR_TITLE = {
+    "employers": "Espace employeurs — Parrainez des travailleurs qualifiés | Visa2AU",
+    "privacy": "Politique de confidentialité | Visa2AU",
+}
+FR_DESC = {
+    "employers": "Pourquoi les entreprises australiennes parrainent des migrants qualifiés : 482 Skills in Demand, 494 régional avec concessions DAMA et 186 nomination permanente. Seuils salariaux, listes de métiers, régions DAMA et conformité — expliqués par des agents enregistrés MARN.",
+    "privacy": "Comment Visa2AU traite vos données personnelles : collecte, utilisation, stockage des consultations vidéo et vos droits d’accès et de suppression.",
+}
 FR_MAP = {
     # ---- employers.html ----
     "Employer <span class=\"text-gold-400\">Hub</span>": "Espace <span class=\"text-gold-400\">employeurs</span>",

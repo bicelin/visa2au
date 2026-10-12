@@ -5,9 +5,16 @@
 # AUD, SBS, DAMA, SAF, Stripe, ABN, ANZSCO, CSOL, SSIT, TSS, SID, ENS, NAATI,
 # Schedule 3, LMT, 4.55%, URLs, emails, phone numbers, addresses, symbols.
 
-FR_TITLE = "Tarifs — honoraires fixes transparents | Visa2AU"
-FR_DESC = "Tarifs transparents pour les services de visa australiens : consultations à 330 $/heure, visas partenaires à partir de 5 500 $ d’honoraires professionnels, parrainage par l’employeur à partir de 3 300 $. Honoraires fixes chiffrés avant tout engagement."
-
+FR_TITLE = {
+    "pricing": "Tarifs — honoraires fixes transparents | Visa2AU",
+    "pay": "Paiement des services — paiements sécurisés | Visa2AU",
+    "donate": "Soutenir Visa2AU | Visa2AU",
+}
+FR_DESC = {
+    "pricing": "Tarifs transparents pour les services de visa australiens : consultations à 330 $/heure, visas partenaires à partir de 5 500 $ d’honoraires professionnels, parrainage par l’employeur à partir de 3 300 $. Honoraires fixes chiffrés avant tout engagement.",
+    "pay": "Paiement sécurisé des services Visa2AU : virement bancaire et carte. Honoraires fixes convenus à l’avance, frais gouvernementaux facturés séparément.",
+    "donate": "Soutenez le travail de Visa2AU — votre contribution développe des ressources éducatives gratuites sur la migration en Australie.",
+}
 FR_TITLES = {
     "pricing.html": "Tarifs — honoraires fixes transparents | Visa2AU",
     "pay.html": "Payer une facture | Paiement sécurisé par carte | Visa2AU",
