@@ -70,15 +70,13 @@ METRIKA = '''<!-- Yandex.Metrika counter -->
 <!-- /Yandex.Metrika counter -->'''
 
 
-# ── Google Analytics 4 (gtag.js) — injected early in <head> on every page ────
-GA4 = '''<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-TS8EK9K6W4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-TS8EK9K6W4');
-</script>'''
+# ── Google Analytics 4 ──────────────────────────────────────────────────────
+# GA4 is NO LONGER injected client-side. It is served by Cloudflare Zaraz at the
+# edge (zone tool id a7f3c0d91e5b48a2f6c3d09e4b71a852, component
+# "google-analytics-4", tid G-TS8EK9K6W4), which keeps ~75 KiB of third-party JS
+# off the browser main thread. Do NOT reintroduce gtag.js here: with Zaraz also
+# active it would double-count every pageview.
+GA4 = '<!-- Google Analytics 4 served by Cloudflare Zaraz (edge) -->'
 
 
 def canonicalize(url: str) -> str:
@@ -333,11 +331,11 @@ def main() -> None:
                 html,
             )
 
-        # 9) analytics: Yandex.Metrika + GA4 tags early in <head> (idempotent)
+        # 9) analytics: Yandex.Metrika early in <head> (idempotent).
+        #    GA4 is NOT injected here any more - Cloudflare Zaraz serves it at the
+        #    edge so its ~75 KiB never reaches the browser main thread.
         if "mc.yandex.ru" not in html and "<head>" in html:
             html = html.replace("<head>", "<head>" + METRIKA, 1)
-        if "googletagmanager.com/gtag/js" not in html and "<head>" in html:
-            html = html.replace("<head>", "<head>" + GA4, 1)
 
         # 10) inline the render-blocking stylesheet on homepages (removes the CSS
         #     request from the critical path; gzips to similar total weight)
@@ -369,24 +367,20 @@ def main() -> None:
         # 12b) strip .woff (non-woff2) font srcs from any inline <style> on the page
         html = re.sub(r'url\([^)]*\.woff\)\s*format\([^)]*\)\s*,?', '', html)
 
-        # 13) defer GA4 + Yandex Metrika to after window load (removes their
-        #     main-thread parse/execute cost from TBT)
+        # 13) defer Yandex Metrika to after window load (removes its main-thread
+        #     parse/execute cost from TBT). GA4 is intentionally absent: Cloudflare
+        #     Zaraz serves it from the edge, so no client-side GA4 tag belongs here.
         ANALYTICS_DEFERRED = '''<script>
 (function () {
   function onLoad() {
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date()); gtag('config', 'G-TS8EK9K6W4');
-    var g = document.createElement('script'); g.async = true;
-    g.src = 'https://www.googletagmanager.com/gtag/js?id=G-TS8EK9K6W4'; document.head.appendChild(g);
     var m = document.createElement('script'); m.async = true;
     m.src = 'https://mc.yandex.ru/metrika/tag.js?id=111501119'; document.head.appendChild(m);
     window.ym = window.ym || function(){ (window.ym.a = window.ym.a || []).push(arguments); };
     ym(111501119, 'init', {ssr:true, clickmap:false, ecommerce:'dataLayer', accurateTrackBounce:true, trackLinks:true});
   }
   function schedule() {
-    // Run AFTER load in idle time so the ~107 KiB of third-party parse/execute
-    // stops landing inside the TBT window. Timeout guarantees it always runs.
+    // Run AFTER load in idle time so the third-party parse/execute stops landing
+    // inside the TBT window. Timeout guarantees it always runs.
     (window.requestIdleCallback || function (cb) { setTimeout(cb, 2000); })(onLoad, { timeout: 2000 });
   }
   if (document.readyState === 'complete') schedule(); else window.addEventListener('load', schedule);
@@ -400,11 +394,26 @@ def main() -> None:
                 r'<!-- deferred analytics -->\s*<script>.*?</script>\s*<noscript>.*?</noscript>',
                 lambda _m: "<!-- deferred analytics -->\n" + ANALYTICS_DEFERRED,
                 html, flags=re.S, count=1)
-        elif "Google tag (gtag.js)" in html and "Yandex.Metrika counter" in html:
+        elif "Yandex.Metrika counter" in html:
+            # First migration off the old inline counters: collapse whatever the
+            # page had (legacy GA4 + Metrika inline blocks) into the deferred block.
             html = re.sub(
-                r'<!-- Google tag \(gtag\.js\) -->.*?<!-- /Yandex\.Metrika counter -->',
-                lambda _m: '<!-- Google tag (gtag.js) --><!-- Yandex.Metrika counter --><!-- deferred analytics -->\n' + ANALYTICS_DEFERRED,
+                r'(?:<!-- Google tag \(gtag\.js\) -->\s*)?<!-- Yandex\.Metrika counter -->.*?<!-- /Yandex\.Metrika counter -->',
+                lambda _m: '<!-- Yandex.Metrika counter --><!-- deferred analytics -->\n' + ANALYTICS_DEFERRED,
                 html, flags=re.S, count=1)
+
+        # 13b) normalise the analytics markers. GA4 is served by Cloudflare Zaraz
+        #      at the edge, so every page carries the same marker immediately before
+        #      the deferred Metrika block. Idempotent; also retires the stale
+        #      client-side gtag markers left behind by earlier builds.
+        html = html.replace("<!-- Google tag (gtag.js) -->", GA4)
+        html = html.replace('src="https://www.googletagmanager.com/gtag/js?id=G-TS8EK9K6W4"', 'data-ga4-moved-to-zaraz="1"')
+        if GA4 not in html:
+            html = html.replace(
+                "<!-- Yandex.Metrika counter --><!-- deferred analytics -->",
+                GA4 + "<!-- Yandex.Metrika counter --><!-- deferred analytics -->",
+                1,
+            )
 
         # 7) FAIL-OPEN: force reveal/line-mask text visible so content can never
         #    be stuck hidden if the reveal JS doesn't trigger (reliability > entrance animation)

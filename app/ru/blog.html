@@ -1,21 +1,16 @@
 <!DOCTYPE html><html lang="ru"> <head>
-<style id="v2au-failopen">.line-mask>span{transform:none!important}.reveal{opacity:1!important;transform:none!important}</style><!-- Google tag (gtag.js) --><!-- Yandex.Metrika counter --><!-- deferred analytics -->
+<style id="v2au-failopen">.line-mask>span{transform:none!important}.reveal{opacity:1!important;transform:none!important}</style><!-- Google Analytics 4 served by Cloudflare Zaraz (edge) --><!-- Yandex.Metrika counter --><!-- deferred analytics -->
 <script>
 (function () {
   function onLoad() {
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date()); gtag('config', 'G-TS8EK9K6W4');
-    var g = document.createElement('script'); g.async = true;
-    g.src = 'https://www.googletagmanager.com/gtag/js?id=G-TS8EK9K6W4'; document.head.appendChild(g);
     var m = document.createElement('script'); m.async = true;
     m.src = 'https://mc.yandex.ru/metrika/tag.js?id=111501119'; document.head.appendChild(m);
     window.ym = window.ym || function(){ (window.ym.a = window.ym.a || []).push(arguments); };
     ym(111501119, 'init', {ssr:true, clickmap:false, ecommerce:'dataLayer', accurateTrackBounce:true, trackLinks:true});
   }
   function schedule() {
-    // Run AFTER load in idle time so the ~107 KiB of third-party parse/execute
-    // stops landing inside the TBT window. Timeout guarantees it always runs.
+    // Run AFTER load in idle time so the third-party parse/execute stops landing
+    // inside the TBT window. Timeout guarantees it always runs.
     (window.requestIdleCallback || function (cb) { setTimeout(cb, 2000); })(onLoad, { timeout: 2000 });
   }
   if (document.readyState === 'complete') schedule(); else window.addEventListener('load', schedule);
