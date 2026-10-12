@@ -1,0 +1,52 @@
+{
+  "protocolVersion": "0.2.5",
+  "name": "Visa2AU",
+  "description": "Registered Australian migration agents (MARN 0534230, 2418663). Answers questions about Australian visa subclasses, government charges, processing times and professional fees, and can point to the relevant guide page.",
+  "url": "https://visa2.au",
+  "version": "1.0.0",
+  "provider": {
+    "organization": "Visa2AU Pty Ltd",
+    "url": "https://visa2.au"
+  },
+  "documentationUrl": "https://visa2.au/llms.txt",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "stateTransitionHistory": false
+  },
+  "defaultInputModes": [
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "text/markdown"
+  ],
+  "skills": [
+    {
+      "id": "visa-guides",
+      "name": "Australian visa guides",
+      "description": "Retrieve structured guides for Australian visa subclasses including partner, skilled, employer-sponsored, student, visitor, parent and protection visas.",
+      "tags": [
+        "immigration",
+        "visas",
+        "australia"
+      ],
+      "examples": [
+        "What are the requirements for a partner visa 820/801?",
+        "How much is the government charge for a 482 visa?"
+      ]
+    },
+    {
+      "id": "fees-and-timelines",
+      "name": "Fees and processing times",
+      "description": "Government charges, professional fees and typical processing times per visa subclass.",
+      "tags": [
+        "fees",
+        "processing-times"
+      ],
+      "examples": [
+        "What does a 189 visa cost?",
+        "How long does a parent visa take?"
+      ]
+    }
+  ]
+}

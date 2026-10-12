@@ -1,0 +1,61 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Visa2AU",
+    "identifier": "did:web:visa2.au"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:visa2.au:mcp:content",
+      "displayName": "Visa2AU content search MCP server",
+      "type": "application/mcp-server-card+json",
+      "url": "https://visa2.au/.well-known/mcp/server-card.json",
+      "representativeQueries": [
+        "what are the requirements for an Australian partner visa",
+        "how much does a 482 visa cost in Australia",
+        "how long does a protection visa 866 take to process",
+        "Australian citizenship eligibility requirements"
+      ]
+    },
+    {
+      "identifier": "urn:air:visa2.au:api:content",
+      "displayName": "Visa2AU content API (OAuth 2.0 client credentials)",
+      "type": "application/json",
+      "url": "https://visa2.au/api/content",
+      "representativeQueries": [
+        "fetch the Visa2AU blog post about visa fee increases",
+        "list Visa2AU visa guide pages as structured content"
+      ]
+    },
+    {
+      "identifier": "urn:air:visa2.au:dataset:llms",
+      "displayName": "Visa2AU site summary for language models",
+      "type": "text/plain",
+      "url": "https://visa2.au/llms.txt",
+      "representativeQueries": [
+        "summarise Visa2AU services and professional fees",
+        "which Australian visa subclasses does Visa2AU assist with"
+      ]
+    },
+    {
+      "identifier": "urn:air:visa2.au:skills:index",
+      "displayName": "Visa2AU agent skills",
+      "type": "application/json",
+      "url": "https://visa2.au/.well-known/agent-skills/index.json",
+      "representativeQueries": [
+        "how do I search Visa2AU content as an agent",
+        "how do I authenticate to the Visa2AU content API"
+      ]
+    },
+    {
+      "identifier": "urn:air:visa2.au:agent:assistant",
+      "displayName": "Visa2AU A2A agent card",
+      "type": "application/json",
+      "url": "https://visa2.au/.well-known/agent-card.json",
+      "representativeQueries": [
+        "ask Visa2AU about Australian visa pathways",
+        "get an immigration consultation recommendation"
+      ]
+    }
+  ]
+}

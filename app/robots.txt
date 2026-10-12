@@ -34,3 +34,6 @@ User-agent: Applebot
 Allow: /
 
 Sitemap: https://visa2.au/sitemap.xml
+
+# ARD (Agentic Resource Discovery) capability manifest.
+Agentmap: https://visa2.au/.well-known/ai-catalog.json

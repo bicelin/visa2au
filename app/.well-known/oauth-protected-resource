@@ -1,7 +1,14 @@
 {
-  "resource": "https://staging.visa2.au/api",
-  "authorization_servers": ["https://staging.visa2.au"],
-  "scopes_supported": ["content:read"],
-  "bearer_methods_supported": ["header"],
-  "resource_documentation": "https://staging.visa2.au/llms.txt"
+  "resource": "https://visa2.au",
+  "authorization_servers": [
+    "https://visa2.au"
+  ],
+  "scopes_supported": [
+    "content:read"
+  ],
+  "bearer_methods_supported": [
+    "header"
+  ],
+  "resource_documentation": "https://visa2.au/auth.md",
+  "resource_name": "Visa2AU content API"
 }
