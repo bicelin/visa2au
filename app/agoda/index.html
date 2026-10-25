@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Visa2AU · Agora Group Call Test</title>
-  <script type="module" crossorigin src="/agoda/assets/index-BxZMdpDL.js"></script>
-  <link rel="stylesheet" crossorigin href="/agoda/assets/index-CW6OPS7M.css">
+  <script type="module" crossorigin src="/agoda/assets/index-RkMh4M96.js"></script>
+  <link rel="stylesheet" crossorigin href="/agoda/assets/index-f8_lQada.css">
 </head>
 <body>
   <header>
@@ -28,12 +28,28 @@
         <label>Channel
           <input id="channel" value="v2au-agora-test" required pattern="[A-Za-z0-9_\-]{1,64}" />
         </label>
-        <label>Your UID <small>(number, unique per participant, e.g. 1 / 2 / 3)</small>
-          <input id="uid" type="number" min="1" max="4294967294" placeholder="1" required />
+        <label>I am
+          <select id="role">
+            <option value="client" selected>Client / guest</option>
+            <option value="agent">Visa2AU agent</option>
+          </select>
         </label>
-        <label>Temp token <small>(optional — leave blank to use the Visa2AU token server; or paste an Agora Console temp token matching this channel &amp; UID)</small>
-          <textarea id="token" rows="3" placeholder="blank = auto token from server…"></textarea>
-        </label>
+        <div id="client-block">
+          <label>Your name <small>(shown on your tile to everyone in the call)</small>
+            <input id="client-name" placeholder="e.g. Moshe T" maxlength="40" required />
+          </label>
+        </div>
+        <div id="agent-block" class="hidden">
+          <label>Agent
+            <select id="agent-name">
+              <option value="900001" selected>Sergey</option>
+              <option value="900002">Natasha</option>
+            </select>
+          </label>
+          <label>Agent passcode
+            <input id="agent-pass" type="password" placeholder="••••••" autocomplete="off" />
+          </label>
+        </div>
         <div class="actions">
           <button id="join-btn" type="submit" class="btn btn-gold">Join call</button>
         </div>

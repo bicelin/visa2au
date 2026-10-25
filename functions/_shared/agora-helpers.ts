@@ -30,6 +30,9 @@ export async function safeEqual(a: string, b: string): Promise<boolean> {
 export function validateUid(raw: string, agentAuthorized: boolean): string | null {
   if (raw === "0") return agentAuthorized ? "" : null;
   if (!/^[A-Za-z0-9_\-]{1,64}$/.test(raw)) return null;
-  if (raw.startsWith("agent-") && !agentAuthorized) return null;
+  // Booked agent identities: string "agent-*" or numeric reserved range 9000xx
+  // (Sergey 900001, Natasha 900002; Cloud Recording needs numeric recorder uid,
+  //  so consultation channels use numeric uids + display names via data stream).
+  if ((raw.startsWith("agent-") || /^9000\d{2}$/.test(raw)) && !agentAuthorized) return null;
   return raw;
 }
