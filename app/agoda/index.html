@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visa2AU · Agora Group Call Test</title>
+  <script type="module" crossorigin src="/agoda/assets/index-BUI7zYrI.js"></script>
+  <link rel="stylesheet" crossorigin href="/agoda/assets/index-BFU1nYJi.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span class="brand-mark">V2</span>
+      <div>
+        <strong>Visa2AU</strong>
+        <small>Agora RTC group-call test · Web SDK 4.x · Communication profile</small>
+      </div>
+    </div>
+    <div id="conn-pill" class="pill pill-idle">not connected</div>
+  </header>
+
+  <main>
+    <section id="lobby" class="card">
+      <h1>Join a group call</h1>
+      <p class="hint">Open this page in three tabs or windows, join with different UIDs, and you should see &amp; hear everyone.</p>
+      <form id="join-form" autocomplete="off">
+        <label>Channel
+          <input id="channel" value="v2au-agora-test" required pattern="[A-Za-z0-9_\-]{1,64}" />
+        </label>
+        <label>Your UID <small>(number, unique per participant, e.g. 1 / 2 / 3)</small>
+          <input id="uid" type="number" min="1" max="4294967294" placeholder="1" required />
+        </label>
+        <label>Temp token <small>(optional — leave blank to use the Visa2AU token server; or paste an Agora Console temp token matching this channel &amp; UID)</small>
+          <textarea id="token" rows="3" placeholder="blank = auto token from server…"></textarea>
+        </label>
+        <div class="actions">
+          <button id="join-btn" type="submit" class="btn btn-gold">Join call</button>
+        </div>
+        <div id="lobby-error" class="error" hidden></div>
+      </form>
+    </section>
+
+    <section id="call" class="hidden">
+      <div id="grid" class="grid"></div>
+      <div class="controls">
+        <button id="mic-btn" class="btn btn-round" title="Mute / unmute microphone">🎙️ Mic on</button>
+        <button id="cam-btn" class="btn btn-round" title="Camera on / off">📷 Cam on</button>
+        <button id="leave-btn" class="btn btn-red">Leave call</button>
+      </div>
+      <p class="statusline"><span id="peer-count">0</span> other participant(s) in channel · <span id="quality">link quality: —</span></p>
+    </section>
+  </main>
+
+</body>
+</html>
