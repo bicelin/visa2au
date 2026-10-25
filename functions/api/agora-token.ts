@@ -9,17 +9,17 @@
  * TTL default 3600 s (Agora max 24 h). Uses WebCrypto (no Buffer / node crypto).
  *
  * Env: AGORA_APP_ID, AGORA_APP_CERTIFICATE, AGORA_TOKEN_TTL_S (optional),
- *      AGORA_CHANNEL_PREFIX (optional, default "v2au-")
- *
- * Staging note: mint is unauthenticated but channel-prefixed; production
- * should place this behind the same passcode/Turnstile gate as /api/video-join.
+ *      AGORA_CHANNEL_PREFIX (optional, default "v2au-"), AGORA_AGENT_PASSCODE (optional)
  */
+
+import { safeEqual, validateUid } from "../_shared/agora-helpers";
 
 interface Env {
   AGORA_APP_ID?: string;
   AGORA_APP_CERTIFICATE?: string;
   AGORA_TOKEN_TTL_S?: string;
   AGORA_CHANNEL_PREFIX?: string;
+  AGORA_AGENT_PASSCODE?: string;
 }
 
 // ---------- little-endian byte writer (mirrors ByteBuf in the reference) ----------
@@ -76,7 +76,7 @@ const b64 = (b: Uint8Array) => {
 
 // ---------- AccessToken2 build (RTC service only) ----------
 export async function buildRtcToken(
-  appId: string, appCertificate: string, channelName: string, uid: number, ttlSeconds: number,
+  appId: string, appCertificate: string, channelName: string, uid: string, ttlSeconds: number,
 ): Promise<string> {
   const issueTs = Math.floor(Date.now() / 1000);
   const expire = issueTs + ttlSeconds;
@@ -89,7 +89,7 @@ export async function buildRtcToken(
   signing = await hmac(new ByteBuf().u32(salt).out(), signing);
 
   // signing_info = putString(appId) + u32(issueTs) + u32(expire) + u32(salt) + u16(serviceCount) + service.pack()
-  const uidStr = uid === 0 ? "" : String(uid);
+  const uidStr = uid; // already canonical: "" = wildcard (validated upstream)
   const svc = new ByteBuf()
     .u16(1)                                  // kRtcServiceType
     .u16(4)                                 // privilege count
@@ -117,6 +117,7 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, OPTIONS",
+        "Access-Control-Allow-Headers": "content-type, x-agent-passcode",
       },
     });
 
@@ -127,14 +128,23 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
 
   const url = new URL(request.url);
   const channel = url.searchParams.get("channel") || "";
-  const uid = Number(url.searchParams.get("uid") || "0");
+  const uidRaw = url.searchParams.get("uid") || "";
   const prefix = env.AGORA_CHANNEL_PREFIX || "v2au-";
 
   if (!new RegExp(`^${prefix}[A-Za-z0-9_\\-]{1,${Math.max(1, 63 - prefix.length)}}$`).test(channel)) {
     return json({ ok: false, error: `Channel must match ${prefix}* (<=63 bytes, [A-Za-z0-9_-])` }, 400);
   }
-  if (!Number.isInteger(uid) || uid < 1 || uid > 4294967294) {
-    return json({ ok: false, error: "uid must be an integer 1..4294967294" }, 400);
+
+  const agentAuthorized =
+    !!env.AGORA_AGENT_PASSCODE &&
+    (await safeEqual(request.headers.get("x-agent-passcode") || "", env.AGORA_AGENT_PASSCODE));
+
+  const uid = validateUid(uidRaw, agentAuthorized);
+  if (uid === null) {
+    return json(
+      { ok: false, error: "uid must be 1-64 chars [A-Za-z0-9_-]; agent-* uids and uid=0 require a valid x-agent-passcode header" },
+      403,
+    );
   }
 
   let ttl = parseInt(env.AGORA_TOKEN_TTL_S || "3600", 10);
