@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Visa2AU · Agora Group Call Test</title>
-  <script type="module" crossorigin src="/agoda/assets/index-RkMh4M96.js"></script>
-  <link rel="stylesheet" crossorigin href="/agoda/assets/index-f8_lQada.css">
+  <script type="module" crossorigin src="/agoda/assets/index-D-RIjCId.js"></script>
+  <link rel="stylesheet" crossorigin href="/agoda/assets/index-BWSogJ2C.css">
 </head>
 <body>
   <header>
@@ -54,6 +54,19 @@
           <button id="join-btn" type="submit" class="btn btn-gold">Join call</button>
         </div>
         <div id="lobby-error" class="error" hidden></div>
+        <details class="adv">
+          <summary>Advanced — codec &amp; quality</summary>
+          <label>Codec <small>(chosen automatically for this device; override applies next join)</small>
+            <select id="codec-select"><option value="auto" selected>auto</option></select>
+          </label>
+          <p id="codec-badge" class="badge">probing…</p>
+          <label>Video quality <small>(live switch available in-call)</small>
+            <select id="videoq-select"></select>
+          </label>
+          <label>Audio quality <small>(applies on next join — SDK limitation, honest warning)</small>
+            <select id="audioq-select"></select>
+          </label>
+        </details>
       </form>
     </section>
 
@@ -62,9 +75,10 @@
       <div class="controls">
         <button id="mic-btn" class="btn btn-round" title="Mute / unmute microphone">🎙️ Mic on</button>
         <button id="cam-btn" class="btn btn-round" title="Camera on / off">📷 Cam on</button>
+        <select id="vq-live" class="mini" title="Video quality (live)"></select>
         <button id="leave-btn" class="btn btn-red">Leave call</button>
       </div>
-      <p class="statusline"><span id="peer-count">0</span> other participant(s) in channel · <span id="quality">link quality: —</span></p>
+      <p class="statusline"><span id="peer-count">0</span> other participant(s) · <span id="quality">link quality: —</span> · <span id="autoq">auto-quality: HIGH streams</span></p>
     </section>
   </main>
 
