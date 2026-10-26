@@ -117,7 +117,7 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
             storageConfig: { ...storageConfig(env), fileNamePrefix: [`${channel}-video`, day] },
             recordingConfig: { channelType: 0, streamTypes: 2, maxIdleTime: 30, subscribeUidGroup: 0 },
             videoParams: { maxWidth: 1280, maxHeight: 720, framerate: 15 },
-            recordingFileConfig: { avFileType: ["mp4"] }, // mp4 allowed in mix mode
+            recordingFileConfig: { avFileType: ["hls", "mp4"] }, // Agora rejects mp4-only even in mix; hls+mp4 where allowed, remux fallback
           },
         },
       ];
@@ -129,9 +129,25 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
         });
         const r = acq.body?.resourceId;
         if (!r) { sessions.push({ kind: sp.kind, ok: false, error: "acquire failed", agora: acq.body }); continue; }
-        const res = await agora(env, `/cloud_recording/resourceid/${encodeURIComponent(r)}/mode/${sp.mode}/start`, {
+        let res = await agora(env, `/cloud_recording/resourceid/${encodeURIComponent(r)}/mode/${sp.mode}/start`, {
           method: "POST", body: JSON.stringify({ cname: channel, uid: sp.uid, clientRequest: sp.creq }),
         });
+        // avFileType combo rejected by this Agora tier? retry once with pure hls (we remux locally)
+        if ((res.body?.code ?? -1) !== 0 && String(res.body?.reason || "").includes("avFileType")) {
+          const creq2 = { ...sp.creq, recordingFileConfig: { avFileType: ["hls"] } };
+          const acq2 = await agora(env, "/cloud_recording/acquire", {
+            method: "POST",
+            body: JSON.stringify({ cname: channel, uid: sp.uid, clientRequest: { resourceExpiredHour: 24, startParameter: creq2 } }),
+          });
+          const r2 = acq2.body?.resourceId;
+          if (r2) {
+            res = await agora(env, `/cloud_recording/resourceid/${encodeURIComponent(r2)}/mode/${sp.mode}/start`, {
+              method: "POST", body: JSON.stringify({ cname: channel, uid: sp.uid, clientRequest: creq2 }),
+            });
+            sessions.push({ kind: sp.kind + "(hls-only)", mode: sp.mode, uid: sp.uid, rid: r2, sid: res.body?.sid, ok: (res.body?.code ?? -1) === 0, ...(res.body?.code !== 0 ? { agora: res.body } : {}) });
+            continue;
+          }
+        }
         const code = res.body?.code ?? -1;
         sessions.push({ kind: sp.kind, mode: sp.mode, uid: sp.uid, rid: r, sid: res.body?.sid, ok: code === 0, ...(code !== 0 ? { agora: res.body } : {}) });
       }
