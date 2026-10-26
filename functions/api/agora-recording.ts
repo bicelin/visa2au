@@ -87,48 +87,35 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
 
   try {
     if (action === "start") {
-      if (!rid || !sid) return json({ ok: false, error: "rid+sid required (from acquire)" }, 400);
+      // New REST flow: acquire carries the FULL startParameter; start must send
+      // an identical clientRequest (Agora compares request hashes) within ~2 s.
       const ttlS = Math.min(24 * 3600, Math.max(4 * 3600, parseInt(env.AGORA_TOKEN_TTL_S || "14400", 10)));
       const token = await buildRtcToken(env.AGORA_APP_ID!, env.AGORA_APP_CERTIFICATE!, channel, "", ttlS);
       const day = new Date().toISOString().slice(0, 10);
+      const clientRequest = {
+        token,
+        storageConfig: { ...storageConfig(env), fileNamePrefix: [channel, day] },
+        recordingConfig: {
+          channelType: 0,
+          streamTypes: 0, // audio-only per-user files (mp4); video needs hls+transcoding — later
+          maxIdleTime: 30,
+          subscribeUidGroup: 0,
+          subscribeVideoUids: [],
+          subscribeAudioUids: ["#allstream#"],
+        },
+        recordingFileConfig: { avFileType: ["hls"] }, // individual mode requires default hls
+      };
+      const acq = await agora(env, "/cloud_recording/acquire", {
+        method: "POST",
+        body: JSON.stringify({ cname: channel, uid: recorderUid, clientRequest: { resourceExpiredHour: 24, startParameter: clientRequest } }),
+      });
+      const rid = acq.body?.resourceId;
+      if (!rid) return json({ ok: false, error: "acquire failed", agora: acq }, 502);
       const res = await agora(env, `/cloud_recording/resourceid/${encodeURIComponent(rid)}/mode/${RECORDER_MODE}/start`, {
         method: "POST",
-        body: JSON.stringify({
-          cname: channel,
-          uid: recorderUid,
-          clientRequest: {
-            token,
-            storageConfig: { ...storageConfig(env), fileNamePrefix: [channel, day] },
-            recordingConfig: {
-              channelType: 0,
-              streamTypes: 0, // audio-only per-user files (mp4); video needs hls+transcoding — later
-              maxIdleTime: 30,
-              subscribeUidGroup: 0,
-              subscribeVideoUids: [],
-              subscribeAudioUids: ["#allstream#"],
-            },
-            recordingFileConfig: { avFileType: ["hls"] }, // individual mode requires default hls
-          },
-        }),
+        body: JSON.stringify({ cname: channel, uid: recorderUid, clientRequest }),
       });
-      return json({ ok: (res.code ?? 0) === 0 || (res.code ?? 0) === 200, agora: res });
-    }
-
-    if (action === "acquire") {
-      const res = await agora(env, "/cloud_recording/acquire", {
-        method: "POST",
-        body: JSON.stringify({
-          cname: channel,
-          uid: recorderUid,
-          clientRequest: {
-            resourceExpiredHour: 24,
-            startParameter: {
-              storageConfig: storageConfig(env),
-            },
-          },
-        }),
-      });
-      return json({ ok: (res.code ?? 0) === 0 || (res.code ?? 0) === 200, agora: res });
+      return json({ ok: (res.code ?? 0) === 0 || (res.code ?? 0) === 200, rid, agora: res });
     }
 
     if (!rid || !sid) return json({ ok: false, error: "rid+sid required" }, 400);
