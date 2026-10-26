@@ -144,12 +144,12 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
             res = await agora(env, `/cloud_recording/resourceid/${encodeURIComponent(r2)}/mode/${sp.mode}/start`, {
               method: "POST", body: JSON.stringify({ cname: channel, uid: sp.uid, clientRequest: creq2 }),
             });
-            sessions.push({ kind: sp.kind + "(hls-only)", mode: sp.mode, uid: sp.uid, rid: r2, sid: res.body?.sid, ok: (res.body?.code ?? -1) === 0, ...(res.body?.code !== 0 ? { agora: res.body } : {}) });
+            sessions.push({ kind: sp.kind + "(hls-only)", mode: sp.mode, uid: sp.uid, rid: r2, sid: res.body?.sid, ok: [0, 200].includes(res.body?.code ?? -1), ...(res.body?.code !== 0 ? { agora: res.body } : {}) });
             continue;
           }
         }
         const code = res.body?.code ?? -1;
-        sessions.push({ kind: sp.kind, mode: sp.mode, uid: sp.uid, rid: r, sid: res.body?.sid, ok: code === 0, ...(code !== 0 ? { agora: res.body } : {}) });
+        sessions.push({ kind: sp.kind, mode: sp.mode, uid: sp.uid, rid: r, sid: res.body?.sid, ok: code === 0 || code === 200, ...(code !== 0 ? { agora: res.body } : {}) });
       }
       return json({ ok: sessions.some((s) => s.ok === true), sessions });
     }
