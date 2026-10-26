@@ -104,7 +104,7 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
             token,
             storageConfig: { ...storageConfig(env), fileNamePrefix: [channel, day] },
             recordingConfig: {
-              channelType: 0, streamTypes: 0, maxIdleTime: 30, subscribeUidGroup: 0,
+              channelType: 0, streamTypes: 0, maxIdleTime: 180, subscribeUidGroup: 0,
               subscribeVideoUids: [], subscribeAudioUids: ["#allstream#"],
             },
             recordingFileConfig: { avFileType: ["hls"] },
@@ -115,7 +115,7 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
           creq: {
             token,
             storageConfig: { ...storageConfig(env), fileNamePrefix: [`${channel}-video`, day] },
-            recordingConfig: { channelType: 0, streamTypes: 2, maxIdleTime: 30, subscribeUidGroup: 0 },
+            recordingConfig: { channelType: 0, streamTypes: 2, maxIdleTime: 180, subscribeUidGroup: 0 },
             videoParams: { maxWidth: 1280, maxHeight: 720, framerate: 15 },
             recordingFileConfig: { avFileType: ["hls", "mp4"] }, // Agora rejects mp4-only even in mix; hls+mp4 where allowed, remux fallback
           },
