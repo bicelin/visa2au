@@ -29,6 +29,7 @@ interface Env {
   AGORA_R2_BUCKET?: string;
   AGORA_R2_REGION?: string;
   AGORA_RECORDER_UID?: string;
+  AGORA_RECORDER_UID_VIDEO?: string;
   AGORA_TOKEN_TTL_S?: string;
 }
 
@@ -87,48 +88,80 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
 
   try {
     if (action === "start") {
+      // Two parallel sessions from one tap:
+      //  A) individual audio-only HLS  -> per-speaker STT lane (lands live, chunked)
+      //  B) mix-mode audio+video MP4   -> one composite "session video" (finalized at stop)
       // New REST flow: acquire carries the FULL startParameter; start must send
       // an identical clientRequest (Agora compares request hashes) within ~2 s.
       const ttlS = Math.min(24 * 3600, Math.max(4 * 3600, parseInt(env.AGORA_TOKEN_TTL_S || "14400", 10)));
       const token = await buildRtcToken(env.AGORA_APP_ID!, env.AGORA_APP_CERTIFICATE!, channel, "", ttlS);
       const day = new Date().toISOString().slice(0, 10);
-      const clientRequest = {
-        token,
-        storageConfig: { ...storageConfig(env), fileNamePrefix: [channel, day] },
-        recordingConfig: {
-          channelType: 0,
-          streamTypes: 0, // audio-only per-user files (mp4); video needs hls+transcoding — later
-          maxIdleTime: 30,
-          subscribeUidGroup: 0,
-          subscribeVideoUids: [],
-          subscribeAudioUids: ["#allstream#"],
+      const recUidVideo = env.AGORA_RECORDER_UID_VIDEO || "880002";
+      const specs: { kind: string; mode: string; uid: string; creq: Record<string, unknown> }[] = [
+        {
+          kind: "audio", mode: "individual", uid: recorderUid,
+          creq: {
+            token,
+            storageConfig: { ...storageConfig(env), fileNamePrefix: [channel, day] },
+            recordingConfig: {
+              channelType: 0, streamTypes: 0, maxIdleTime: 30, subscribeUidGroup: 0,
+              subscribeVideoUids: [], subscribeAudioUids: ["#allstream#"],
+            },
+            recordingFileConfig: { avFileType: ["hls"] },
+          },
         },
-        recordingFileConfig: { avFileType: ["hls"] }, // individual mode requires default hls
-      };
-      const acq = await agora(env, "/cloud_recording/acquire", {
-        method: "POST",
-        body: JSON.stringify({ cname: channel, uid: recorderUid, clientRequest: { resourceExpiredHour: 24, startParameter: clientRequest } }),
-      });
-      const rid = acq.body?.resourceId;
-      if (!rid) return json({ ok: false, error: "acquire failed", agora: acq }, 502);
-      const res = await agora(env, `/cloud_recording/resourceid/${encodeURIComponent(rid)}/mode/${RECORDER_MODE}/start`, {
-        method: "POST",
-        body: JSON.stringify({ cname: channel, uid: recorderUid, clientRequest }),
-      });
-      return json({ ok: (res.code ?? 0) === 0 || (res.code ?? 0) === 200, rid, agora: res });
+        {
+          kind: "video", mode: "mix", uid: recUidVideo,
+          creq: {
+            token,
+            storageConfig: { ...storageConfig(env), fileNamePrefix: [`${channel}-video`, day] },
+            recordingConfig: { channelType: 0, streamTypes: 2, maxIdleTime: 30, subscribeUidGroup: 0 },
+            videoParams: { maxWidth: 1280, maxHeight: 720, framerate: 15 },
+            recordingFileConfig: { avFileType: ["mp4"] }, // mp4 allowed in mix mode
+          },
+        },
+      ];
+      const sessions: Record<string, unknown>[] = [];
+      for (const sp of specs) {
+        const acq = await agora(env, "/cloud_recording/acquire", {
+          method: "POST",
+          body: JSON.stringify({ cname: channel, uid: sp.uid, clientRequest: { resourceExpiredHour: 24, startParameter: sp.creq } }),
+        });
+        const r = acq.body?.resourceId;
+        if (!r) { sessions.push({ kind: sp.kind, ok: false, error: "acquire failed", agora: acq.body }); continue; }
+        const res = await agora(env, `/cloud_recording/resourceid/${encodeURIComponent(r)}/mode/${sp.mode}/start`, {
+          method: "POST", body: JSON.stringify({ cname: channel, uid: sp.uid, clientRequest: sp.creq }),
+        });
+        const code = res.body?.code ?? -1;
+        sessions.push({ kind: sp.kind, mode: sp.mode, uid: sp.uid, rid: r, sid: res.body?.sid, ok: code === 0, ...(code !== 0 ? { agora: res.body } : {}) });
+      }
+      return json({ ok: sessions.some((s) => s.ok === true), sessions });
     }
 
-    if (!rid || !sid) return json({ ok: false, error: "rid+sid required" }, 400);
-    if (action === "stop") {
-      const res = await agora(env, `/cloud_recording/resourceid/${encodeURIComponent(rid)}/sid/${encodeURIComponent(sid)}/mode/${RECORDER_MODE}/stop`, {
-        method: "POST",
-        body: JSON.stringify({ cname: channel, uid: recorderUid, clientRequest: {} }),
-      });
-      return json({ ok: true, agora: res });
+    if (action === "stop" || action === "query") {
+      // client passes the full sessions manifest (each has its own rid/sid/mode/uid);
+      // legacy single rid+sid query params still accepted.
+      let items: { rid?: string; sid?: string; mode?: string; uid?: string }[] = [];
+      if (action === "stop") {
+        try { const b = await request.json() as { sessions?: typeof items }; if (b?.sessions) items = b.sessions; } catch { /* legacy */ }
+      }
+      if (!items.length) items = [{ rid, sid, mode: RECORDER_MODE, uid: recorderUid }];
+      if (!items.some((it) => it.rid && it.sid)) return json({ ok: false, error: "rid+sid required" }, 400);
+      const results: Record<string, unknown>[] = [];
+      for (const it of items) {
+        if (!it.rid || !it.sid) { results.push({ kind: it.uid, skipped: "missing rid/sid" }); continue; }
+        const path = action === "stop"
+          ? `/cloud_recording/resourceid/${encodeURIComponent(it.rid)}/sid/${encodeURIComponent(it.sid)}/mode/${it.mode || "individual"}/stop`
+          : `/cloud_recording/resourceid/${encodeURIComponent(it.rid)}/sid/${encodeURIComponent(it.sid)}/mode/${it.mode || "individual"}/query?cname=${encodeURIComponent(channel)}`;
+        const res = await agora(env, path, {
+          method: action === "stop" ? "POST" : "GET",
+          body: action === "stop" ? JSON.stringify({ cname: channel, uid: String(it.uid || recorderUid), clientRequest: {} }) : undefined,
+        });
+        results.push({ ok: (res.body?.code ?? -1) === 0 || action === "query", agora: res.body });
+      }
+      return json({ ok: true, results });
     }
-    // default: query
-    const res = await agora(env, `/cloud_recording/resourceid/${encodeURIComponent(rid)}/sid/${encodeURIComponent(sid)}/mode/${RECORDER_MODE}/query?cname=${encodeURIComponent(channel)}`, { method: "GET" });
-    return json({ ok: true, agora: res });
+    return json({ ok: false, error: "unknown action" }, 400);
   } catch (e) {
     return json({ ok: false, error: `recording proxy failed: ${(e as Error).message}` }, 500);
   }
