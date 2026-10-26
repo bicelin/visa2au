@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Visa2AU · Agora Group Call Test</title>
-  <script type="module" crossorigin src="/agoda/assets/index-BKx3FC9n.js"></script>
-  <link rel="stylesheet" crossorigin href="/agoda/assets/index-BDntlBsf.css">
+  <script type="module" crossorigin src="/agoda/assets/index-Bh52nhMb.js"></script>
+  <link rel="stylesheet" crossorigin href="/agoda/assets/index-BdbSHnCo.css">
 </head>
 <body>
   <header>
@@ -28,33 +28,19 @@
         <label>Channel
           <input id="channel" value="v2au-agora-test" required pattern="[A-Za-z0-9_\-]{1,64}" />
         </label>
-        <label>I am
-          <select id="role">
-            <option value="client" selected>Client / guest</option>
-            <option value="agent">Visa2AU agent</option>
-          </select>
-        </label>
-        <div id="client-block">
-          <label>Your name <small>(shown on your tile to everyone in the call)</small>
+        <label>Your name <small>(shown on your tile to everyone in the call)</small>
             <input id="client-name" placeholder="e.g. Moshe T" maxlength="40" required />
           </label>
-        </div>
-        <div id="agent-block" class="hidden">
-          <label>Agent
-            <select id="agent-name">
-              <option value="900001" selected>Sergey</option>
-              <option value="900002">Natasha</option>
-            </select>
+        <label>Staff code <small>(optional — leave empty to join as guest)</small>
+            <input id="staff-code" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="••••" autocomplete="off" />
           </label>
-          <label>Agent passcode
-            <input id="agent-pass" type="password" placeholder="••••••" autocomplete="off" />
-          </label>
-        </div>
+        <p id="admin-flag" class="badge" hidden></p>
+        <div id="turnstile-widget" hidden></div>
         <div class="actions">
           <button id="join-btn" type="submit" class="btn btn-gold">Join call</button>
         </div>
         <div id="lobby-error" class="error" hidden></div>
-        <details class="adv">
+        <details class="adv admin-only">
           <summary>Advanced — codec &amp; quality</summary>
           <label>Codec <small>(chosen automatically for this device; override applies next join)</small>
             <select id="codec-select"><option value="auto" selected>auto</option></select>
@@ -75,11 +61,11 @@
       <div class="controls">
         <button id="mic-btn" class="btn btn-round" title="Mute / unmute microphone">🎙️ Mic on</button>
         <button id="cam-btn" class="btn btn-round" title="Camera on / off">📷 Cam on</button>
-        <select id="vq-live" class="mini" title="Video quality (live)"></select>
+        <select id="vq-live" class="mini admin-only" title="Video quality (live)"></select>
         <button id="leave-btn" class="btn btn-red">Leave call</button>
       </div>
-      <p class="statusline"><span id="peer-count">0</span> other participant(s) · <span id="quality">link quality: —</span> · <span id="autoq">auto-quality: HIGH streams</span></p>
-      <details id="stats-drawer" class="adv">
+      <p class="statusline"><span id="peer-count">0</span> other participant(s) · <span id="quality" class="admin-only">link quality: —</span> · <span id="autoq" class="admin-only">auto-quality: HIGH streams</span></p>
+      <details id="stats-drawer" class="adv admin-only">
         <summary>📊 Diagnostics (2 s refresh)</summary>
         <div id="stats-body" class="swrap"><p class="badge">collecting…</p></div>
       </details>

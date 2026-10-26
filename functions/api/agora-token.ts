@@ -12,14 +12,30 @@
  *      AGORA_CHANNEL_PREFIX (optional, default "v2au-"), AGORA_AGENT_PASSCODE (optional)
  */
 
-import { safeEqual, validateUid } from "../_shared/agora-helpers";
+import { resolveStaff, validateClientUid } from "../_shared/agora-helpers";
 
 interface Env {
   AGORA_APP_ID?: string;
   AGORA_APP_CERTIFICATE?: string;
   AGORA_TOKEN_TTL_S?: string;
   AGORA_CHANNEL_PREFIX?: string;
-  AGORA_AGENT_PASSCODE?: string;
+  AGORA_AGENT_CODES?: string;
+  TURNSTILE_SITE_KEY?: string;
+  TURNSTILE_SECRET?: string;
+}
+
+// Turnstile siteverify — bot gate for public token mints. When TURNSTILE_SECRET
+// is unset the check is skipped (dev mode); set it to enforce.
+async function siteVerify(secret: string, response: string, ip: string): Promise<boolean> {
+  try {
+    const r = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ secret, response, remoteip: ip }),
+    });
+    const j = await r.json() as { success?: boolean };
+    return !!j.success;
+  } catch { return false; }
 }
 
 // ---------- little-endian byte writer (mirrors ByteBuf in the reference) ----------
@@ -122,11 +138,25 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
     });
 
   if (request.method === "OPTIONS") return new Response(null, { status: 204 });
+
+  const url = new URL(request.url);
+  if (url.searchParams.get("action") === "config") {
+    return json({ ok: true, sitekey: env.TURNSTILE_SITE_KEY || "" });
+  }
+
   if (!env.AGORA_APP_ID || !env.AGORA_APP_CERTIFICATE) {
     return json({ ok: false, error: "Token server not configured" }, 500);
   }
 
-  const url = new URL(request.url);
+  // bot protection (optional until TURNSTILE_SECRET is set)
+  if (env.TURNSTILE_SECRET) {
+    const cf = url.searchParams.get("cftoken") || "";
+    const ip = request.headers.get("cf-connecting-ip") || "";
+    if (!cf || !(await siteVerify(env.TURNSTILE_SECRET, cf, ip))) {
+      return json({ ok: false, error: "captcha-required" }, 403);
+    }
+  }
+
   const channel = url.searchParams.get("channel") || "";
   const uidRaw = url.searchParams.get("uid") || "";
   const prefix = env.AGORA_CHANNEL_PREFIX || "v2au-";
@@ -135,16 +165,16 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
     return json({ ok: false, error: `Channel must match ${prefix}* (<=63 bytes, [A-Za-z0-9_-])` }, 400);
   }
 
-  const agentAuthorized =
-    !!env.AGORA_AGENT_PASSCODE &&
-    (await safeEqual(request.headers.get("x-agent-passcode") || "", env.AGORA_AGENT_PASSCODE));
-
-  const uid = validateUid(uidRaw, agentAuthorized);
+  const agentPasscode = request.headers.get("x-agent-passcode") || "";
+  const staff = uidRaw === "staff" ? resolveStaff(env.AGORA_AGENT_CODES || "", agentPasscode) : null;
+  if (uidRaw === "staff" && !staff) {
+    return json({ ok: false, error: "Staff code not recognized" }, 403);
+  }
+  const uid = staff
+    ? staff.uid
+    : validateClientUid(uidRaw, !!resolveStaff(env.AGORA_AGENT_CODES || "", agentPasscode));
   if (uid === null) {
-    return json(
-      { ok: false, error: "uid must be 1-64 chars [A-Za-z0-9_-]; agent-* uids and uid=0 require a valid x-agent-passcode header" },
-      403,
-    );
+    return json({ ok: false, error: "uid invalid or reserved" }, 403);
   }
 
   let ttl = parseInt(env.AGORA_TOKEN_TTL_S || "3600", 10);
@@ -153,7 +183,7 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
 
   try {
     const token = await buildRtcToken(env.AGORA_APP_ID, env.AGORA_APP_CERTIFICATE, channel, uid, ttl);
-    return json({ ok: true, channel, uid, issuedAt: Math.floor(Date.now() / 1000), expireIn: ttl, token });
+    return json({ ok: true, channel, uid, name: staff?.name ?? "", issuedAt: Math.floor(Date.now() / 1000), expireIn: ttl, token });
   } catch (e) {
     return json({ ok: false, error: `Token build failed: ${(e as Error).message}` }, 500);
   }
