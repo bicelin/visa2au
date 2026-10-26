@@ -101,10 +101,10 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
             storageConfig: { ...storageConfig(env), fileNamePrefix: [channel, day] },
             recordingConfig: {
               channelType: 0,
-              streamTypes: 2,
+              streamTypes: 0, // audio-only per-user files (mp4); video needs hls+transcoding — later
               maxIdleTime: 30,
               subscribeUidGroup: 0,
-              subscribeVideoUids: ["#allstream#"],
+              subscribeVideoUids: [],
               subscribeAudioUids: ["#allstream#"],
             },
             recordingFileConfig: { avFileType: ["mp4"] },
@@ -135,7 +135,7 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
     if (action === "stop") {
       const res = await agora(env, `/cloud_recording/resourceid/${encodeURIComponent(rid)}/sid/${encodeURIComponent(sid)}/mode/${RECORDER_MODE}/stop`, {
         method: "POST",
-        body: JSON.stringify({ cname: channel, uid: recorderUid }),
+        body: JSON.stringify({ cname: channel, uid: recorderUid, clientRequest: {} }),
       });
       return json({ ok: true, agora: res });
     }
