@@ -26,16 +26,16 @@ interface Env {
 
 // Turnstile siteverify — bot gate for public token mints. When TURNSTILE_SECRET
 // is unset the check is skipped (dev mode); set it to enforce.
-async function siteVerify(secret: string, response: string, ip: string): Promise<boolean> {
+async function siteVerify(secret: string, response: string): Promise<{ success: boolean; codes: string[] }> {
   try {
     const r = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ secret, response, remoteip: ip }),
+      body: JSON.stringify({ secret, response }),
     });
-    const j = await r.json() as { success?: boolean };
-    return !!j.success;
-  } catch { return false; }
+    const j = await r.json() as { success?: boolean; "error-codes"?: string[] };
+    return { success: !!j.success, codes: j["error-codes"] ?? [] };
+  } catch (e) { return { success: false, codes: [`fetch-failed:${(e as Error).name}`] }; }
 }
 
 // ---------- little-endian byte writer (mirrors ByteBuf in the reference) ----------
@@ -151,10 +151,9 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
   // bot protection (optional until TURNSTILE_SECRET is set)
   if (env.TURNSTILE_SECRET) {
     const cf = url.searchParams.get("cftoken") || "";
-    const ip = request.headers.get("cf-connecting-ip") || "";
-    if (!cf || !(await siteVerify(env.TURNSTILE_SECRET, cf, ip))) {
-      return json({ ok: false, error: "captcha-required" }, 403);
-    }
+    if (!cf) return json({ ok: false, error: "captcha-required" }, 403);
+    const v = await siteVerify(env.TURNSTILE_SECRET, cf);
+    if (!v.success) return json({ ok: false, error: "captcha-verify-failed", cf: v.codes }, 403);
   }
 
   const channel = url.searchParams.get("channel") || "";
