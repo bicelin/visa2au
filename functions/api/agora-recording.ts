@@ -174,7 +174,7 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
           method: action === "stop" ? "POST" : "GET",
           body: action === "stop" ? JSON.stringify({ cname: channel, uid: String(it.uid || recorderUid), clientRequest: {} }) : undefined,
         });
-        results.push({ ok: (res.body?.code ?? -1) === 0 || action === "query", agora: res.body });
+        results.push({ ok: (res.body?.code ?? 0) === 0 || action === "query", http: res.http, agora: res.body });
       }
       return json({ ok: true, results });
     }
