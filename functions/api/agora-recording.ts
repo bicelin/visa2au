@@ -103,6 +103,7 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
               channelType: 0,
               streamTypes: 2,
               maxIdleTime: 30,
+              subscribeUidGroup: 0,
               subscribeVideoUids: ["#allstream#"],
               subscribeAudioUids: ["#allstream#"],
             },
@@ -132,11 +133,14 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
 
     if (!rid || !sid) return json({ ok: false, error: "rid+sid required" }, 400);
     if (action === "stop") {
-      const res = await agora(env, `/cloud_recording/resourceid/${encodeURIComponent(rid)}/sid/${encodeURIComponent(sid)}/mode/${RECORDER_MODE}/stop`, { method: "POST", body: "{}" });
+      const res = await agora(env, `/cloud_recording/resourceid/${encodeURIComponent(rid)}/sid/${encodeURIComponent(sid)}/mode/${RECORDER_MODE}/stop`, {
+        method: "POST",
+        body: JSON.stringify({ cname: channel, uid: recorderUid }),
+      });
       return json({ ok: true, agora: res });
     }
     // default: query
-    const res = await agora(env, `/cloud_recording/resourceid/${encodeURIComponent(rid)}/sid/${encodeURIComponent(sid)}/mode/${RECORDER_MODE}/query`, { method: "GET" });
+    const res = await agora(env, `/cloud_recording/resourceid/${encodeURIComponent(rid)}/sid/${encodeURIComponent(sid)}/mode/${RECORDER_MODE}/query?cname=${encodeURIComponent(channel)}`, { method: "GET" });
     return json({ ok: true, agora: res });
   } catch (e) {
     return json({ ok: false, error: `recording proxy failed: ${(e as Error).message}` }, 500);
