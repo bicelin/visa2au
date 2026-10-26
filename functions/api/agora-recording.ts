@@ -107,7 +107,7 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
               subscribeVideoUids: [],
               subscribeAudioUids: ["#allstream#"],
             },
-            recordingFileConfig: { avFileType: ["mp4"] },
+            recordingFileConfig: { avFileType: ["hls"] }, // individual mode requires default hls
           },
         }),
       });
