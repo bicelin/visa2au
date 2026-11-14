@@ -25,7 +25,7 @@
   'use strict';
   var IN_RATE = 16000;    // user_input_audio_format  pcm_16000
   var OUT_RATE = 24000;   // agent_output_audio_format pcm_24000  (verified)
-  var ws = null, active = false, connecting = false;
+  var ws = null, active = false, connecting = false, stopping = false;
   var audioCtx = null, micNode = null, mediaStream = null;
   var outCtx = null, nextPlayTime = 0, playing = [], speechEndAt = 0;
   var els = {}, CALL_LANG = 'en';
@@ -37,7 +37,9 @@
     en: {
       title: 'Visa2AU voice assistant', close: 'End voice call', connecting: 'Connecting…',
       connected: 'Connected — start speaking. Keep browsing; the call stays open.',
-      micBlocked: 'Microphone blocked — allow mic access and try again.',
+      micBlocked: 'Microphone blocked — allow mic access in your browser and try again.',
+      micMissing: 'No microphone found — connect one, or call us on +61 2 9136 2462.',
+      insecure: 'The microphone needs an https connection.', retry: 'Try again',
       fail: 'Could not start the voice assistant.', opening: 'Opening page…', opened: 'Opened: ',
       pageFail: 'That page could not be opened.', ended: 'Call ended. Thank you for calling Visa2AU.',
       netErr: 'Connection problem — please try again.',
@@ -46,7 +48,9 @@
     ru: {
       title: 'Голосовой помощник Visa2AU', close: 'Завершить звонок', connecting: 'Подключение…',
       connected: 'Соединение установлено — говорите. Можно листать сайт, звонок не прервётся.',
-      micBlocked: 'Микрофон заблокирован — разрешите доступ и попробуйте снова.',
+      micBlocked: 'Микрофон заблокирован — разрешите доступ в браузере и попробуйте снова.',
+      micMissing: 'Микрофон не найден — подключите его или позвоните нам: +61 2 9136 2462.',
+      insecure: 'Для микрофона нужно соединение https.', retry: 'Попробовать снова',
       fail: 'Не удалось запустить голосового помощника.', opening: 'Открываю страницу…', opened: 'Открыто: ',
       pageFail: 'Эту страницу открыть не удалось.', ended: 'Звонок завершён. Спасибо, что обратились в Visa2AU.',
       netErr: 'Проблема с соединением — попробуйте ещё раз.',
@@ -55,7 +59,9 @@
     fr: {
       title: 'Assistant vocal Visa2AU', close: 'Terminer l’appel', connecting: 'Connexion…',
       connected: 'Connecté — parlez. Vous pouvez naviguer sur le site, l’appel continue.',
-      micBlocked: 'Micro bloqué — autorisez l’accès puis réessayez.',
+      micBlocked: 'Micro bloqué — autorisez l’accès dans votre navigateur puis réessayez.',
+      micMissing: 'Aucun microphone détecté — connectez-en un ou appelez le +61 2 9136 2462.',
+      insecure: 'Le microphone nécessite une connexion https.', retry: 'Réessayer',
       fail: 'Impossible de démarrer l’assistant vocal.', opening: 'Ouverture de la page…', opened: 'Ouvert : ',
       pageFail: 'Cette page n’a pas pu être ouverte.', ended: 'Appel terminé. Merci d’avoir contacté Visa2AU.',
       netErr: 'Problème de connexion — veuillez réessayer.',
@@ -79,6 +85,7 @@
       '<button id="v2au-voice-close" aria-label="' + t.close + '" style="background:none;border:none;font-size:18px;cursor:pointer;color:inherit">✕</button></div>' +
       '<p id="v2au-voice-msg" style="font-size:13px;min-height:20px">' + t.connecting + '</p>' +
       '<p style="font-size:11px;opacity:.6;margin-top:2px">' + t.stays + '</p>' +
+      '<button id="v2au-voice-retry" hidden style="margin-top:8px;padding:6px 12px;border-radius:8px;border:1px solid currentColor;background:transparent;color:inherit;font-size:12px;cursor:pointer">' + t.retry + '</button>' +
       '<div id="v2au-voice-log" style="font-size:12px;max-height:140px;overflow-y:auto;opacity:.75;margin-top:6px"></div>';
     Object.assign(p.style, {
       position: 'fixed', bottom: '88px', left: '20px', zIndex: '60', width: 'min(320px, calc(100vw - 40px))',
@@ -87,8 +94,9 @@
       fontFamily: 'system-ui, sans-serif'
     });
     document.body.appendChild(p);
-    els.panel = p; els.msg = $('v2au-voice-msg'); els.log = $('v2au-voice-log');
-    $('v2au-voice-close').addEventListener('click', stop);
+    els.panel = p; els.msg = $('v2au-voice-msg'); els.log = $('v2au-voice-log'); els.retry = $('v2au-voice-retry');
+    $('v2au-voice-close').addEventListener('click', function () { stop(); });
+    if (els.retry) els.retry.addEventListener('click', function () { els.retry.hidden = true; start(); });
   }
 
   function say(t, log) {
@@ -190,8 +198,25 @@
   window.addEventListener('popstate', function () { if (active) softGo(location.pathname); });
 
   /* ---------------- audio plumbing ---------------- */
+  /* Capture at the device's native rate and resample to 16 kHz in JS.
+     Asking AudioContext for ({sampleRate:16000}) is unsupported on some
+     browsers/devices and throws — which killed the call before any audio
+     was sent (observed as "Client disconnected: 1000" with zero user turns). */
+  function downsample(buf, fromRate, toRate) {
+    if (fromRate === toRate) return buf;
+    var ratio = fromRate / toRate, outLen = Math.round(buf.length / ratio);
+    var out = new Float32Array(outLen);
+    for (var i = 0; i < outLen; i++) {
+      var pos = i * ratio, i0 = Math.floor(pos), i1 = Math.min(i0 + 1, buf.length - 1);
+      out[i] = buf[i0] + (buf[i1] - buf[i0]) * (pos - i0);
+    }
+    return out;
+  }
+
   async function startMic(send) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: IN_RATE });
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia)
+      throw new Error('insecure');
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     mediaStream = await navigator.mediaDevices.getUserMedia({
       audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
     var src = audioCtx.createMediaStreamSource(mediaStream);
@@ -201,7 +226,7 @@
       // Half-duplex gate: the browser has no echo reference for WebAudio playback,
       // so the agent would hear itself through our mic and interrupt itself.
       if (playing.length > 0 || Date.now() - speechEndAt < 350) return;
-      var inp = e.inputBuffer.getChannelData(0);
+      var inp = downsample(e.inputBuffer.getChannelData(0), audioCtx.sampleRate, IN_RATE);
       var pcm = new Int16Array(inp.length);
       for (var i = 0; i < inp.length; i++) {
         var s = Math.max(-1, Math.min(1, inp[i]));
@@ -284,12 +309,13 @@
   async function start() {
     if (active || connecting) return;
     connecting = true;
+    CALL_LANG = lang();          // before ui(), so the panel is localized on first paint
     ui();
+    if (els.retry) els.retry.hidden = true;
     try {
       var agents = await getStatus();
-      CALL_LANG = lang();
       if (!agents[CALL_LANG] && !agents.en) throw new Error('no agent configured');
-      say('Connecting…');
+      say(T().connecting);
       var url = await getSignedUrl(CALL_LANG);
       ws = new WebSocket(url);
       ws.onopen = function () {
@@ -303,18 +329,27 @@
         try { ev = JSON.parse(m.data); } catch (e) { return; }
         if (ev.type === 'conversation_initiation_metadata') {
           active = true; connecting = false;
-          say('Connected — start speaking. Keep browsing; the call stays open.', false);
+          say(T().connected);
           startMic(function (a) {
             if (ws && ws.readyState === 1) ws.send(JSON.stringify({ user_audio_chunk: a }));
-          }).catch(function () { say('Microphone blocked — allow mic access and try again.'); stop(); });
+          }).catch(function (err) {
+            // Surface WHY it failed and keep the panel retryable — the old code
+            // replaced this with "Call ended" and left the widget dead.
+            var t = T(), name = (err && err.name) || '', msg;
+            if (err && err.message === 'insecure') msg = t.insecure;
+            else if (name === 'NotAllowedError' || name === 'SecurityError') msg = t.micBlocked;
+            else if (name === 'NotFoundError' || name === 'OverconstrainedError') msg = t.micMissing;
+            else msg = t.micBlocked;
+            stop(msg);
+          });
         } else if (ev.type === 'audio') {
           var ae = ev.audio_event || {};
           if (ae.audio_base_64) playPcm(ae.audio_base_64);
         } else if (ev.type === 'interruption') {
           clearPlayback();   // real barge-in (mic is gated while the agent speaks)
         } else if (ev.type === 'agent_response') {
-          var t = ((ev.agent_response_event || {}).agent_response || '').trim();
-          if (t) say('🗣 ' + t.slice(0, 140), true);
+          var t2 = ((ev.agent_response_event || {}).agent_response || '').trim();
+          if (t2) say('🗣 ' + t2.slice(0, 140), true);
         } else if (ev.type === 'user_transcript') {
           var u = ((ev.user_transcription_event || {}).user_transcript || '').trim();
           if (u) say('🧑 ' + u.slice(0, 140), true);
@@ -324,26 +359,34 @@
           ws.send(JSON.stringify({ type: 'pong', event_id: (ev.ping_event || {}).event_id }));
         }
       };
-      ws.onclose = function () { stop(); };
-      ws.onerror = function () { say('Connection problem — please try again.'); };
+      ws.onclose = function (e) {
+        if (stopping) { stopping = false; stop(null); return; }
+        // An unexpected close: say so (with the code, in the log) instead of
+        // pretending the caller ended the call.
+        say(T().netErr + ' (ws ' + (e && e.code) + ')', true);
+        stop(T().netErr);
+      };
+      ws.onerror = function () { if (!stopping) say(T().netErr, true); };
     } catch (e) {
       connecting = false;
-      say('Could not start the voice assistant.');
-      stop();
+      stop(T().fail);
     }
   }
 
-  function stop() {
-    var was = active;
+  function stop(msg) {
+    var was = active || connecting;
+    stopping = true;
     active = false; connecting = false;
     try { if (micNode) micNode.disconnect(); } catch (e) {}
     try { if (mediaStream) mediaStream.getTracks().forEach(function (t) { t.stop(); }); } catch (e) {}
     try { if (audioCtx) audioCtx.close(); } catch (e) {}
     audioCtx = micNode = mediaStream = null;
     clearPlayback();
-    try { if (ws) ws.close(1000); } catch (e) {}
+    try { if (ws) { ws.onclose = null; ws.close(1000); } } catch (e) {}
     ws = null;
-    if (was) say('Call ended. Thank you for calling Visa2AU.');
+    stopping = false;
+    if (msg) { say(msg, true); if (els.retry) els.retry.hidden = false; }
+    else if (was) say(T().ended);
   }
 
   window.__v2auVoiceStart = start;
