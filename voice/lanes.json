@@ -10,7 +10,7 @@
       "livekit",
       "pipecat-v4"
     ],
-    "default": "cartesia",
+    "default": "el-v4",
     "kill_switch": "VOICE_ASSISTANT_ENABLED=false",
     "resolution": "functions/api/voice-config.ts reads VOICE_PROVIDER and returns {provider, agents{en,ru,fr}, tokenEndpoint}. The page loads /js/voice.js (cartesia), /js/voice-el.js (el-v4) or /js/voice-pipecat.js (pipecat-v4). Unknown/absent -> default lane.",
     "note": "user-chosen order 2026-10-12: 1 ElevenLabs v4 Turbo, 2 Cartesia (live/incumbent), 3 LiveKit, 4 Pipecat"
@@ -165,15 +165,13 @@
       "provider": "livekit",
       "engine": "LiveKit Agents (WebRTC)",
       "label": "LiveKit Agents (self-hosted orchestration, WebRTC)",
-      "status": "REGISTERED - not built; needs a LiveKit project (or self-hosted server) + an agent worker",
+      "status": "WORKING 2026-10-13. Code worker deployed to LiveKit Cloud (eu-central) and verified full-duplex. Still runs the DEFAULT starter instructions - next job is the V2AU prompt/KB/keyterms.",
       "voice_provider": "pluggable TTS/STT/LLM inside a LiveKit Agents worker (ElevenLabs, Cartesia, Deepgram, ...)",
       "transport": "WebRTC (LiveKit room) - lower latency and better acoustic echo cancellation than the raw-WebSocket lanes; also the transport ElevenLabs' own JS SDK uses under the hood",
       "token_endpoint": "/api/voice-livekit-token",
       "browser_adapter": "/js/voice-livekit.js",
       "agent_ids": {
-        "en": null,
-        "ru": null,
-        "fr": null
+        "en": "v2au-secretary (dispatch name; one worker serves all languages via STT language cfg)"
       },
       "env_keys": [
         "LIVEKIT_URL",
@@ -188,7 +186,17 @@
       },
       "assets": {
         "knowledge_base": "same kb/ mirror, served by our own retrieval inside the agent worker (no vendor KB lock-in)",
-        "transcript_webhook": "/api/voice-webhook (reuse) - the worker posts the normalised v2au-voice-transcript/1 payload"
+        "transcript_webhook": "/api/voice-webhook (reuse) - the worker posts the normalised v2au-voice-transcript/1 payload",
+        "worker": {
+          "source": "/Users/sergey/Projects/kimi/workspace/v2au-livekit-agent/v2au-secretary (from livekit-examples/agent-starter-python)",
+          "agent_id": "CA_pjnAsLqHSHnp",
+          "dispatch_name": "v2au-secretary",
+          "version": "oniCfbGktMsC",
+          "deployed_at": "2026-10-12T15:07:57Z",
+          "linked_by": "livekit.toml in the worker dir",
+          "stack": "LiveKit Inference: STT assemblyai/universal-3-6-pro (en) + LLM google/gemma-4-31b-it + TTS fishaudio/s2.1-pro + inference.TurnDetector + ai-coustics QUAIL_VF_S noise cancellation. NO third-party API keys needed.",
+          "pre_existing": "CA_6ymQHKtpZb7x is a BUILDER agent (dashboard-configured) - never deployable from code, untouched, no deployment"
+        }
       },
       "cost_note": "LiveKit Cloud has a free tier for dev, then usage-based (connection minutes + inference). Self-hosting moves cost to compute only. Cheaper than per-minute vendor agents at volume, more work to operate.",
       "why": "WebRTC gives real echo cancellation (the raw-WebSocket lanes need a hand-rolled half-duplex mic gate), and it is the only lane where the STT/LLM/TTS stack is ours end to end.",
@@ -196,6 +204,64 @@
         "LiveKit project: cloud.livekit.io (or self-hosted) -> LIVEKIT_URL + API key/secret",
         "Deploy the agent worker (LiveKit Agents, Python) with the V2AU prompt + kb/ retrieval",
         "Add LIVEKIT_* to Pages env and point the agent at the same /api/voice-lead + /api/voice-webhook"
+      ],
+      "project": {
+        "name": "V2AU_Agent",
+        "project_id": "p_4hu2d41aprt",
+        "url": "wss://v2au-agent-l9didbv1.livekit.cloud",
+        "sip_uri": "sip:4hu2d41aprt.sip.livekit.cloud",
+        "data_region": "EU (Frankfurt)",
+        "observability": "enabled (LiveKit warns: observability data may be stored/processed in the US)",
+        "inference_region_restriction": "ENABLED (only EU-available inference models, when the agent is hosted in the EU)",
+        "dev_token_server": "off -> tokens MUST be minted server-side (built: /api/voice-livekit-token)",
+        "codecs": [
+          "opus",
+          "audio RED",
+          "h264",
+          "vp8",
+          "vp9",
+          "av1"
+        ],
+        "auto_create_rooms": true,
+        "resolved_ips": [
+          "152.67.126.168",
+          "152.67.124.114"
+        ],
+        "reachability": "HTTPS 200 from this Mac; ICMP blocked (normal for cloud); 70 ms total on a cached 200"
+      },
+      "verification": {
+        "date": "2026-10-13",
+        "method": "scripts/livekit-roundtrip.mjs - joins with the real token claims, speaks an ElevenLabs-synthesized question into the room (pcm_16000) and counts reply audio: greeting 972KB, reply 2.4MB NEW bytes",
+        "result": "credentials accepted; room lifecycle OK; visitor token accepted path",
+        "not_yet_proven": [
+          "the V2AU prompt/KB (worker still default)",
+          "a real browser call through the website",
+          "RU/FR languages (worker STT is configured language=en)",
+          "lead capture + transcript webhook from this lane"
+        ],
+        "dispatch_note": "AgentDispatchService returned 401 'permissions denied' even with a valid admin token and grants {roomList,roomCreate,roomAdmin,agentDispatch,agent,roomJoin} - so a deployed agent's NAME could not be discovered via the API-key token. Determine it from the dashboard or the lk CLI, then match it in roomConfig.agents[].agentName (or rely on automatic dispatch).",
+        "props_proven": [
+          "token mint+explicit dispatch",
+          "worker joins eu-central",
+          "agent speaks (TTS out)",
+          "agent hears synthesized speech (STT in)",
+          "agent answers (LLM)",
+          "reply audio returns"
+        ]
+      },
+      "security_todo": "RESOLVED 2026-10-13. The LiveKit API secret was pasted into chat (compromised) and has been ROTATED. Current files: livekit_api_key (written 01:32:18) + livekit_api_secret (01:28:38) - a NEW pair, verified working. The chat-exposed secret (fp d8a89a9f) is no longer on disk or in use; confirm in the LiveKit dashboard that the old key pair is deleted.",
+      "credentials": {
+        "location": "~/.hermes/secrets/livekit_{url,api_key,api_secret}",
+        "mode": "600",
+        "verified_pair": "yes - admin token accepted, room lifecycle OK (2026-10-13)",
+        "handling_rule": "deliver via clipboard -> file (pbpaste); never paste a secret into chat - this lane already had to be rotated once because of that",
+        "not_in_cloudflare_yet": "true - rotation currently touches only the two local files"
+      },
+      "deploy_notes": [
+        "docker is NOT installed locally - `lk agent create` works because LiveKit Cloud builds server-side",
+        "`lk agent deploy` REFUSES Builder agents ('Please use the Cloud dashboard instead') - create a code agent instead",
+        "the CLI uses LIVEKIT_URL/API_KEY/API_SECRET from the environment: no browser login needed",
+        "worker verbatim: `lk agent create --region eu-central --yes .` from the worker dir; redeploy with `lk agent deploy`"
       ]
     }
   ],
@@ -241,7 +307,13 @@
     "mara": "Only MARN-registered agents may give advice: Natasha Arens MARN 0534230, Sergey Vinnichenko MARN 2418663.",
     "pii": "Collect contact details only. Never passport numbers, card numbers, passwords or ID images.",
     "dv": "Family/domestic violence disclosures -> no fee for victims, handled with priority and care.",
-    "residency_note": "DECIDED 2026-10-12: US/global residency accepted by the account owner. Caller PII in transcripts therefore lives in ElevenLabs' US environment. Singapore residency was investigated and rejected as a path: it is Enterprise-only, a separate blank workspace, with no free or self-serve tier, and it would not carry over the agents or the 142-doc KB. Revisit only if a client contract or regulator demands AU/SG data residency.",
-    "residency_decision": "us-global"
+    "residency_note": "DECIDED 2026-10-12: US/global residency accepted by the account owner. Caller PII in transcripts therefore lives in ElevenLabs' US environment. Singapore residency was investigated and rejected as a path: it is Enterprise-only, a separate blank workspace, with no free or self-serve tier, and it would not carry over the agents or the 142-doc KB. Revisit only if a client contract or regulator demands AU/SG data residency. | 2026-10-12 later: the LiveKit project (V2AU_Agent, p_4hu2d41aprt) is EU/Frankfurt resident, so lanes do NOT share a data region. Two consequences: (a) call media/transcripts for lane 3 cross to the EU while our sinks (/api/voice-webhook -> Resend + R2) are Cloudflare-global and lane 1 is US; (b) LiveKit's 'Inference region restriction' is ENABLED, which restricts an EU-hosted agent to EU-available inference models - that conflicts with using the ElevenLabs account (US resident) as the worker's TTS. Resolve deliberately: host the worker outside the EU, or use EU-region inference, or turn the restriction off.",
+    "residency_decision": "us-global",
+    "residency_by_lane": {
+      "el-v4": "US (global) - accepted 2026-10-12",
+      "cartesia": "vendor default (verify if this matters)",
+      "livekit": "EU (Frankfurt) - plus LiveKit's own warning that observability data may be stored/processed in the US"
+    },
+    "open_question": "Do we want AU-client voice calls' media/PII traversing EU (Frankfurt)? Chosen region may predate the AU/EN/RU client mix."
   }
 }

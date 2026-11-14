@@ -1,7 +1,7 @@
 // GET /api/voice-status — provider-neutral voice lane config for the website.
 //
 // ONE server-side flag decides which vendor the site talks to:
-//     VOICE_PROVIDER = el-v4 | cartesia | pipecat-v4      (default: cartesia)
+//     VOICE_PROVIDER = el-v4 | cartesia | livekit | pipecat-v4   (default: el-v4)
 // and VOICE_ASSISTANT_ENABLED=false is the kill switch (hides the section and
 // never loads a widget).
 //
@@ -60,8 +60,8 @@ const LANES: Record<
 
 export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
   const enabled = env.VOICE_ASSISTANT_ENABLED !== "false";
-  const wanted = (env.VOICE_PROVIDER || "cartesia").trim();
-  const lane = LANES[wanted] || LANES.cartesia;
+  const wanted = (env.VOICE_PROVIDER || "el-v4").trim();
+  const lane = LANES[wanted] || LANES["el-v4"];
 
   const agents: Record<string, string> = {};
   for (const [lang, id] of Object.entries(lane.env(env))) {
@@ -73,7 +73,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
   const configured = Object.keys(agents).length > 0;
   const body = {
     enabled: enabled && configured,
-    provider: wanted in LANES ? wanted : "cartesia",
+    provider: wanted in LANES ? wanted : "el-v4",
     label: lane.label,
     adapter: lane.adapter,
     tokenEndpoint: lane.token,
