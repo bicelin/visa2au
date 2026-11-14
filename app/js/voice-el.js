@@ -31,20 +31,54 @@
   var els = {}, CALL_LANG = 'en';
   var AGENT_IDS = null, TOKEN_ENDPOINT = '/api/voice-el-token';
 
+  /* UI strings follow the PAGE language, so a Russian or French visitor sees a
+     localized panel even though the same adapter file serves every locale. */
+  var I18N = {
+    en: {
+      title: 'Visa2AU voice assistant', close: 'End voice call', connecting: 'Connecting…',
+      connected: 'Connected — start speaking. Keep browsing; the call stays open.',
+      micBlocked: 'Microphone blocked — allow mic access and try again.',
+      fail: 'Could not start the voice assistant.', opening: 'Opening page…', opened: 'Opened: ',
+      pageFail: 'That page could not be opened.', ended: 'Call ended. Thank you for calling Visa2AU.',
+      netErr: 'Connection problem — please try again.',
+      stays: 'The call stays alive while you browse the site.'
+    },
+    ru: {
+      title: 'Голосовой помощник Visa2AU', close: 'Завершить звонок', connecting: 'Подключение…',
+      connected: 'Соединение установлено — говорите. Можно листать сайт, звонок не прервётся.',
+      micBlocked: 'Микрофон заблокирован — разрешите доступ и попробуйте снова.',
+      fail: 'Не удалось запустить голосового помощника.', opening: 'Открываю страницу…', opened: 'Открыто: ',
+      pageFail: 'Эту страницу открыть не удалось.', ended: 'Звонок завершён. Спасибо, что обратились в Visa2AU.',
+      netErr: 'Проблема с соединением — попробуйте ещё раз.',
+      stays: 'Звонок остаётся активным, пока вы просматриваете сайт.'
+    },
+    fr: {
+      title: 'Assistant vocal Visa2AU', close: 'Terminer l’appel', connecting: 'Connexion…',
+      connected: 'Connecté — parlez. Vous pouvez naviguer sur le site, l’appel continue.',
+      micBlocked: 'Micro bloqué — autorisez l’accès puis réessayez.',
+      fail: 'Impossible de démarrer l’assistant vocal.', opening: 'Ouverture de la page…', opened: 'Ouvert : ',
+      pageFail: 'Cette page n’a pas pu être ouverte.', ended: 'Appel terminé. Merci d’avoir contacté Visa2AU.',
+      netErr: 'Problème de connexion — veuillez réessayer.',
+      stays: 'L’appel reste actif pendant que vous naviguez sur le site.'
+    }
+  };
+  function T() { return I18N[CALL_LANG] || I18N.en; }
+
   function $(id) { return document.getElementById(id); }
 
   function ui() {
     if (els.panel) return;
+    var t = T();
     var p = document.createElement('div');
     p.id = 'v2au-voice-panel';
     p.setAttribute('role', 'dialog');
-    p.setAttribute('aria-label', 'Visa2AU voice assistant');
+    p.setAttribute('aria-label', t.title);
     p.innerHTML =
       '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">' +
-      '<strong style="font-size:14px">Visa2AU voice assistant</strong>' +
-      '<button id="v2au-voice-close" aria-label="End voice call" style="background:none;border:none;font-size:18px;cursor:pointer;color:inherit">✕</button></div>' +
-      '<p id="v2au-voice-msg" style="font-size:13px;min-height:20px">Connecting…</p>' +
-      '<p style="font-size:11px;opacity:.6;margin-top:2px">The call stays alive while you browse the site.</p>' +
+      '<strong style="font-size:14px">' + t.title + '</strong>' +
+      '<button id="v2au-voice-close" aria-label="' + t.close + '" style="background:none;border:none;font-size:18px;cursor:pointer;color:inherit">✕</button></div>' +
+      '<p id="v2au-voice-msg" style="font-size:13px;min-height:20px">' + t.connecting + '</p>' +
+      '<p style="font-size:11px;opacity:.6;margin-top:2px">' + t.stays + '</p>' +
       '<div id="v2au-voice-log" style="font-size:12px;max-height:140px;overflow-y:auto;opacity:.75;margin-top:6px"></div>';
     Object.assign(p.style, {
       position: 'fixed', bottom: '88px', left: '20px', zIndex: '60', width: 'min(320px, calc(100vw - 40px))',
@@ -110,25 +144,29 @@
     } catch (e) { return false; }
   }
 
+  /* Resolve to {ok, path, title} — never navigates the document away, because a
+     full page load would kill the call. A 404 or a missing <main> is reported
+     back to the agent so it can offer a different page instead of dumping the
+     caller on an error page mid-call. */
   function softGo(url) {
-    say('Opening page…', false);
-    fetch(url, { headers: { 'X-V2AU-Soft': '1' } })
-      .then(function (r) { if (!r.ok) throw new Error('http'); return r.text(); })
+    say(T().opening, false);
+    return fetch(url, { headers: { 'X-V2AU-Soft': '1' } })
+      .then(function (r) {
+        if (!r.ok) throw new Error('http ' + r.status);
+        return r.text();
+      })
       .then(function (html) {
         var doc = new DOMParser().parseFromString(html, 'text/html');
         var nm = doc.querySelector('main'), om = document.querySelector('main');
-        if (nm && om) {
-          om.innerHTML = nm.innerHTML;
-          om.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
-          om.scrollIntoView({ block: 'start' });
-        }
+        if (!nm || !om) throw new Error('no main');
+        om.innerHTML = nm.innerHTML;
+        om.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
+        om.scrollIntoView({ block: 'start' });
         document.title = doc.title || document.title;
         window.scrollTo(0, 0);
-        say('Opened: ' + ((doc.title || url).split('|')[0].trim()), true);
-        // tell the agent what the caller is now looking at (documented client frame)
-        if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'contextual_update', text: 'User is now viewing ' + url }));
+        return { ok: true, path: url, title: ((doc.title || url).split('|')[0]).trim() };
       })
-      .catch(function () { location.href = url; /* honest fallback: full nav drops the call */ });
+      .catch(function (e) { return { ok: false, path: url, error: String((e && e.message) || e) }; });
   }
 
   document.addEventListener('click', function (e) {
@@ -137,8 +175,16 @@
     if (!a || !isInternalPage(a)) return;
     e.preventDefault();
     var u = new URL(a.getAttribute('href'), location.href);
-    softGo(u.pathname + u.hash);
-    history.pushState({ v2auSoft: 1 }, '', u.pathname + u.hash);
+    var p = u.pathname + u.hash;
+    softGo(p).then(function (res) {
+      if (res.ok) {
+        history.pushState({ v2auSoft: 1 }, '', p);
+        say(T().opened + res.title, true);
+        if (ws && ws.readyState === 1) ws.send(JSON.stringify({ type: 'contextual_update', text: 'User is now viewing ' + p }));
+      } else {
+        say(T().pageFail, false);
+      }
+    });
   }, true);
 
   window.addEventListener('popstate', function () { if (active) softGo(location.pathname); });
@@ -204,20 +250,34 @@
   /* ---------------- client tool: navigate_website ---------------- */
   function handleToolCall(tc) {
     var id = tc && tc.tool_call_id;
+    function done(result, isError) {
+      if (id && ws && ws.readyState === 1)
+        ws.send(JSON.stringify({ type: 'client_tool_result', tool_call_id: id, result: result, is_error: !!isError }));
+    }
     if (!tc || tc.tool_name !== 'navigate_website') {
-      if (id) ws.send(JSON.stringify({ type: 'client_tool_result', tool_call_id: id, result: 'unknown tool', is_error: true }));
+      done('unknown tool', true);
       return;
     }
     var p = (tc.parameters || {}).path || '/';
     var u;
     try { u = new URL(p, location.origin); } catch (e) { u = null; }
     if (!u || u.origin !== location.origin) {
-      if (id) ws.send(JSON.stringify({ type: 'client_tool_result', tool_call_id: id, result: 'rejected: off-site path', is_error: true }));
+      done('rejected: off-site path', true);
       return;
     }
-    softGo(u.pathname + (u.hash || ''));
-    history.pushState({ v2auSoft: 1 }, '', u.pathname + (u.hash || ''));
-    if (id) ws.send(JSON.stringify({ type: 'client_tool_result', tool_call_id: id, result: 'page opened: ' + u.pathname, is_error: false }));
+    var target = u.pathname + (u.hash || '');
+    softGo(target).then(function (res) {
+      if (!res.ok) {
+        // Keep the call alive and let the agent pick another page.
+        done('could not open ' + target + ' (' + res.error + ') — offer the caller a different page', true);
+        return;
+      }
+      history.pushState({ v2auSoft: 1 }, '', target);
+      say(T().opened + res.title, true);
+      if (ws && ws.readyState === 1)
+        ws.send(JSON.stringify({ type: 'contextual_update', text: 'User is now viewing ' + target }));
+      done('page opened: ' + target, false);
+    });
   }
 
   /* ---------------- call lifecycle ---------------- */
