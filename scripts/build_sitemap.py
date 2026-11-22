@@ -38,6 +38,14 @@ def file_url(path: str) -> str | None:
     return None
 
 
+def is_noindex(path: str) -> bool:
+    """A page declaring noindex must NOT be advertised in the sitemap — asking a
+    crawler to fetch a URL while telling it not to index it is contradictory.
+    Covers internal/dev pages (e.g. app/agoda/) that ship with the site."""
+    head = open(path, encoding="utf-8", errors="ignore").read(4000)
+    return bool(re.search(r'<meta name="robots" content="[^"]*noindex', head, re.I))
+
+
 def lastmod_for(path: str) -> str | None:
     """Blog posts have a .md twin with YYYY-MM-DD frontmatter date."""
     md = path[:-5] + ".md"
@@ -64,6 +72,8 @@ def main() -> None:
             p = os.path.join(root, f)
             u = file_url(p)
             if u is None:
+                continue
+            if is_noindex(p):
                 continue
             urls.append((u, lastmod_for(p), priority_for(u)))
     urls.sort()

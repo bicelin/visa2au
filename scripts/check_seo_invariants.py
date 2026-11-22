@@ -44,12 +44,15 @@ def main() -> int:
                 files.append(os.path.join(root, f))
 
     pages = {}  # rel-path -> (canonical, {lang: hreflang_url})
+    noindex_pages = set()
     for path in files:
         rel = os.path.relpath(path, APP)
         html = open(path, encoding="utf-8").read()
         can = re.search(r'<link rel="canonical" href="([^"]+)"', html)
         hf = re.findall(r'<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"', html)
         pages[rel] = (can.group(1) if can else None, dict(hf))
+        if re.search(r'<meta name="robots" content="[^"]*noindex', html, re.I):
+            noindex_pages.add(rel)
 
     # 1) canonical form + existence
     for rel, (can, _) in pages.items():
@@ -105,8 +108,11 @@ def main() -> int:
                 errors.append(f"sitemap: off-base URL {loc}")
             elif not os.path.isfile(os.path.join(APP, t)):
                 errors.append(f"sitemap: missing target {loc}")
-        # every canonical should appear in the sitemap (404 page excluded)
-        canonicals = {can for (rel, (can, _)) in pages.items() if can and rel != "404.html"}
+        # every INDEXABLE canonical should appear in the sitemap. The 404 page and
+        # any page declaring noindex are excluded: a noindex page must NOT be in the
+        # sitemap, so demanding its canonical there would be self-contradictory.
+        canonicals = {can for (rel, (can, _)) in pages.items()
+                      if can and rel != "404.html" and rel not in noindex_pages}
         sitemap_set = set(locs)
         for c in sorted(canonicals):
             if c not in sitemap_set:
