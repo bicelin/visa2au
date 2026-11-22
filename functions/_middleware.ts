@@ -19,6 +19,20 @@ const ORIGIN_REWRITE = [
   "/.well-known/mcp/server-card.json",
   "/.well-known/agent-skills/index.json",
 ];
+// Text/markdown agent surfaces that also embed absolute staging URLs in the
+// committed source. Without these, production advertised staging.* to crawlers
+// and AI agents (auth.md, api-catalog and the agent-skills docs).
+const ORIGIN_REWRITE_TEXT = [
+  "/auth.md",
+  "/llms.txt",
+  "/.well-known/api-catalog",
+];
+function wantsOriginRewrite(pathname: string): boolean {
+  if (ORIGIN_REWRITE.includes(pathname)) return true;
+  if (ORIGIN_REWRITE_TEXT.includes(pathname)) return true;
+  if (pathname.startsWith("/.well-known/agent-skills/")) return true;
+  return false;
+}
 
 // Parse an Accept header and decide whether the client prefers markdown to HTML.
 function prefersMarkdown(accept: string): boolean {
@@ -83,7 +97,7 @@ export const onRequest: PagesFunction = async ({ request, next }) => {
   const ct = res.headers.get("content-type") || "";
 
   // ---------- host-aware structured discovery documents
-  if (ORIGIN_REWRITE.includes(url.pathname) && ct.includes("json")) {
+  if (wantsOriginRewrite(url.pathname) && (ct.includes("json") || ct.includes("text/"))) {
     const body = (await res.text())
       .split("https://staging.visa2.au").join(origin)
       .split("https://visa2.au").join(origin);
