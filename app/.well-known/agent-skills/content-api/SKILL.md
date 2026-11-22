@@ -1,6 +1,6 @@
 # Skill: visa2au OAuth content API
 
-Access the protected agent content API on staging.visa2.au using OAuth 2.0
+Access the protected agent content API using OAuth 2.0
 client-credentials. Use this when you need a stable, authenticated, rate-limit
 -friendly pipeline for the site's blog content. **Unauthenticated
 alternatives** (MCP, markdown negotiation) cover most use cases — see the

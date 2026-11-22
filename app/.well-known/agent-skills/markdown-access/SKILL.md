@@ -1,6 +1,6 @@
 # Skill: visa2au markdown access (no auth)
 
-Get any page of staging.visa2.au as clean markdown. **No authentication, no
+Get any page of this site as clean markdown. **No authentication, no
 API key, no registration.**
 
 ## Method 1 — HTTP content negotiation
