@@ -162,6 +162,18 @@ export const onRequest: PagesFunction = async ({ request, next }) => {
   // Discovery JSON should always advertise the apex, never a www. host.
   const origin = host.startsWith("www.") ? url.protocol + "//" + host.slice(4) : url.origin;
 
+  // ---------- internal test harness is never reachable in production
+  // app/agoda/ is the Agora group-call rig: staff-code field, admin diagnostics,
+  // hardcoded test channel. Pages publishes app/ verbatim with no build step, so
+  // it cannot be filtered at compile time - gate it by host instead. Staging and
+  // preview keep it for voice testing; production returns a plain 404.
+  if (!isStaging && /^\\/agoda(\\/|$)/.test(url.pathname)) {
+    return new Response("Not Found", {
+      status: 404,
+      headers: { "Content-Type": "text/plain; charset=utf-8" },
+    });
+  }
+
   // ---------- Markdown for Agents: Accept: text/markdown -> <path>.md twin
   if (prefersMarkdown(request.headers.get("Accept") || "")) {
     const mdPath = url.pathname.endsWith("/") ? url.pathname + "index.md" : url.pathname + ".md";
