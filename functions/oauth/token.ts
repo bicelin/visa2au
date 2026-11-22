@@ -1,19 +1,18 @@
 // POST /oauth/token — OAuth 2.0 client-credentials grant (RFC 6749 §4.4).
 // Client authentication: HTTP Basic (client_secret_basic). Issues a compact
-// HS256 JWT (iss/aud = staging.visa2.au, scope "content:read", 1h expiry).
+// HS256 JWT (iss/aud derived from the request host, scope "content:read", 1h expiry).
 // Clients: Pages secret AGENT_CLIENTS as JSON map {"client_id": "secret"}.
 // Signing key: Pages secret AGENT_TOKEN_KEY. Staging-grade: static clients,
 // no dynamic registration (see /auth.md).
 
 import { signJwt, b64urlDecode } from "../lib/jwt";
+import { issuerFor, audienceFor } from "../lib/origin";
 
 interface Env {
   AGENT_CLIENTS?: string;
   AGENT_TOKEN_KEY?: string;
 }
 
-const ISSUER = "https://staging.visa2.au";
-const AUDIENCE = "https://staging.visa2.au/api";
 const TOKEN_TTL_S = 3600;
 
 // Light per-IP rate limiting: 30 token requests / minute (in-memory,
@@ -55,6 +54,10 @@ function json(obj: unknown, status = 200, extraHeaders: Record<string, string> =
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
+  // Issuer/audience follow the host the client actually used, so the JWT `iss`
+  // always equals the `issuer` advertised in /.well-known/oauth-authorization-server.
+  const issuer = issuerFor(request);
+  const audience = audienceFor(request);
 
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   if (rateLimited(`token:${ip}`, 30)) {
@@ -119,8 +122,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const now = Math.floor(Date.now() / 1000);
   const token = await signJwt(
     {
-      iss: ISSUER,
-      aud: AUDIENCE,
+      iss: issuer,
+      aud: audience,
       sub: clientId,
       scope: "content:read",
       iat: now,

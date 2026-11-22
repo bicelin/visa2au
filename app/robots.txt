@@ -36,4 +36,5 @@ Allow: /
 Sitemap: https://visa2.au/sitemap.xml
 
 # ARD (Agentic Resource Discovery) capability manifest.
-Agentmap: https://visa2.au/.well-known/ai-catalog.json
+# ARD manifest: https://visa2.au/.well-known/ard.json
+# (robots.txt has no directive for this; discovery is via the well-known URI and rel="ard".)

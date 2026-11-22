@@ -1,0 +1,125 @@
+{
+  "@context": "https://agenticresourcediscovery.org/context/v1",
+  "specVersion": "0.91",
+  "publisher": {
+    "name": "Visa2AU Pty Ltd",
+    "url": "https://visa2.au",
+    "description": "Registered Australian migration agents (MARN 0534230, 2418663)."
+  },
+  "entries": [
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:visa2.au:server:content-mcp",
+      "displayName": "Visa2AU Content MCP Server",
+      "type": "application/mcp-server-card+json",
+      "url": "https://visa2.au/.well-known/mcp/server-card.json",
+      "description": "Public, unauthenticated, read-only MCP server (Streamable HTTP, JSON-RPC 2.0) exposing Visa2AU's immigration blog content: search_posts and get_post.",
+      "capabilities": [
+        "search_posts",
+        "get_post"
+      ],
+      "tags": [
+        "immigration",
+        "australia",
+        "visas",
+        "content",
+        "mcp"
+      ],
+      "representativeQueries": [
+        "what are the requirements for an Australian partner visa 820 801",
+        "how much does a 482 skills in demand visa cost",
+        "how long does an Australian parent visa take to process",
+        "tips for a successful visitor visa 600 application"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:visa2.au:agent:visa2au-advisor",
+      "displayName": "Visa2AU Immigration Advisor Agent",
+      "type": "application/a2a-agent-card+json",
+      "url": "https://visa2.au/.well-known/agent-card.json",
+      "description": "Agent-to-Agent card for Visa2AU. Answers questions about Australian visa subclasses, government charges, processing times and professional fees, and points to the relevant guide page.",
+      "capabilities": [
+        "visa-guides",
+        "fees-and-timelines"
+      ],
+      "tags": [
+        "immigration",
+        "australia",
+        "visas",
+        "agent",
+        "a2a"
+      ],
+      "representativeQueries": [
+        "which Australian visa subclass fits a software engineer with 8 years experience",
+        "what is the government charge for a 189 visa",
+        "can I sponsor my spouse for an Australian partner visa"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:visa2.au:skill:content-search",
+      "displayName": "Visa2AU Content Search Skill",
+      "type": "application/agent-skills+md",
+      "url": "https://visa2.au/.well-known/agent-skills/content-search/SKILL.md",
+      "description": "Search and retrieve Visa2AU blog posts via the site's public unauthenticated MCP server.",
+      "capabilities": [
+        "search_posts",
+        "get_post"
+      ],
+      "tags": [
+        "immigration",
+        "search",
+        "content",
+        "skill"
+      ],
+      "representativeQueries": [
+        "find Visa2AU articles about employer sponsorship",
+        "get the Visa2AU guide on visa fee increases"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:visa2.au:skill:markdown-access",
+      "displayName": "Visa2AU Markdown Access Skill",
+      "type": "application/agent-skills+md",
+      "url": "https://visa2.au/.well-known/agent-skills/markdown-access/SKILL.md",
+      "description": "Retrieve any Visa2AU page as clean markdown via Accept: text/markdown content negotiation or direct .md URLs, with no authentication.",
+      "capabilities": [
+        "get_page_markdown"
+      ],
+      "tags": [
+        "immigration",
+        "markdown",
+        "content",
+        "skill"
+      ],
+      "representativeQueries": [
+        "get the Visa2AU partner visa guide as markdown",
+        "fetch the Visa2AU pricing page as clean text"
+      ]
+    },
+    {
+      "@context": "https://agenticresourcediscovery.org/context/v1",
+      "identifier": "urn:air:visa2.au:skill:content-api",
+      "displayName": "Visa2AU Content API Skill",
+      "type": "application/agent-skills+md",
+      "url": "https://visa2.au/.well-known/agent-skills/content-api/SKILL.md",
+      "description": "Access the OAuth 2.0 client-credentials protected content API (token flow and /api/content usage) for authenticated blog content retrieval.",
+      "capabilities": [
+        "oauth_client_credentials",
+        "get_content"
+      ],
+      "tags": [
+        "immigration",
+        "oauth",
+        "api",
+        "skill"
+      ],
+      "representativeQueries": [
+        "how do I authenticate to the Visa2AU content API",
+        "get a bearer token for the Visa2AU content endpoint"
+      ]
+    }
+  ]
+}

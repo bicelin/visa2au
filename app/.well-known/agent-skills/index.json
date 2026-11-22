@@ -6,21 +6,21 @@
       "type": "skill-md",
       "description": "Search and retrieve Visa2AU blog posts via the site's public, unauthenticated MCP server (search_posts and get_post tools).",
       "url": "https://staging.visa2.au/.well-known/agent-skills/content-search/SKILL.md",
-      "digest": "sha256:09c2dba227df2fa022e52874f1427de43534153109d80445dedbfb688598fcec"
+      "digest": "sha256:8a2b6d28a1c2faaddfbdc8b455290a35cf3c088619de64affbc72b149f8500c5"
     },
     {
       "name": "content-api",
       "type": "skill-md",
       "description": "Access the OAuth 2.0 client-credentials protected content API (token flow, /api/content usage) for authenticated blog content retrieval.",
       "url": "https://staging.visa2.au/.well-known/agent-skills/content-api/SKILL.md",
-      "digest": "sha256:18be1edc9ba7792d9ebe55b474ac6e7abdec27515716ad5bc2d4fef234ec1bdf"
+      "digest": "sha256:c3e520633f308de74a4388518714915d6cebf476d39f3188de5182c324b549d6"
     },
     {
       "name": "markdown-access",
       "type": "skill-md",
       "description": "Get any page as markdown via Accept: text/markdown content negotiation or direct .md URLs — no authentication.",
       "url": "https://staging.visa2.au/.well-known/agent-skills/markdown-access/SKILL.md",
-      "digest": "sha256:d2e632ac8468d798022298dec505a4ef2e85ce0d3d538b556ee5481a9ecd7b6f"
+      "digest": "sha256:7423265298a568f550985dece7f81b04e6150726cdaca11cd2017daf42be2436"
     }
   ]
 }

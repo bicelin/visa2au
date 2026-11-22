@@ -138,6 +138,7 @@ const ORIGIN_REWRITE_TEXT = [
   "/auth.md",
   "/llms.txt",
   "/.well-known/api-catalog",
+  "/.well-known/ard.json",
 ];
 function wantsOriginRewrite(pathname: string): boolean {
   if (ORIGIN_REWRITE.includes(pathname)) return true;

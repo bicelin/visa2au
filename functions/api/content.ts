@@ -6,15 +6,13 @@
 // Env secrets: AGENT_TOKEN_KEY. Discovery: /.well-known/oauth-authorization-server.
 
 import { verifyJwt } from "../lib/jwt";
+import { issuerFor, audienceFor, realmFor } from "../lib/origin";
 
 interface Env {
   ASSETS: Fetcher;
   AGENT_TOKEN_KEY?: string;
 }
 
-const ISSUER = "https://staging.visa2.au";
-const AUDIENCE = "https://staging.visa2.au/api";
-const REALM = 'Bearer realm="api", authorization_uri="https://staging.visa2.au/oauth/token"';
 
 const hits = new Map<string, { count: number; reset: number }>();
 function rateLimited(ip: string, limit: number): boolean {
@@ -36,11 +34,11 @@ function json(obj: unknown, status = 200, extraHeaders: Record<string, string> =
   });
 }
 
-function unauthorized(desc: string): Response {
+function unauthorized(desc: string, realm: string): Response {
   return json(
     { error: "invalid_token", error_description: desc },
     401,
-    { "WWW-Authenticate": `${REALM}, error="invalid_token", error_description="${desc}"` }
+    { "WWW-Authenticate": `${realm}, error="invalid_token", error_description="${desc}"` }
   );
 }
 
@@ -49,6 +47,9 @@ const LANGS = new Set(["en", "ru", "fr"]);
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
   const url = new URL(request.url);
+  const issuer = issuerFor(request);
+  const audience = audienceFor(request);
+  const realm = realmFor(request);
 
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   if (rateLimited(`content:${ip}`, 60)) {
@@ -65,19 +66,19 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     return json(
       { error: "unauthorized", error_description: "Bearer token required (see /auth.md)" },
       401,
-      { "WWW-Authenticate": REALM }
+      { "WWW-Authenticate": realm }
     );
   }
-  const claims = await verifyJwt(m[1].trim(), env.AGENT_TOKEN_KEY, ISSUER, AUDIENCE);
+  const claims = await verifyJwt(m[1].trim(), env.AGENT_TOKEN_KEY, issuer, audience);
   if (!claims) {
-    return unauthorized("Token is invalid, expired, or wrong issuer/audience");
+    return unauthorized("Token is invalid, expired, or wrong issuer/audience", realm);
   }
   const scopes = String(claims.scope || "").split(/\s+/);
   if (!scopes.includes("content:read")) {
     return json(
       { error: "insufficient_scope", error_description: "Scope content:read required" },
       403,
-      { "WWW-Authenticate": `${REALM}, error="insufficient_scope", scope="content:read"` }
+      { "WWW-Authenticate": `${realm}, error="insufficient_scope", scope="content:read"` }
     );
   }
 
