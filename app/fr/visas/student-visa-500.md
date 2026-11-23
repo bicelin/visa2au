@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Visa étudiant 500 | Visa2AU — agents de migration enregistrés
+# Visa étudiant 500
 
-> La sous-classe 500 permet aux étudiants internationaux de vivre et étudier en Australie pendant leur formation, avec un droit au travail limité. Le critère…
+> Visa étudiant 500 : inscription, exigences financières, GTE et prolongation, guide pratique par des agents de migration MARN.
 
 # Visa étudiant
 

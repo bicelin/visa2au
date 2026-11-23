@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Visas parents 103/143/870 | Visa2AU — agents de migration enregistrés
+# Visas parents 103/143/870
 
-> Les visas parents vont du 103 économique mais à longue file d’attente aux volets contributifs (143/173, 864/884) aux coûts élevés mais bien plus rapides, e…
+> Visas parents 103, 143 et 870 : files d’attente, options payantes, parrainage et délais comparés, avec des agents MARN.
 
 # Visas parents
 

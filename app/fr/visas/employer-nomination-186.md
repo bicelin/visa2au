@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Schéma de nomination par l'employeur (ENS) 186 | Visa2AU — agents de migration enregistrés
+# Nomination par l’employeur (ENS) 186
 
-> La sous-classe 186 accorde la résidence permanente aux travailleurs qualifiés nominés par un employeur australien — via Direct Entry (skills assessment + 3…
+> Visa 186 (ENS) : parrainage direct ou par étapes, conditions, âge et délais. Ce qu’il faut à l’employeur et à vous, avec des agents MARN.
 
 # Schéma de nomination par l'employeur (ENS)
 

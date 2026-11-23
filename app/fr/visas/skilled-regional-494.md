@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Visa régional parrainé 494 | Visa2AU — agents de migration enregistrés
+# Visa régional parrainé 494
 
-> Le visa 494 permet aux employeurs régionaux de parrainer des travailleurs qualifiés pour cinq ans, avec résidence permanente (191) après trois ans de trava…
+> Visa 494 : parrainage régional, concessions DAMA, conditions et accès à la résidence via le 191, avec des agents MARN.
 
 # Visa régional parrainé
 

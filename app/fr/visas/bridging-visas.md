@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Visas de transition BVA–BVE | Visa2AU — agents de migration enregistrés
+# Visas de transition BVA–BVE
 
-> Les visas de transition (bridging visas) vous maintiennent en situation régulière pendant l’examen d’une demande principale ou d’un recours. Droits au trav…
+> Visas de transition A, B, C, D et E : quand ils s’appliquent, droit au travail et aux voyages, délais, avec des agents MARN.
 
 # Visas de transition
 

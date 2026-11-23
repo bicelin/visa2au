@@ -2,7 +2,7 @@
 
 # Support Our Work | Donations | Visa2AU
 
-> Visa2AU's social responsibility program supports education, humanitarian causes and Aboriginal cultural preservation. See where your donation goes — secure contributions via Stripe.
+> Visa2AU’s social responsibility program supports education, humanitarian causes and Aboriginal cultural preservation. See where your donation goes.
 
 # Our Commitment
 
@@ -44,6 +44,6 @@ Or a custom amount
 
 Donate Securely →
 
-Secure payment via Stripe (test mode until launch keys are added). Donations are not tax-deductible.
+Stripe is still in test mode — your card will not be charged. Donations are not tax-deductible.
 
 Prefer to give with your visa services? Ask us to add a voluntary donation to your invoice.

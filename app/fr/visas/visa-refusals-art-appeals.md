@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Refus de visa & recours ART ART review | Visa2AU — agents de migration enregistrés
+# Refus de visa & recours ART
 
-> Le Tribunal administratif de révision (ART, anciennement AAT) peut réexaminer la plupart des décisions de refus et d’annulation — mais des délais stricts s…
+> Refus de visa : délais de recours devant l’ART, merits review, intervention ministérielle et nouvelle demande, avec des agents MARN.
 
 # Refus de visa & recours ART
 

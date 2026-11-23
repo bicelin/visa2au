@@ -2,7 +2,7 @@
 
 # Agent de migration à Cairns | Visa2AU
 
-> Agent de migration enregistré à Cairns (MARN 0534230) au service du Far North Queensland et de toute l'Australie — et du monde entier via une consultation vidéo sécurisée. Visas familiaux et de conjoint en spécialité.
+> Agent enregistré à Cairns (MARN 0534230) pour le Far North Queensland et toute l’Australie — et le monde entier par vidéo sécurisée.
 
 Agents de migration enregistrés · MARN 0534230/2418663 · Australie et monde entier
 

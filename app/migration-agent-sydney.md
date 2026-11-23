@@ -2,7 +2,7 @@
 
 # Migration Agent in Sydney | Visa2AU
 
-> Registered migration agents in Sydney (MARN 0534230/2418663) — headquartered in North Sydney, serving NSW and all of Australia plus worldwide via secure video consultation.
+> Registered migration agents in Sydney (MARN 0534230/2418663) — North Sydney based, serving NSW and all of Australia, plus worldwide by secure video.
 
 Registered Migration Agents · MARN 0534230/2418663 · Australia & Worldwide
 

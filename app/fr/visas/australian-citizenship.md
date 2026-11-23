@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Citoyenneté australienne Conferral / Descent | Visa2AU — agents de migration enregistrés
+# Citoyenneté australienne : conferral et descent
 
-> La citoyenneté par conferral est accessible aux résidents permanents remplissant l’exigence de résidence (4 ans en Australie dont 12 mois en RP), et par de…
+> Citoyenneté australienne par naturalisation et descent : conditions, test, documents et délais, avec l’aide d’agents MARN agréés.
 
 # Citoyenneté australienne
 

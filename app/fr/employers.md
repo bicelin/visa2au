@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Espace employeurs — Parrainez des travailleurs qualifiés | Visa2AU
+# Espace employeurs — Parrainez des travailleurs qualifiés
 
-> Pourquoi les entreprises australiennes parrainent des migrants qualifiés : 482 Skills in Demand, 494 régional avec concessions DAMA et 186 nomination permanente. Seuils salariaux, listes de métiers, régions DAMA et conformité — expliqués par des agents enregistrés MARN.
+> Pourquoi les entreprises australiennes parrainent : 482, 494 régional avec DAMA et 186. Seuils salariaux, listes de métiers et conformité.
 
 # Espace employeurs
 

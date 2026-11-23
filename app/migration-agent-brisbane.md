@@ -2,7 +2,7 @@
 
 # Migration Agent in Brisbane | Visa2AU
 
-> Registered migration agent in Brisbane serving Queensland and all of Australia — plus worldwide via secure video consultation. Skilled, partner, employer & family visas.
+> Registered migration agent in Brisbane serving Queensland and all of Australia — plus worldwide by secure video. Skilled, partner, employer, family visas.
 
 Registered Migration Agents · MARN 0534230/2418663 · Australia & Worldwide
 

@@ -1,6 +1,6 @@
 <!-- generated:md-twin -->
 
-# Soutenir Visa2AU | Visa2AU
+# Soutenir Visa2AU
 
 > Soutenez le travail de Visa2AU — votre contribution développe des ressources éducatives gratuites sur la migration en Australie.
 
@@ -44,6 +44,6 @@ Ou un montant personnalisé
 
 Faire un don sécurisé →
 
-Paiement sécurisé via Stripe (mode test jusqu’à l’ajout des clés de lancement). Les dons ne sont pas déductibles des impôts.
+Stripe is still in test mode — your card will not be charged. Donations are not tax-deductible.
 
 Vous préférez donner avec vos services de visa ? Demandez-nous d’ajouter un don volontaire à votre facture.

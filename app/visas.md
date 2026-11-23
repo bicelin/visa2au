@@ -2,7 +2,7 @@
 
 # Visa Services | All Australian Visa Types | Visa2AU
 
-> Comprehensive immigration services covering all major Australian visa categories: partner, skilled, employer-sponsored, student, visitor, parent and protection visas.
+> Immigration services covering every major Australian visa category: partner, skilled, employer-sponsored, student, visitor, parent and protection visas.
 
 # Visa Services
 

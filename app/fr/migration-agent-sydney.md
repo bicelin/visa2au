@@ -2,7 +2,7 @@
 
 # Agent de migration à Sydney | Visa2AU
 
-> Agents de migration enregistrés à Sydney (MARN 0534230/2418663) — siège à North Sydney, au service de la NSW et de toute l'Australie, et du monde entier via une consultation vidéo sécurisée.
+> Agents enregistrés à Sydney (MARN 0534230/2418663), siège à North Sydney, au service de la NSW et de toute l’Australie.
 
 Agents de migration enregistrés · MARN 0534230/2418663 · Australie et monde entier
 

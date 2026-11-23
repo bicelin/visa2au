@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Visa formation professionnelle 407 | Visa2AU — agents de migration enregistrés
+# Visa formation professionnelle 407
 
-> Le visa 407 soutient la formation professionnelle et le développement en Australie sous un parrain agréé. Convient aux employeurs qui développent des compé…
+> Visa 407 : formation ou stage chez un sponsor australien, conditions, délais et passage vers un autre visa, avec des agents MARN.
 
 # Visa formation professionnelle
 

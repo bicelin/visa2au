@@ -32,6 +32,26 @@ def app_path_exists(rel):
     return os.path.isfile(os.path.join(APP, rel))
 
 
+def target_is_page(rel):
+    """True when an app-relative path is (or maps to) an HTML page.
+
+    .html paths behave exactly as before. The extensionless branch is what makes
+    localization survive clean_internal_urls.py, which strips .html from internal
+    links: "visas" must be recognised as "visas.html" and "blog" as "blog/index.html",
+    otherwise every already-cleaned link is skipped and locale pages keep pointing
+    at the English originals.
+    """
+    if not rel or rel == ".":
+        return False
+    if is_html_page(rel):
+        return True
+    if app_path_exists(rel + ".html"):
+        return True
+    if app_path_exists(posixpath.join(rel, "index.html")):
+        return True
+    return False
+
+
 def resolve_rel(filedir_rel, href):
     """Resolve a relative href against the file's dir (both app-relative)."""
     return posixpath.normpath(posixpath.join(filedir_rel, href))
@@ -145,7 +165,7 @@ def rewrite_file(path, lang):
         else:
             cand = posixpath.join(target_lang, page_under_locale)
             home = posixpath.join(target_lang, "index.html")
-        return cand if app_path_exists(cand) else home
+        return cand if target_is_page(cand) else home
 
     equivs = {l: equiv(l) for l in ("en", "ru", "fr")}
 
@@ -193,7 +213,7 @@ def rewrite_file(path, lang):
             if path_part.startswith("ru/") or path_part.startswith("fr/"):
                 return m.group(0)
             loc = posixpath.join(lang, path_part)
-            if is_html_page(path_part) and app_path_exists(loc):
+            if target_is_page(path_part) and target_is_page(loc):
                 new = f"{BASE}/{loc}{frag}"
                 changes.append(f"abs: {href} -> {new}")
                 return pre + new + post
@@ -202,19 +222,34 @@ def rewrite_file(path, lang):
             return m.group(0)
 
         path_part, frag = split_frag(href)
-        if not is_html_page(path_part):
-            return m.group(0)
-        target = resolve_rel(filedir_rel, path_part)
+        # Root-absolute hrefs ("/contract-compliance") are site-root relative, not
+        # filesystem absolute — resolve them against the app root, not os.path.
+        root_relative = path_part.startswith("/")
+        if root_relative:
+            path_part = path_part.lstrip("/")
+        target = resolve_rel("" if root_relative else filedir_rel, path_part)
         if target.startswith("../"):  # escapes app root — leave alone
+            return m.group(0)
+        # Do NOT test is_html_page(path_part) here. clean_internal_urls.py rewrites
+        # internal links to clean URLs ("../visas", not "../visas.html"), so testing
+        # the RAW href rejects every already-cleaned link and locale pages silently
+        # keep pointing at the English originals forever (646 links across ru/fr blog).
+        # Decide on the RESOLVED target instead, accepting extensionless paths that
+        # map to a real page on disk.
+        if not target_is_page(target):
             return m.group(0)
 
         first = target.split("/", 1)[0]
         if first in LOCALES:
             # resolves inside a locale tree already
-            if app_path_exists(target):
-                return m.group(0)  # valid localized link
-            en = target.split("/", 1)[1]
-            if first == lang and app_path_exists(en):
+            if target_is_page(target):
+                return m.group(0)  # valid localized link (clean or .html form)
+            parts = target.split("/", 1)
+            if len(parts) < 2:
+                # bare locale root (e.g. "../../fr") — nothing to map; leave as-is
+                return m.group(0)
+            en = parts[1]
+            if first == lang and target_is_page(en):
                 # broken localized link; EN fallback exists
                 new = rel_href(filedir_rel, en) + frag
                 changes.append(f"broken-locale->en: {href} -> {new}")
@@ -223,7 +258,7 @@ def rewrite_file(path, lang):
 
         # EN-area target
         loc = posixpath.join(lang, target)
-        if app_path_exists(loc):
+        if target_is_page(loc):
             new = rel_href(filedir_rel, loc) + frag
             if new != href:
                 changes.append(f"localize: {href} -> {new}")

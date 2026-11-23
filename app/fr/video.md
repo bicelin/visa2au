@@ -2,7 +2,7 @@
 
 # Consultation vidéo | Visa2AU
 
-> Rejoignez votre consultation vidéo Visa2AU planifiée. Entrez votre nom et le code d’accès qui vous a été fourni. Les consultations sont enregistrées à des fins de qualité et de conformité.
+> Rejoignez votre consultation vidéo Visa2AU : entrez votre nom et le code d’accès fourni. Les consultations sont enregistrées pour la qualité.
 
 # Consultation vidéo
 

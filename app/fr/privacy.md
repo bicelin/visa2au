@@ -1,6 +1,6 @@
 <!-- generated:md-twin -->
 
-# Politique de confidentialité | Visa2AU
+# Politique de confidentialité
 
 > Comment Visa2AU traite vos données personnelles : collecte, utilisation, stockage des consultations vidéo et vos droits d’accès et de suppression.
 

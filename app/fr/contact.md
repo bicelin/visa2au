@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Contact — Réserver une consultation | Visa2AU
+# Contact — Réserver une consultation
 
-> Parlez aux agents de migration agréés MARN de Visa2AU. Consultations par vidéo, téléphone ou e-mail ; options de paiement flexibles ; joignez votre passeport, votre visa actuel et vos documents à l’appui.
+> Parlez aux agents MARN de Visa2AU par vidéo, téléphone ou e-mail. Paiement flexible ; joignez passeport, visa actuel et justificatifs.
 
 # Contactez Visa2AU
 
@@ -97,6 +97,10 @@ Visa2AU acknowledges the Traditional Owners of Country throughout Australia and 
 Visa2AU Pty Ltd is a registered migration agency. MARN: 0534230 (N. Arens), 2418663 (S. Vinnichenko). NAATI: CPN0VW21W (N. Arens). ABN 36676512397.
 
 © 2026 Visa2AU Pty Ltd. Tous droits réservés.
+
+Compliance
+
+·
 
 Politique de confidentialité et conditions
 

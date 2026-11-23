@@ -2,7 +2,7 @@
 
 # Migration Agent in Melbourne | Visa2AU
 
-> Registered migration agent in Melbourne (MARN 2418663) serving Victoria and all of Australia — plus worldwide via secure video consultation. Fixed fees, strategy first.
+> Registered migration agent in Melbourne (MARN 2418663) serving Victoria and all of Australia — plus worldwide by secure video. Fixed fees, strategy first.
 
 Registered Migration Agents · MARN 0534230/2418663 · Australia & Worldwide
 

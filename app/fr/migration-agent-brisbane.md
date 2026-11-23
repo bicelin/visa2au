@@ -2,7 +2,7 @@
 
 # Agent de migration à Brisbane | Visa2AU
 
-> Agent de migration enregistré à Brisbane au service du Queensland et de toute l'Australie — et du monde entier via une consultation vidéo sécurisée. Visas de compétences, de conjoint, employeur et familiaux.
+> Agent de migration enregistré à Brisbane, au service du Queensland et de toute l’Australie — et du monde entier par consultation vidéo sécurisée.
 
 Agents de migration enregistrés · MARN 0534230/2418663 · Australie et monde entier
 

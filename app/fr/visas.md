@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Services de visas | Tous les types de visas australiens | Visa2AU
+# Services de visas | Tous les types de visas australiens
 
-> Services d’immigration complets couvrant toutes les principales catégories de visas australiens : partenaire, qualifié, parrainé par l’employeur, étudiant, visiteur, parent et protection.
+> Services d’immigration couvrant toutes les grandes catégories de visas australiens : partenaire, qualifié, employeur, étudiant, visiteur, parent.
 
 # Services de visas
 

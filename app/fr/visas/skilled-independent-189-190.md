@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Indépendant & nominé par un État 189/190 | Visa2AU — agents de migration enregistrés
+# Indépendant & nominé par un État 189/190
 
-> Les visas 189 (indépendant) et 190 (nominé par un État) sont des visas permanents à points (points-tested) pour les travailleurs qualifiés aux métiers rech…
+> Visas 189 et 190 : test de points, conditions, nomination d’un État et délais. Comment maximiser vos points, avec des agents MARN.
 
 # Indépendant & nominé par un État
 

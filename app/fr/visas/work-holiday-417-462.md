@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Visas vacances-travail 417/462 | Visa2AU — agents de migration enregistrés
+# Visas vacances-travail 417/462
 
-> Les visas Working Holiday (417) et Work and Holiday (462) permettent aux jeunes de pays éligibles de voyager en Australie en finançant leur séjour par du t…
+> Visas 417 et 462 : conditions, travail en région, prolongation et deuxième année, expliqués par des agents de migration MARN.
 
 # Visas vacances-travail
 

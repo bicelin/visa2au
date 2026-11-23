@@ -1,6 +1,6 @@
 <!-- generated:md-twin -->
 
-# Paiement des services — paiements sécurisés | Visa2AU
+# Paiement des services — paiements sécurisés
 
 > Paiement sécurisé des services Visa2AU : virement bancaire et carte. Honoraires fixes convenus à l’avance, frais gouvernementaux facturés séparément.
 
@@ -24,4 +24,4 @@ We are open about fees: a Stripe processing fee (4.55%) applies when you pay by 
 
 Passer au paiement sécurisé →
 
-Paiement Stripe en mode test — les clés de production seront ajoutées au lancement. Les données de carte ne touchent jamais nos serveurs.
+Test mode — no payment is taken. Card details never touch our servers.

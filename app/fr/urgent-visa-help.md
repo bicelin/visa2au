@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Aide visa urgente — demandes s56, refus et annulations | Visa2AU
+# Aide visa urgente : s56, refus, annulation
 
-> Vous avez reçu une demande s56, un refus de visa ou un avis d’annulation ? Les délais de réponse sont stricts (7–28 jours) et non prolongeables. Que faire immédiatement — et comment des agents MARN agréés peuvent aider.
+> Demande s56, refus ou avis d’annulation ? Les délais sont stricts (7–28 jours) et non prolongeables. Voici quoi faire, avec des agents MARN.
 
 Cas urgents
 

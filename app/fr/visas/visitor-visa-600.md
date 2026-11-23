@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Visa visiteur 600 | Visa2AU — agents de migration enregistrés
+# Visa visiteur 600
 
-> La sous-classe 600 couvre le tourisme, les visites familiales et les courts déplacements d’affaires. La clé de l’approbation : démontrer un séjour temporai…
+> Visa visiteur 600 : motif du séjour, finances, invitations et motifs de refus fréquents, avec des agents de migration MARN.
 
 # Visa visiteur
 

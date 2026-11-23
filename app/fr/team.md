@@ -1,6 +1,6 @@
 <!-- generated:md-twin -->
 
-# Notre équipe — agents de migration agréés | Visa2AU
+# Notre équipe — agents de migration agréés
 
 > Rencontrez l’équipe de Visa2AU : agents de migration enregistrés MARN, plus de 2000 dossiers réussis depuis 2024. Consultations en anglais et en russe.
 

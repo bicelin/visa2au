@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Visa partenaire (offshore) 309/100 | Visa2AU — agents de migration enregistrés
+# Visa partenaire (offshore) 309/100
 
-> La voie offshore (309 temporaire, puis 100 permanent) convient aux couples dont le demandeur est hors d’Australie. Elle reflète le processus en deux étapes…
+> Visa partenaire offshore 309/100 : preuves de la relation, processus en deux étapes, délais et documents, avec des agents MARN.
 
 # Visa partenaire (offshore)
 

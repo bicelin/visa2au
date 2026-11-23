@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Visa mariage projeté 300 | Visa2AU — agents de migration enregistrés
+# Visa mariage projeté 300
 
-> Le visa sous-classe 300 permet à un partenaire fiancé d’entrer en Australie, d’épouser son parrain australien pendant la validité du visa, puis de déposer …
+> Visa 300 : fiançailles, délais, conditions et passage au visa partenaire 820/801 après le mariage, avec des agents MARN.
 
 # Visa mariage projeté
 

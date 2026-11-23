@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Visas partenaires 820/801 | Visa2AU — agents de migration enregistrés
+# Visas partenaires 820/801
 
-> Le visa partenaire onshore permet au conjoint ou partenaire de fait d’un citoyen australien, d’un résident permanent ou d’un citoyen néo-zélandais éligible…
+> Visa partenaire 820/801 : preuves de la relation, processus en deux étapes et délais, guide pratique par des agents MARN.
 
 # Visas partenaires
 
