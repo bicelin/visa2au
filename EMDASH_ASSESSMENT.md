@@ -241,3 +241,44 @@ a clean collection waiting to happen.
 It is a poor fit for a *gentle* migration, because adopting its rendering model means
 rebuilding the presentation layer and giving up the file-based gates that currently keep the
 SEO and CSP work honest. Take the content model, keep the static pipeline.
+
+
+---
+
+## 10. Phase 1 results (Option B, executed locally)
+
+A local EmDash instance was built at `~/Projects/kimi/workspace/v2au-emdash` (Node adapter,
+SQLite). **The live site was never touched** — nothing was deployed to Cloudflare.
+
+### Confirmed
+
+| Question | Result |
+|---|---|
+| Does EmDash have a static build mode? | **No.** The scaffold writes `output: "server"` with an adapter. This settles §8's open question and confirms Option B's design (pull via API, don't adopt rendering). |
+| Can content be managed without a browser/passkey? | **Yes for model + content.** `emdash init` (98 migrations), `seed --validate`, `seed` all run headlessly. Only the admin *login* needs a passkey. |
+| Does the derived `visas` model validate? | **Yes** — "Seed file is valid" against EmDash's own schema validator. 1 collection, 12 fields, 19 entries created. |
+| Does content store as designed? | **Yes.** `ec_visas` has typed columns (`title TEXT`, `subclass_code TEXT`) plus `json` columns for `journey_steps`, `eligibility`, `documents`, `faq`, `at_a_glance`, `related`, and system `locale` / `translation_group` for i18n. |
+| Is extraction faithful? | **Yes.** `parent-visa-103` round-trips: title "Parent Visas", subclass `103`, journey 4, eligibility 5, documents 5, faq 1, at_a_glance 3 (exact `Processing time` / `Government charges` / `Our professional fee` pairs), related 3. |
+
+### Extraction coverage
+
+`scripts/emdash_export_visas.py` exports all 19 visa pages: **18 extract cleanly**;
+`partner-visa` is the outlier (10 FAQs but no journey/eligibility/glance blocks) because it
+is the richer hub page with 14 headings rather than 6. It needs its own shape decision —
+either a `blocks` composition or an accepted null-payload subgroup.
+
+### Environment finding (matters for CI and for Sergey's machine)
+
+EmDash requires **Node ≥ 22.23.4**. This machine has `node@22` at **22.23.2** — two patches
+short — while Homebrew's stable `node@22` is 22.23.5. The PoC ran on Node 26.12.1 from
+`~/.hermes/tools/`. Any CI workflow for EmDash must pin a compliant Node explicitly.
+
+### Remaining before a real deployment
+
+1. **One-time human setup**: complete the wizard at `/_emdash/admin` and register a passkey
+   (cannot be automated — WebAuthn).
+2. **Sync credentials**: the content API returns `401 NOT_AUTHENTICATED`; `emdash login`
+   accepts `--url` and repeatable `--header`. The build job needs a bearer token issued from
+   the admin, stored as a secret.
+3. **Then**: EmDash REST → JSON → `build_visa_pages.py` → existing pipeline → existing gates,
+   with a byte-level parity diff on one page before widening.
