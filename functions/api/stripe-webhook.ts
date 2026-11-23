@@ -154,7 +154,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   );
 
   // Notify the office. Best-effort: a mail failure must not make Stripe retry forever.
-  if (paid && env.RESEND_API_KEY && env.NOTIFY_TO) {
+  // Notify on BOTH outcomes: a failed A$30,000 payment is worth knowing about, and the
+  // subject/html below already branch on `paid`. Guarding on `paid` here made the
+  // failure branch unreachable.
+  if (env.RESEND_API_KEY && env.NOTIFY_TO) {
     const from = env.FROM_EMAIL || "website@visa2.au";
     // Comma-separated so the office can notify several people (e.g. accounts + the agent).
     const recipients = env.NOTIFY_TO.split(",").map((t) => t.trim()).filter(Boolean);
