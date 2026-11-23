@@ -6,8 +6,8 @@
 # Apply keys in DESCENDING length order and protect "Visa2AU" with a placeholder before replacing "Visa".
 
 RU_TITLE = {
-    "visas": "Визовые услуги | Все типы австралийских виз | Visa2AU",
-    "team": "Наша команда — миграционные агенты | Visa2AU",
+    "visas": "Визовые услуги | Все типы австралийских виз",
+    "team": "Наша команда — миграционные агенты",
 }
 RU_DESC = {
     "visas": "Комплексные иммиграционные услуги по всем основным категориям австралийских виз: партнёрские, квалифицированные, спонсируемые работодателем, студенческие, гостевые, родительские и защитные.",
@@ -15,9 +15,9 @@ RU_DESC = {
 }
 RU_MAP = {
     # ---- <head> titles & meta descriptions (both pages) ----
-    "Visa Services | All Australian Visa Types | Visa2AU": "Визовые услуги | Все типы австралийских виз | Visa2AU",
+    "Visa Services | All Australian Visa Types": "Визовые услуги | Все типы австралийских виз",
     "Comprehensive immigration services covering all major Australian visa categories: partner, skilled, employer-sponsored, student, visitor, parent and protection visas.": "Комплексные иммиграционные услуги по всем основным категориям австралийских виз: партнёрские, квалифицированные, спонсируемые работодателем, студенческие, гостевые, родительские и защитные.",
-    "Our Team — MARN Registered Migration Agents | Visa2AU": "Наша команда — зарегистрированные миграционные агенты MARN | Visa2AU",
+    "Our Team — MARN Registered Migration Agents": "Наша команда — зарегистрированные миграционные агенты MARN",
     "Meet the Visa2AU team: MARN-registered migration agents with 20+ years of experience in Australian immigration law, based in North Sydney.": "Познакомьтесь с командой Visa2AU: зарегистрированные миграционные агенты MARN с более чем 20-летним опытом в австралийском иммиграционном праве, базирующиеся в North Sydney.",
     # ---- visas.html: hero ----
     "Visa": "Визовые",

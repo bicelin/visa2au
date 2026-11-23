@@ -6,8 +6,8 @@
 # Apply keys in DESCENDING length order and protect "Visa2AU" with a placeholder before replacing "Visa".
 
 FR_TITLE = {
-    "visas": "Services de visas | Tous les types de visas australiens | Visa2AU",
-    "team": "Notre équipe — agents de migration agréés | Visa2AU",
+    "visas": "Services de visas | Tous les types de visas australiens",
+    "team": "Notre équipe — agents de migration agréés",
 }
 FR_DESC = {
     "visas": "Services d’immigration complets couvrant toutes les principales catégories de visas australiens : partenaire, qualifié, parrainé par l’employeur, étudiant, visiteur, parent et protection.",
@@ -15,9 +15,9 @@ FR_DESC = {
 }
 FR_MAP = {
     # ---- <head> titles & meta descriptions (both pages) ----
-    "Visa Services | All Australian Visa Types | Visa2AU": "Services de visas | Tous les types de visas australiens | Visa2AU",
+    "Visa Services | All Australian Visa Types": "Services de visas | Tous les types de visas australiens",
     "Comprehensive immigration services covering all major Australian visa categories: partner, skilled, employer-sponsored, student, visitor, parent and protection visas.": "Services d’immigration complets couvrant toutes les principales catégories de visas australiens : partenaire, qualifié, parrainé par l’employeur, étudiant, visiteur, parent et protection.",
-    "Our Team — MARN Registered Migration Agents | Visa2AU": "Notre équipe — agents de migration enregistrés MARN | Visa2AU",
+    "Our Team — MARN Registered Migration Agents": "Notre équipe — agents de migration enregistrés MARN",
     "Meet the Visa2AU team: MARN-registered migration agents with 20+ years of experience in Australian immigration law, based in North Sydney.": "Rencontrez l’équipe Visa2AU : des agents de migration enregistrés MARN avec plus de 20 ans d’expérience en droit de l’immigration australien, basés à North Sydney.",
     # ---- visas.html: hero ----
     "Visa": "Services de",

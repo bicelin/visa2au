@@ -3,8 +3,8 @@
 # Keys are EXACT substrings of the source files (HTML entities preserved).
 
 FR_TITLE = {
-    "employers": "Espace employeurs — Parrainez des travailleurs qualifiés | Visa2AU",
-    "privacy": "Politique de confidentialité | Visa2AU",
+    "employers": "Espace employeurs — Parrainez des travailleurs qualifiés",
+    "privacy": "Politique de confidentialité",
 }
 FR_DESC = {
     "employers": "Pourquoi les entreprises australiennes parrainent des migrants qualifiés : 482 Skills in Demand, 494 régional avec concessions DAMA et 186 nomination permanente. Seuils salariaux, listes de métiers, régions DAMA et conformité — expliqués par des agents enregistrés MARN.",
@@ -123,7 +123,7 @@ FR_MAP = {
     "Book a consultation →": "Réserver une consultation →",
     "Detailed Visa Assessment": "Évaluation de visa détaillée",
     # ---- privacy.html ----
-    "Privacy Policy &amp; Terms | Visa2AU": "Politique de confidentialité &amp; conditions | Visa2AU",
+    "Privacy Policy &amp; Terms": "Politique de confidentialité &amp; conditions",
     "How Visa2AU collects, uses and protects your personal information, and the terms of using this website.": "Comment Visa2AU collecte, utilise et protège vos informations personnelles, et les conditions d’utilisation de ce site web.",
     "Privacy Policy & <span class=\"text-gold-400\">Terms</span>": "Politique de confidentialité et <span class=\"text-gold-400\">conditions</span>",
     "Privacy Policy": "Politique de confidentialité",

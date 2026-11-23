@@ -6,9 +6,9 @@
 # Schedule 3, LMT, 4.55%, URLs, emails, phone numbers, addresses, symbols.
 
 FR_TITLE = {
-    "pricing": "Tarifs — honoraires fixes transparents | Visa2AU",
-    "pay": "Paiement des services — paiements sécurisés | Visa2AU",
-    "donate": "Soutenir Visa2AU | Visa2AU",
+    "pricing": "Tarifs — honoraires fixes transparents",
+    "pay": "Paiement des services — paiements sécurisés",
+    "donate": "Soutenir Visa2AU",
 }
 FR_DESC = {
     "pricing": "Tarifs transparents pour les services de visa australiens : consultations à 330 $/heure, visas partenaires à partir de 5 500 $ d’honoraires professionnels, parrainage par l’employeur à partir de 3 300 $. Honoraires fixes chiffrés avant tout engagement.",
@@ -16,9 +16,9 @@ FR_DESC = {
     "donate": "Soutenez le travail de Visa2AU — votre contribution développe des ressources éducatives gratuites sur la migration en Australie.",
 }
 FR_TITLES = {
-    "pricing.html": "Tarifs — honoraires fixes transparents | Visa2AU",
-    "pay.html": "Payer une facture | Paiement sécurisé par carte | Visa2AU",
-    "donate.html": "Soutenez notre action | Dons | Visa2AU",
+    "pricing.html": "Tarifs — honoraires fixes transparents",
+    "pay.html": "Payer une facture | Paiement sécurisé par carte",
+    "donate.html": "Soutenez notre action | Dons",
 }
 
 FR_DESCS = {

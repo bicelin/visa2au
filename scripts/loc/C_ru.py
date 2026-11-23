@@ -3,8 +3,8 @@
 # Keys are EXACT substrings of the source files (HTML entities preserved).
 
 RU_TITLE = {
-    "employers": "Работодателям — спонсируйте квалифицированных специалистов | Visa2AU",
-    "privacy": "Политика конфиденциальности | Visa2AU",
+    "employers": "Работодателям — спонсируйте квалифицированных специалистов",
+    "privacy": "Политика конфиденциальности",
 }
 RU_DESC = {
     "employers": "Почему австралийские компании спонсируют квалифицированных мигрантов: 482 Skills in Demand, 494 региональная с уступками DAMA и 186 постоянная номинация. Зарплатные пороги, списки профессий, регионы DAMA и соответствие требованиям — объясняют агенты, зарегистрированные в MARN.",
@@ -123,7 +123,7 @@ RU_MAP = {
     "Book a consultation →": "Записаться на консультацию →",
     "Detailed Visa Assessment": "Детальная оценка визы",
     # ---- privacy.html ----
-    "Privacy Policy &amp; Terms | Visa2AU": "Политика конфиденциальности &amp; условия | Visa2AU",
+    "Privacy Policy &amp; Terms": "Политика конфиденциальности &amp; условия",
     "How Visa2AU collects, uses and protects your personal information, and the terms of using this website.": "Как Visa2AU собирает, использует и защищает ваши персональные данные, а также условия использования этого сайта.",
     "Privacy Policy & <span class=\"text-gold-400\">Terms</span>": "Политика конфиденциальности и <span class=\"text-gold-400\">условия</span>",
     "Privacy Policy": "Политика конфиденциальности",
