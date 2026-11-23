@@ -120,5 +120,10 @@ export const onRequest: PagesFunction = async ({ request, next }) => {
   const r = new Response(res.body, res);
   if (isStaging) r.headers.set("X-Robots-Tag", "noindex, nofollow");
   r.headers.set("Content-Security-Policy", CSP);
+  // Render-blocking CSS: hint the stylesheet from the response HEADERS, so the
+  // browser can start the fetch before it parses the document. With Cloudflare
+  // Early Hints enabled this becomes a 103 preload (no page-weight cost and no
+  // inlining); without it the browser still sees the hint as it reads headers.
+  r.headers.set("Link", "</_astro/index.DqolKn4r.css>; rel=preload; as=style");
   return r;
 };
