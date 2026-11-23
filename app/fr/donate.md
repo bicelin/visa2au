@@ -30,6 +30,20 @@ Nous soutenons des organisations qui apportent secours, protection et assistance
 
 L’héritage autochtone de l’Australie est profondément tissé dans son identité. Nous soutenons des programmes qui préservent la culture, la langue et les arts aborigènes — honorant la plus ancienne culture continue du monde.
 
+Merci — don reçu
+
+Stripe a traité votre don et vous a envoyé un reçu par e-mail. Merci de soutenir notre travail.
+
+Don annulé
+
+Aucun paiement n’a été prélevé et votre carte n’a pas été débitée.
+
+Vérification de votre don…
+
+Don non confirmé
+
+Nous n’avons pas pu confirmer ce don. Si vous pensez avoir été débité, écrivez à info@visa2.au avant de réessayer — merci de ne pas payer deux fois.
+
 ## Choisissez un montant (AUD)
 
 $25
@@ -44,6 +58,10 @@ Ou un montant personnalisé
 
 Faire un don sécurisé →
 
-Stripe est encore en mode test — votre carte ne sera pas débitée. Les dons ne sont pas déductibles des impôts.
+Les dons ne sont pas déductibles des impôts. Les données de carte ne touchent jamais nos serveurs.
+
+Stripe est encore en mode test — votre carte ne sera pas débitée.
+
+Les paiements sont traités de manière sécurisée par Stripe.
 
 Vous préférez donner avec vos services de visa ? Demandez-nous d’ajouter un don volontaire à votre facture.

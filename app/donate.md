@@ -30,6 +30,20 @@ We support organisations providing relief, protection and assistance to displace
 
 Australia's Indigenous heritage is deeply woven into its identity. We support programs that preserve Aboriginal culture, language and arts — honouring the world's oldest continuous culture.
 
+Thank you — donation received
+
+Stripe has processed your donation and emailed you a receipt. Thank you for supporting our work.
+
+Donation cancelled
+
+No payment was taken and your card was not charged.
+
+Confirming your donation…
+
+Donation not confirmed
+
+We could not confirm this donation. If you believe you have been charged, email info@visa2.au before trying again — please do not pay twice.
+
 ## Choose an amount (AUD)
 
 $25
@@ -44,6 +58,10 @@ Or a custom amount
 
 Donate Securely →
 
-Stripe is still in test mode — your card will not be charged. Donations are not tax-deductible.
+Donations are not tax-deductible. Card details never touch our servers.
+
+Stripe is still in test mode — your card will not be charged.
+
+Payments are processed securely by Stripe.
 
 Prefer to give with your visa services? Ask us to add a voluntary donation to your invoice.
