@@ -3,7 +3,7 @@ title: "Votre visa a été refusé : quels sont vos recours ?"
 slug: visa-refusal-what-to-do
 date: 2025-01-10
 category: "Refus de visa"
-description: "Visa refusé ? Découvrez vos options de recours, notamment le tribunal AAT, l'intervention ministérielle et les cas où redéposer une demande. Conseils d'experts en migration."
+description: "Visa refusé ? Vos recours : tribunal AAT, intervention ministérielle et nouveau dépôt de demande. Conseils d'agents agréés."
 excerpt: "Un refus de visa n'est pas une fin en soi. Découvrez les options de recours, la procédure devant l'AAT et les cas où redéposer une demande après un refus."
 author: "Denis Kosachev"
 image: /imgs/hero-outback.jpg

@@ -3,7 +3,7 @@ title: "Visa Prospective Marriage 300 : le visa fiancé expliqué"
 slug: prospective-marriage-visa-300
 date: 2024-12-18
 category: "Visas partenaires"
-description: "Guide complet du visa Prospective Marriage 300 (visa fiancé). Découvrez les conditions, la procédure, les coûts et la transition vers un visa partenaire après le mariage."
+description: "Guide complet du visa Prospective Marriage 300 : conditions, procédure, coûts et transition vers un visa partenaire après le mariage."
 excerpt: "Vous prévoyez d'épouser votre partenaire australien ? Le visa Prospective Marriage (sous-classe 300) vous permet de venir en Australie pour épouser votre fiancé."
 author: "Natasha Arens"
 image: /imgs/blog-partner-visa.jpg

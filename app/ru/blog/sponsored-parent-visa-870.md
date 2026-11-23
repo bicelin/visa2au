@@ -1,5 +1,5 @@
 ---
-title: "Виза Sponsored Parent 870: гибкий временный вариант для родителей"
+title: "Виза 870 Sponsored Parent: временный вариант"
 slug: sponsored-parent-visa-870
 date: 2024-11-20
 category: "Семейные визы"

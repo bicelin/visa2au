@@ -3,7 +3,7 @@ title: "Visa de protection 866 : demander l'asile en Australie"
 slug: protection-visa-866-guide
 date: 2024-11-08
 category: "Visas de protection"
-description: "Guide du visa de protection 866 en Australie. Découvrez les conditions liées au statut de réfugié, la protection complémentaire, la procédure de demande et les droits des titulaires."
+description: "Guide du visa de protection 866 : conditions liées au statut de réfugié, protection complémentaire, procédure et droits du titulaire."
 excerpt: "Le visa de protection (sous-classe 866) s'adresse aux réfugiés et aux personnes ayant besoin de protection déjà présentes en Australie. Découvrez les conditions et la procédure de demande."
 author: "Denis Kosachev"
 image: /imgs/hero-rainforest.jpg

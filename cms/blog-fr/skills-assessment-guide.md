@@ -1,9 +1,9 @@
 ---
-title: "L'évaluation des compétences pour la migration en Australie : guide pas à pas"
+title: "Évaluation des compétences : guide pas à pas"
 slug: skills-assessment-guide
 date: 2025-02-20
 category: "Évaluation des compétences"
-description: "Guide pas à pas de l'évaluation des compétences (skills assessment) pour la migration en Australie. Découvrez les autorités d'évaluation, les exigences et comment préparer un dossier solide."
+description: "Guide pas à pas de l'évaluation des compétences pour migrer en Australie : autorités, exigences et préparation du dossier."
 excerpt: "L'évaluation des compétences est une étape obligatoire pour de nombreux visas qualifiés. Découvrez quelle autorité d'évaluation s'applique à votre métier et comment vous préparer."
 author: "Sergey Vinnichenko"
 image: /imgs/blog-skilled.jpg

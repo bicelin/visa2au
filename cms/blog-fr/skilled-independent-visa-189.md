@@ -1,9 +1,9 @@
 ---
-title: "Visa Skilled Independent 189 : votre voie vers la résidence permanente"
+title: "Visa Skilled Independent 189 : vers la résidence"
 slug: skilled-independent-visa-189
 date: 2024-10-25
 category: "Visas qualifiés"
-description: "Guide complet du visa Skilled Independent 189. Découvrez le test de points, les conditions d'éligibilité, la procédure de demande et comment maximiser vos points pour obtenir une invitation."
+description: "Guide complet du visa Skilled Independent 189 : test de points, conditions, procédure de demande et comment maximiser vos points."
 excerpt: "Le visa Skilled Independent (sous-classe 189) est un visa permanent soumis à un test de points, destiné aux travailleurs qualifiés. Aucun parrain ni nomination requis."
 author: "Sergey Vinnichenko"
 image: /imgs/blog-skilled.jpg

@@ -3,7 +3,7 @@ title: "Comment devenir citoyen australien : conditions et procédure"
 slug: australian-citizenship-guide
 date: 2025-01-22
 category: "Citoyenneté"
-description: "Guide de la citoyenneté australienne par naturalisation. Découvrez les conditions d'éligibilité, le test de citoyenneté, la procédure de demande et comment un agent de migration peut vous accompagner."
+description: "Guide de la citoyenneté australienne par naturalisation : conditions d'éligibilité, test de citoyenneté, procédure et aide d'un agent agréé."
 excerpt: "La citoyenneté australienne est la dernière étape de votre parcours migratoire. Découvrez les conditions d'éligibilité, le test de citoyenneté et la procédure de demande."
 author: "Natasha Arens"
 image: /imgs/hero-sydney.jpg

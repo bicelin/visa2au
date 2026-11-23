@@ -3,7 +3,7 @@ title: "5 conseils pour réussir votre demande de visa visiteur 600"
 slug: visitor-visa-600-tips
 date: 2025-03-10
 category: "Visas visiteur"
-description: "Conseils essentiels pour réussir une demande de visa visiteur australien 600. Apprenez à démontrer l'intention réelle de visite, à fournir des preuves financières et à éviter les motifs de refus courants."
+description: "Conseils pour réussir une demande de visa visiteur 600 : prouver l'intention de visite, justifier les finances et éviter les refus."
 excerpt: "Vous demandez un visa visiteur australien ? Suivez ces conseils essentiels pour améliorer vos chances d'obtention et éviter les écueils les plus courants."
 author: "Natasha Arens"
 image: /imgs/hero-coast.jpg

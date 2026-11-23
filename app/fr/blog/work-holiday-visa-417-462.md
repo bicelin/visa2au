@@ -1,9 +1,9 @@
 ---
-title: "Visas Working Holiday 417 et 462 : votre guide pour travailler en Australie"
+title: "Visas Working Holiday 417 et 462 : travailler en Australie"
 slug: work-holiday-visa-417-462
 date: 2024-12-05
 category: "Visas de travail"
-description: "Guide des visas Working Holiday 417 et 462. Éligibilité, droits au travail, prolongation du séjour et exigences de travail en région pour la deuxième et la troisième année."
+description: "Guide des visas Working Holiday 417 et 462 : conditions, droits au travail, prolongation et travail en région."
 excerpt: "Le visa Working Holiday permet aux jeunes adultes de voyager et de travailler en Australie. Découvrez les conditions d'éligibilité et comment prolonger votre séjour."
 author: "Sergey Vinnichenko"
 image: /imgs/hero-outback.jpg

@@ -1,5 +1,5 @@
 ---
-title: "Виза Skilled Independent 189: ваш путь к постоянному резидентству"
+title: "Виза 189 Skilled Independent: путь к ПМЖ"
 slug: skilled-independent-visa-189
 date: 2024-10-25
 category: "Профессиональные визы"

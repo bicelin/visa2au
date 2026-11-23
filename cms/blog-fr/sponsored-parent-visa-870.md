@@ -3,7 +3,7 @@ title: "Visa Sponsored Parent 870 : une option temporaire flexible"
 slug: sponsored-parent-visa-870
 date: 2024-11-20
 category: "Visas familiaux"
-description: "Guide du visa Sponsored Parent 870. Découvrez les séjours temporaires pour les parents, les conditions de parrainage, les coûts et la comparaison avec les visas parent permanents."
+description: "Guide du visa Sponsored Parent 870 : séjours temporaires, conditions de parrainage, coûts et comparaison avec les visas permanents."
 excerpt: "Le visa Sponsored Parent (sous-classe 870) offre une voie plus rapide pour permettre aux parents de passer de longues périodes auprès de leur famille en Australie."
 author: "Natasha Arens"
 image: /imgs/blog-parent.jpg

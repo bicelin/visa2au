@@ -1,9 +1,9 @@
 ---
-title: "Visas de parrainage employeur 482 et 186 : ce que les employeurs doivent savoir"
+title: "Visas 482 et 186 : ce que les employeurs doivent savoir"
 slug: employer-sponsorship-482-186-explained
 date: 2025-03-28
 category: "Parrainage employeur"
-description: "Guide des visas australiens de parrainage employeur 482 et 186. Découvrez les exigences du visa TSS, le processus de parrainage et comment recruter des talents étrangers."
+description: "Guide des visas 482 et 186 : exigences du visa TSS, processus de parrainage et comment recruter un spécialiste étranger."
 excerpt: "Le parrainage employeur en Australie permet aux entreprises de pourvoir des postes qualifiés avec des talents étrangers. Découvrez le visa TSS (482) et l'Employer Nomination Scheme (186)."
 author: "Sergey Vinnichenko"
 image: /imgs/blog-employer.jpg

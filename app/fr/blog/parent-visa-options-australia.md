@@ -1,9 +1,9 @@
 ---
-title: "Visas parent pour l'Australie : quelle option vous convient ?"
+title: "Visas parent pour l'Australie : quelle option ?"
 slug: parent-visa-options-australia
 date: 2025-02-05
 category: "Visas familiaux"
-description: "Comparez toutes les options de visas parent pour l'Australie, notamment les sous-classes 143, 103, 870 et 864. Découvrez les coûts, les délais de traitement et la voie adaptée à votre famille."
+description: "Comparez les visas parent pour l'Australie : 143, 103, 870 et 864. Coûts, délais de traitement et la voie adaptée à votre famille."
 excerpt: "Faire venir ses parents en Australie implique de choisir entre plusieurs options de visa, aux coûts, délais et exigences différents. Nous comparons toutes les voies."
 author: "Natasha Arens"
 image: /imgs/blog-parent.jpg

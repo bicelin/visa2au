@@ -1,5 +1,5 @@
 ---
-title: "Виза Prospective Marriage 300: «виза жениха/невесты» простыми словами"
+title: "Виза 300 (Prospective Marriage): простыми словами"
 slug: prospective-marriage-visa-300
 date: 2024-12-18
 category: "Партнёрские визы"

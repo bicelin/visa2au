@@ -1,9 +1,9 @@
 ---
-title: "Violences domestiques et familiales et votre visa de partenaire : les dispositions relatives aux violences familiales"
+title: "Violences familiales et votre visa partenaire"
 slug: domestic-violence-family-violence-provisions-partner-visa
 date: 2026-08-13
 category: "Visas de partenaire"
-description: "Pouvez-vous conserver votre visa de partenaire australien si la relation a pris fin à cause de violences domestiques ou familiales ? Les dispositions relatives aux violences familiales peuvent vous permettre de rester sans la coopération de votre sponsor. Expliqué par des agents enregistrés MARN."
+description: "Pouvez-vous garder votre visa partenaire si la relation a pris fin à cause de violences familiales ? Les dispositions permettent de rester sans le sponsor."
 excerpt: "Votre relation a pris fin à cause de violences domestiques ou familiales — et vous craignez maintenant de perdre votre visa. Les dispositions relatives aux violences familiales peuvent vous permettre de conserver votre visa de partenaire sans votre sponsor. Voici comment elles fonctionnent."
 author: "Natasha Arens"
 image: /imgs/blog-partner-visa.jpg

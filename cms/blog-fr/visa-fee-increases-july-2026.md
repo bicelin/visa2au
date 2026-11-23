@@ -1,9 +1,9 @@
 ---
-title: "Forte hausse des frais de visa au 1er juillet 2026 : ce que les nouveaux tarifs signifient pour votre demande"
+title: "Hausse des frais de visa au 1er juillet 2026"
 slug: visa-fee-increases-july-2026
 date: 2026-07-24
 category: "Actualités et politique"
-description: "Les frais de demande pour la plupart des visas australiens ont augmenté d'environ 25 % le 1er juillet 2026 — et certains ont triplé. Un agent de migration enregistré décrypte les nouveaux tarifs, les catégories les plus touchées et les stratégies à adopter."
+description: "Les frais de visa australiens ont augmenté d'environ 25 % au 1er juillet 2026 — certains ont triplé. Un agent agréé décrypte les nouveaux tarifs."
 excerpt: "Le visa étudiant coûte désormais 2 500 $, le visa partenaire 11 710 $, et le visa de transition B a triplé. Voici ce que les hausses du 1er juillet 2026 signifient concrètement — et ce que nous disons à nos propres clients."
 author: "Sergey Vinnichenko"
 image: /imgs/hero-coast.jpg
