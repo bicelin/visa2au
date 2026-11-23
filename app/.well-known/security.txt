@@ -1,0 +1,19 @@
+# Security contact for Visa2AU (RFC 9116)
+# Report anything you believe is a vulnerability in this site or its API here.
+# Please do not test against other people's data, and do not run load tests.
+
+Contact: mailto:info@visa2.au
+Contact: https://visa2.au/contact
+Expires: 2027-11-23T00:00:00.000Z
+Canonical: https://visa2.au/.well-known/security.txt
+Preferred-Languages: en, ru, fr
+
+# Scope: visa2.au and www.visa2.au — the public website, its Pages Functions
+# API (/api/*), the agent/MCP and OAuth discovery endpoints, and the payment
+# path. Out of scope: third-party platforms we rely on (Cloudflare, Stripe,
+# Resend, Daily, ElevenLabs, Cartesia, LiveKit, Agora, Microsoft 365) and
+# social engineering.
+#
+# What helps: the URL, the exact request, what you expected and what happened,
+# and steps to reproduce. We will acknowledge your report and tell you what we
+# intend to do about it.
