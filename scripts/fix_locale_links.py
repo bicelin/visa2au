@@ -15,6 +15,27 @@ BASE = "https://visa2.au"
 
 SKIP_SCHEMES = ("mailto:", "tel:", "#", "javascript:", "data:")
 
+# Reuse clean_internal_urls' canonical rewrite so the switcher emits the SAME form
+# that script produces. Without this, switcher links oscillate every run:
+# fix_locale_links writes "../x.html", clean_internal_urls strips it to "../x", and
+# the next run re-adds ".html" - a permanent diff in CI and an endless 294-link churn.
+try:
+    from clean_internal_urls import clean_ref as _clean_ref
+except Exception:  # pragma: no cover - standalone use
+    _clean_ref = None
+
+
+def canonical_href(href):
+    """Return href in the same clean form clean_internal_urls.py emits."""
+    if _clean_ref is not None:
+        try:
+            res = _clean_ref(href)
+            if res:
+                return res[0]
+        except Exception:
+            pass
+    return href
+
 LANG_LABELS = {
     "en": re.compile(r'>\s*English\s*<'),
     "ru": re.compile(r'>\s*Русский\s*<'),
@@ -174,7 +195,7 @@ def rewrite_file(path, lang):
         for l, label_re in LANG_LABELS.items():
             def repl(am, l=l):
                 old = am.group(2)
-                new = rel_href(filedir_rel, equivs[l])
+                new = canonical_href(rel_href(filedir_rel, equivs[l]))
                 if old != new:
                     changes.append(f"switcher[{l}]: {old} -> {new}")
                 return am.group(1) + new + am.group(3)
