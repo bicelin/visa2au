@@ -90,6 +90,15 @@ const money = (cents: number | null | undefined, currency: string | null | undef
   return `${cur} ${(cents / 100).toLocaleString("en-AU", { minimumFractionDigits: 2 })}`;
 };
 
+// The invoice number and payer name come from the client (checkout.ts writes
+// them into the session metadata), so they must never be interpolated raw into
+// the office email: unescaped they let a payer author rows inside a trusted
+// "payment received" notification.
+const esc = (s: string) =>
+  s.replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] as string)
+  );
+
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const json = (obj: unknown, status = 200) =>
     new Response(JSON.stringify(obj), { status, headers: { "Content-Type": "application/json" } });
@@ -161,25 +170,46 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     const from = env.FROM_EMAIL || "website@visa2.au";
     // Comma-separated so the office can notify several people (e.g. accounts + the agent).
     const recipients = env.NOTIFY_TO.split(",").map((t) => t.trim()).filter(Boolean);
+    // Newlines and angle brackets stripped from the subject (a metadata value
+    // must not forge headers or inject markup into the notification list);
+    // every interpolated value in the HTML is escaped below.
+    const oneLine = (s: string) =>
+      s.replace(/[\r\n]+/g, " ").replace(/[<>]/g, " ").slice(0, 200);
     const subject = paid
-      ? `✅ Payment received — ${invoice} — ${total}`
-      : `⚠️ Payment not completed — ${invoice}`;
+      ? `✅ Payment received — ${oneLine(invoice)} — ${total}`
+      : `⚠️ Payment not completed — ${oneLine(invoice)}`;
     const html = `
       <h2>${paid ? "Payment received" : "Payment not completed"}</h2>
       <table cellpadding="6" style="border-collapse:collapse;font-family:system-ui,sans-serif;font-size:14px">
-        <tr><td><b>Invoice</b></td><td>${invoice}</td></tr>
-        <tr><td><b>Payer</b></td><td>${payer}</td></tr>
-        <tr><td><b>Email</b></td><td>${email}</td></tr>
-        <tr><td><b>Invoice amount</b></td><td>${invoiced}</td></tr>
-        <tr><td><b>Card fee</b></td><td>${fee}</td></tr>
-        <tr><td><b>Total charged</b></td><td>${total}</td></tr>
-        <tr><td><b>Stripe session</b></td><td><code>${s.id || ""}</code></td></tr>
-        <tr><td><b>Status</b></td><td>${s.payment_status || ""}</td></tr>
+        <tr><td><b>Invoice</b></td><td>${esc(invoice)}</td></tr>
+        <tr><td><b>Payer</b></td><td>${esc(payer)}</td></tr>
+        <tr><td><b>Email</b></td><td>${esc(email)}</td></tr>
+        <tr><td><b>Invoice amount</b></td><td>${esc(invoiced)}</td></tr>
+        <tr><td><b>Card fee</b></td><td>${esc(fee)}</td></tr>
+        <tr><td><b>Total charged</b></td><td>${esc(total)}</td></tr>
+        <tr><td><b>Stripe session</b></td><td><code>${esc(s.id || "")}</code></td></tr>
+        <tr><td><b>Status</b></td><td>${esc(s.payment_status || "")}</td></tr>
       </table>
       <p style="font-family:system-ui,sans-serif;font-size:13px;color:#555">
         Reconcile in the Stripe dashboard. This notification is generated from a verified
         Stripe webhook, not from a browser redirect.
       </p>`;
+
+    // Plain-text twin of the HTML body: client-supplied values must not carry
+    // markup, and the text part keeps the notification readable in clients
+    // that refuse HTML.
+    const text = [
+      paid ? "Payment received" : "Payment not completed",
+      `Invoice: ${invoice}`,
+      `Payer: ${payer}`,
+      `Email: ${email}`,
+      `Invoice amount: ${invoiced}`,
+      `Card fee: ${fee}`,
+      `Total charged: ${total}`,
+      `Stripe session: ${s.id || ""}`,
+      `Status: ${s.payment_status || ""}`,
+    ].join("\n");
+
     try {
       const er = await fetch("https://api.resend.com/emails", {
         method: "POST",
@@ -187,7 +217,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
           Authorization: `Bearer ${env.RESEND_API_KEY}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ from: `Visa2AU Payments <${from}>`, to: recipients, subject, html }),
+        body: JSON.stringify({ from: `Visa2AU Payments <${from}>`, to: recipients, subject, html, text }),
       });
       if (!er.ok) {
         console.log(JSON.stringify({ tag: "stripe_payment", mail_error: (await er.text()).slice(0, 200) }));

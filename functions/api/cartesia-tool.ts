@@ -11,6 +11,8 @@
 //                                            lead within the call's time window.
 // Reply body is fed back to the model, so keep it short (<4 KiB).
 // Env: CARTESIA_TOOL_SECRET (X-V2AU-Secret), VOICE_TRANSCRIPTS (R2).
+import { timingSafeStr } from "../lib/guard";
+
 interface Env {
   CARTESIA_TOOL_SECRET?: string;
   VOICE_TRANSCRIPTS?: R2Bucket;
@@ -25,7 +27,9 @@ const FIELDS = [
 ] as const;
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-  if (!env.CARTESIA_TOOL_SECRET || request.headers.get("X-V2AU-Secret") !== env.CARTESIA_TOOL_SECRET)
+  // Constant-time compare: a plain !== leaks the matching prefix length.
+  const supplied = request.headers.get("X-V2AU-Secret") || "";
+  if (!env.CARTESIA_TOOL_SECRET || !timingSafeStr(supplied, env.CARTESIA_TOOL_SECRET))
     return json({ error: "unauthorized" }, 401);
   if (!env.VOICE_TRANSCRIPTS) return json({ error: "storage unavailable" }, 503);
 

@@ -61,9 +61,40 @@
     return btoa(bin);
   }
 
+  // ---- Turnstile gate -------------------------------------------------
+  // /api/voice-token fails closed, so every mint needs a fresh Turnstile
+  // token. Loaded lazily here: only the contact page ships the Turnstile
+  // script tag, and this widget runs on every page.
+  var TS_SITEKEY = '0x4AAAAAAD7N29OX-I7FesJ5';
+  function turnstileToken() {
+    return new Promise(function (resolve, reject) {
+      function render() {
+        var box = document.createElement('div');
+        box.style.display = 'none';
+        document.body.appendChild(box);
+        try {
+          window.turnstile.render(box, {
+            sitekey: TS_SITEKEY,
+            size: 'invisible',
+            callback: function (t) { resolve(t); },
+            'error-callback': function () { reject(new Error('turnstile')); }
+          });
+        } catch (e) { reject(e); }
+      }
+      if (window.turnstile) return render();
+      var s = document.createElement('script');
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      s.async = true; s.defer = true;
+      s.onload = render;
+      s.onerror = function () { reject(new Error('turnstile load failed')); };
+      document.head.appendChild(s);
+    });
+  }
+
   async function getAccess() {
     if (TK && Date.now() < TK_EXP) return TK;
-    var r = await fetch('/api/voice-token');
+    var cf = await turnstileToken();
+    var r = await fetch('/api/voice-token?cf_token=' + encodeURIComponent(cf));
     if (!r.ok) throw new Error('auth');
     var d = await r.json();
     var t = String(d['to' + 'ken'] || '');

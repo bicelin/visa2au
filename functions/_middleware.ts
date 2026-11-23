@@ -55,7 +55,11 @@ function prefersMarkdown(accept: string): boolean {
   return md.q > html.q;
 }
 
-export const onRequest: PagesFunction = async ({ request, next }) => {
+export const onRequest: PagesFunction<{ ALLOW_AGODA?: string }> = async ({
+  request,
+  next,
+  env,
+}: { request: Request; next: (request?: Request) => Promise<Response>; env: { ALLOW_AGODA?: string } }) => {
   const url = new URL(request.url);
   const host = url.hostname;
   // Staging / preview deployments must never be indexed — they otherwise
@@ -65,12 +69,16 @@ export const onRequest: PagesFunction = async ({ request, next }) => {
   // Discovery JSON should always advertise the apex, never a www. host.
   const origin = host.startsWith("www.") ? url.protocol + "//" + host.slice(4) : url.origin;
 
-  // ---------- internal test harness is never reachable in production
+  // ---------- internal test harness: disabled on every host by default
   // app/agoda/ is the Agora group-call rig: staff-code field, admin diagnostics,
   // hardcoded test channel. Pages publishes app/ verbatim with no build step, so
-  // it cannot be filtered at compile time - gate it by host instead. Staging and
-  // preview keep it for voice testing; production returns a plain 404.
-  if (!isStaging && /^\/agoda(\/|$)/.test(url.pathname)) {
+  // it cannot be filtered at compile time. A host-based gate was NOT enough:
+  // staging.visa2.au is publicly reachable, so "staging keeps it for voice
+  // testing" meant the rig was public. It now 404s on every host. Set
+  // ALLOW_AGODA=1 in the Pages environment for a deliberate, time-boxed testing
+  // window and unset it afterwards.
+  const isAgoda = url.pathname === "/agoda" || url.pathname.startsWith("/agoda/");
+  if (isAgoda && env.ALLOW_AGODA !== "1") {
     return new Response("Not Found", {
       status: 404,
       headers: { "Content-Type": "text/plain; charset=utf-8" },

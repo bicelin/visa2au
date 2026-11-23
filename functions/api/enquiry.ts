@@ -2,6 +2,12 @@
 // HMAC-signed 7-day download links → Resend email notification.
 // Env: TURNSTILE_SECRET, RESEND_API_KEY, ENQUIRY_HMAC_SECRET, R2 binding ENQUIRIES,
 // optional: NOTIFY_TO, FROM_EMAIL
+//
+// Bot gate: Turnstile is REQUIRED and verified server-side. It used to run only
+// when the client supplied a token, which meant any script that simply omitted
+// `cf-turnstile-response` skipped verification entirely. A missing secret, a
+// missing token or a failed check is now a rejection.
+import { clientIp, rateLimited, verifyTurnstile } from "../lib/guard";
 
 interface Env {
   ENQUIRIES: R2Bucket;
@@ -14,6 +20,10 @@ interface Env {
 
 const MAX_TOTAL = 90 * 1024 * 1024; // 90 MB (free-plan request ceiling)
 const LINK_TTL_S = 7 * 24 * 3600;
+// Per-IP submissions per window. Turnstile is the primary gate; this stops a
+// real browser (or a solved challenge) from being scripted in a loop.
+const MAX_PER_WINDOW = 5;
+const WINDOW_MS = 10 * 60 * 1000;
 
 async function hmacKey(secret: string): Promise<CryptoKey> {
   return crypto.subtle.importKey(
@@ -41,6 +51,13 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const json = (obj: unknown, status = 200) =>
     new Response(JSON.stringify(obj), { status, headers: { "Content-Type": "application/json" } });
 
+  // Reject before buffering the body: this handler accepts up to 90 MB, so an
+  // unlimited caller could push gigabytes into R2 and the Resend quota.
+  const ip = clientIp(request);
+  if (rateLimited(`enquiry:${ip}`, MAX_PER_WINDOW, WINDOW_MS)) {
+    return json({ ok: false, error: "Too many submissions — please try again later." }, 429);
+  }
+
   let fd: FormData;
   try {
     fd = await request.formData();
@@ -59,21 +76,21 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   if (!name || !email || !message) return json({ ok: false, error: "Name, email and message are required" }, 400);
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ ok: false, error: "Invalid email" }, 400);
 
-  // Turnstile verify (if a response token was submitted)
-  if (token) {
-    const vr = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({ secret: env.TURNSTILE_SECRET, response: token }),
-    });
-    const v = (await vr.json()) as { success: boolean };
-    if (!v.success) return json({ ok: false, error: "Bot check failed — please retry" }, 403);
+  // Turnstile: always required. A missing token used to mean "no check needed",
+  // which let any script post without a browser.
+  if (!token) {
+    return json({ ok: false, error: "Bot check required — please reload the page and retry" }, 403);
+  }
+  if (!(await verifyTurnstile(env.TURNSTILE_SECRET, token, ip))) {
+    return json({ ok: false, error: "Bot check failed — please retry" }, 403);
   }
 
   let step = "r2-files";
   try {
   // Attachments → R2
-  const files = fd.getAll("files").filter((f): f is File => f instanceof File && f.size > 0);
+  const files = (fd.getAll("files") as unknown[]).filter(
+    (f): f is File => f instanceof File && f.size > 0
+  );
   const total = files.reduce((s, f) => s + f.size, 0);
   if (total > MAX_TOTAL) return json({ ok: false, error: "Attachments exceed 90 MB total" }, 413);
 
