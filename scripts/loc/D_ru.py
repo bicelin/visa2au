@@ -1,6 +1,6 @@
 # Contact page translations — Russian (group D)
 RU_TITLE = {"contact": "Контакты — запись на консультацию"}
-RU_DESC = {"contact": "Свяжитесь с зарегистрированными миграционными агентами Visa2AU (MARN). Консультации по видео, телефону или email; удобные способы оплаты; приложите паспорт, текущую визу и подтверждающие документы для проверки."}
+RU_DESC = {"contact": "Свяжитесь с агентами Visa2AU (MARN) по видео, телефону или email. Удобная оплата; приложите паспорт, визу и документы для проверки."}
 RU_MAP = {
     "Contact ": "Свяжитесь с ",
     "Every engagement starts with a conversation. A consultation lets us better understand your situation — clearly identify the issue and strategise the right pathways for you.":
@@ -95,4 +95,4 @@ RU_MAP = {
     "Uploading ": "Загрузка ",
     " file(s)…": " файл(ов)…",
     "Remove file": "Удалить файл",
-}
+    "contact": "Свяжитесь с агентами Visa2AU (MARN) по видео, телефону или email. Удобная оплата; приложите паспорт, визу и документы для проверки.",}

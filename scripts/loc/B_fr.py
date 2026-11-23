@@ -11,7 +11,7 @@ FR_TITLE = {
     "donate": "Soutenir Visa2AU",
 }
 FR_DESC = {
-    "pricing": "Tarifs transparents pour les services de visa australiens : consultations à 330 $/heure, visas partenaires à partir de 5 500 $ d’honoraires professionnels, parrainage par l’employeur à partir de 3 300 $. Honoraires fixes chiffrés avant tout engagement.",
+    "pricing": "Tarifs transparents : consultations 330 $/h, visas partenaires dès 5 500 $, parrainage employeur dès 3 300 $. Honoraires fixes annoncés d’avance.",
     "pay": "Paiement sécurisé des services Visa2AU : virement bancaire et carte. Honoraires fixes convenus à l’avance, frais gouvernementaux facturés séparément.",
     "donate": "Soutenez le travail de Visa2AU — votre contribution développe des ressources éducatives gratuites sur la migration en Australie.",
 }

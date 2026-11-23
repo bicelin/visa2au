@@ -10,7 +10,7 @@ FR_TITLE = {
     "team": "Notre équipe — agents de migration agréés",
 }
 FR_DESC = {
-    "visas": "Services d’immigration complets couvrant toutes les principales catégories de visas australiens : partenaire, qualifié, parrainé par l’employeur, étudiant, visiteur, parent et protection.",
+    "visas": "Services d’immigration couvrant toutes les grandes catégories de visas australiens : partenaire, qualifié, employeur, étudiant, visiteur, parent.",
     "team": "Rencontrez l’équipe de Visa2AU : agents de migration enregistrés MARN, plus de 2000 dossiers réussis depuis 2024. Consultations en anglais et en russe.",
 }
 FR_MAP = {

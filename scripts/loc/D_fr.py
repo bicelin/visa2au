@@ -1,6 +1,6 @@
 # Contact page translations — French (group D)
 FR_TITLE = {"contact": "Contact — Réserver une consultation"}
-FR_DESC = {"contact": "Parlez aux agents de migration agréés MARN de Visa2AU. Consultations par vidéo, téléphone ou e-mail ; options de paiement flexibles ; joignez votre passeport, votre visa actuel et vos documents à l’appui."}
+FR_DESC = {"contact": "Parlez aux agents MARN de Visa2AU par vidéo, téléphone ou e-mail. Paiement flexible ; joignez passeport, visa actuel et justificatifs."}
 FR_MAP = {
     "Contact ": "Contactez ",
     "Every engagement starts with a conversation. A consultation lets us better understand your situation — clearly identify the issue and strategise the right pathways for you.":
@@ -97,4 +97,4 @@ FR_MAP = {
     "Uploading ": "Téléversement ",
     " file(s)…": " fichier(s)…",
     "Remove file": "Supprimer le fichier",
-}
+    "contact": "Parlez aux agents MARN de Visa2AU par vidéo, téléphone ou e-mail. Paiement flexible ; joignez passeport, visa actuel et justificatifs.",}

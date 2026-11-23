@@ -7,7 +7,7 @@ FR_TITLE = {
     "privacy": "Politique de confidentialité",
 }
 FR_DESC = {
-    "employers": "Pourquoi les entreprises australiennes parrainent des migrants qualifiés : 482 Skills in Demand, 494 régional avec concessions DAMA et 186 nomination permanente. Seuils salariaux, listes de métiers, régions DAMA et conformité — expliqués par des agents enregistrés MARN.",
+    "employers": "Pourquoi les entreprises australiennes parrainent : 482, 494 régional avec DAMA et 186. Seuils salariaux, listes de métiers et conformité.",
     "privacy": "Comment Visa2AU traite vos données personnelles : collecte, utilisation, stockage des consultations vidéo et vos droits d’accès et de suppression.",
 }
 FR_MAP = {
