@@ -177,6 +177,18 @@ def main() -> None:
                           r'\g<1>630\g<2>', html, count=1)
 
 
+        # 2b) 404 page: an error page must not be canonicalised or indexed
+        if rel.endswith("404.html"):
+            html = re.sub(r'<link rel="canonical"[^>]*>', '', html)
+            html = re.sub(r'<meta property="og:url" content="[^"]*"',
+                          f'<meta property="og:url" content="{BASE}/">', html, count=1)
+            if 'name="robots"' in html:
+                html = re.sub(r'<meta name="robots"[^>]*>',
+                              '<meta name="robots" content="noindex,follow">', html, count=1)
+            else:
+                html = html.replace("</head>",
+                                    '<meta name="robots" content="noindex,follow"></head>', 1)
+
         # 3) og:site_name + theme-color
         if "og:site_name" not in html:
             html = html.replace("</head>",

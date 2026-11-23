@@ -57,6 +57,12 @@ def main() -> int:
     # 1) canonical form + existence
     for rel, (can, _) in pages.items():
         if can is None:
+            if rel == "404.html":
+                # An error page must stay noindex and must NOT carry a canonical:
+                # canonicalising a 404 tells Google a page exists that does not.
+                if rel not in noindex_pages:
+                    errors.append(f"{rel}: error page must be noindex")
+                continue
             errors.append(f"{rel}: missing canonical")
             continue
         if ".html" in can:
