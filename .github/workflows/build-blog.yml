@@ -10,6 +10,9 @@ on:
       - "scripts/blog_template_ru.html"
       - "scripts/blog_template_fr.html"
       - "scripts/align_seo_meta.py"
+      - "scripts/add_favicon.py"
+      - "app/favicon.svg"
+      - "app/site.webmanifest"
       - "scripts/build_md_twins.py"
       - "scripts/update_csp_hashes.py"
       - "scripts/build_sitemap.py"
@@ -54,6 +57,9 @@ jobs:
 
       - name: Align SEO meta (canonical/hreflang/og/perf)
         run: python3 scripts/align_seo_meta.py
+
+      - name: Square favicon set on every page (root-absolute, idempotent)
+        run: python3 scripts/add_favicon.py
 
       - name: Install markdown-twin deps
         run: pip install beautifulsoup4 lxml
