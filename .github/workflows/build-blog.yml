@@ -88,5 +88,16 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore(blog): rebuild static pages from cms/ sources"
-            git push
+            # Two pushes can land at once (a human commit and this rebuild, or two
+            # agents). Rebase onto whatever landed first and retry instead of
+            # failing the run and silently leaving the site on the old build.
+            for attempt in 1 2 3; do
+              if git pull --rebase --autostash origin main && git push; then
+                exit 0
+              fi
+              echo "::warning::push race on attempt $attempt; retrying after rebase"
+              sleep 5
+            done
+            echo "::error::could not push the rebuilt pages after 3 attempts"
+            exit 1
           fi
