@@ -52,11 +52,16 @@ HREFLANG = """  <link rel="alternate" hreflang="en" href="https://visa2.au/visas
   <link rel="alternate" hreflang="x-default" href="https://visa2.au/visas/partner-visa">"""
 
 CTA = {
-    "en": ('Book a consultation', 'Get a clear, honest assessment of your prospects and a fixed-fee quote — before you commit to anything.'),
-    "ru": ('Записаться на консультацию', 'Честная оценка ваших перспектив и фиксированная стоимость — до того, как вы что-то решите.'),
-    "fr": ('Réserver une consultation', 'Une évaluation honnête de vos perspectives et un devis à honoraires fixes — avant tout engagement.'),
+    "en": ("Considering a partner visa?",
+           "Get a clear, honest assessment of your prospects and a fixed-fee quote — before you commit to anything.",
+           "Book a consultation →", "Detailed Visa Assessment", "/contact"),
+    "ru": ("Думаете о партнёрской визе?",
+           "Честная оценка ваших перспектив и фиксированная стоимость — до того, как вы что-то решите.",
+           "Записаться на консультацию →", "Детальная оценка визы", "/ru/contact"),
+    "fr": ("Vous envisagez un visa partenaire ?",
+           "Une évaluation honnête de vos perspectives et un devis à honoraires fixes — avant tout engagement.",
+           "Réserver une consultation →", "Évaluation détaillée du visa", "/fr/contact"),
 }
-CTA_BTN = {"en": "Book a consultation →", "ru": "Записаться на консультацию →", "fr": "Réserver une consultation →"}
 
 
 def load(lang):
@@ -87,26 +92,36 @@ def hero(cfg, c):
         <span class="text-gold-400">{b3}</span>
       </nav>
       <h1 class="font-display text-3xl font-extrabold sm:text-4xl lg:text-5xl">{c['h1']}</h1>
-      <p class="mt-3 inline-block rounded-full border border-gold-500/50 px-3 py-1 font-tech text-sm font-semibold text-gold-400">{c['badge']}</p>
-      <p class="mt-4 max-w-2xl text-base leading-relaxed text-slate-300">{c['lead']}</p>
-      <p class="mt-4 font-tech text-xs uppercase tracking-wider text-slate-400">{c['reviewed']}</p>
+      <p class="mt-4 inline-block rounded-full border border-gold-500/50 px-3 py-1 font-tech text-sm font-semibold text-gold-400">{c['badge']}</p>
+      <p class="mt-6 max-w-2xl text-base leading-relaxed text-slate-300">{c['lead']}</p>
+      <p class="mt-6 font-tech text-xs uppercase tracking-wider text-slate-400">{c['reviewed']}</p>
     </div>
   </section>"""
 
 
 def section(inner):
-    return f"""  <section class="reveal mx-auto max-w-5xl px-4 py-10 lg:px-8">
+    return f"""  <section class="reveal mx-auto max-w-5xl px-4 py-12 lg:px-8">
 {inner}
   </section>"""
 
 
 def cta_block(lang):
-    head, text = CTA[lang]
-    return f"""  <section class="reveal mx-auto max-w-5xl px-4 pb-16 lg:px-8">
-    <div class="rounded-3xl bg-navy-800 px-6 py-10 text-center shadow-xl sm:px-12">
-      <h2 class="font-display text-2xl font-bold text-white sm:text-3xl">{head}</h2>
-      <p class="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-slate-300">{text}</p>
-      <a href="{'/ru/contact' if lang == 'ru' else '/fr/contact' if lang == 'fr' else '/contact'}" class="mt-6 inline-block rounded-lg bg-gold-500 px-6 py-3 font-tech text-sm font-semibold text-navy-950 transition hover:bg-gold-400">{CTA_BTN[lang]}</a>
+    """Identical markup to the CTA block already used on every visa page."""
+    head, text, btn, btn2, href = CTA[lang]
+    return f"""  <section class="reveal mx-auto max-w-5xl px-4 py-16 lg:px-8">
+    <div class="relative overflow-hidden rounded-3xl bg-navy-800 px-6 py-12 text-center shadow-xl sm:px-12">
+      <svg class="pointer-events-none absolute inset-0 h-full w-full opacity-20" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 800 300">
+        <path d="M0 240 Q 100 208 200 240 T 400 240 T 600 240 T 800 240" stroke="#f0a000" stroke-width="1.25" fill="none"></path>
+        <path d="M0 70 Q 100 45 200 70 T 400 70 T 600 70 T 800 70" stroke="#f0a000" stroke-width="0.9" fill="none" opacity="0.6"></path>
+        <circle cx="200" cy="240" r="3.5" fill="#f0a000"></circle>
+        <circle cx="600" cy="70" r="3.5" fill="#f0a000"></circle>
+      </svg>
+      <h2 class="relative font-display text-3xl font-bold text-white sm:text-4xl">{head}</h2>
+      <p class="relative mx-auto mt-3 max-w-xl text-slate-300">{text}</p>
+      <div class="relative mt-8 flex flex-wrap items-center justify-center gap-4">
+        <a href="{href}" class="rounded-lg bg-gold-500 px-7 py-3.5 font-tech text-sm font-semibold text-navy-950 shadow-lg transition hover:bg-gold-400">{btn}</a>
+        <a href="https://visa2au.mmportal.cloud/assessment/" target="_blank" rel="noopener" class="rounded-lg border border-white/25 px-7 py-3.5 font-tech text-sm font-semibold text-white transition hover:border-gold-400 hover:text-gold-400">{btn2}</a>
+      </div>
     </div>
   </section>"""
 
@@ -128,9 +143,9 @@ def render(lang):
 
     body = [hero(cfg, c)]
     for h2, inner in c["sections"]:
-        body.append(section(f'    <h2 class="font-display text-2xl font-bold text-navy-900 dark:text-white sm:text-3xl">{h2}</h2>\n{inner}'))
+        body.append(section(f'    <h2 class="mb-5 font-display text-2xl font-bold leading-snug text-navy-900 dark:text-white sm:text-3xl">{h2}</h2>\n{inner}'))
     body.append(section(
-        f'    <h2 class="font-display text-2xl font-bold text-navy-900 dark:text-white sm:text-3xl">{c["faq_title"]}</h2>\n'
+        f'    <h2 class="mb-5 font-display text-2xl font-bold leading-snug text-navy-900 dark:text-white sm:text-3xl">{c["faq_title"]}</h2>\n'
         '    <div class="mt-6 space-y-4">\n' + faq_html(c) + "\n    </div>"))
     body.append(cta_block(lang))
     main = '<main id="main">\n' + "\n".join(body) + "\n</main>"

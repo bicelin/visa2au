@@ -17,13 +17,13 @@ LEAD = ("Партнёрская виза — это способ, которым
         "при подаче, а не от того, какая кажется быстрее.")
 REVIEWED = "Проверено Натальей Аренс, MARN 0534230 · Информация актуальна на ноябрь 2026 года"
 
-P = '    <p class="mt-3 text-base leading-relaxed text-slate-600 dark:text-slate-300">%s</p>'
-BULLETS = '    <ul class="mt-3 list-disc space-y-2 pl-6 text-base leading-relaxed text-slate-600 dark:text-slate-300">%s</ul>'
+P = '    <p class="mt-4 text-base leading-relaxed text-slate-600 dark:text-slate-300">%s</p>'
+BULLETS = '    <ul class="mt-4 list-disc space-y-2.5 pl-6 text-base leading-relaxed text-slate-600 dark:text-slate-300">%s</ul>'
 TABLE = """    <div class="mt-5 overflow-x-auto"><table class="w-full border-collapse text-left text-sm">
       <thead><tr class="border-b border-navy-800/15 dark:border-white/15">%s</tr></thead>
       <tbody>%s</tbody></table></div>"""
 TH = '<th class="py-3 pr-4 font-tech text-xs font-semibold uppercase tracking-wider text-slate-500">%s</th>'
-TD = '<td class="py-2.5 pr-4 align-top text-slate-600 dark:text-slate-300">%s</td>'
+TD = '<td class="py-3 pr-4 align-top text-slate-600 dark:text-slate-300">%s</td>'
 TR = '      <tr class="border-b border-navy-800/10 dark:border-white/10">%s</tr>'
 LINK = 'class="font-medium text-cobalt-500 transition hover:text-cobalt-400 dark:text-gold-400 dark:hover:text-gold-400"'
 

@@ -17,13 +17,13 @@ LEAD = ("The partner visa is how the spouse or de facto partner of an Australian
         "and the right one depends on where you are when you apply — not on which one sounds faster.")
 REVIEWED = "Reviewed by Natasha Arens, MARN 0534230 · Information current as at November 2026"
 
-P = '    <p class="mt-3 text-base leading-relaxed text-slate-600 dark:text-slate-300">%s</p>'
-BULLETS = '    <ul class="mt-3 list-disc space-y-2 pl-6 text-base leading-relaxed text-slate-600 dark:text-slate-300">%s</ul>'
+P = '    <p class="mt-4 text-base leading-relaxed text-slate-600 dark:text-slate-300">%s</p>'
+BULLETS = '    <ul class="mt-4 list-disc space-y-2.5 pl-6 text-base leading-relaxed text-slate-600 dark:text-slate-300">%s</ul>'
 TABLE = """    <div class="mt-5 overflow-x-auto"><table class="w-full border-collapse text-left text-sm">
       <thead><tr class="border-b border-navy-800/15 dark:border-white/15">%s</tr></thead>
       <tbody>%s</tbody></table></div>"""
 TH = '<th class="py-3 pr-4 font-tech text-xs font-semibold uppercase tracking-wider text-slate-500">%s</th>'
-TD = '<td class="py-2.5 pr-4 align-top text-slate-600 dark:text-slate-300">%s</td>'
+TD = '<td class="py-3 pr-4 align-top text-slate-600 dark:text-slate-300">%s</td>'
 TR = '      <tr class="border-b border-navy-800/10 dark:border-white/10">%s</tr>'
 
 
