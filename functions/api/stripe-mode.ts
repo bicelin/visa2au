@@ -13,9 +13,12 @@ interface Env {
 }
 
 export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
-  // Default to false (test) when the key is absent: under-promise rather than
-  // tell a payer their card is about to be charged when we cannot confirm it.
-  const live = (env.STRIPE_SECRET_KEY || "").startsWith("sk_live_");
+  const key = env.STRIPE_SECRET_KEY || "";
+  // A restricted API key (RAK) starts with rk_live_ / rk_test_, NOT sk_live_ — RAKs are
+  // the recommended key type, so testing only for "sk_live_" would report a live
+  // restricted key as test mode and the page would claim "no payment is taken" while
+  // charging real cards.
+  const live = key.startsWith("sk_live_") || key.startsWith("rk_live_");
   return new Response(JSON.stringify({ live }), {
     status: 200,
     headers: {
