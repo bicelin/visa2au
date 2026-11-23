@@ -282,3 +282,53 @@ short — while Homebrew's stable `node@22` is 22.23.5. The PoC ran on Node 26.1
    the admin, stored as a secret.
 3. **Then**: EmDash REST → JSON → `build_visa_pages.py` → existing pipeline → existing gates,
    with a byte-level parity diff on one page before widening.
+
+
+---
+
+## 11. Phase 2 results — deployed to Cloudflare
+
+EmDash now runs in the Cloudflare account, fully isolated from production.
+
+**Live at `https://v2au-emdash.bicelin.workers.dev`** (`/` = 200, `/_emdash/admin/` = 302 to setup).
+
+### Resources created
+
+| Resource | Name / id | Notes |
+|---|---|---|
+| Worker | `v2au-emdash` | Durable Object class `EmDashRoom` created on deploy; startup 39 ms |
+| D1 | `v2au-emdash-db` · `23f92398-b2ac-4874-a5e2-61a340313d6c` | region OC; separate from the `visa2au-db` enquiry store |
+| R2 | `v2au-emdash-media` | media storage |
+| KV | `SESSION` (auto-provisioned) | session store, created by wrangler during deploy |
+| Images | `IMAGES` (auto) | Cloudflare Images binding |
+
+**Production was not touched:** `visa2.au/`, `/pay`, `/donate` all still 200. The Worker has
+no custom domain and no route — it is reachable only at its `workers.dev` hostname.
+
+### Content is in the remote database
+
+Verified by querying D1 directly: **19 visas, 19 revisions, 18 fields, 94 tables.**
+
+Two details worth knowing:
+
+1. **`ec_visas` is a dynamic table.** Copying rows failed at first with
+   `no such table: ec_visas` and then a `FOREIGN KEY constraint failed` — each collection
+   gets a real SQL table created when the collection is defined, not by core migrations, and
+   `ec_visas.live_revision_id` references `revisions`. Import order is therefore
+   **collections → fields → ec_visas DDL + FTS triggers → revisions → content**. Any future
+   import must respect that order.
+2. **The Worker auto-applied the starter seed.** `package.json` declares
+   `emdash.seed = seed/seed.json`, so on first boot the deployed instance created the
+   template's `posts` and `pages` collections (6 extra fields). Those are demo scaffolding
+   and should be removed once the real model replaces them.
+
+### Still open
+
+- **Admin setup (passkey)** — cannot be automated; `/ _emdash/admin/` redirects to the
+  wizard. Required before an API token can be issued.
+- **Sync credentials** — the content API still returns `401 NOT_AUTHENTICATED`.
+- **Routes are irrelevant under Option B** — `/visas/parent-visa-103` 404s because the
+  starter template has no visas route. That is expected and fine: the site keeps rendering
+  its own HTML; only the API is consumed.
+- **The every-minute cron** (`* * * * *`) is EmDash's maintenance scheduler. Harmless at
+  1,440 invocations/day, but worth an explicit decision rather than inheriting it.
