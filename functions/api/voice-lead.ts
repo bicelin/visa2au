@@ -15,6 +15,8 @@
 //
 // Env: VOICE_LEAD_SECRET (required), VOICE_TRANSCRIPTS (R2).
 
+import { timingSafeStr } from "../lib/guard";
+
 interface Env {
   VOICE_LEAD_SECRET?: string;
   VOICE_TRANSCRIPTS?: R2Bucket;
@@ -33,7 +35,9 @@ const FIELDS = [
 ] as const;
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-  if (!env.VOICE_LEAD_SECRET || request.headers.get("X-V2AU-Secret") !== env.VOICE_LEAD_SECRET)
+  // Constant-time compare: a plain !== leaks the matching prefix length.
+  const supplied = request.headers.get("X-V2AU-Secret") || "";
+  if (!env.VOICE_LEAD_SECRET || !timingSafeStr(supplied, env.VOICE_LEAD_SECRET))
     return json({ error: "unauthorized" }, 401);
   if (!env.VOICE_TRANSCRIPTS) return json({ error: "storage unavailable" }, 503);
 

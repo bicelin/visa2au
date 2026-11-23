@@ -1,5 +1,7 @@
 // GET /api/file/:key?exp=&sig= — HMAC-signed R2 download, 7-day expiry.
 
+import { timingSafeStr } from "../../lib/guard";
+
 interface Env {
   ENQUIRIES: R2Bucket;
   ENQUIRY_HMAC_SECRET: string;
@@ -28,7 +30,8 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env, params })
   if (Math.floor(Date.now() / 1000) > exp) return new Response("Link expired", { status: 410 });
 
   const expected = await sign(env.ENQUIRY_HMAC_SECRET, `${key}:${exp}`);
-  if (sig !== expected) return new Response("Invalid signature", { status: 403 });
+  // Constant-time compare: a plain !== leaks the matching prefix length.
+  if (!timingSafeStr(sig, expected)) return new Response("Invalid signature", { status: 403 });
 
   const obj = await env.ENQUIRIES.get(key);
   if (!obj) return new Response("Not found", { status: 404 });

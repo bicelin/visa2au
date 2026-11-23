@@ -19,3 +19,6 @@ psilogs/
 # macOS
 .DS_Store
 **/.DS_Store
+
+# Local secrets for `wrangler pages dev` — never commit (holds Turnstile/HMAC/API test keys)
+.dev.vars
