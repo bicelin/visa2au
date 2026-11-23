@@ -156,6 +156,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   // Notify the office. Best-effort: a mail failure must not make Stripe retry forever.
   if (paid && env.RESEND_API_KEY && env.NOTIFY_TO) {
     const from = env.FROM_EMAIL || "website@visa2.au";
+    // Comma-separated so the office can notify several people (e.g. accounts + the agent).
+    const recipients = env.NOTIFY_TO.split(",").map((t) => t.trim()).filter(Boolean);
     const subject = paid
       ? `✅ Payment received — ${invoice} — ${total}`
       : `⚠️ Payment not completed — ${invoice}`;
@@ -182,7 +184,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
           Authorization: `Bearer ${env.RESEND_API_KEY}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ from: `Visa2AU Payments <${from}>`, to: [env.NOTIFY_TO], subject, html }),
+        body: JSON.stringify({ from: `Visa2AU Payments <${from}>`, to: recipients, subject, html }),
       });
       if (!er.ok) {
         console.log(JSON.stringify({ tag: "stripe_payment", mail_error: (await er.text()).slice(0, 200) }));
