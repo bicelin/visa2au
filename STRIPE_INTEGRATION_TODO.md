@@ -2,8 +2,20 @@
 
 Single source of truth for what remains before Visa2AU can take real card payments.
 
+## ✅ Status: LIVE
+
+`/pay` is taking real money. `STRIPE_SECRET_KEY` in Cloudflare Pages **production** holds
+a live `sk_live_…` key, `POST /api/checkout` returns `cs_live_…` sessions, and the Stripe
+sandbox banner no longer appears on the payment page.
+
+`/pay` reports its own mode at runtime via `GET /api/stripe-mode`, so the payer-facing
+notice follows the deployed key automatically and cannot go stale.
+
+**Not yet live:** the donation pages — see the table below.
+
 **Integration type:** Hosted Stripe Checkout (redirect to a Stripe-hosted page)
 **Scenario:** A — an existing Checkout Session call was found, so only its parameters changed.
+
 
 ---
 
@@ -32,12 +44,14 @@ they are done.
 
 | What | Where | Action |
 |------|-------|--------|
-| Live secret key | Cloudflare Pages → `astra-staging` → Settings → Environment variables → **Production** → `STRIPE_SECRET_KEY` | Set to a **restricted** `sk_live_...` with only *Checkout Sessions: Write*. Do **not** create a "full API access" key. Leave **Preview** on the test key. |
-| Donation Payment Link | [app/donate.html](app/donate.html), [app/ru/donate.html](app/ru/donate.html), [app/fr/donate.html](app/fr/donate.html) | Replace the hardcoded test link `buy.stripe.com/test_aFa3cwcOl1rJgQrdoacs801` with a **live** Payment Link configured for *customer chooses price*. |
-| Statement descriptor | Stripe Dashboard → Settings → Public business information | Set to `VISA2AU` (5–22 Latin chars, must reflect the DBA). |
+| ~~Live secret key~~ | Cloudflare Pages → `astra-staging` → **Production** → `STRIPE_SECRET_KEY` | ✅ **DONE** — live `sk_live_…` key bound (production only; preview retains the test key). |
+| **Donation Payment Link** | [app/donate.html](app/donate.html), [app/ru/donate.html](app/ru/donate.html), [app/fr/donate.html](app/fr/donate.html) | ⬜ **OUTSTANDING** — still the hardcoded test link `buy.stripe.com/test_aFa3cwcOl1rJgQrdoacs801`. Replace with a **live** Payment Link configured for *customer chooses price*. Until then the donate pages remain in sandbox and their notices correctly say so. |
+| Statement descriptor | Stripe Dashboard → Settings → Public business information | ⬜ Set to `VISA2AU` (5–22 Latin chars, must reflect the DBA). Reduces chargebacks. |
+| Standard secret key hygiene | Stripe Dashboard → API keys | ⬜ The pre-existing account-wide `sk_live_` key is unused (no last-used). Expire it once you have confirmed no other tool (Odoo, Zapier, legacy plugin) holds it. Prefer a restricted key over an account-wide one for the site. |
 
-**Never paste `sk_live_...` into chat, a ticket, or this repository.** Enter it only in the
-Cloudflare dashboard. No publishable key is required anywhere: no page loads Stripe.js.
+**Never paste `sk_live_…` into chat, a ticket, or this repository.** Enter it only in the
+Cloudflare dashboard or via `wrangler pages secret put` from a file. No publishable key is
+required anywhere: no page loads Stripe.js.
 
 ---
 
