@@ -1,5 +1,5 @@
 ---
-title: "Parent Visa Options for Australia: Which One is Right for You?"
+title: "Parent Visa Options for Australia: Which to Choose?"
 slug: parent-visa-options-australia
 date: 2025-02-05
 category: "Family Visas"

@@ -3,7 +3,7 @@ title: "5 Tips for a Successful Visitor Visa 600 Application"
 slug: visitor-visa-600-tips
 date: 2025-03-10
 category: "Visitor Visas"
-description: "Essential tips for a successful Australian Visitor Visa 600 application. Learn how to demonstrate genuine intent, provide financial evidence, and avoid common refusal reasons."
+description: "Essential tips for a successful Australian Visitor Visa 600: demonstrate genuine intent, show financial evidence, and avoid common refusal reasons."
 excerpt: "Applying for an Australian visitor visa? Follow these essential tips to improve your chances of approval and avoid common pitfalls."
 author: "Natasha Arens"
 image: /imgs/hero-coast.jpg

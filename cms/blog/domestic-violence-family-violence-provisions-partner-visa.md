@@ -1,9 +1,9 @@
 ---
-title: "Domestic & Family Violence and Your Partner Visa: The Family Violence Provisions Explained"
+title: "Family Violence & Your Partner Visa: The Provisions"
 slug: domestic-violence-family-violence-provisions-partner-visa
 date: 2026-08-13
 category: "Partner Visas"
-description: "Can you keep your Australian partner visa if the relationship ended because of domestic or family violence? The family violence provisions may let you stay without your sponsor's cooperation. Explained by MARN-registered agents."
+description: "Can you keep your partner visa if the relationship ended because of family violence? The provisions may let you stay without your sponsor's help."
 excerpt: "Your relationship ended because of domestic or family violence — and now you fear losing your visa. The family violence provisions may let you keep your partner visa without your sponsor's cooperation. Here's how they work."
 author: "Natasha Arens"
 image: /imgs/blog-partner-visa.jpg

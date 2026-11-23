@@ -1,5 +1,5 @@
 ---
-title: "Working Holiday Visa 417 & 462: Your Guide to Working in Australia"
+title: "Working Holiday Visa 417 & 462: Working in Australia"
 slug: work-holiday-visa-417-462
 date: 2024-12-05
 category: "Work Visas"

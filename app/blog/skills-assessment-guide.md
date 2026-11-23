@@ -1,5 +1,5 @@
 ---
-title: "Skills Assessment for Australian Migration: A Step-by-Step Guide"
+title: "Skills Assessment for Australian Migration: A Guide"
 slug: skills-assessment-guide
 date: 2025-02-20
 category: "Skills Assessment"

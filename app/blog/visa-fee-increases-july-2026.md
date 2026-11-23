@@ -1,9 +1,9 @@
 ---
-title: "Visa Fees Rise Sharply from 1 July 2026: What the New Charges Mean for Your Application"
+title: "Visa Fees Rise Sharply from 1 July 2026"
 slug: visa-fee-increases-july-2026
 date: 2026-07-24
 category: "News & Policy"
-description: "Most Australian visa application charges rose ~25% on 1 July 2026 — and some tripled. A registered migration agent breaks down the new fees, who is hit hardest, and how to plan around them."
+description: "Most Australian visa charges rose ~25% on 1 July 2026 — some tripled. A registered migration agent breaks down the new fees and how to plan around them."
 excerpt: "Student visas now cost $2,500, partner visas $11,710, and Bridging Visa B has tripled. Here's what the 1 July 2026 fee increases mean in practice — and what we'd tell our own clients."
 author: "Sergey Vinnichenko"
 image: /imgs/hero-coast.jpg

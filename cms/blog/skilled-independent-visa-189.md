@@ -1,9 +1,9 @@
 ---
-title: "Skilled Independent Visa 189: Your Path to Permanent Residency"
+title: "Skilled Independent Visa 189: PR Pathway"
 slug: skilled-independent-visa-189
 date: 2024-10-25
 category: "Skilled Visas"
-description: "Complete guide to Skilled Independent Visa 189. Learn about the points test, eligibility, application process, and how to maximise your points for an invitation."
+description: "Complete guide to Skilled Independent Visa 189: the points test, eligibility, the application process, and how to maximise your invitation chances."
 excerpt: "The Skilled Independent Visa (subclass 189) is a points-tested permanent visa for skilled workers. No sponsor or nomination required."
 author: "Sergey Vinnichenko"
 image: /imgs/blog-skilled.jpg

@@ -3,7 +3,7 @@ title: "Protection Visa 866: Seeking Asylum in Australia"
 slug: protection-visa-866-guide
 date: 2024-11-08
 category: "Protection Visas"
-description: "Guide to Protection Visa 866 in Australia. Learn about refugee eligibility, complementary protection, the application process, and rights as a protection visa holder."
+description: "Guide to Protection Visa 866 in Australia: refugee eligibility, complementary protection, the application process, and your rights as a holder."
 excerpt: "The Protection Visa (subclass 866) is for refugees and people in need of protection who are already in Australia. Learn about eligibility and the application process."
 author: "Denis Kosachev"
 image: /imgs/hero-rainforest.jpg

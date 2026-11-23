@@ -1,5 +1,5 @@
 ---
-title: "Employer Sponsorship Visas 482 & 186: What Employers Need to Know"
+title: "Employer Sponsorship 482 & 186: What Employers Need"
 slug: employer-sponsorship-482-186-explained
 date: 2025-03-28
 category: "Employer Sponsorship"
