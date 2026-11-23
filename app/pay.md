@@ -32,4 +32,8 @@ We are open about fees: a Stripe processing fee (4.55%) applies when you pay by 
 
 Proceed to Secure Payment →
 
-Test mode — no payment is taken. Card details never touch our servers.
+Card details never touch our servers.
+
+Test mode — no payment is taken.
+
+Payments are processed securely by Stripe.

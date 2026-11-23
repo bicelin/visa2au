@@ -32,4 +32,8 @@ We are open about fees: a Stripe processing fee (4.55%) applies when you pay by 
 
 Passer au paiement sécurisé →
 
-Mode test — aucun paiement n’est prélevé. Les données de carte ne touchent jamais nos serveurs.
+Les données de carte ne touchent jamais nos serveurs.
+
+Mode test — aucun paiement n’est prélevé.
+
+Les paiements sont traités de manière sécurisée par Stripe.
