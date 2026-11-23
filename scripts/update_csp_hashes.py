@@ -236,7 +236,11 @@ export const onRequest: PagesFunction = async ({ request, next }) => {
   // browser can start the fetch before it parses the document. With Cloudflare
   // Early Hints enabled this becomes a 103 preload (no page-weight cost and no
   // inlining); without it the browser still sees the hint as it reads headers.
-  r.headers.set("Link", "</_astro/index.DqolKn4r.css>; rel=preload; as=style");
+  const cssPreload = "</_astro/index.DqolKn4r.css>; rel=preload; as=style";
+  const existingLink = r.headers.get("Link");
+  // The _headers file already advertises api-catalog / llms.txt / oauth relations
+  // on every path; append instead of replacing, or HTML pages lose them.
+  r.headers.set("Link", existingLink ? existingLink + ", " + cssPreload : cssPreload);
   return r;
 };
 '''.replace("%CSP%", csp_value)

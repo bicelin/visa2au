@@ -1,0 +1,37 @@
+name: Promote main to production
+
+# Cloudflare Pages deploys the `production` branch, not `main`. Without this,
+# every commit landed on main and production stayed on an old build (the live
+# site was 5 commits and a whole pillar page behind).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: promote-production
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Refuse to overwrite divergent production history
+        run: |
+          git fetch origin production || true
+          if git rev-parse --verify -q origin/production >/dev/null; then
+            if ! git merge-base --is-ancestor origin/production HEAD; then
+              echo "::error::production has commits that are not on main. Merge or reset it deliberately — this job will not force-push."
+              exit 1
+            fi
+          fi
+      - name: Fast-forward production to main
+        run: |
+          git push origin HEAD:production
+          echo "production -> $(git rev-parse --short HEAD)"
