@@ -53,7 +53,7 @@ Test mode — no payment is taken. Card details never touch our servers.
           const r = await fetch('/api/checkout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ amountAud: parseFloat(document.getElementById('s-total').textContent.replace(/[^0-9.]/g, '')), name: name.value, invoice: inv.value })
+            body: JSON.stringify({ amountAud: parseFloat(amount.value), name: name.value, invoice: inv.value })
           });
           const d = await r.json();
           if (d.ok && d.url) { window.location.href = d.url; return; }
