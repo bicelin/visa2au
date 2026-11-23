@@ -15,31 +15,18 @@ Idempotent: both functions detect their own output and skip.
 import json
 import os
 import re
+import sys
 
 APP = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "app")
 
 # ── 1. pricing hub ──────────────────────────────────────────────────────────
-ROWS = [
-    # (visa page, label, government charge, our fee)
-    ("/visas/partner-visa-820-801", "820/801 Partner (onshore)", "from $11,710", "$5,500"),
-    ("/visas/partner-visa-309-100", "309/100 Partner (offshore)", "from $11,710", "$5,500"),
-    ("/visas/prospective-marriage-300", "300 Prospective Marriage", "$11,710", "$5,500"),
-    ("/visas/skilled-independent-189-190", "189 Skilled Independent", "$6,135", "$5,500"),
-    ("/visas/skilled-independent-189-190", "190 Skilled Nominated", "$6,140", "$5,500"),
-    ("/visas/skilled-regional-494", "491 Skilled Work Regional", "$6,140", "$5,500"),
-    ("/visas/employer-nomination-186", "482 Skills in Demand", "itemised at engagement", "$3,300"),
-    ("/visas/employer-nomination-186", "186 Employer Nomination", "itemised at engagement", "$5,500"),
-    ("/visas/student-visa-500", "500 Student", "$2,500", "$3,300"),
-    ("/visas/visitor-visa-600", "600 Visitor (offshore)", "$250", "$700"),
-    ("/visas/training-visa-407", "407 Training", "itemised at engagement", "$3,300"),
-    ("/visas/work-holiday-417-462", "417/462 Work and Holiday", "itemised at engagement", "$2,200"),
-    ("/visas/parent-visa-103", "103 Parent (offshore)", "$7,055", "$5,500"),
-    ("/visas/parent-visa-103", "143 Contributory Parent", "staged contributory charges", "$5,500"),
-    ("/visas/parent-visa-103", "870 Sponsored Parent (temporary)", "$1,145", "$2,200"),
-    ("/visas/australian-citizenship", "Citizenship by conferral", "$595", "$3,300"),
-    ("/visas/skills-assessment", "Skills assessment", "$300–$1,200 authority fee", "$3,300"),
-    ("/visas/bridging-visas", "BVB Bridging Visa B", "$575", "$330"),
-]
+sys_path = os.path.dirname(os.path.abspath(__file__))
+if sys_path not in sys.path:
+    sys.path.insert(0, sys_path)
+from fees_data import GROUPS as FEE_GROUPS  # noqa: E402
+
+# /pricing renders the same rows the pillar does — one edit in fees_data.py.
+ROWS = FEE_GROUPS["all"]
 
 FAQ = [
     ("How much does an Australian visa cost in total?",
