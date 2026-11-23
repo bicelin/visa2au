@@ -87,3 +87,7 @@ Urgent      Срочная помощь по визе s56 · Refusal · Cancella
 Записаться на консультацию →
 
 детальную визовую оценку
+
+Next steps
+
+- See visa fees and fixed-fee quotes

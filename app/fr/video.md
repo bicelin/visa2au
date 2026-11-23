@@ -19,3 +19,8 @@ Rejoindre la consultation →
 Vidéo sécurisée par Daily.co · Code d’accès vérifié côté serveur.
 
 Pas de code ? Demandez à votre agent de migration ou écrivez-nous.
+
+Pour aller plus loin
+
+- Frais de visa et honoraires fixes
+- Tous les services de visa

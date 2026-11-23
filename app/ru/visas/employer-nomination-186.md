@@ -63,3 +63,8 @@ Employer Sponsorship Employer Sponsorship Visas 482 & 186: What Employers Need t
 Записаться на консультацию →
 
 Детальная оценка визы
+
+Дальше
+
+- Визовые сборы и наша фиксированная стоимость
+- Все визовые услуги

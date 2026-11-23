@@ -46,3 +46,8 @@ Success-rate figures describe our historical record and do not guarantee the out
 ### Contact
 
 Level 17, 1 Denison Street, North Sydney NSW 2060 · info@visa2.au · +61 2 9136 2462
+
+Next steps
+
+- See visa fees and fixed-fee quotes
+- Browse every visa service

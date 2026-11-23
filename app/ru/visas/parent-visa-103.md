@@ -66,3 +66,8 @@ Family Visas Sponsored Parent Visa 870: A Flexible Temporary Option The Sponsore
 Записаться на консультацию →
 
 Детальная оценка визы
+
+Дальше
+
+- Визовые сборы и наша фиксированная стоимость
+- Все визовые услуги

@@ -45,3 +45,8 @@ We are open about fees: a Stripe processing fee (4.55%) applies when you pay by 
 Тестовый режим — оплата не взимается.
 
 Платежи безопасно обрабатываются Stripe.
+
+Next steps
+
+- See visa fees and fixed-fee quotes
+- Browse every visa service

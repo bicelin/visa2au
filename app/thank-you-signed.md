@@ -27,3 +27,8 @@ Contact us
 Back to home
 
 Questions about your matter? Simply reply to any of our emails, or reach us through the contact page.
+
+Next steps
+
+- See visa fees and fixed-fee quotes
+- Browse every visa service

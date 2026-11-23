@@ -61,3 +61,8 @@ Visa Refusals Your Visa Was Refused: What Are Your Options? A visa refusal is no
 Записаться на консультацию →
 
 Детальная оценка визы
+
+Дальше
+
+- Визовые сборы и наша фиксированная стоимость
+- Все визовые услуги

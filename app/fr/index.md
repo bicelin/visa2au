@@ -322,3 +322,8 @@ Combien de temps prend un visa australien ? +  Les délais varient fortement : u
 Pouvez-vous garantir l’obtention de mon visa ? +  Non — et méfiez-vous de quiconque le promet. Seul le ministère de l’Intérieur décide des demandes. Ce que nous garantissons, c’est une demande juridiquement solide, complète et honnête : notre taux de réussite de 99,8 % sur plus de 2 000 dossiers reflète une sélection rigoureuse avant dépôt.
 
 Dois-je être en Australie pour faire une demande ? +  Pas nécessairement. De nombreux visas — qualifiés, partenaires (offshore 309/100) et visiteurs — se déposent depuis l’étranger. Nous travaillons avec des clients dans plus de 40 pays par vidéoconsultation, en français, anglais, russe et d’autres langues.
+
+Pour aller plus loin
+
+- Frais de visa et honoraires fixes
+- Tous les services de visa

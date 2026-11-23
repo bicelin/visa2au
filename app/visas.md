@@ -87,3 +87,7 @@ Book a consultation with a MARN-registered migration agent — strategy first, f
 Book a consultation →
 
 Detailed Visa Assessment
+
+Next steps
+
+- See visa fees and fixed-fee quotes

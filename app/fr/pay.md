@@ -45,3 +45,8 @@ Les données de carte ne touchent jamais nos serveurs.
 Mode test — aucun paiement n’est prélevé.
 
 Les paiements sont traités de manière sécurisée par Stripe.
+
+Next steps
+
+- See visa fees and fixed-fee quotes
+- Browse every visa service

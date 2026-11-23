@@ -86,3 +86,8 @@ Visa2AU Pty Ltd сопровождает частных лиц, семьи и р
 Записаться на консультацию →
 
 детальную визовую оценку
+
+Next steps
+
+- See visa fees and fixed-fee quotes
+- Browse every visa service

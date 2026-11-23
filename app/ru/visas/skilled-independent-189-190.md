@@ -68,3 +68,8 @@ Skilled Visas Skilled Independent Visa 189: Your Path to Permanent Residency The
 Записаться на консультацию →
 
 Детальная оценка визы
+
+Дальше
+
+- Визовые сборы и наша фиксированная стоимость
+- Все визовые услуги

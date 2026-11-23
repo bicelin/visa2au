@@ -70,3 +70,8 @@ Partner Visas Prospective Marriage Visa 300: The Fiancé Visa Explained Planning
 Записаться на консультацию →
 
 Детальная оценка визы
+
+Дальше
+
+- Визовые сборы и наша фиксированная стоимость
+- Все визовые услуги

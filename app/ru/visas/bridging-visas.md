@@ -54,3 +54,8 @@ Can I travel while my application is pending?   Only on a Bridging Visa B — an
 Записаться на консультацию →
 
 Детальная оценка визы
+
+Дальше
+
+- Визовые сборы и наша фиксированная стоимость
+- Все визовые услуги

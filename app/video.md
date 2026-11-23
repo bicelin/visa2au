@@ -19,3 +19,8 @@ Join Consultation →
 Secure video powered by Daily.co · Passcode verified server-side.
 
 No passcode? Ask your migration agent or email us.
+
+Next steps
+
+- See visa fees and fixed-fee quotes
+- Browse every visa service

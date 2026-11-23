@@ -245,3 +245,8 @@ CTA card
 Записаться на консультацию →
 
 детальную визовую оценку
+
+Next steps
+
+- See visa fees and fixed-fee quotes
+- Browse every visa service

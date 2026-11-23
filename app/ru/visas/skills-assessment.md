@@ -62,3 +62,8 @@ Skills Assessment Skills Assessment for Australian Migration: A Step-by-Step Gui
 Записаться на консультацию →
 
 Детальная оценка визы
+
+Дальше
+
+- Визовые сборы и наша фиксированная стоимость
+- Все визовые услуги

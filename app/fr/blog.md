@@ -43,3 +43,8 @@ Réservez une consultation avec un agent de migration enregistré MARN — la st
 Réserver une consultation →
 
 Évaluation détaillée de visa
+
+Pour aller plus loin
+
+- Frais de visa et honoraires fixes
+- Tous les services de visa

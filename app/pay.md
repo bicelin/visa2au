@@ -45,3 +45,8 @@ Card details never touch our servers.
 Test mode — no payment is taken.
 
 Payments are processed securely by Stripe.
+
+Next steps
+
+- See visa fees and fixed-fee quotes
+- Browse every visa service

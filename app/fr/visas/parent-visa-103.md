@@ -66,3 +66,8 @@ Obtenez une évaluation claire et honnête de vos chances et un devis à honorai
 Réserver une consultation →
 
 Évaluation de visa détaillée
+
+Pour aller plus loin
+
+- Frais gouvernementaux et honoraires fixes
+- Tous nos services de visa

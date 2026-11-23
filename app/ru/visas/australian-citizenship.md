@@ -64,3 +64,8 @@ Citizenship How to Become an Australian Citizen: Eligibility and Process Austral
 Записаться на консультацию →
 
 Детальная оценка визы
+
+Дальше
+
+- Визовые сборы и наша фиксированная стоимость
+- Все визовые услуги

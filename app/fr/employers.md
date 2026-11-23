@@ -245,3 +245,8 @@ Réservez une consultation employeur — nous évaluerons votre éligibilité, l
 Réserver une consultation →
 
 évaluation détaillée de visa
+
+Next steps
+
+- See visa fees and fixed-fee quotes
+- Browse every visa service

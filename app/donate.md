@@ -65,3 +65,8 @@ Stripe is still in test mode — your card will not be charged.
 Payments are processed securely by Stripe.
 
 Prefer to give with your visa services? Ask us to add a voluntary donation to your invoice.
+
+Next steps
+
+- See visa fees and fixed-fee quotes
+- Browse every visa service

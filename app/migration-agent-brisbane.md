@@ -68,3 +68,8 @@ Migration agent in Cairns
 Start with a consultation — your pathway, mapped.
 
 Book a consultation →
+
+Next steps
+
+- See visa fees and fixed-fee quotes
+- Browse every visa service

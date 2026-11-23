@@ -78,6 +78,11 @@ Wherever you are in the world, meet your agent face to face. We’ll send you a 
 
 Essayez le [guide de parcours de visa](https://visa2.au/fr/visas#pathway-finder) ou remplissez notre [évaluation détaillée de visa](https://visa2au.mmportal.cloud/assessment/) — Un agent l’examine avant votre consultation.
 
+Next steps
+
+- See visa fees and fixed-fee quotes
+- Browse every visa service
+
 Static divider — gold hairline with Southern Cross spark
 
 Nous simplifions l'immigration australienne depuis 2024. Agents de migration enregistrés (MARN) à Sydney, Melbourne, Brisbane et dans le monde entier.

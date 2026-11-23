@@ -8,6 +8,33 @@
 
 Никаких сюрпризов. Фиксированные профессиональные гонорары называются до начала работы, государственные сборы указаны отдельно, а комиссия Stripe за обработку платежа на /pay раскрывается до оплаты.
 
+## What each visa costs: government charge and our fee
+
+Two numbers make up the cost of a visa: the **government charge** set by the Department of Home Affairs, and our **professional fee** for preparing and managing the application. Third-party costs — health examinations, police checks, translations and skills assessments — are separate and itemised in your quote.
+
+| Visa | Government charge | Our professional fee |
+| --- | --- | --- |
+| [820/801 Partner (onshore)](https://visa2.au/ru/visas/partner-visa-820-801) | from $11,710 | $5,500 AUD |
+| [309/100 Partner (offshore)](https://visa2.au/ru/visas/partner-visa-309-100) | from $11,710 | $5,500 AUD |
+| [300 Prospective Marriage](https://visa2.au/ru/visas/prospective-marriage-300) | $11,710 | $5,500 AUD |
+| [189 Skilled Independent](https://visa2.au/ru/visas/skilled-independent-189-190) | $6,135 | $5,500 AUD |
+| [190 Skilled Nominated](https://visa2.au/ru/visas/skilled-independent-189-190) | $6,140 | $5,500 AUD |
+| [491 Skilled Work Regional](https://visa2.au/ru/visas/skilled-regional-494) | $6,140 | $5,500 AUD |
+| [482 Skills in Demand](https://visa2.au/ru/visas/employer-nomination-186) | itemised at engagement | $3,300 AUD |
+| [186 Работодатель Nomination](https://visa2.au/ru/visas/employer-nomination-186) | itemised at engagement | $5,500 AUD |
+| [500 Student](https://visa2.au/ru/visas/student-visa-500) | $2,500 | $3,300 AUD |
+| [600 Visitor (offshore)](https://visa2.au/ru/visas/visitor-visa-600) | $250 | $700 AUD |
+| [407 Training](https://visa2.au/ru/visas/training-visa-407) | itemised at engagement | $3,300 AUD |
+| [417/462 Work and Holiday](https://visa2.au/ru/visas/work-holiday-417-462) | itemised at engagement | $2,200 AUD |
+| [103 Parent (offshore)](https://visa2.au/ru/visas/parent-visa-103) | $7,055 | $5,500 AUD |
+| [143 Contributory Parent](https://visa2.au/ru/visas/parent-visa-103) | staged contributory charges | $5,500 AUD |
+| [870 Sponsored Parent (temporary)](https://visa2.au/ru/visas/parent-visa-103) | $1,145 | $2,200 AUD |
+| [Citizenship by conferral](https://visa2.au/ru/visas/australian-citizenship) | $595 | $3,300 AUD |
+| [Skills assessment](https://visa2.au/ru/visas/skills-assessment) | $300–$1,200 authority fee | $3,300 AUD |
+| [BVB Bridging Visa B](https://visa2.au/ru/visas/bridging-visas) | $575 | $330 AUD |
+
+Indicative only. Government charges change on 1 July each year and differ by stream, age and family members. A fixed professional fee is quoted after assessment and confirmed in your engagement letter.
+
 $330 AUD
 
 ## Онлайн-консультация (1 час)
@@ -117,3 +144,25 @@ Nil
 Записаться на консультацию →
 
 детальную визовую оценку
+
+## Visa fee questions, answered
+
+How much does an Australian visa cost in total?A visa usually costs three things: the government charge set by the Department of Home Affairs, our professional fee, and any third-party costs such as health examinations, police checks, translations or a skills assessment. For example, an onshore partner visa (820/801) is $5,500 in professional fees plus government charges from $11,710 for the main applicant.
+
+Are government charges included in your professional fee?No. Government charges are paid to the Department of Home Affairs and are itemised separately from our professional fee in every quote. You always see the two amounts side by side before you engage us.
+
+Is your professional fee fixed?Yes. A fixed professional fee is quoted in your engagement letter before any work begins, so it does not change with the time your matter takes. If the scope of the matter changes, that is agreed in writing first.
+
+Can I pay in instalments?Payment options are discussed at your consultation and confirmed in the engagement letter. Government charges are still payable to the Department when the application is lodged.
+
+What do secondary applicants and children pay?Government charges are set per applicant: for a partner visa the main applicant is $11,710, a secondary applicant aged 18 or over is $5,855, and a child under 18 is $2,930. Our professional fee is quoted per matter, so tell us who is included before we quote.
+
+What does a consultation cost?An online consultation is $330 for one hour, and a DAMA consultation is also $330 for one hour. The consultation is where we assess your situation and confirm the fixed fee for your matter.
+
+Does the fee include a skills assessment or health checks?No. A skills assessment is charged by the assessing authority at roughly $300–$1,200, and health examinations, police checks and translations are paid to their providers. We prepare and check these for you, and they appear in your quote as third-party costs.
+
+What if my visa is refused?A refusal is a separate matter with its own fees. An ART tribunal application is $5,500 in professional fees plus a $3,496 government fee, of which 50% is refundable if the review succeeds. We assess the refusal first and tell you honestly whether review is worth it.
+
+Next steps
+
+- Browse every visa service

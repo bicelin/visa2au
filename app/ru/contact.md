@@ -88,6 +88,11 @@ Level 17, 1 Denison Street, North Sydney NSW 2060
 
 Попробуйте [подбор визового маршрута](https://visa2.au/ru/visas#pathway-finder) или заполните нашу [детальную визовую оценку](https://visa2au.mmportal.cloud/assessment/) — Агент проверит её до вашей консультации.
 
+Next steps
+
+- See visa fees and fixed-fee quotes
+- Browse every visa service
+
 Static divider — gold hairline with Southern Cross spark
 
 Помогаем с иммиграцией в Австралию с 2024 года. Зарегистрированные миграционные агенты (MARN) в Сиднее, Мельбурне, Брисбене и по всему миру.

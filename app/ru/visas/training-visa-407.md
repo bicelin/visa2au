@@ -63,3 +63,8 @@ Work Visas Working Holiday Visa 417 & 462: Your Guide to Working in Australia Th
 Записаться на консультацию →
 
 Детальная оценка визы
+
+Дальше
+
+- Визовые сборы и наша фиксированная стоимость
+- Все визовые услуги

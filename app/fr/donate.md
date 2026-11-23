@@ -65,3 +65,8 @@ Stripe est encore en mode test — votre carte ne sera pas débitée.
 Les paiements sont traités de manière sécurisée par Stripe.
 
 Vous préférez donner avec vos services de visa ? Demandez-nous d’ajouter un don volontaire à votre facture.
+
+Next steps
+
+- See visa fees and fixed-fee quotes
+- Browse every visa service

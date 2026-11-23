@@ -60,3 +60,8 @@ Protection Visas Protection Visa 866: Seeking Asylum in Australia The Protection
 Записаться на консультацию →
 
 Детальная оценка визы
+
+Дальше
+
+- Визовые сборы и наша фиксированная стоимость
+- Все визовые услуги

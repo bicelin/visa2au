@@ -78,3 +78,8 @@ Votre visa actuel est menacé — conditions, motif de caractère ou information
 Contactez-nous →
 
 Sur les recours ART
+
+Pour aller plus loin
+
+- Frais de visa et honoraires fixes
+- Tous les services de visa

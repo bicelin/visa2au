@@ -64,3 +64,8 @@ Visitor Visas 5 Tips for a Successful Visitor Visa 600 Application Applying for 
 Записаться на консультацию →
 
 Детальная оценка визы
+
+Дальше
+
+- Визовые сборы и наша фиксированная стоимость
+- Все визовые услуги
