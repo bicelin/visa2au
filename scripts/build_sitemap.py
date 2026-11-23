@@ -46,14 +46,43 @@ def is_noindex(path: str) -> bool:
     return bool(re.search(r'<meta name="robots" content="[^"]*noindex', head, re.I))
 
 
-def lastmod_for(path: str) -> str | None:
-    """Blog posts have a .md twin with YYYY-MM-DD frontmatter date."""
+def git_lastmods() -> dict[str, str]:
+    """Newest commit date per file under app/, in one git call.
+
+    Blog posts keep their frontmatter date (that is the publication date). Every
+    other page — /visas, /pricing, the pillar, the city agent pages — otherwise
+    ships without <lastmod>, so Google has no freshness signal and deprioritises
+    the recrawl of exactly the pages we need indexed.
+    """
+    import subprocess
+
+    res = subprocess.run(
+        ["git", "-C", ROOT, "log", "--pretty=format:%cs", "--name-only", "--", "app"],
+        capture_output=True, text=True,
+    )
+    if res.returncode != 0:
+        return {}
+    dates: dict[str, str] = {}
+    cur = None
+    for line in res.stdout.splitlines():
+        line = line.strip()
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", line):
+            cur = line
+        elif line and cur:
+            dates.setdefault(line, cur)  # log is newest-first: first hit wins
+    return dates
+
+
+def lastmod_for(path: str, git_dates: dict[str, str]) -> str | None:
+    """Blog posts have a .md twin with a YYYY-MM-DD frontmatter date; everything
+    else falls back to the last commit that touched the file."""
     md = path[:-5] + ".md"
-    if not os.path.isfile(md):
-        return None
-    text = open(md, encoding="utf-8", errors="ignore").read(4000)
-    m = re.search(r"^date:\s*(\d{4}-\d{2}-\d{2})", text, re.M)
-    return m.group(1) if m else None
+    if os.path.isfile(md):
+        text = open(md, encoding="utf-8", errors="ignore").read(4000)
+        m = re.search(r"^date:\s*(\d{4}-\d{2}-\d{2})", text, re.M)
+        if m:
+            return m.group(1)
+    return git_dates.get(os.path.relpath(path, ROOT))
 
 
 def priority_for(url: str) -> str:
@@ -64,6 +93,7 @@ def priority_for(url: str) -> str:
 
 
 def main() -> None:
+    git_dates = git_lastmods()
     urls = []
     for root, _, fs in os.walk(APP):
         for f in fs:
@@ -75,7 +105,7 @@ def main() -> None:
                 continue
             if is_noindex(p):
                 continue
-            urls.append((u, lastmod_for(p), priority_for(u)))
+            urls.append((u, lastmod_for(p, git_dates), priority_for(u)))
     urls.sort()
 
     ns = "http://www.sitemaps.org/schemas/sitemap/0.9"
