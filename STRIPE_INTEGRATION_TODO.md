@@ -11,7 +11,8 @@ sandbox banner no longer appears on the payment page.
 `/pay` reports its own mode at runtime via `GET /api/stripe-mode`, so the payer-facing
 notice follows the deployed key automatically and cannot go stale.
 
-**Not yet live:** the donation pages — see the table below.
+**Also live:** donations now run on Checkout Sessions via `POST /api/donate`, so the chosen
+amount is honoured and there is no dashboard Payment Link to maintain.
 
 **Integration type:** Hosted Stripe Checkout (redirect to a Stripe-hosted page)
 **Scenario:** A — an existing Checkout Session call was found, so only its parameters changed.
@@ -45,7 +46,8 @@ they are done.
 | What | Where | Action |
 |------|-------|--------|
 | ~~Live secret key~~ | Cloudflare Pages → `astra-staging` → **Production** → `STRIPE_SECRET_KEY` | ✅ **DONE** — live `sk_live_…` key bound (production only; preview retains the test key). |
-| **Donation Payment Link** | [app/donate.html](app/donate.html), [app/ru/donate.html](app/ru/donate.html), [app/fr/donate.html](app/fr/donate.html) | ⬜ **OUTSTANDING** — still the hardcoded test link `buy.stripe.com/test_aFa3cwcOl1rJgQrdoacs801`. Replace with a **live** Payment Link configured for *customer chooses price*. Until then the donate pages remain in sandbox and their notices correctly say so. |
+| ~~Donation Payment Link~~ | [app/donate.html](app/donate.html) + ru/fr | ✅ **DONE — differently.** A Payment Link cannot receive an amount through its URL, so the page's \$25–\$250 / custom picker was decorative and donors could be charged the wrong sum. Replaced with `POST /api/donate` (Checkout Session, A\$1–A\$10,000, no card surcharge). No dashboard object to maintain. |
+| **`STRIPE_WEBHOOK_SECRET`** | Stripe → Developers → Webhooks → Add endpoint `https://visa2.au/api/stripe-webhook` | ⬜ **OUTSTANDING** — the only remaining step. Copy the `whsec_…` signing secret and set it in Pages production. Until then the webhook returns 500 so Stripe retries rather than dropping payments. |
 | Statement descriptor | Stripe Dashboard → Settings → Public business information | ⬜ Set to `VISA2AU` (5–22 Latin chars, must reflect the DBA). Reduces chargebacks. |
 | Standard secret key hygiene | Stripe Dashboard → API keys | ⬜ The pre-existing account-wide `sk_live_` key is unused (no last-used). Expire it once you have confirmed no other tool (Odoo, Zapier, legacy plugin) holds it. Prefer a restricted key over an account-wide one for the site. |
 
@@ -151,14 +153,13 @@ Verified working after the parameter change:
 
 ### Remaining gaps (not blockers)
 
-- **No webhook.** Payments are not confirmed server-side, so reconciliation is manual via
-  the Stripe dashboard. Adding a `checkout.session.completed` handler would also let
-  `/pay?paid=1` verify the session rather than trust the redirect.
-- **No bot protection on `/pay`.** Turnstile is used on `/contact` but not here, so
-  Checkout Sessions can be created by anyone. Each call costs a Stripe API request.
-- **`?paid=1` is a redirect, not proof of payment.** A payer could reach it without
-  paying. The confirmation copy is written to avoid asserting a specific amount, but a
-  webhook + server-side session lookup is the correct fix.
+- **Webhook not yet registered** (see table). The handler is built, signature-verified and
+  deployed; it just needs `STRIPE_WEBHOOK_SECRET` and the endpoint added in Stripe.
+- **No bot protection on `/pay` or `/api/donate`.** Turnstile is used on `/contact` but
+  not here, so sessions can be created by anyone. Each call costs a Stripe API request,
+  and `/api/donate` has no Turnstile gate.
+- **Idempotency.** Stripe retries webhooks; without a datastore duplicate deliveries would
+  each send a notification email. `event.id` is logged but not deduplicated.
 - The `www` → apex redirect means API calls must target the apex host; `POST` to
   `www.visa2.au` is redirected and loses its body.
 
