@@ -16,6 +16,14 @@ Payment cancelled
 
 No payment was taken and your card was not charged. You can try again below, or ask us for bank transfer details at info@visa2.au to avoid the 4.55% card fee.
 
+Confirming your payment…
+
+Checking with Stripe. This takes a moment.
+
+Payment not confirmed
+
+We could not confirm this payment. If you believe you have been charged, email info@visa2.au with your invoice number and the Stripe receipt before trying again — please do not pay twice.
+
 Full Name *
 
 Invoice / Service Order Number *

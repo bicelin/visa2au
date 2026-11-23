@@ -66,7 +66,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const params = new URLSearchParams({
     mode: "payment",
     ui_mode: "hosted",
-    success_url: `${origin}/pay?paid=1`,
+    // {CHECKOUT_SESSION_ID} is a literal Stripe template token, not a JS value: the
+    // success page needs the ID to verify payment server-side instead of trusting the
+    // redirect. It is decoded back to its literal form before the request is sent.
+    success_url: `${origin}/pay?paid=1&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/pay?cancelled=1`,
     billing_address_collection: "auto",
     "phone_number_collection[enabled]": "false",
@@ -95,7 +98,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`,
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: params.toString(),
+    // URLSearchParams percent-encodes braces (%7B/%7D) and Stripe only substitutes the
+    // LITERAL {CHECKOUT_SESSION_ID}, so restore it after encoding or the token arrives
+    // verbatim in the payer's URL and verification fails.
+    body: params.toString().replace(/%7BCHECKOUT_SESSION_ID%7D/gi, "{CHECKOUT_SESSION_ID}"),
   });
   const d = (await r.json()) as { url?: string; error?: { message?: string } };
   if (!r.ok || !d.url) {

@@ -16,6 +16,14 @@ Paiement annulé
 
 Aucun montant n’a été prélevé et votre carte n’a pas été débitée. Vous pouvez réessayer ci-dessous, ou demander nos coordonnées bancaires à info@visa2.au pour éviter les 4,55 % de frais de carte.
 
+Vérification de votre paiement…
+
+Nous interrogeons Stripe. Cela ne prend qu’un instant.
+
+Paiement non confirmé
+
+Nous n’avons pas pu confirmer ce paiement. Si vous pensez avoir été débité, écrivez à info@visa2.au avec votre numéro de facture et le reçu Stripe avant de réessayer — merci de ne pas payer deux fois.
+
 Nom complet *
 
 N° de facture / de bon de commande *
