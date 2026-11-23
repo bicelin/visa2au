@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Visa2AU">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <rect x="0" y="0" width="512" height="512" fill="#1A2744"/>
-  <path d="M 80 156 L 136 156 L 178 296 L 220 156 L 276 156 L 208 356 L 148 356 Z" fill="#FFFFFF"/>
-  <path d="M 294 156 L 392 156 C 424 156 440 172 440 202 L 440 226 C 440 256 424 272 392 272 L 348 272 C 334 272 330 276 330 288 L 330 308 L 440 308 L 440 356 L 284 356 L 284 282 C 284 246 302 226 338 226 L 382 226 C 392 226 394 222 394 214 L 394 210 C 394 202 392 198 382 198 L 294 198 Z" fill="#F0A000"/>
+  <g transform="translate(256,256) scale(0.86) translate(-256,-256)">
+    <path d="M 80 156 L 136 156 L 178 296 L 220 156 L 276 156 L 208 356 L 148 356 Z" fill="#FFFFFF"/>
+    <path d="M 294 156 L 392 156 C 424 156 440 172 440 202 L 440 226 C 440 256 424 272 392 272 L 348 272 C 334 272 330 276 330 288 L 330 308 L 440 308 L 440 356 L 284 356 L 284 282 C 284 246 302 226 338 226 L 382 226 C 392 226 394 222 394 214 L 394 210 C 394 202 392 198 382 198 L 294 198 Z" transform="translate(14,0)" fill="#F0A000"/>
+  </g>
 </svg>
