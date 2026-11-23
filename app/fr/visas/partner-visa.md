@@ -151,8 +151,10 @@ L’enregistrement de la relation aide-t-il ?Il supprime l’exigence de 12 mois
 
 Quelle voie est la plus rapide, en Australie ou hors Australie ?Il n’existe pas de différence fiable, et choisir pour la vitesse se retourne souvent contre le demandeur. Choisissez selon l’endroit où vous pouvez légalement être lors de la demande et de la décision, et selon que vous remplissez la condition de relation de fait ou avez besoin de la voie 300.
 
-## Réserver une consultation
+## Vous envisagez un visa partenaire ?
 
 Une évaluation honnête de vos perspectives et un devis à honoraires fixes — avant tout engagement.
 
 Réserver une consultation →
+
+Évaluation détaillée du visa

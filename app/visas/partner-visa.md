@@ -151,8 +151,10 @@ Does registering our relationship help?It removes the 12-month cohabitation requ
 
 Which stream is faster — onshore or offshore?There is no reliable difference, and choosing for speed usually backfires. Choose by where you are lawfully able to be at application and at grant, and by whether you meet the de facto threshold or need the prospective marriage route.
 
-## Book a consultation
+## Considering a partner visa?
 
 Get a clear, honest assessment of your prospects and a fixed-fee quote — before you commit to anything.
 
 Book a consultation →
+
+Detailed Visa Assessment
