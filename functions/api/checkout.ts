@@ -49,9 +49,12 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const charge = Math.round((base + fee) * 100) / 100;
   const cents = Math.round(charge * 100);
 
-  // Checkout Studio (fixed_by_ui) parameters. ui_mode defaults to hosted_page on this
-  // API version; origin_context needs >= basil (2025-07-30) and integration_identifier
-  // needs >= dahlia (2026-03-25), so both depend on the account's default API version.
+  // Checkout Studio (fixed_by_ui) parameters.
+  // ui_mode is "hosted" (not "hosted_page"): this account's default Stripe API version
+  // predates 2026-03-25.dahlia, and hosted_page is rejected there with
+  // "Invalid ui_mode: hosted_page". "hosted" is the equivalent pre-dahlia value, so the
+  // behaviour is the same — upgrade the account's API version to switch to hosted_page.
+  // integration_identifier is OMITTED for the same reason: it shipped in dahlia too.
   //
   // Deliberate deviations from the Checkout Studio field intents:
   //  - payment_method_collection is OMITTED (intent says "always") per the spec rule
@@ -62,7 +65,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const origin = issuerFor(request);
   const params = new URLSearchParams({
     mode: "payment",
-    ui_mode: "hosted_page",
+    ui_mode: "hosted",
     success_url: `${origin}/pay?paid=1`,
     cancel_url: `${origin}/pay?cancelled=1`,
     billing_address_collection: "auto",
@@ -72,7 +75,6 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     submit_type: "auto",
     "name_collection[individual][enabled]": "true",
     "name_collection[individual][optional]": "true",
-    integration_identifier: "hosted_web_0001",
     origin_context: "web",
     "line_items[0][price_data][currency]": "aud",
     "line_items[0][price_data][unit_amount]": String(cents),
@@ -96,7 +98,13 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     body: params.toString(),
   });
   const d = (await r.json()) as { url?: string; error?: { message?: string } };
-  if (!r.ok || !d.url) return json({ ok: false, error: d.error?.message || "Stripe error" }, 502);
+  if (!r.ok || !d.url) {
+    const msg = d.error?.message || "Stripe error";
+    // A Stripe 4xx means OUR parameters were rejected: return 400 so the caller sees
+    // the real reason. A 502 gets rewritten by Cloudflare into an opaque
+    // text/plain body ("error code: 502"), which hid the actual cause.
+    return json({ ok: false, error: msg }, r.status >= 400 && r.status < 500 ? 400 : 502);
+  }
 
   return json({ ok: true, url: d.url });
 };
