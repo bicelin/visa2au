@@ -59,6 +59,7 @@ Discutez de votre cas →
 
 ### Voies associées
 
+- Quel visa partenaire vous concerne
 - Visa partenaire (offshore) (309/100)
 - Visa mariage projeté (300)
 - Refus de visa & recours ART (ART review)

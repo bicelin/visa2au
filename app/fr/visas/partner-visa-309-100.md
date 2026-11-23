@@ -56,6 +56,7 @@ Discutez de votre cas →
 
 ### Voies associées
 
+- Quel visa partenaire vous concerne
 - Visas partenaires (820/801)
 - Visa visiteur (600)
 - Visa mariage projeté (300)

@@ -22,6 +22,8 @@ Visitor
 
 Other
 
+Start here      Partner Visa Australia 820/801 · 309/100 · 300   Which partner visa applies to you, what it costs and how long each stage takes.  Compare the streams Compare →
+
 Popular      Partner Visas 820/801   Для партнёров граждан Австралии, постоянных резидентов или eligible-граждан Новой Зеландии.  12–24 месяца (обычно) Подробнее →
 
 Partner Visa (Offshore) 309/100   Подача за пределами Австралии с последующим постоянным поселением.  12–24 месяца (обычно) Подробнее →

@@ -56,6 +56,7 @@ Partner Visas Prospective Marriage Visa 300: The Fiancé Visa Explained Planning
 
 ### Связанные направления
 
+- Какая партнёрская виза вам подходит
 - Визы партнёров (820/801)
 - Гостевая виза (600)
 - Виза жениха/невесты (300)

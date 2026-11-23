@@ -59,6 +59,7 @@ Partner Visas Prospective Marriage Visa 300: The Fiancé Visa Explained Planning
 
 ### Связанные направления
 
+- Какая партнёрская виза вам подходит
 - Виза партнёра (оффшор) (309/100)
 - Виза жениха/невесты (300)
 - Отказы и апелляции в ART (ART review)

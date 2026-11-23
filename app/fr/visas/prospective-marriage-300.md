@@ -54,6 +54,7 @@ Discutez de votre cas →
 
 ### Voies associées
 
+- Quel visa partenaire vous concerne
 - Visas partenaires (820/801)
 - Visa partenaire (offshore) (309/100)
 

@@ -1,8 +1,8 @@
 <!-- generated:md-twin -->
 
-# Blog Visa2AU — guides et actualités de l'immigration en Australie
+# Blog Visa2AU — guides immigration Australie
 
-> Guides pratiques sur l'immigration australienne rédigés par des agents MARN enregistrés : visas partenaires, migration qualifiée, parrainage employeur, citoyenneté et bien plus.
+> Guides pratiques sur l’immigration australienne par des agents MARN : visas partenaires, migration qualifiée, parrainage employeur.
 
 # Guides & analyses
 

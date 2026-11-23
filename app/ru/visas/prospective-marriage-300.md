@@ -54,6 +54,7 @@ Partner Visas Prospective Marriage Visa 300: The Fiancé Visa Explained Planning
 
 ### Связанные направления
 
+- Какая партнёрская виза вам подходит
 - Визы партнёров (820/801)
 - Виза партнёра (оффшор) (309/100)
 

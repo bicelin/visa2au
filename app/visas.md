@@ -22,6 +22,8 @@ Visitor
 
 Other
 
+Start here      Partner Visa Australia 820/801 · 309/100 · 300   Which partner visa applies to you, what it costs and how long each stage takes.  Compare the streams Compare →
+
 Popular      Partner Visas 820/801   For partners of Australian citizens, PR holders or eligible NZ citizens.  12–24 months (typical) Details →
 
 Partner Visa (Offshore) 309/100   Apply from outside Australia, then settle permanently.  12–24 months (typical) Details →
