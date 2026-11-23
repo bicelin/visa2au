@@ -44,6 +44,6 @@ Ou un montant personnalisé
 
 Faire un don sécurisé →
 
-Stripe is still in test mode — your card will not be charged. Donations are not tax-deductible.
+Stripe est encore en mode test — votre carte ne sera pas débitée. Les dons ne sont pas déductibles des impôts.
 
 Vous préférez donner avec vos services de visa ? Demandez-nous d’ajouter un don volontaire à votre facture.

@@ -8,6 +8,14 @@
 
 Secure card payment via Stripe. Enter your details exactly as they appear on your invoice or service order.
 
+Payment received — thank you
+
+Stripe has processed your payment and emailed you a receipt. Keep it for your records. If anything on your invoice looks wrong, email info@visa2.au quoting the receipt number.
+
+Payment cancelled
+
+No payment was taken and your card was not charged. You can try again below, or ask us for bank transfer details at info@visa2.au to avoid the 4.55% card fee.
+
 Full Name *
 
 Invoice / Service Order Number *

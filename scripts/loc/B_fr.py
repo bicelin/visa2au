@@ -132,7 +132,12 @@ FR_MAP = {
     "Total charged to your card": "Total débité sur votre carte",
     "We are open about fees: a Stripe processing fee (4.55%) applies when you pay by card and is passed on to you — itemised here before you pay. To avoid the card fee, ask us for bank transfer details at <a href=\"mailto:info@visa2.au\" class=\"underline\">info@visa2.au</a>.": "Nous sommes transparents sur les frais : si vous payez par carte, les frais de traitement Stripe (4.55%) vous sont refacturés — ils sont détaillés ici avant le paiement. Pour éviter ces frais, demandez-nous les coordonnées bancaires pour un virement à <a href=\"mailto:info@visa2.au\" class=\"underline\">info@visa2.au</a>.",
     "Proceed to Secure Payment →": "Passer au paiement sécurisé →",
-    "Stripe checkout in test mode — live keys are added at launch. Card details never touch our servers.": "Paiement Stripe en mode test — les clés de production seront ajoutées au lancement. Les données de carte ne touchent jamais nos serveurs.",
+ "Test mode — no payment is taken. Card details never touch our servers.": "Mode test — aucun paiement n'est prélevé. Les données de carte ne touchent jamais nos serveurs.",
+ "Stripe is still in test mode — your card will not be charged. Donations are not tax-deductible.": "Stripe est encore en mode test — votre carte ne sera pas débitée. Les dons ne sont pas déductibles des impôts.",
+ "Payment received — thank you": "Paiement reçu — merci",
+ "Stripe has processed your payment and emailed you a receipt. Keep it for your records. If anything on your invoice looks wrong, email info@visa2.au quoting the receipt number.": "Stripe a traité votre paiement et vous a envoyé un reçu par e-mail. Conservez-le. Si un élément de votre facture semble incorrect, écrivez à info@visa2.au en indiquant le numéro du reçu.",
+ "Payment cancelled": "Paiement annulé",
+ "No payment was taken and your card was not charged. You can try again below, or ask us for bank transfer details at info@visa2.au to avoid the 4.55% card fee.": "Aucun montant n'a été prélevé et votre carte n'a pas été débitée. Vous pouvez réessayer ci-dessous, ou demander nos coordonnées bancaires à info@visa2.au pour éviter les 4,55 % de frais de carte.",
     "As shown on the invoice": "Tel qu’indiqué sur la facture",
     "e.g. V2AU-2026-041": "p. ex. V2AU-2026-041",
     # ===== donate.html =====
@@ -151,7 +156,6 @@ FR_MAP = {
     "Choose an amount (AUD)": "Choisissez un montant (AUD)",
     "Or a custom amount": "Ou un montant personnalisé",
     "Donate Securely →": "Faire un don sécurisé →",
-    "Secure payment via Stripe (test mode until launch keys are added). Donations are not tax-deductible.": "Paiement sécurisé via Stripe (mode test jusqu’à l’ajout des clés de lancement). Les dons ne sont pas déductibles des impôts.",
     "Prefer to give with your visa services? Ask us to add a voluntary donation to your invoice.": "Vous préférez donner avec vos services de visa ? Demandez-nous d’ajouter un don volontaire à votre facture.",
 }
 

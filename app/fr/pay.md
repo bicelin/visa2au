@@ -8,6 +8,14 @@
 
 Paiement sécurisé par carte via Stripe. Saisissez vos informations exactement comme elles figurent sur votre facture ou votre bon de commande.
 
+Paiement reçu — merci
+
+Stripe a traité votre paiement et vous a envoyé un reçu par e-mail. Conservez-le. Si un élément de votre facture semble incorrect, écrivez à info@visa2.au en indiquant le numéro du reçu.
+
+Paiement annulé
+
+Aucun montant n’a été prélevé et votre carte n’a pas été débitée. Vous pouvez réessayer ci-dessous, ou demander nos coordonnées bancaires à info@visa2.au pour éviter les 4,55 % de frais de carte.
+
 Nom complet *
 
 N° de facture / de bon de commande *
@@ -24,4 +32,4 @@ We are open about fees: a Stripe processing fee (4.55%) applies when you pay by 
 
 Passer au paiement sécurisé →
 
-Test mode — no payment is taken. Card details never touch our servers.
+Mode test — aucun paiement n’est prélevé. Les données de carte ne touchent jamais nos serveurs.

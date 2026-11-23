@@ -130,7 +130,12 @@ RU_MAP = {
     "Total charged to your card": "Итого к списанию с вашей карты",
     "We are open about fees: a Stripe processing fee (4.55%) applies when you pay by card and is passed on to you — itemised here before you pay. To avoid the card fee, ask us for bank transfer details at <a href=\"mailto:info@visa2.au\" class=\"underline\">info@visa2.au</a>.": "Мы открыто говорим о комиссиях: при оплате картой комиссия Stripe за обработку платежа (4.55%) перекладывается на вас — она указана здесь до оплаты. Чтобы избежать этой комиссии, запросите реквизиты банковского перевода по адресу <a href=\"mailto:info@visa2.au\" class=\"underline\">info@visa2.au</a>.",
     "Proceed to Secure Payment →": "Перейти к безопасной оплате →",
-    "Stripe checkout in test mode — live keys are added at launch. Card details never touch our servers.": "Оплата Stripe в тестовом режиме — рабочие ключи будут добавлены при запуске. Данные карты никогда не попадают на наши серверы.",
+ "Test mode — no payment is taken. Card details never touch our servers.": "Тестовый режим — оплата не взимается. Данные карты никогда не попадают на наши серверы.",
+ "Stripe is still in test mode — your card will not be charged. Donations are not tax-deductible.": "Stripe пока в тестовом режиме — деньги с карты не списываются. Пожертвования не подлежат налоговому вычету.",
+ "Payment received — thank you": "Платёж получен — спасибо",
+ "Stripe has processed your payment and emailed you a receipt. Keep it for your records. If anything on your invoice looks wrong, email info@visa2.au quoting the receipt number.": "Stripe обработал ваш платёж и отправил квитанцию на вашу почту. Сохраните её. Если в счёте что-то не так, напишите на info@visa2.au и укажите номер квитанции.",
+ "Payment cancelled": "Платёж отменён",
+ "No payment was taken and your card was not charged. You can try again below, or ask us for bank transfer details at info@visa2.au to avoid the 4.55% card fee.": "Деньги не списаны, карта не затронута. Можно попробовать снова ниже — или запросить реквизиты для банковского перевода на info@visa2.au, чтобы избежать комиссии 4,55%.",
     "As shown on the invoice": "Как указано в счёте",
     "e.g. V2AU-2026-041": "напр., V2AU-2026-041",
     # ===== donate.html =====
@@ -149,7 +154,6 @@ RU_MAP = {
     "Choose an amount (AUD)": "Выберите сумму (AUD)",
     "Or a custom amount": "Или свою сумму",
     "Donate Securely →": "Пожертвовать безопасно →",
-    "Secure payment via Stripe (test mode until launch keys are added). Donations are not tax-deductible.": "Безопасный платёж через Stripe (тестовый режим до добавления ключей запуска). Пожертвования не подлежат налоговому вычету.",
     "Prefer to give with your visa services? Ask us to add a voluntary donation to your invoice.": "Хотите поддержать нас вместе с визовыми услугами? Попросите добавить добровольное пожертвование в ваш счёт.",
 }
 
