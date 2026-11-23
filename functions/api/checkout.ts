@@ -109,7 +109,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     // A Stripe 4xx means OUR parameters were rejected: return 400 so the caller sees
     // the real reason. A 502 gets rewritten by Cloudflare into an opaque
     // text/plain body ("error code: 502"), which hid the actual cause.
-    return json({ ok: false, error: msg }, r.status >= 400 && r.status < 500 ? 400 : 502);
+    // 500 rather than 502: Cloudflare rewrites a 502 into an opaque "error code: 502".
+    return json({ ok: false, error: msg }, r.status >= 400 && r.status < 500 ? 400 : 500);
   }
 
   return json({ ok: true, url: d.url });

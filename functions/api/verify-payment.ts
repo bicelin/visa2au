@@ -55,14 +55,19 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
       }
     );
   } catch {
-    return json({ ok: false, paid: false, error: "could not reach payment provider" }, 502);
+    return json({ ok: false, paid: false, error: "could not reach payment provider" }, 500);
   }
 
   const s = (await r.json()) as StripeSession & { error?: { message?: string } };
   if (!r.ok) {
     // Never echo Stripe's raw error: it can reveal key/configuration details.
     console.log(JSON.stringify({ tag: "verify_payment", session_id: sessionId, status: r.status }));
-    return json({ ok: false, paid: false, error: "could not verify payment" }, 502);
+    // Deliberately avoid 502: Cloudflare rewrites a 502 from a Pages Function into an
+    // opaque text/plain "error code: 502", hiding the reason. 500/404 keep the body.
+    if (r.status === 404) {
+      return json({ ok: false, paid: false, error: "payment not found" }, 404);
+    }
+    return json({ ok: false, paid: false, error: "could not verify payment" }, 500);
   }
 
   const paid = s.payment_status === "paid";
