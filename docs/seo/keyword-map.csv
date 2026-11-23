@@ -1,0 +1,196 @@
+page,keyword,volume,kd,intent,cpc,competition,cluster,seed
+/migration-agent-sydney,education agent & visa services idp adelaide,880,0,commercial,0.38,0.05,agent,visa agent
+/migration-agent-sydney,visa agent,480,29,navigational,14.25,0.56,agent,visa agent
+/migration-agent-sydney,visa travel agent,480,9,navigational,14.25,0.56,agent,visa agent
+/migration-agent-sydney,visa empire best migration agent perth,390,1,commercial,1.01,0.01,agent,visa agent
+/migration-agent-sydney,education agent & visa services idp parramatta,390,0,commercial,—,0.06,agent,visa agent
+/migration-agent-sydney,visa empire best migration agent brisbane,390,30,commercial,—,0,agent,visa agent
+/migration-agent-sydney,visa agent australia,210,41,navigational,11.27,0.54,agent,visa agent
+/migration-agent-sydney,australian visa agent,210,44,navigational,11.27,0.54,agent,visa agent
+/migration-agent-sydney,visa agent melbourne,170,29,navigational,10.35,0.56,agent,visa agent
+/migration-agent-sydney,visa agent sydney,110,42,navigational,15.62,0.93,agent,visa agent
+/migration-agent-sydney,visa agent gold coast,110,12,navigational,4.90,0.93,agent,visa agent
+/migration-agent-sydney,indeed visa registered migration agent perth visa consultant in perth,90,—,commercial,5.62,0.05,agent,visa agent
+/migration-agent-sydney,visa migration agent,70,0,commercial,11.28,0.58,agent,visa agent
+/migration-agent-sydney,visa agent indonesia,40,20,navigational,4.17,0.28,agent,visa agent
+/migration-agent-sydney,visa application agent,30,23,navigational,8.91,0.54,agent,visa agent
+/migration-agent-sydney,visa empire best migration agent brisbane upper mount gravatt reviews,30,19,commercial,—,0,agent,visa agent
+/migration-agent-sydney,australia visa agent near me,20,—,navigational,9.77,0.50,agent,visa agent
+/migration-agent-sydney,visa empire best migration agent perth west perth reviews,20,—,commercial,—,0,agent,visa agent
+/migration-agent-sydney,o-1 visa agent,20,—,navigational,—,—,agent,visa agent
+/migration-agent-sydney,education agent & visa services idp sydney,20,—,navigational,—,0.08,agent,visa agent
+/migration-agent-sydney,visa empire best migration agent melbourne,20,—,commercial,—,0,agent,visa agent
+/migration-agent-sydney,visa empire best migration agent brisbane reviews,20,—,commercial,—,0,agent,visa agent
+/migration-agent-sydney,what does a visa agent do,10,—,informational,—,—,agent,visa agent
+/migration-agent-sydney,indian visa agent in dhaka,10,—,transactional,—,—,agent,visa agent
+/migration-agent-sydney,work visa agent,10,46,commercial,6.12,0.67,agent,visa agent
+/migration-agent-sydney,visa agent nz,10,—,navigational,—,—,agent,visa agent
+/migration-agent-sydney,how to become a visa agent,10,—,informational,—,0,agent,visa agent
+/migration-agent-sydney,skilled visa migration agent,10,—,commercial,24.73,0.38,agent,visa agent
+/migration-agent-sydney,visa agent hua hin,10,—,navigational,—,0,agent,visa agent
+/migration-agent-sydney,agent visa korea,10,—,navigational,—,—,agent,visa agent
+/migration-agent-sydney,visa agent south africa,10,—,navigational,—,—,agent,visa agent
+/migration-agent-sydney,australian business visa agent,10,—,navigational,—,—,agent,visa agent
+/migration-agent-sydney,visa agent in abu dhabi,10,—,navigational,—,—,agent,visa agent
+/migration-agent-sydney,russia visa agent,10,—,navigational,—,—,agent,visa agent
+/migration-agent-sydney,visa migration agent melbourne,10,39,navigational,—,0.64,agent,visa agent
+/migration-agent-sydney,umrah visa travel agent,10,—,navigational,—,—,agent,visa agent
+/migration-agent-sydney,bali travel agent visa,10,—,navigational,—,—,agent,visa agent
+/migration-agent-sydney,visa agent phuket,10,—,navigational,—,0.20,agent,visa agent
+/migration-agent-sydney,europe visa agent,10,—,navigational,—,0.79,agent,visa agent
+/pricing,tr visa fee,1000,8,informational,—,0.01,fees,partner visa
+/pricing,191 visa fee,1000,4,informational,—,0,fees,partner visa
+/pricing,visa fee calculator,720,7,informational,—,0,fees,partner visa
+/pricing,visa fee estimator,390,16,informational,—,0,fees,partner visa
+/visas,h1b visa,2400,31,informational,7.58,0.01,hub,partner visa
+/visas,passport application form,1900,0,transactional,0.93,0,hub,partner visa
+/visas,sponsorship visa,1900,9,commercial,3.35,0.14,hub,partner visa
+/visas,australian passport application form pdf,1900,8,informational,0.48,0.01,hub,partner visa
+/visas,australian passport application form,1600,20,transactional,0.33,0,hub,partner visa
+/visas,working visa,1600,29,informational,5.63,0.08,hub,partner visa
+/visas,visa application,1300,34,informational,7.44,0.03,hub,partner visa
+/visas,visa bulletin,1300,61,informational,—,0,hub,partner visa
+/visas,visa types australia,1300,7,informational,3.04,0.07,hub,partner visa
+/visas,chinese visa,1000,8,informational,4.29,0.01,hub,partner visa
+/visas,chinese visa application,1000,19,informational,2.18,0,hub,partner visa
+/visas,tr visa,1000,2,informational,7.31,0.01,hub,partner visa
+/visas,form 80 immigration,1000,0,informational,2.05,0.04,hub,partner visa
+/visas,pr visa,880,22,commercial,3.78,0.01,hub,partner visa
+/visas,489 visa,880,0,informational,1.25,0.01,hub,partner visa
+/visas,j1 visa,720,16,informational,9.52,0.01,hub,partner visa
+/visas,family sponsored visa,720,0,informational,3.23,0.01,hub,partner visa
+/visas,visa waiver program,590,59,informational,5.44,0.03,hub,partner visa
+/visas,o1 visa,590,7,navigational,23,0.07,hub,visa agent
+/visas,o-1 visa,590,6,informational,23,0.07,hub,visa agent
+/visas,dependent visa,480,2,informational,—,0.01,hub,partner visa
+/visas,visa types,480,16,informational,—,0.01,hub,partner visa
+/visas,visa grant,320,13,informational,—,0,hub,partner visa
+/visas,partner pr visa,320,2,navigational,5.89,0.12,hub,partner visa
+/visas,substantive visa meaning,320,0,informational,—,0,hub,partner visa
+/visas,tss visa,320,15,navigational,—,0.01,hub,visa agent
+/visas,what is a substantive visa,320,0,informational,—,0,hub,visa agent
+/visas,partner migration visa,210,33,informational,12.20,0.21,hub,partner visa
+/visas (GAP: resident return visa page needed),resident return visa,3600,0,informational,1.79,0,rrv,partner visa
+/visas/australian-citizenship,australian citizenship certificate,4400,4,informational,4.72,0.01,citizenship,partner visa
+/visas/australian-citizenship,australian citizenship certificate number,1000,13,informational,—,0,citizenship,partner visa
+/visas/australian-citizenship,australian citizenship application form,720,16,informational,2.99,0.04,citizenship,partner visa
+/visas/australian-citizenship,proof of australian citizenship,590,0,informational,—,0,citizenship,partner visa
+/visas/australian-citizenship,australian citizenship form,590,0,informational,1.62,0.04,citizenship,partner visa
+/visas/employer-nomination-186,186 visa processing time,12100,0,informational,2.35,0,186,partner visa
+/visas/employer-nomination-186,186 visa requirements,3600,0,informational,2.38,0.06,186,partner visa
+/visas/employer-nomination-186,186 visa fees,1600,2,informational,—,0,186,partner visa
+/visas/employer-nomination-186,186 direct entry visa,720,0,informational,2.45,0.02,186,partner visa
+/visas/employer-nomination-186,186 visa cost,480,16,informational,1.92,0.02,186,partner visa
+/visas/employer-nomination-186,ens 186 visa,320,0,informational,2.34,0.02,186,visa agent
+/visas/employer-nomination-186 (GAP: 482 page needed),482 visa,27100,9,informational,4.40,0.01,482,partner visa
+/visas/employer-nomination-186 (GAP: 482 page needed),migration agent fees for 482 visa,30,0,informational,1.84,0.10,482,visa agent
+/visas/employer-nomination-186 (GAP: 482 page needed),482 visa agent fee,20,—,informational,—,0.08,482,visa agent
+/visas/parent-visa-103,parent visa,2400,2,informational,—,0,103/143/173/864/870,partner visa
+/visas/parent-visa-103,contributory parent visa,1600,6,informational,5.32,0,103/143/173/864/870,partner visa
+/visas/parent-visa-103,parent visa 143,390,0,navigational,1.47,0.01,103/143/173/864/870,partner visa
+/visas/parent-visa-103,parent visa migration agent,20,—,navigational,10.22,0.27,103/143/173/864/870,visa agent
+/visas/partner-visa (PILLAR — to build),australian partner visa,12100,4,informational,7.62,0.23,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa australia,12100,2,commercial,7.62,0.23,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa au,12100,—,commercial,7.62,0.23,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa,8100,1,commercial,9.64,0.14,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),australian partner visa fee,2900,2,informational,4.07,0.12,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa australia cost,2900,11,informational,4.07,0.12,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),australian partner visa cost,2900,3,informational,4.07,0.12,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),australia partner visa fee,2900,2,informational,4.07,0.12,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),australia partner visa price,2900,12,informational,4.07,0.12,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa processing time,2400,0,informational,5.06,0.02,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa fee,1900,5,informational,4.78,0.04,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa application fee,1900,3,commercial,4.78,0.04,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),australian partner visa processing times,1000,10,informational,3.79,0.03,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),australian partner visa requirements,1000,28,informational,4.57,0.35,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa australia requirements,1000,23,informational,4.57,0.35,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa processing times australia,1000,14,informational,3.79,0.03,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa charges,880,12,informational,11.59,0.08,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa cost,880,2,informational,11.59,0.08,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),form 80 partner visa,480,0,informational,3.22,0.03,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa lawyer,480,0,commercial,36.67,0.65,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa nz,480,16,navigational,1.49,0.01,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa england,390,19,informational,8.56,0.07,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa application,390,5,navigational,11.05,0.16,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa requirement,390,22,informational,5.29,0.22,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),de facto partner visa,320,1,informational,7.01,0.33,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),how much partner visa australia,320,10,informational,9.57,0.15,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa permanent,320,7,informational,5.89,0.12,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),stat dec for partner visa,320,0,transactional,1.64,0.09,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),how much is a partner visa in australia,320,2,informational,9.57,0.15,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),temporary partner visa,320,3,informational,—,0.09,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),schedule 3 partner visa,260,0,informational,6.04,0.13,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa document checklist,210,0,informational,5.10,0.21,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),bridging visa for partner visa,210,3,informational,52.01,0.10,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),immigration lawyer for partner visa,210,0,commercial,32.03,0.64,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa checklist,210,0,informational,5.10,0.21,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),temporary partner visa australia,210,5,informational,6.32,0.19,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),immi partner visa,210,19,informational,12.20,0.21,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa migration agent,210,17,navigational,25.87,0.60,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),immigration partner visa,210,33,informational,12.20,0.21,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),australian partner visa offshore,210,0,informational,8.85,0.21,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa subclass,170,30,navigational,15.03,0.05,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),what is a partner visa australia,170,14,informational,3.89,0.18,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),apply partner visa australia,170,9,transactional,11.70,0.50,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa agents,170,18,navigational,31.23,0.83,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),how to apply for partner visa in australia,170,28,informational,7.22,0.55,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa agent,170,18,navigational,31.23,0.83,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),us partner visa,170,19,informational,4.45,0.02,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),applying for partner visa,170,—,transactional,14.92,0.39,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa wait times,170,—,informational,3.85,0.04,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),what is a partner visa in australia,170,17,informational,3.89,0.18,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),partner visa academy,170,5,navigational,—,0.01,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),applying for australian partner visa,170,28,transactional,11.70,0.50,partner-head,partner visa
+/visas/partner-visa (PILLAR — to build),migration agent fees for partner visa,50,0,commercial,6.56,0.33,partner-head,visa agent
+/visas/partner-visa (PILLAR — to build),partner visa agent melbourne,30,22,navigational,46,0.22,partner-head,visa agent
+/visas/partner-visa (PILLAR — to build),migration agent perth partner visa,20,20,navigational,20.86,0.76,partner-head,visa agent
+/visas/partner-visa (PILLAR — to build),best partner visa agent australia,20,6,commercial,18.98,0.75,partner-head,visa agent
+/visas/partner-visa (PILLAR — to build),partner visa australia agent,20,—,navigational,48.52,0.67,partner-head,visa agent
+/visas/partner-visa (PILLAR — to build),partner visa agent adelaide,10,—,navigational,—,0.25,partner-head,visa agent
+/visas/partner-visa-309-100,offshore partner visa,720,0,informational,4.97,0.18,309,partner visa
+/visas/partner-visa-309-100,partner visa 309,720,4,navigational,4.31,0.05,309,partner visa
+/visas/partner-visa-309-100,australia offshore partner visa processing delays,320,0,commercial,—,0.02,309,partner visa
+/visas/partner-visa-309-100,partner visa 100,260,0,informational,—,0.06,309,partner visa
+/visas/partner-visa-309-100,partner visa 309 processing time 2026,210,3,informational,4.49,0.02,309,partner visa
+/visas/partner-visa-309-100,offshore partner visa australia,210,0,informational,8.85,0.21,309,partner visa
+/visas/partner-visa-309-100,partner visa subclass 100,210,3,informational,2.39,0.09,309,partner visa
+/visas/partner-visa-820-801,partner visa 820,2400,0,navigational,4.97,0.06,820,partner visa
+/visas/partner-visa-820-801,form 888 partner visa,1900,0,navigational,3.01,0.02,820,partner visa
+/visas/partner-visa-820-801,801 partner visa,880,5,informational,3.04,0.05,820,partner visa
+/visas/partner-visa-820-801,onshore partner visa,590,0,commercial,5.66,0.16,820,partner visa
+/visas/partner-visa-820-801,partner visa subclass 820,480,5,informational,2.89,0.11,820,partner visa
+/visas/partner-visa-820-801,statutory declaration partner visa,320,0,informational,1.64,0.09,820,partner visa
+/visas/partner-visa-820-801,partner visa 820 processing time,210,5,informational,—,0.01,820,partner visa
+/visas/partner-visa-820-801,relationship statement for partner visa sample pdf,210,0,informational,3.96,0.02,820,partner visa
+/visas/partner-visa-820-801,subclass 801 partner visa,210,7,commercial,2.80,0.11,820,partner visa
+/visas/partner-visa-820-801,partner visa 820/801,170,0,informational,4.51,0.07,820,partner visa
+/visas/partner-visa-820-801,partner visa 820 and 801,170,0,informational,4.51,0.07,820,partner visa
+/visas/skilled-independent-189-190,aus visa 189,2900,—,navigational,3.40,0.06,189/190,partner visa
+/visas/skilled-independent-189-190,skilled independent visa subclass 189,1900,6,informational,1.31,0.06,189/190,partner visa
+/visas/skilled-independent-189-190,189 visa invitation round,1000,0,informational,—,0,189/190,partner visa
+/visas/skilled-independent-189-190,189 visa fee,1000,12,informational,—,0,189/190,partner visa
+/visas/skilled-independent-189-190,189 visa processing time,880,0,informational,—,0,189/190,partner visa
+/visas/skilled-independent-189-190,190 visa fee,880,16,informational,—,0,189/190,partner visa
+/visas/skilled-independent-189-190,189 visa occupation list,590,18,informational,1.15,0,189/190,visa agent
+/visas/student-visa-500,485 visa fee,4400,5,informational,2.58,0,500/485,partner visa
+/visas/student-visa-500,temporary graduate visa,1900,6,informational,2.11,0.01,500/485,partner visa
+/visas/student-visa-500,pte requirement for 485 visa,880,0,informational,2.14,0.02,500/485,partner visa
+/visas/student-visa-500,temporary graduate visa 485,720,8,informational,1.42,0.02,500/485,partner visa
+/visas/student-visa-500,485 visa english requirements,720,1,informational,3.81,0.02,500/485,partner visa
+/visas/student-visa-500,485 visa processing time,590,3,informational,—,0,500/485,partner visa
+/visas/student-visa-500,485 visa insurance,590,10,informational,17.29,0.52,500/485,partner visa
+/visas/student-visa-500,485 visa application,480,11,informational,2.02,0.01,500/485,partner visa
+/visas/student-visa-500,post study work visa,260,17,informational,2.51,0.01,500/485,partner visa
+/visas/student-visa-500,student visa document checklist,140,17,informational,—,0,500/485,visa agent
+/visas/student-visa-500,student visa agent,70,19,informational,7.95,0.81,500/485,visa agent
+/visas/student-visa-500,student visa agent melbourne,30,19,navigational,8.55,0.43,500/485,visa agent
+/visas/student-visa-500,student visa agent perth,20,41,informational,1.35,0.36,500/485,visa agent
+/visas/student-visa-500,student visa agent parramatta,10,—,commercial,—,0,500/485,visa agent
+/visas/training-visa-407,training visa,1600,6,informational,—,0,407/408/400,partner visa
+/visas/visitor-visa-600,visitor visa 600,4400,4,informational,22.12,0.05,600,partner visa
+/visas/visitor-visa-600,600 visa fee,720,10,informational,—,0,600,partner visa
+/visas/visitor-visa-600,subclass 600 visa fee,720,10,informational,—,0,600,partner visa
+/visas/visitor-visa-600,tourist visa agent melbourne,20,14,navigational,3.78,0.67,600,visa agent
+/visas/visitor-visa-600,visitor visa agent in ahmedabad,10,—,navigational,—,—,600,visa agent
+/visas/visitor-visa-600,australia tourist visa agent in delhi,10,—,navigational,—,0.03,600,visa agent
+/visas/work-holiday-417-462,working holiday visa australia agent,10,—,navigational,—,—,417/462,visa agent
