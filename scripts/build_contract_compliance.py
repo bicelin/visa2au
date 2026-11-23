@@ -106,14 +106,15 @@ T = {
     "en": {
         "title": "Contract Compliance — Clause-to-Law Reference",
         "desc": "How every clause of the Visa2AU Service Agreement maps to the Australian legislation that governs it: Migration Act, Code of Conduct, Privacy Act and ACL.",
-        "eyebrow": f"Clause 1.6 reference · Agreement version {VERSION}",
+        "eyebrow": "Clause 1.6 reference · Contract edition: December 2026",
         "h1a": "Contract ", "h1b": "Compliance",
         "lead": "Every clause of the Visa2AU Service Agreement, mapped to the Australian legislation that governs it.",
         "about_h": "About this page",
         "about": [
             f"This page is the clause-to-legislation cross-reference referred to in <strong>clause 1.6</strong> of the "
-            f"<strong>Visa2AU Pty Ltd Service Agreement for Immigration Assistance</strong>. It covers <strong>version {VERSION}</strong> "
-            f"of the Agreement, which is the version we currently issue, and it was last reviewed on {UPDATED}.",
+            f"<strong>Visa2AU Pty Ltd Service Agreement for Immigration Assistance</strong>. It covers the "
+            f"<strong>December 2026 edition</strong> "
+            f"of the Agreement, which is the edition we currently issue, and it was last reviewed on {UPDATED}.",
             "It records, clause by clause, the Commonwealth instruments that govern each part of the Agreement, so that a client can "
             "see why each term exists and which regulator stands behind it.",
             "Where anything on this page differs from the Agreement you have signed, <strong>the signed Agreement prevails</strong>. "
@@ -122,7 +123,7 @@ T = {
         ],
         "how_h": "How to read this table",
         "how": [
-            "<strong>Clause</strong> — the numbered clause of the Service Agreement (version " + VERSION + ").",
+            "<strong>Clause</strong> — the numbered clause of the Service Agreement (December 2026 edition).",
             "<strong>Subject</strong> — what that clause actually does in the engagement.",
             "<strong>Governing legislative provision</strong> — the Commonwealth Act, regulation or Code provision the clause implements.",
         ],
@@ -158,7 +159,7 @@ T = {
         "current_h": "Keeping this page current",
         "current": [
             "Australian migration law, the Code of Conduct and the Australian Consumer Law change from time to time. This table is reviewed "
-            f"whenever the Service Agreement is revised — this page currently matches <strong>version {VERSION}</strong>.",
+            f"whenever the Service Agreement is revised — this page currently matches the <strong>December 2026 edition</strong>.",
             'If you hold a signed copy of an earlier version of the Agreement and need the table that matches it, contact us at '
             '<a href="mailto:info@visa2.au">info@visa2.au</a>.',
         ],
@@ -175,14 +176,14 @@ T = {
     "ru": {
         "title": "Соответствие договору — пункты и законы",
         "desc": "Как каждый пункт Сервисного соглашения Visa2AU соотносится с австралийским законодательством: Migration Act, Кодекс поведения, Privacy Act и ACL.",
-        "eyebrow": f"Ссылка на пункт 1.6 · версия договора {VERSION}",
+        "eyebrow": "Ссылка на пункт 1.6 · Редакция договора: декабрь 2026",
         "h1a": "Соответствие ", "h1b": "договору",
         "lead": "Каждый пункт Сервисного соглашения Visa2AU с указанием австралийского законодательства, которое его регулирует.",
         "about_h": "Об этой странице",
         "about": [
             f"Это страница соответствия «пункт — законодательство», на которую ссылается <strong>пункт 1.6</strong> "
-            f"<strong>Сервисного соглашения Visa2AU Pty Ltd об иммиграционной помощи</strong>. Она относится к <strong>версии {VERSION}</strong> "
-            f"договора — той, которую мы выдаём сейчас, — и последний раз проверялась {UPDATED}.",
+            f"<strong>Сервисного соглашения Visa2AU Pty Ltd об иммиграционной помощи</strong>. Она относится к "
+            f"<strong>редакции договора — декабрь 2026</strong>, той, которую мы выдаём сейчас, и последний раз проверялась {UPDATED}.",
             "Она показывает по пунктам, какие акты Содружества регулируют каждую часть договора: клиент видит, зачем существует то или иное условие и какой орган за ним стоит.",
             "Если на этой странице что-то расходится с подписанным вами договором, <strong>действует подписанный договор</strong>. "
             "Эта страница — только перечень правовых актов: она <strong>не является юридической консультацией</strong>, не меняет ваш договор "
@@ -190,7 +191,7 @@ T = {
         ],
         "how_h": "Как читать таблицу",
         "how": [
-            "<strong>Пункт</strong> — номер пункта Сервисного соглашения (версия " + VERSION + ").",
+            "<strong>Пункт</strong> — номер пункта Сервисного соглашения (редакция — декабрь 2026).",
             "<strong>Предмет</strong> — что именно регулирует этот пункт в рамках работы по делу.",
             "<strong>Норма законодательства</strong> — акт, регламент или положение Кодекса Содружества, которое этот пункт реализует.",
         ],
@@ -225,7 +226,7 @@ T = {
         "current_h": "Как мы поддерживаем страницу",
         "current": [
             "Австралийское иммиграционное законодательство, Кодекс поведения и Australian Consumer Law меняются. Таблица проверяется при каждом "
-            f"пересмотре Сервисного соглашения — сейчас страница соответствует <strong>версии {VERSION}</strong>.",
+            f"пересмотре Сервисного соглашения — сейчас страница соответствует <strong>редакции договора — декабрь 2026</strong>.",
             'Если у вас подписанный экземпляр более ранней версии договора и нужна таблица под него, напишите нам: '
             '<a href="mailto:info@visa2.au">info@visa2.au</a>.',
         ],
@@ -242,14 +243,14 @@ T = {
     "fr": {
         "title": "Conformité du contrat — clauses et lois",
         "desc": "Comment chaque clause du contrat de service Visa2AU correspond à la législation australienne : Migration Act, code de conduite, Privacy Act et ACL.",
-        "eyebrow": f"Référence à la clause 1.6 · version {VERSION} du contrat",
+        "eyebrow": "Référence à la clause 1.6 · Édition du contrat : décembre 2026",
         "h1a": "Conformité ", "h1b": "du contrat",
         "lead": "Chaque clause du contrat de service Visa2AU, associée à la législation australienne qui la régit.",
         "about_h": "À propos de cette page",
         "about": [
             f"Cette page est le tableau de correspondance « clause — législation » auquel renvoie la <strong>clause 1.6</strong> du "
-            f"<strong>contrat de service Visa2AU Pty Ltd pour l’assistance à l’immigration</strong>. Elle couvre la <strong>version {VERSION}</strong> "
-            f"du contrat, celle que nous délivrons actuellement, et a été revue le {UPDATED}.",
+            f"<strong>contrat de service Visa2AU Pty Ltd pour l’assistance à l’immigration</strong>. Elle couvre "
+            f"l’<strong>édition de décembre 2026</strong> du contrat, celle que nous délivrons actuellement, et a été revue le {UPDATED}.",
             "Elle indique, clause par clause, les instruments du Commonwealth qui régissent chaque partie du contrat : le client voit pourquoi chaque "
             "condition existe et quel régulateur la sous-tend.",
             "Si un élément de cette page diffère du contrat que vous avez signé, <strong>le contrat signé prévaut</strong>. Cette page n’est qu’un "
@@ -258,7 +259,7 @@ T = {
         ],
         "how_h": "Comment lire ce tableau",
         "how": [
-            "<strong>Clause</strong> — le numéro de clause du contrat de service (version " + VERSION + ").",
+            "<strong>Clause</strong> — le numéro de clause du contrat de service (édition de décembre 2026).",
             "<strong>Objet</strong> — ce que cette clause fait concrètement dans la mission.",
             "<strong>Disposition légale applicable</strong> — la loi, le règlement ou la disposition du code du Commonwealth que la clause met en œuvre.",
         ],
@@ -294,7 +295,7 @@ T = {
         "current_h": "Mise à jour de cette page",
         "current": [
             "Le droit australien de l’immigration, le code de conduite et l’Australian Consumer Law évoluent. Ce tableau est revu à chaque révision "
-            f"du contrat de service — cette page correspond actuellement à la <strong>version {VERSION}</strong>.",
+            f"du contrat de service — cette page correspond actuellement à l’<strong>édition de décembre 2026</strong>.",
             'Si vous détenez un exemplaire signé d’une version antérieure du contrat et souhaitez le tableau correspondant, écrivez-nous à '
             '<a href="mailto:info@visa2.au">info@visa2.au</a>.',
         ],
