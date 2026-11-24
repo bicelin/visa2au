@@ -18,7 +18,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "scripts", "pages", "404.src.html")
 OUT = os.path.join(ROOT, "app", "404.html")
 BASE = "https://visa2.au"
-HERO = "This page didn't meet the character test."
+HERO = "meet the character test."  # the page sets "didn’t" with a curly apostrophe
 
 TITLE_MAX, DESC_MAX = 60, 160
 

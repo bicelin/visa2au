@@ -58,6 +58,10 @@ jobs:
       - name: Align SEO meta (canonical/hreflang/og/perf)
         run: python3 scripts/align_seo_meta.py
 
+      # The 404 is shared design, not CMS content: render it from
+      # scripts/pages/404.src.html so a publish can never drop its hero.
+      - name: Render the 404 page
+        run: python3 scripts/build_404.py
       - name: Square favicon set on every page (root-absolute, idempotent)
         run: python3 scripts/add_favicon.py
 
