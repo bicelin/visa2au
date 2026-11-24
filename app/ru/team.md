@@ -72,7 +72,7 @@ values
 
 ## О Visa2AU
 
-Visa2AU Pty Ltd сопровождает частных лиц, семьи и работодателей в австралийской иммиграции с 2024 года. Из нашего офиса в North Sydney мы обслуживаем клиентов по всей Австралии и по всему миру — на английском и русском — с прозрачными фиксированными ценами и простым обещанием: честная оценка ваших перспектив до того, как вы потратите доллар.
+Visa2AU Pty Ltd has guided individuals, families and employers through Australian immigration since 2024. The company was registered in 2024 — the experience behind it reaches back further. From our North Sydney office we serve clients across Australia and worldwide — in English and Russian — with transparent fixed-fee pricing and a simple promise: honest advice about your prospects before you spend a dollar.
 
 - MARN 0534230 · 2418663
 - NAATI CPN0VW21W

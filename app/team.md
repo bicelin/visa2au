@@ -72,7 +72,7 @@ Our team speaks English and Russian and works with clients from diverse backgrou
 
 ## About Visa2AU
 
-Visa2AU Pty Ltd has guided individuals, families and employers through Australian immigration since 2024. From our North Sydney office we serve clients across Australia and worldwide — in English and Russian — with transparent fixed-fee pricing and a simple promise: honest advice about your prospects before you spend a dollar.
+Visa2AU Pty Ltd has guided individuals, families and employers through Australian immigration since 2024. The company was registered in 2024 — the experience behind it reaches back further. From our North Sydney office we serve clients across Australia and worldwide — in English and Russian — with transparent fixed-fee pricing and a simple promise: honest advice about your prospects before you spend a dollar.
 
 - MARN 0534230 · 2418663
 - NAATI CPN0VW21W

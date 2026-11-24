@@ -114,7 +114,7 @@ subclass ticker
 
 Pourquoi nous le faisons
 
-## Un visa australien n’est jamais de la paperasse. C’est votre matinée dans l’endroit que vous aimez — les clés de votre nouvelle maison, le travail que vous aimez, la personne qui vous attend à l’aéroport. Depuis plus de 20 ans, nous rendons cette matinée possible pour beaucoup de gens, un dossier soigneusement construit à la fois.
+## Un visa australien n’est jamais de la paperasse. C’est votre matinée dans l’endroit que vous aimez — les clés de votre nouvelle maison, le travail que vous aimez, la personne qui vous attend à l’aéroport. Depuis plus de 20 ans, nous rendons cette matinée possible pour beaucoup de gens, un dossier soigneusement construit à la fois. La société, elle, a été enregistrée en 2024 — l’expérience derrière elle remonte bien plus loin.
 
 Explorer les options de visa
 
