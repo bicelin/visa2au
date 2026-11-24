@@ -180,7 +180,9 @@ def main() -> None:
         # 2b) 404 page: an error page must not be canonicalised or indexed
         if rel.endswith("404.html"):
             html = re.sub(r'<link rel="canonical"[^>]*>', '', html)
-            html = re.sub(r'<meta property="og:url" content="[^"]*"',
+            # consume the closing ">" too: without it every run appended one more
+            # ">" to the tag and the 404 head grew ">>>>>" over repeated builds.
+            html = re.sub(r'<meta property="og:url" content="[^"]*"\s*/?>',
                           f'<meta property="og:url" content="{BASE}/">', html, count=1)
             if 'name="robots"' in html:
                 html = re.sub(r'<meta name="robots"[^>]*>',
