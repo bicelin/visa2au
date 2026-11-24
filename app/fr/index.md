@@ -239,7 +239,7 @@ Taux de réussite
 
 20+
 
-Ans, créé en 2004
+ans d’expérience cumulée
 
 EN·RU
 
