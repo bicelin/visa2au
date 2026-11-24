@@ -8,9 +8,9 @@ the areas served or currency/payment. Those are the fields a local result uses t
 place the business, and `hasMap` is what ties the page to the Google Business
 Profile once it exists. Idempotent: fields are merged, never duplicated.
 
-Hours are deliberately NOT invented — the real opening hours must come from the
-Google Business Profile, so whoever confirms them can add
-`openingHoursSpecification` in one place here.
+Hours come from the service agreement: Monday to Friday, 09:00-17:00, no weekend
+cover. They must match the Google Business Profile exactly or the map pack sees a
+contradiction, so change them here and in the profile together.
 """
 import json
 import os
@@ -31,8 +31,16 @@ AREA_SERVED = [
     {"@type": "Country", "name": "Australia"},
 ]
 
+HOURS = [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "09:00",
+    "closes": "17:00",
+}]
+
 EXTRA = {
     "geo": GEO,
+    "openingHoursSpecification": HOURS,
     "hasMap": HAS_MAP,
     "areaServed": AREA_SERVED,
     "priceRange": "$$",
