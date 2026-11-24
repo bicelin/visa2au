@@ -100,6 +100,99 @@ def _pt_paragraphs(items: list[str], key_prefix: str) -> list[dict]:
     return blocks
 
 
+# ---------------------------------------------------------------------------
+# Body: the narrative between the structured blocks
+#
+# The first export read paragraphs under the literal "Overview" heading only, which
+# on most pages holds a single paragraph (the lede). Every page-specific section -
+# partner-visa's thirteen sub-questions, the "Sponsored Parent Visa 870" block on
+# parent-visa-103 - lives under its own <h2> and was therefore dropped, leaving
+# `overview` empty on all 19 entries and ~70% of page prose unmapped.
+#
+# Heading levels are preserved because a renderer has to reproduce the outline, not
+# just the words.
+# ---------------------------------------------------------------------------
+_OWNED_SECTIONS = {
+    "at a glance",           # -> at_a_glance (<dl>)
+    "eligibility requirements",   # -> eligibility
+    "document checklist",         # -> documents
+    "frequently asked questions",  # -> faq (<details>)
+    "related pathways",           # -> related
+    "your journey with visa2au",   # -> journey_steps (<ol>)
+}
+_BYLINE = re.compile(r"^(reviewed by|marn\s)\b.*(information current|marn)", re.I)
+
+
+def _as_block(style: str, text: str, key: str, list_item: str | None = None) -> dict:
+    block = {
+        "_type": "block",
+        "style": style,
+        "_key": key,
+        "children": [{"_type": "span", "text": text, "_key": f"{key}s"}],
+    }
+    if list_item:
+        block["listItem"] = list_item
+        block["level"] = 1
+    return block
+
+
+def _pt_body(main, slug: str, lede: str) -> list[dict]:
+    """Whole narrative body as Portable Text, in document order.
+
+    Sections already represented by a dedicated field are skipped so the same copy
+    is not stored twice; the page template, not the entry, decides where those
+    blocks sit.
+    """
+    blocks: list[dict] = []
+    n = 0
+    section: str | None = None
+    overview_lede_seen = False
+
+    def add(style: str, text: str, list_item: str | None = None) -> None:
+        nonlocal n
+        text = re.sub(r"\s+", " ", text).strip()
+        if not text:
+            return
+        blocks.append(_as_block(style, text, f"{slug}-bd{n}", list_item))
+        n += 1
+
+    for el in main.find_all(["h2", "h3", "p", "ul", "ol"]):
+        if el.find_parent(["details", "dl", "nav", "footer", "aside"]):
+            continue
+
+        if el.name == "h2":
+            section = el.get_text(" ", strip=True) or ""
+            overview_lede_seen = False
+            if section.lower() in _OWNED_SECTIONS:
+                continue
+            add("h2", section)
+            continue
+
+        if section and section.lower() in _OWNED_SECTIONS:
+            continue
+
+        if el.name == "h3":
+            add("h3", el.get_text(" ", strip=True))
+        elif el.name in ("ul", "ol"):
+            marker = "bullet" if el.name == "ul" else "number"
+            for li in el.find_all("li", recursive=False):
+                text = li.get_text(" ", strip=True)
+                if text:
+                    add("normal", text, marker)
+        elif el.name == "p":
+            text = el.get_text(" ", strip=True)
+            if not text or _BYLINE.match(text):
+                continue
+            # The single paragraph under "Overview" is the lede, already a field.
+            if section and section.lower() == "overview" and not overview_lede_seen:
+                overview_lede_seen = True
+                if not lede or re.sub(r"\s+", " ", text).strip() == lede.strip():
+                    continue
+            add("normal", text)
+
+    return blocks
+
+
 def _bullets_after(soup_main, heading_re: str) -> list[str]:
     h2 = soup_main.find("h2", string=re.compile(heading_re, re.I))
     if not h2:
@@ -184,13 +277,15 @@ def extract(path: Path) -> dict | None:
     codes = re.findall(r"\d{3}", slug)
     subclass = ", ".join(dict.fromkeys(codes)) if codes else ""
 
+    lede = (_paras_after(main, "overview") or [""])[0]
+
     return {
         "slug": slug,
         "data": {
             "title": title,
             "subclass_code": subclass,
-            "lede": (_paras_after(main, "overview") or [""])[0],
-            "overview": _pt_paragraphs(_paras_after(main, "overview")[1:], f"{slug}-ov"),
+            "lede": lede,
+            "overview": _pt_body(main, slug, lede),
             "journey_steps": journey,
             "eligibility": _pt_bullets(_bullets_after(main, "eligibility requirements"), f"{slug}-el"),
             "documents": _pt_bullets(_bullets_after(main, "document checklist"), f"{slug}-dc"),
