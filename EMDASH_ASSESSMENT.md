@@ -375,3 +375,49 @@ Portable Text with heading levels, and parity must reach >95% in both directions
 
 `seo_description` reads as missing only because it lives in a `<meta>` attribute; the
 checker now reads head metadata, so the 100% above already accounts for it.
+
+
+---
+
+## 13. `overview` filled: 29.8% -> 94.9% of page prose
+
+The export read paragraphs under the literal `Overview` heading only. On these pages that
+heading holds a single paragraph - the lede - so `overview` came out empty on all 19 entries
+while the real body sat under page-specific headings the export never visited.
+
+`_pt_body()` now walks the whole `<main>` in document order and emits Portable Text with
+heading levels preserved (`h2` / `h3` / paragraph / bullet / numbered). Three rules keep it
+honest:
+
+- **Sections with a dedicated field are skipped** (`at_a_glance`, `eligibility`, `documents`,
+  `faq`, `related`, `journey_steps`) so the same copy is not stored twice.
+- **Everything before the first `<h2>` is skipped** - that is hero chrome (badge, `<h1>`, tagline).
+- **A heading is emitted only if its section produced body blocks.** Emitting it eagerly left an
+  orphan `Overview` heading with nothing under it, because its only paragraph is the lede.
+
+`partner-visa` went from 0 to 50 blocks (12 headings + 38 paragraphs); the templated pages to 5.
+140 blocks in total, pushed to all 19 live entries and read back to confirm.
+
+### Measured against the deployed instance
+
+`scripts/emdash_coverage.py` (`--all`) buckets every page paragraph:
+
+| class | count | meaning |
+|---|---|---|
+| modelled | **280** | present in the entry |
+| journey step | 72 | `<li>` joins "N title description"; the entry stores them as separate subfields |
+| blog teaser | 25 | cards inside `<article><section>` carrying a publication date - owned by the blog collection |
+| hero tagline | 12 | real copy with **no field** |
+| absent | 3 | all on `partner-visa` |
+
+**280/392 (71.4%) of all paragraphs; 280/295 (94.92%) of content that must be modelled.**
+
+Six pages are at 100%. The gap is now two specific things, not an unmeasured region:
+
+1. **A `tagline` field is missing.** The line under the `<h1>` ("Reunite with your parents -
+   standard, contributory and sponsored streams.") belongs to the entry, not the template.
+2. **`partner-visa`'s hero intro** is a full paragraph rather than a tagline, and one body
+   paragraph is still unmapped. Its byline line should stay template.
+
+Note the two excluded classes are measurements, not losses: a joined journey string and a blog
+teaser card are both reconstructable from data that already exists.

@@ -141,19 +141,33 @@ def _pt_body(main, slug: str, lede: str) -> list[dict]:
 
     Sections already represented by a dedicated field are skipped so the same copy
     is not stored twice; the page template, not the entry, decides where those
-    blocks sit.
+    blocks sit. Everything before the first <h2> is hero chrome (eyebrow, <h1>,
+    lede), so it is skipped too, and a heading is emitted only when its section
+    produced body blocks - an "Overview" heading with nothing under it is template.
     """
     blocks: list[dict] = []
     n = 0
     section: str | None = None
-    overview_lede_seen = False
+    owned = False
+    pending: list[dict] = []
+
+    def flush() -> None:
+        """Emit the buffered heading only if its section had body content."""
+        nonlocal n
+        if owned or not pending:
+            pending.clear()
+            return
+        blocks.append(_as_block("h2", section or "", f"{slug}-bd{n}"))
+        n += 1
+        blocks.extend(pending)
+        pending.clear()
 
     def add(style: str, text: str, list_item: str | None = None) -> None:
         nonlocal n
         text = re.sub(r"\s+", " ", text).strip()
         if not text:
             return
-        blocks.append(_as_block(style, text, f"{slug}-bd{n}", list_item))
+        pending.append(_as_block(style, text, f"{slug}-bd{n}", list_item))
         n += 1
 
     for el in main.find_all(["h2", "h3", "p", "ul", "ol"]):
@@ -161,14 +175,12 @@ def _pt_body(main, slug: str, lede: str) -> list[dict]:
             continue
 
         if el.name == "h2":
+            flush()
             section = el.get_text(" ", strip=True) or ""
-            overview_lede_seen = False
-            if section.lower() in _OWNED_SECTIONS:
-                continue
-            add("h2", section)
+            owned = section.lower() in _OWNED_SECTIONS
             continue
 
-        if section and section.lower() in _OWNED_SECTIONS:
+        if section is None or owned:
             continue
 
         if el.name == "h3":
@@ -176,20 +188,18 @@ def _pt_body(main, slug: str, lede: str) -> list[dict]:
         elif el.name in ("ul", "ol"):
             marker = "bullet" if el.name == "ul" else "number"
             for li in el.find_all("li", recursive=False):
-                text = li.get_text(" ", strip=True)
-                if text:
-                    add("normal", text, marker)
+                add("normal", li.get_text(" ", strip=True), marker)
         elif el.name == "p":
             text = el.get_text(" ", strip=True)
             if not text or _BYLINE.match(text):
                 continue
-            # The single paragraph under "Overview" is the lede, already a field.
-            if section and section.lower() == "overview" and not overview_lede_seen:
-                overview_lede_seen = True
-                if not lede or re.sub(r"\s+", " ", text).strip() == lede.strip():
+            # The first paragraph under "Overview" is the lede and already a field.
+            if section is not None and section.lower() == "overview" and lede:
+                if re.sub(r"\s+", " ", text).strip() == re.sub(r"\s+", " ", lede).strip():
                     continue
             add("normal", text)
 
+    flush()
     return blocks
 
 
