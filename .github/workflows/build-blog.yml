@@ -55,6 +55,10 @@ jobs:
       - name: Clean internal URLs to canonical (extensionless) form
         run: python3 scripts/clean_internal_urls.py
 
+      # /pricing is the source of truth: derive the homepage fee cards
+      # from scripts/fees_data.py so the two can never show different numbers.
+      - name: Sync homepage fees to pricing
+        run: python3 scripts/sync_home_fees.py
       - name: Align SEO meta (canonical/hreflang/og/perf)
         run: python3 scripts/align_seo_meta.py
 
