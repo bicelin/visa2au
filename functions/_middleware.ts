@@ -55,8 +55,49 @@ function prefersMarkdown(accept: string): boolean {
   return md.q > html.q;
 }
 
+const INTERNAL_COOKIE = "v2au_internal";
+
+/**
+ * Internal traffic flag.
+ *
+ * TPG hands the office a rotating public IP (and shifts between pools, CGNAT and
+ * mobile), so an IP allowlist in GA4 — or a Cloudflare rule that disables Zaraz —
+ * is not a stable answer: it either stops matching after a lease or excludes a
+ * whole ISP range of real visitors. One first-party cookie marks the browser
+ * instead: `/internal` sets it for a year, `/internal?off=1` clears it, and the
+ * analytics tag is blocked for browsers carrying it (Zaraz cookie rule).
+ */
+function internalFlag(url: URL): Response {
+  const off = url.searchParams.get("off") === "1";
+  const cookie = off
+    ? `${INTERNAL_COOKIE}=; Path=/; Max-Age=0; Secure; SameSite=Lax`
+    : `${INTERNAL_COOKIE}=1; Path=/; Max-Age=31536000; Secure; SameSite=Lax`;
+  const line = off
+    ? "Internal traffic flag cleared — this browser counts in analytics again."
+    : "Internal traffic flag set — this browser is excluded from analytics for one year.";
+  return new Response(
+    `<!doctype html><html lang="en"><head><meta charset="utf-8">` +
+      `<meta name="robots" content="noindex,nofollow">` +
+      `<meta name="viewport" content="width=device-width, initial-scale=1">` +
+      `<title>Internal traffic flag</title></head><body>` +
+      `<p>${line}</p><p><a href="/">Back to the site</a></p></body></html>`,
+    {
+      status: 200,
+      headers: {
+        "content-type": "text/html; charset=utf-8",
+        "cache-control": "no-store",
+        "x-robots-tag": "noindex, nofollow",
+        "set-cookie": cookie,
+      },
+    },
+  );
+}
+
 export const onRequest: PagesFunction = async ({ request, next }) => {
   const url = new URL(request.url);
+
+  // Answers before any page logic; the route is noindexed and unlinked.
+  if (url.pathname === "/internal") return internalFlag(url);
   const host = url.hostname;
   // Staging / preview deployments must never be indexed — they otherwise
   // compete with the production domain and split ranking signals.
