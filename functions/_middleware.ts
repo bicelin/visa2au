@@ -88,6 +88,12 @@ function internalFlag(url: URL): Response {
         "cache-control": "no-store",
         "x-robots-tag": "noindex, nofollow",
         "set-cookie": cookie,
+        // Same hardening as every page, and it also blocks the analytics tag's
+        // injected inline script here: the flag page must not count as a visit.
+        "content-security-policy": CSP,
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "DENY",
+        "referrer-policy": "strict-origin-when-cross-origin",
       },
     },
   );
