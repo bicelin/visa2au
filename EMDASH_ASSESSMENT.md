@@ -332,3 +332,46 @@ Two details worth knowing:
   its own HTML; only the API is consumed.
 - **The every-minute cron** (`* * * * *`) is EmDash's maintenance scheduler. Harmless at
   1,440 invocations/day, but worth an explicit decision rather than inheriting it.
+
+---
+
+## 12. Parity check: the model is faithful but incomplete
+
+`scripts/emdash_parity.py <slug>` compares an EmDash entry against the HTML page it
+models, in both directions. Run against all 19 visa pages:
+
+| Direction | Result | Reading |
+|---|---|---|
+| EmDash → page | **559/559 fragments (100.00%)** | every modelled value appears verbatim on the page |
+| page → EmDash (prose) | **130/436 paragraphs (29.8%)** | **70% of the copy is in no field at all** |
+
+Per page, the worst cases are the pages with real narrative:
+
+| page | modelled |
+|---|---|
+| `partner-visa` | **10/63 (15.9%)** |
+| `protection-visa-866` | 4/18 (22.2%) |
+| `parent-visa-103` | 5/20 (25.0%) |
+| `partner-visa-820-801` | 12/27 (44.4%) |
+
+**The cause is a single empty field.** `overview` — the narrative body — exists in the
+model but is `[]` on every entry. The export captured the structured blocks
+(`at_a_glance`, `faq`, `journey_steps`, `eligibility`, `documents`, `related`, `lede`)
+and skipped the body prose between them. So the model is a faithful *subset*: it loses
+nothing it holds, but it cannot reproduce a page.
+
+Heading analysis agrees: of 76 distinct headings, 14 are shared chrome (footer, "at a
+glance", "quick links"), and **56 page-specific headings are absent from the model** —
+e.g. `partner-visa-820-801` has thirteen sub-questions ("which stream applies to you",
+"the four aspects of the relationship", "family violence provisions"…) that no field
+holds.
+
+### Consequence
+
+A generator wired to today's model would emit roughly 30% of each page and silently drop
+the rest — worse than not starting, because the result validates and looks finished.
+**Before any page is generated from EmDash, `overview` must carry the body sections as
+Portable Text with heading levels, and parity must reach >95% in both directions.**
+
+`seo_description` reads as missing only because it lives in a `<meta>` attribute; the
+checker now reads head metadata, so the 100% above already accounts for it.
