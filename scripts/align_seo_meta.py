@@ -191,6 +191,16 @@ def main() -> None:
                 html = html.replace("</head>",
                                     '<meta name="robots" content="noindex,follow"></head>', 1)
 
+        # 2c) the firm was registered 11 Apr 2024 (ABN Lookup). "est. 2004"
+        #     overstated the company's age; the 20+ years belong to the agents.
+        for _old, _new in (
+            (">Years, est. 2004<", ">Years’ combined experience<"),
+            ("Лет, осн. в 2004", "лет совокупного опыта"),
+            ("Ans, créé en 2004", "ans d’expérience cumulée"),
+            ("We’ve spent 20+ years making", "Our agents have spent 20+ years making"),
+        ):
+            html = html.replace(_old, _new)
+
         # 3) og:site_name + theme-color
         if "og:site_name" not in html:
             html = html.replace("</head>",
