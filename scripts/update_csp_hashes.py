@@ -295,7 +295,12 @@ export const onRequest: PagesFunction = async ({ request, next }) => {
     '</.well-known/ai-catalog.json>; rel="describedby"; type="application/json"',
   ];
   const existingLink = r.headers.get("Link");
-  const agentOnly = agentLinks.filter((l) => !(existingLink || "").includes(l.split(";")[0].trim()));
+  // Compare the whole link, not just the href: /.well-known/agent-card.json is
+  // already advertised as rel="agent-card" (an extension type), and adding the
+  // registered rel="service-desc" for the same target is exactly what the RFC
+  // 8288 guidance expects, so dedupe on target *and* relation.
+  const seen = (existingLink || "").split(/,\s*(?=<)/);
+  const agentOnly = agentLinks.filter((l) => !seen.includes(l));
   // The _headers file already advertises api-catalog / llms.txt / oauth relations
   // on every path; append instead of replacing, or HTML pages lose them.
   const parts = [existingLink, ...agentOnly, cssPreload].filter(Boolean);
