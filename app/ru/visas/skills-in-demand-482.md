@@ -47,9 +47,9 @@
 
 Читайте также
 
-Employer Sponsorship Employer Sponsorship Visas 482 & 186: What Employers Need to Know Australian employer sponsorship allows businesses to fill skilled positions with overseas talent. Learn about the TSS visa (482) and Employer Nomination Scheme (186). 28 мар. 2025 г.
+Employer Sponsorship Employer Sponsorship Visas 482 & 186: What Работодательs Need to Know Australian employer sponsorship allows businesses to fill skilled positions with overseas talent. Learn about the TSS visa (482) and Employer Nomination Scheme (186). 28 мар. 2025 г.
 
-Work Visas Working Holiday Visa 417 & 462: Your Guide to Working in Australia The Working Holiday visa lets young adults travel and work in Australia. Learn about eligibility, conditions, and how to extend your stay. 5 дек. 2024 г.
+Work Visas Рабочая отпускная виза 417 & 462: Your Guide to Working in Australia Виза Working Holiday позволяет молодым людям путешествовать и работать в Австралии. Узнайте о требованиях, условиях и продлении пребывания. 5 дек. 2024 г.
 
 ### Кратко
 

@@ -95,7 +95,7 @@ FR_MAP = {
     # ---- wizard section ----
     "Visa Pathway Finder": "Assistant de choix de visa",
     "Not sure which visa fits?": "Vous ne savez pas quel visa choisir ?",
-    "Answer a few questions and we’ll tailor the visa options to you — with the reasoning behind each match, indicative costs and processing times.": "Répondez à quelques questions et nous adapterons les options de visa à votre profil — avec le raisonnement derrière chaque suggestion, des coûts indicatifs et des délais de traitement.",
+    "Answer a few questions and we'll tailor the visa options to you — with the reasoning behind each match, indicative costs and processing times.": "Répondez à quelques questions et nous adapterons les options de visa à votre profil — avec le raisonnement derrière chaque suggestion, des coûts indicatifs et des délais de traitement.",
     "Question": "Question",
     "of": "sur",
     "← Back": "← Retour",
@@ -144,7 +144,7 @@ FR_MAP = {
     "Some pathways take years (parent queues, invitation rounds), others weeks (visitor visas). Your timeframe tells us whether to plan a direct route or a staged strategy.": "Certains parcours prennent des années (files d’attente parents, tours d’invitation), d’autres des semaines (visas visiteur). Votre calendrier nous indique s’il faut planifier une voie directe ou une stratégie par étapes.",
     "As soon as possible": "Dès que possible",
     "Within 6–12 months": "Dans 6–12 mois",
-    "I’m planning 1–3 years ahead": "Je prévois d’ici 1 à 3 ans",
+    "I'm planning 1–3 years ahead": "Je prévois d’ici 1 à 3 ans",
     # ---- visa-meta JSON taglines (no trailing period) ----
     "For partners of Australian citizens, PR holders or eligible NZ citizens": "Pour les partenaires de citoyens australiens, résidents permanents ou citoyens NZ éligibles",
     "Apply from outside Australia, then settle permanently": "Demande hors d’Australie, puis installation permanente",

@@ -130,7 +130,7 @@ region list
 
 У каждого соглашения свои список профессий и параметры уступок — перед рекомендациями мы подтверждаем актуальные условия у регионального органа власти.
 
-#### Adelaide City & Regional SA
+#### Adelaide и региональный SA
 
 Active
 
@@ -248,5 +248,5 @@ CTA card
 
 Next steps
 
-- See visa fees and fixed-fee quotes
-- Browse every visa service
+- Смотреть цены и фиксированные гонорары
+- Все визовые услуги

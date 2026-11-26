@@ -183,25 +183,25 @@ Visas les plus demandés
 
 Les visas que nos clients demandent le plus — faites défiler. Le programme australien offre bien plus, et la bonne stratégie en combine souvent plusieurs ; en consultation, nous examinons toutes les options pour votre situation.
 
-01 Family  820/801 Partner Visas For partners of Australian citizens, PR holders or eligible NZ citizens   FRAIS OFFICIELS From AUD 11,710 (main applicant)
+01 Family  820/801 Partner Visas Pour les partenaires de citoyens australiens, résidents permanents ou citoyens NZ éligibles   FRAIS OFFICIELS À partir de 11 710 AUD (demandeur principal)
 
-02 Visitor  600 Visitor Visa Tourist and business visitor streams   FRAIS OFFICIELS From AUD 250 (offshore)
+02 Visitor  600 Visitor Visa Volets touristique et visiteur d’affaires   FRAIS OFFICIELS À partir de 250 AUD (offshore)
 
-03 Student  500 Student Visa Study at Australian schools, colleges and universities   FRAIS OFFICIELS From AUD 2,500
+03 Student  500 Student Visa Étudier dans les écoles, collèges et universités australiens   FRAIS OFFICIELS À partir de 2 500 AUD
 
-04 Employer  482 Skills in Demand (SID) Employer-sponsored work visa — the TSS successor   FRAIS OFFICIELS From AUD 3,210 (Core/Specialist, main applicant)
+04 Employeur  482 Skills in Demand (SID) Visa de travail parrainé par l’employeur — successeur du TSS   FRAIS OFFICIELS À partir de 3 210 AUD (Core/Specialist, demandeur principal)
 
-05 Skilled  189/190 Skilled Independent & State Nominated Points-tested permanent residency — no sponsor needed   FRAIS OFFICIELS From AUD 4,910 (main applicant)
+05 Skilled  189/190 Indépendant & nominé par un État Résidence permanente à points — sans parrain   FRAIS OFFICIELS À partir de 4 910 AUD (demandeur principal)
 
-06 Employer  494 Skilled Employer Sponsored Regional Regional sponsorship with a PR pathway — incl. DAMA concessions   FRAIS OFFICIELS From AUD 4,910 (main applicant)
+06 Employeur  494 Skilled Employer Sponsored Regional Parrainage régional avec voie RP — y compris concessions DAMA   FRAIS OFFICIELS À partir de 4 910 AUD (demandeur principal)
 
-07 Employer  186 Employer Nomination Scheme Permanent residency through employer nomination   FRAIS OFFICIELS From AUD 4,910 (main applicant)
+07 Employeur  186 Employer Nomination Scheme Résidence permanente par nomination d’employeur   FRAIS OFFICIELS À partir de 4 910 AUD (demandeur principal)
 
-08 Visitor  417/462 Work & Holiday Visas Work and travel Australia for young adults   FRAIS OFFICIELS From AUD 650
+08 Visitor  417/462 Visas vacances-travail Travail et voyage en Australie pour les jeunes adultes   FRAIS OFFICIELS À partir de 650 AUD
 
-09 Family  300 Prospective Marriage Visa Come to Australia to marry your fiancé(e)   FRAIS OFFICIELS From AUD 11,710
+09 Family  300 Prospective Marriage Visa Venir en Australie pour épouser votre fiancé(e)   FRAIS OFFICIELS À partir de 11 710 AUD
 
-10 Family  103/143/870 Parent Visas Reunite with your parents — standard, contributory and sponsored streams   FRAIS OFFICIELS 103: from AUD 7,055 · 143: staged contributory charges · 870: from AUD 1,145
+10 Family  103/143/870 Parent Visas Retrouver vos parents — volets standard, contributif et parrainé   FRAIS OFFICIELS 103 : à partir de 7 055 AUD · 143 : frais contributifs par étapes · 870 : à partir de 1 145 AUD
 
 end card
 

@@ -36,11 +36,11 @@
 
 ## Частые вопросы
 
-Will my family overseas be told about my claim?   No. Protection applications are confidential and the Department does not contact your home country authorities about your claims.
+Сообщат ли моей семье за рубежом о моём заявлении?   Нет. Заявления о защите конфиденциальны, и Департамент не связывается с властями вашей страны по поводу ваших оснований.
 
 Читайте также
 
-Protection Visas Protection Visa 866: Seeking Asylum in Australia The Protection Visa (subclass 866) is for refugees and people in need of protection who are already in Australia. Learn about eligibility and the application process. 8 нояб. 2024 г.
+Защитная визаs Защитная виза 866: Seeking Asylum in Australia The Защитная виза (subclass 866) is for refugees and people in need of protection who are already in Australia. Learn about eligibility and the application process. 8 нояб. 2024 г.
 
 ### Кратко
 

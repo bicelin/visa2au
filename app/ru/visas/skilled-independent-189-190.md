@@ -45,9 +45,9 @@
 
 Читайте также
 
-Skills Assessment Skills Assessment for Australian Migration: A Step-by-Step Guide A skills assessment is a mandatory requirement for many skilled visas. Learn which assessing authority applies to your occupation and how to prepare. 20 февр. 2025 г.
+Skills Assessment Оценка квалификации для миграции в Австралию: пошаговое руководство Оценка квалификации обязательна для многих квалифицированных виз. Узнайте, какой оценивающий орган применяется к вашей профессии и как подготовиться. 20 февр. 2025 г.
 
-Skilled Visas Skilled Independent Visa 189: Your Path to Permanent Residency The Skilled Independent Visa (subclass 189) is a points-tested permanent visa for skilled workers. No sponsor or nomination required. 25 окт. 2024 г.
+Skilled Visas Виза квалифицированного специалиста (независимая) 189: Your Path to Permanent Residency The Виза квалифицированного специалиста (независимая) (subclass 189) is a points-tested permanent visa for skilled workers. No sponsor or nomination required. 25 окт. 2024 г.
 
 ### Кратко
 

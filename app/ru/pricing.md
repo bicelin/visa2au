@@ -8,7 +8,7 @@
 
 Никаких сюрпризов. Фиксированные профессиональные гонорары называются до начала работы, государственные сборы указаны отдельно, а комиссия Stripe за обработку платежа на /pay раскрывается до оплаты.
 
-## What each visa costs: government charge and our fee
+## Из чего складывается стоимость визы: государственный сбор и наш гонорар
 
 Two numbers make up the cost of a visa: the **government charge** set by the Department of Home Affairs, and our **professional fee** for preparing and managing the application. Third-party costs — health examinations, police checks, translations and skills assessments — are separate and itemised in your quote.
 
@@ -145,24 +145,24 @@ Nil
 
 детальную визовую оценку
 
-## Visa fee questions, answered
+## Ответы на вопросы о стоимости виз
 
-How much does an Australian visa cost in total?A visa usually costs three things: the government charge set by the Department of Home Affairs, our professional fee, and any third-party costs such as health examinations, police checks, translations or a skills assessment. For example, an onshore partner visa (820/801) is $5,500 in professional fees plus government charges from $11,710 for the main applicant.
+Сколько в итоге стоит австралийская виза?A visa usually costs three things: the government charge set by the Department of Home Affairs, our professional fee, and any third-party costs such as health examinations, police checks, translations or a skills assessment. For example, an onshore partner visa (820/801) is $5,500 in professional fees plus government charges from $11,710 for the main applicant.
 
-Are government charges included in your professional fee?No. Government charges are paid to the Department of Home Affairs and are itemised separately from our professional fee in every quote. You always see the two amounts side by side before you engage us.
+Входят ли государственные сборы в ваш гонорар?Нет. Государственные сборы уплачиваются Департаменту внутренних дел и указываются отдельно от нашего гонорара в каждой смете. Вы всегда видите обе суммы до заключения договора.
 
-Is your professional fee fixed?Yes. A fixed professional fee is quoted in your engagement letter before any work begins, so it does not change with the time your matter takes. If the scope of the matter changes, that is agreed in writing first.
+Ваш гонорар фиксирован?Да. Фиксированный гонорар указывается в договоре до начала работы и не зависит от сроков рассмотрения. Если объём работы меняется, это согласуется письменно заранее.
 
-Can I pay in instalments?Payment options are discussed at your consultation and confirmed in the engagement letter. Government charges are still payable to the Department when the application is lodged.
+Можно ли оплачивать в рассрочку?Варианты оплаты обсуждаются на консультации и фиксируются в договоре. Государственные сборы по-прежнему уплачиваются Департаменту при подаче заявления.
 
-What do secondary applicants and children pay?Government charges are set per applicant: for a partner visa the main applicant is $11,710, a secondary applicant aged 18 or over is $5,855, and a child under 18 is $2,930. Our professional fee is quoted per matter, so tell us who is included before we quote.
+Сколько платят дополнительные заявители и дети?Government charges are set per applicant: for a partner visa the main applicant is $11,710, a secondary applicant aged 18 or over is $5,855, and a child under 18 is $2,930. Our professional fee is quoted per matter, so tell us who is included before we quote.
 
-What does a consultation cost?An online consultation is $330 for one hour, and a DAMA consultation is also $330 for one hour. The consultation is where we assess your situation and confirm the fixed fee for your matter.
+Сколько стоит консультация?An online consultation is $330 for one hour, and a DAMA consultation is also $330 for one hour. The consultation is where we assess your situation and confirm the fixed fee for your matter.
 
-Does the fee include a skills assessment or health checks?No. A skills assessment is charged by the assessing authority at roughly $300–$1,200, and health examinations, police checks and translations are paid to their providers. We prepare and check these for you, and they appear in your quote as third-party costs.
+Включены ли в гонорар оценка квалификации и медосмотры?No. A skills assessment is charged by the assessing authority at roughly $300–$1,200, and health examinations, police checks and translations are paid to their providers. We prepare and check these for you, and they appear in your quote as third-party costs.
 
-What if my visa is refused?A refusal is a separate matter with its own fees. An ART tribunal application is $5,500 in professional fees plus a $3,496 government fee, of which 50% is refundable if the review succeeds. We assess the refusal first and tell you honestly whether review is worth it.
+Что если в визе отказали?A refusal is a separate matter with its own fees. An ART tribunal application is $5,500 in professional fees plus a $3,496 government fee, of which 50% is refundable if the review succeeds. We assess the refusal first and tell you honestly whether review is worth it.
 
 Next steps
 
-- Browse every visa service
+- Все визовые услуги

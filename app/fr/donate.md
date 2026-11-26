@@ -68,5 +68,5 @@ Vous préférez donner avec vos services de visa ? Demandez-nous d’ajouter un 
 
 Next steps
 
-- See visa fees and fixed-fee quotes
-- Browse every visa service
+- Voir les tarifs et devis à honoraires fixes
+- Tous les services de visa

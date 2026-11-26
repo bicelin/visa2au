@@ -32,7 +32,7 @@ La sous-classe 186 accorde la résidence permanente aux travailleurs qualifiés 
 ## Liste des documents
 
 - Demande de nomination avec preuves de poste authentique
-- Skills assessment (Direct Entry)
+- Évaluation des compétences (Direct Entry)
 - Contrat avec salaire de marché
 - Résultats de test d’anglais
 - Identité, santé et caractère
@@ -43,7 +43,7 @@ Direct Entry or TRT — which 186 stream fits me?   If you already work for your
 
 À lire aussi
 
-Employer Sponsorship Employer Sponsorship Visas 482 & 186: What Employers Need to Know Australian employer sponsorship allows businesses to fill skilled positions with overseas talent. Learn about the TSS visa (482) and Employer Nomination Scheme (186). 28 mars 2025
+Employer Sponsorship Employer Sponsorship Visas 482 & 186: What Employeurs Need to Know Australian employer sponsorship allows businesses to fill skilled positions with overseas talent. Learn about the TSS visa (482) and Employer Nomination Scheme (186). 28 mars 2025
 
 ### En bref
 

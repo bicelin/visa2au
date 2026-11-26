@@ -47,9 +47,9 @@ Peut-on changer d’employeur avec un 482 ?   Oui, mais le nouvel employeur doit
 
 À lire aussi
 
-Employer Sponsorship Employer Sponsorship Visas 482 & 186: What Employers Need to Know Australian employer sponsorship allows businesses to fill skilled positions with overseas talent. Learn about the TSS visa (482) and Employer Nomination Scheme (186). 28 mars 2025
+Employer Sponsorship Employer Sponsorship Visas 482 & 186: What Employeurs Need to Know Australian employer sponsorship allows businesses to fill skilled positions with overseas talent. Learn about the TSS visa (482) and Employer Nomination Scheme (186). 28 mars 2025
 
-Work Visas Working Holiday Visa 417 & 462: Your Guide to Working in Australia The Working Holiday visa lets young adults travel and work in Australia. Learn about eligibility, conditions, and how to extend your stay. 5 déc. 2024
+Work Visas Visa vacances-travail 417 & 462: Your Guide to Working in Australia Le visa Working Holiday permet aux jeunes adultes de voyager et de travailler en Australie. Découvrez les conditions d'éligibilité, les règles et comment prolonger votre séjour. 5 déc. 2024
 
 ### En bref
 

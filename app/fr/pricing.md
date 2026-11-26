@@ -8,7 +8,7 @@
 
 Aucune surprise. Des honoraires professionnels fixes annoncés avant tout engagement, des frais gouvernementaux détaillés, et les frais de traitement Stripe sur /pay indiqués avant le paiement.
 
-## What each visa costs: government charge and our fee
+## Le coût d’un visa : frais gouvernementaux et nos honoraires
 
 Two numbers make up the cost of a visa: the **government charge** set by the Department of Home Affairs, and our **professional fee** for preparing and managing the application. Third-party costs — health examinations, police checks, translations and skills assessments — are separate and itemised in your quote.
 
@@ -145,24 +145,24 @@ Réserver une consultation →
 
 évaluation détaillée de visa
 
-## Visa fee questions, answered
+## Vos questions sur les frais de visa
 
-How much does an Australian visa cost in total?A visa usually costs three things: the government charge set by the Department of Home Affairs, our professional fee, and any third-party costs such as health examinations, police checks, translations or a skills assessment. For example, an onshore partner visa (820/801) is $5,500 in professional fees plus government charges from $11,710 for the main applicant.
+Combien coûte un visa australien au total ?A visa usually costs three things: the government charge set by the Department of Home Affairs, our professional fee, and any third-party costs such as health examinations, police checks, translations or a skills assessment. For example, an onshore partner visa (820/801) is $5,500 in professional fees plus government charges from $11,710 for the main applicant.
 
-Are government charges included in your professional fee?No. Government charges are paid to the Department of Home Affairs and are itemised separately from our professional fee in every quote. You always see the two amounts side by side before you engage us.
+Les frais gouvernementaux sont-ils inclus dans vos honoraires ?Non. Les frais gouvernementaux sont versés au Department of Home Affairs et figurent séparément de nos honoraires dans chaque devis. Vous voyez toujours les deux montants côte à côte avant de nous mandater.
 
-Is your professional fee fixed?Yes. A fixed professional fee is quoted in your engagement letter before any work begins, so it does not change with the time your matter takes. If the scope of the matter changes, that is agreed in writing first.
+Vos honoraires sont-ils fixes ?Oui. Des honoraires fixes sont indiqués dans votre lettre de mission avant tout travail ; ils ne varient pas avec la durée du dossier. Si le périmètre change, cela est convenu par écrit au préalable.
 
-Can I pay in instalments?Payment options are discussed at your consultation and confirmed in the engagement letter. Government charges are still payable to the Department when the application is lodged.
+Puis-je payer en plusieurs fois ?Les modalités de paiement sont abordées en consultation et confirmées dans la lettre de mission. Les frais gouvernementaux restent dus au Department au moment du dépôt.
 
-What do secondary applicants and children pay?Government charges are set per applicant: for a partner visa the main applicant is $11,710, a secondary applicant aged 18 or over is $5,855, and a child under 18 is $2,930. Our professional fee is quoted per matter, so tell us who is included before we quote.
+Combien paient les demandeurs secondaires et les enfants ?Government charges are set per applicant: for a partner visa the main applicant is $11,710, a secondary applicant aged 18 or over is $5,855, and a child under 18 is $2,930. Our professional fee is quoted per matter, so tell us who is included before we quote.
 
-What does a consultation cost?An online consultation is $330 for one hour, and a DAMA consultation is also $330 for one hour. The consultation is where we assess your situation and confirm the fixed fee for your matter.
+Combien coûte une consultation ?An online consultation is $330 for one hour, and a DAMA consultation is also $330 for one hour. The consultation is where we assess your situation and confirm the fixed fee for your matter.
 
-Does the fee include a skills assessment or health checks?No. A skills assessment is charged by the assessing authority at roughly $300–$1,200, and health examinations, police checks and translations are paid to their providers. We prepare and check these for you, and they appear in your quote as third-party costs.
+Les honoraires incluent-ils l’évaluation des compétences ou les examens médicaux ?No. A skills assessment is charged by the assessing authority at roughly $300–$1,200, and health examinations, police checks and translations are paid to their providers. We prepare and check these for you, and they appear in your quote as third-party costs.
 
-What if my visa is refused?A refusal is a separate matter with its own fees. An ART tribunal application is $5,500 in professional fees plus a $3,496 government fee, of which 50% is refundable if the review succeeds. We assess the refusal first and tell you honestly whether review is worth it.
+Et si mon visa est refusé ?A refusal is a separate matter with its own fees. An ART tribunal application is $5,500 in professional fees plus a $3,496 government fee, of which 50% is refundable if the review succeeds. We assess the refusal first and tell you honestly whether review is worth it.
 
 Next steps
 
-- Browse every visa service
+- Tous les services de visa

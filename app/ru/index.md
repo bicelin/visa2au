@@ -183,25 +183,25 @@ urgent cases — red accent
 
 Визы, которые запрашивают чаще всего — листайте подборку. Визовая программа Австралии гораздо шире, а правильная стратегия часто сочетает несколько путей: на консультации мы рассмотрим все варианты под вашу ситуацию.
 
-01 Family  820/801 Partner Visas For partners of Australian citizens, PR holders or eligible NZ citizens   ПОШЛИНА From AUD 11,710 (main applicant)
+01 Family  820/801 Partner Visas Для партнёров граждан Австралии, постоянных резидентов или eligible-граждан Новой Зеландии   ПОШЛИНА От AUD 11 710 (основной заявитель)
 
-02 Visitor  600 Visitor Visa Tourist and business visitor streams   ПОШЛИНА From AUD 250 (offshore)
+02 Visitor  600 Visitor Visa Туристические и деловые гостевые потоки   ПОШЛИНА От AUD 250 (оффшор)
 
-03 Student  500 Student Visa Study at Australian schools, colleges and universities   ПОШЛИНА From AUD 2,500
+03 Student  500 Student Visa Учёба в австралийских школах, колледжах и университетах   ПОШЛИНА От AUD 2 500
 
-04 Employer  482 Skills in Demand (SID) Employer-sponsored work visa — the TSS successor   ПОШЛИНА From AUD 3,210 (Core/Specialist, main applicant)
+04 Работодатель  482 Skills in Demand (SID) Рабочая виза по спонсорству работодателя — преемница TSS   ПОШЛИНА От AUD 3 210 (Core/Specialist, основной заявитель)
 
-05 Skilled  189/190 Skilled Independent & State Nominated Points-tested permanent residency — no sponsor needed   ПОШЛИНА From AUD 4,910 (main applicant)
+05 Skilled  189/190 Независимая и номинируемая штатом Постоянное резидентство по балльной системе — без спонсора   ПОШЛИНА От AUD 4 910 (основной заявитель)
 
-06 Employer  494 Skilled Employer Sponsored Regional Regional sponsorship with a PR pathway — incl. DAMA concessions   ПОШЛИНА From AUD 4,910 (main applicant)
+06 Работодатель  494 Skilled Employer Sponsored Regional Региональное спонсорство с путём к PR — включая послабления DAMA   ПОШЛИНА От AUD 4 910 (основной заявитель)
 
-07 Employer  186 Employer Nomination Scheme Permanent residency through employer nomination   ПОШЛИНА From AUD 4,910 (main applicant)
+07 Работодатель  186 Employer Nomination Scheme Постоянное резидентство через номинацию работодателя   ПОШЛИНА От AUD 4 910 (основной заявитель)
 
-08 Visitor  417/462 Work & Holiday Visas Work and travel Australia for young adults   ПОШЛИНА From AUD 650
+08 Visitor  417/462 Визы «работа и отдых» Работа и путешествия по Австралии для молодёжи   ПОШЛИНА От AUD 650
 
-09 Family  300 Prospective Marriage Visa Come to Australia to marry your fiancé(e)   ПОШЛИНА From AUD 11,710
+09 Family  300 Prospective Marriage Visa Приехать в Австралию, чтобы вступить в брак с женихом/невестой   ПОШЛИНА От AUD 11 710
 
-10 Family  103/143/870 Parent Visas Reunite with your parents — standard, contributory and sponsored streams   ПОШЛИНА 103: from AUD 7,055 · 143: staged contributory charges · 870: from AUD 1,145
+10 Family  103/143/870 Parent Visas Воссоединение с родителями — стандартные, взносовые (contributory) и спонсируемые потоки   ПОШЛИНА 103: от AUD 7 055 · 143: поэтапные взносовые платежи · 870: от AUD 1 145
 
 end card
 
@@ -295,9 +295,9 @@ team
 
 Познакомиться с командой
 
-![Natasha Arens — Visa2AU](https://visa2.au/imgs/team/natasha.jpg)  Наташа Аренс Ведущий миграционный агент MARN 0534230 · NAATI Более 20 лет в иммиграционном праве — сложные партнёрские кейсы, отказы и апелляции ART.
+![Наташа Аренс — Visa2AU](https://visa2.au/imgs/team/natasha.jpg)  Наташа Аренс Ведущий миграционный агент MARN 0534230 · NAATI Более 20 лет в иммиграционном праве — сложные партнёрские кейсы, отказы и апелляции ART.
 
-![Sergey Vinnichenko — Visa2AU](https://visa2.au/imgs/team/sergey.jpg)  Сергей Винниченко Зарегистрированный миграционный агент MARN 2418663 Программы спонсорства работодателей, соглашения DAMA и профессиональная миграция.
+![Сергей Винниченко — Visa2AU](https://visa2.au/imgs/team/sergey.jpg)  Сергей Винниченко Зарегистрированный миграционный агент MARN 2418663 Программы спонсорства работодателей, соглашения DAMA и профессиональная миграция.
 
 journal
 

@@ -34,11 +34,11 @@ Les visas de transition (bridging visas) vous maintiennent en situation réguli�
 
 ## Questions fréquentes
 
-Can I travel while my application is pending?   Only on a Bridging Visa B — and you must hold it before you leave. Departing on a BVA cancels it and can strand you offshore; always confirm the BVB grant first.
+Puis-je voyager pendant que ma demande est en cours ?   Uniquement avec un Bridging Visa B — que vous devez détenir avant de partir. Quitter l'Australie avec un BVA l'annule et peut vous bloquer à l'étranger ; confirmez toujours l'octroi du BVB d'abord.
 
 ### En bref
 
-Délai de traitement Généralement accordé automatiquement avec la demande liée   Frais officiels Sans frais (octroi lié)   Nos honoraires From $1,100 AUD Advice typically within a consultation. Indicatif — des honoraires fixes sont établis dans le contrat avant tout travail.
+Délai de traitement Généralement accordé automatiquement avec la demande liée   Frais officiels Sans frais (octroi lié)   Nos honoraires À partir de 1 100 AUD Advice typically within a consultation. Indicatif — des honoraires fixes sont établis dans le contrat avant tout travail.
 
 Discutez de votre cas →
 

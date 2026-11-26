@@ -6,7 +6,7 @@
 
 # Espace employeurs
 
-Can’t find the skills locally? Parrainage is a system, not a gamble — and right now it is one of the strongest hiring tools Australian businesses have. We run it end to end: SBS, nomination, LMT, visa and compliance.
+Vous ne trouvez pas les compétences localement ? Le parrainage est un système, pas un pari — et c’est aujourd’hui l’un des outils de recrutement les plus puissants dont disposent les entreprises australiennes. Nous le gérons de A à Z : SBS, nomination, LMT, visa et conformité.
 
 Discuter de vos besoins de recrutement →
 
@@ -14,7 +14,7 @@ L’opportunité
 
 ## Pourquoi les entreprises avisées parrainent des travailleurs qualifiés
 
-Australia’s migration program is built around a simple truth: the economy has skill gaps that local hiring alone cannot fill. Parrainage is how a business turns that national gap into its own competitive advantage.
+Le programme de migration australien repose sur une vérité simple : l’économie présente des pénuries de compétences que le seul recrutement local ne peut pas combler. Le parrainage est le moyen pour une entreprise de transformer ce déficit national en avantage concurrentiel.
 
 ## Un argument commercial, pas une faveur
 
@@ -101,7 +101,7 @@ Le volet Specialist exclut les ouvriers qualifiés, les opérateurs de machines 
 
 DAMA — accords de migration pour zones désignées
 
-## When standard settings don’t fit, regional Australia opens a second door.
+## Lorsque les conditions standard ne conviennent pas, l’Australie régionale ouvre une seconde porte.
 
 A DAMA is a formal agreement between the Australian Government and a regional authority. It lets endorsed
  local employers sponsor workers with **concessions standard programs don’t offer** —
@@ -130,7 +130,7 @@ region list
 
 Chaque accord a sa propre liste de métiers et ses concessions — nous confirmons les conditions en vigueur auprès de l’autorité régionale avant de vous conseiller.
 
-#### Adelaide City & Regional SA
+#### Adelaide et régions SA
 
 Active
 
@@ -248,5 +248,5 @@ Réserver une consultation →
 
 Next steps
 
-- See visa fees and fixed-fee quotes
-- Browse every visa service
+- Voir les tarifs et devis à honoraires fixes
+- Tous les services de visa

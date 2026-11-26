@@ -45,9 +45,9 @@ Combien de points faut-il vraiment pour un 189 ?   65 est le minimum légal, mai
 
 À lire aussi
 
-Skills Assessment Skills Assessment for Australian Migration: A Step-by-Step Guide A skills assessment is a mandatory requirement for many skilled visas. Learn which assessing authority applies to your occupation and how to prepare. 20 févr. 2025
+Skills Assessment Évaluation des compétences pour migrer en Australie : guide étape par étape L'évaluation des compétences est obligatoire pour de nombreux visas qualifiés. Découvrez quelle autorité d'évaluation s'applique à votre profession et comment vous préparer. 20 févr. 2025
 
-Skilled Visas Skilled Independent Visa 189: Your Path to Permanent Residency The Skilled Independent Visa (subclass 189) is a points-tested permanent visa for skilled workers. No sponsor or nomination required. 25 oct. 2024
+Skilled Visas Visa indépendant qualifié 189: Your Path to Permanent Residency The Visa indépendant qualifié (subclass 189) is a points-tested permanent visa for skilled workers. No sponsor or nomination required. 25 oct. 2024
 
 ### En bref
 

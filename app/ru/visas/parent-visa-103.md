@@ -34,7 +34,7 @@
 - Личные документы и доказательства родства
 - Документация по балансу семьи для всех детей
 - Заявление на спонсорство
-- Assurance of Support (contributory)
+- Assurance of Support (контрибутивный поток)
 - Справки о несудимости и медосмотры
 
 ## Частые вопросы
@@ -43,7 +43,7 @@
 
 Читайте также
 
-Family Visas Parent Visa Options for Australia: Which One is Right for You? Bringing parents to Australia involves several visa options with different costs, processing times, and requirements. We compare all the pathways. 5 февр. 2025 г.
+Family Visas Варианты родительских виз в Австралию: какой выбрать? Переезд родителей в Австралию возможен по нескольким визам с разной стоимостью, сроками и требованиями. Мы сравниваем все варианты. 5 февр. 2025 г.
 
 Family Visas Sponsored Parent Visa 870: A Flexible Temporary Option The Sponsored Parent Visa (subclass 870) offers a faster pathway for parents to spend extended time with family in Australia. 20 нояб. 2024 г.
 

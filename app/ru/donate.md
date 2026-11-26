@@ -68,5 +68,5 @@ Stripe пока в тестовом режиме — деньги с карты 
 
 Next steps
 
-- See visa fees and fixed-fee quotes
-- Browse every visa service
+- Смотреть цены и фиксированные гонорары
+- Все визовые услуги

@@ -42,6 +42,24 @@ _LATIN = re.compile(r"[A-Za-z]")
 # Copy that legitimately stays identical across locales: the office address, the
 # firm name, contact details, subclass codes, MARN numbers, dates and language
 # switcher labels. Counting these as untranslated overstates the gap.
+# Official names and legal citations that stay English in every locale by policy.
+# Listed exactly rather than by pattern, so a genuine untranslated sentence that
+# merely mentions VETASSESS is still counted.
+_OFFICIAL = {
+    "Migration Regulations 1994 (Cth)",
+    "Skilled Employer Sponsored Regional",
+    "Employer Nomination Scheme",
+    "Prospective Marriage Visa",
+    "Registered Migration Agent",
+    "Migration Agents Regulations 2026 (Cth)",
+    "VETASSESS \u00b7 TRA \u00b7 EA \u00b7 ACS",
+}
+
+# Structural differences that are intentional. The Russian contact page carries
+# payment options that only exist for RU clients (a Russian bank account and
+# stablecoin transfer), so it holds more headings and paragraphs than EN.
+_EXPECTED_STRUCTURE = {"ru/contact.html": {"h3": 2, "p": 3}}
+
 _IDENTICAL_OK = re.compile(
     r"level 17|denison|north sydney|nsw 2060|visa2\.au|visa2au|marn|@|"
     r"\+61|\b04\d{2}\b|skills in demand|\(sid\)|\b\d{3}\b|"
@@ -90,6 +108,22 @@ def blocks(path: Path, min_len: int) -> list[str]:
     return out
 
 
+TAG_SET = ("h1", "h2", "h3", "p", "li", "ul", "ol", "dl", "details",
+           "section", "article", "table", "img", "a", "button")
+
+
+def tag_profile(path: Path) -> collections.Counter:
+    """Element counts in <main>. Threshold-free, unlike counting text blocks:
+    a short English label grows past any length cutoff once translated."""
+    from bs4 import BeautifulSoup
+
+    soup = BeautifulSoup(path.read_text(encoding="utf-8", errors="ignore"), "html.parser")
+    for tag in soup(["script", "style", "noscript"]):
+        tag.decompose()
+    main = soup.find("main") or soup
+    return collections.Counter(el.name for el in main.find_all(TAG_SET))
+
+
 def hreflang(path: Path) -> dict[str, str]:
     from bs4 import BeautifulSoup
 
@@ -130,6 +164,7 @@ def main() -> int:
                   any(loc in v for loc in LOCALES)]
     print(f"pages: {len(pages)} total, {len(translated)} with a translation\n")
 
+    structural: list[str] = []
     stats: dict[str, dict[str, int]] = {loc: collections.Counter() for loc in LOCALES}
     worst: dict[str, list[tuple[str, int, int]]] = {loc: [] for loc in LOCALES}
     samples: dict[str, list[tuple[str, str]]] = {loc: [] for loc in LOCALES}
@@ -146,16 +181,25 @@ def main() -> int:
             # Verbatim English in a translated page is the signal; a proper noun
             # is identical too, so the allowlist removes those.
             bad = [b for b in loc_blocks
-                   if b.lower() in en_set and not _IDENTICAL_OK.search(b)]
+                   if b.lower() in en_set
+                   and b not in _OFFICIAL
+                   and not _IDENTICAL_OK.search(b)]
             s = stats[loc]
             s["blocks"] += len(loc_blocks)
             s["untranslated"] += len(bad)
             s["en_blocks"] += len(en_blocks)
-            delta = len(loc_blocks) - len(en_blocks)
+            en_tags = tag_profile(pages[key][BASE])
+            loc_tags = tag_profile(pages[key][loc])
+            delta = {t: loc_tags[t] - en_tags[t] for t in TAG_SET if loc_tags[t] != en_tags[t]}
+            expected = _EXPECTED_STRUCTURE.get(f"{loc}/{key}", {})
+            if expected:
+                delta = {t: delta.get(t, 0) - expected.get(t, 0) for t in set(delta) | set(expected)}
+                delta = {t: v for t, v in delta.items() if v}
             if delta:
                 s["structural_drift"] += 1
-                s["abs_drift"] += abs(delta)
-                s["max_drift"] = max(s.get("max_drift", 0), abs(delta))
+                s["abs_drift"] += sum(abs(v) for v in delta.values())
+                s["max_drift"] = max(s.get("max_drift", 0), sum(abs(v) for v in delta.values()))
+                structural.append(f"{loc}/{key}: {delta}")
             worst[loc].append((key, len(bad), len(loc_blocks)))
             for text in bad[:2]:
                 samples[loc].append((key, text[:96]))
@@ -168,8 +212,11 @@ def main() -> int:
         print(f"{loc.upper()}: {s['blocks'] - s['untranslated']}/{s['blocks']} fragments "
               f"translated ({pct:.1f}%)")
         mean = s["abs_drift"] / s["structural_drift"] if s["structural_drift"] else 0
-        print(f"    structural drift: {s['structural_drift']}/{len(translated)} pages differ "
-              f"in block count from EN (mean {mean:.1f} blocks, max {s['max_drift']})")
+        print(f"    structure: {len(translated) - s['structural_drift']}/{len(translated)} pages "
+              f"match EN element-for-element (mean drift {mean:.1f}, max {s['max_drift']})")
+        mismatched = [line for line in structural if line.startswith(f"{loc}/")]
+        for line in mismatched[:6]:
+            print(f"      structural mismatch: {line}")
         if args.verbose:
             top = sorted(worst[loc], key=lambda r: -(r[1] / r[2] if r[2] else 0))[:8]
             print(f"    worst pages:")

@@ -37,11 +37,11 @@ Un skills assessment (évaluation des compétences) positif est la porte d’ent
 
 ## Questions fréquentes
 
-Which assessing authority handles my occupation?   It depends on the ANZSCO code: VETASSESS covers most professional and general occupations, TRA handles trades (with pathways like OSAP and MSA), Engineers Australia assesses engineering, and the ACS covers ICT. Choosing the right code is as important as the evidence itself.
+Quelle autorité évalue mon métier ?   Cela dépend du code ANZSCO : VETASSESS couvre la plupart des métiers professionnels et généraux, TRA les métiers manuels (avec OSAP et MSA), Engineers Australia l'ingénierie et l'ACS les TIC. Choisir le bon code est aussi important que les preuves elles-mêmes.
 
 À lire aussi
 
-Skills Assessment Skills Assessment for Australian Migration: A Step-by-Step Guide A skills assessment is a mandatory requirement for many skilled visas. Learn which assessing authority applies to your occupation and how to prepare. 20 févr. 2025
+Skills Assessment Évaluation des compétences pour migrer en Australie : guide étape par étape L'évaluation des compétences est obligatoire pour de nombreux visas qualifiés. Découvrez quelle autorité d'évaluation s'applique à votre profession et comment vous préparer. 20 févr. 2025
 
 ### En bref
 

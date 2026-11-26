@@ -6,7 +6,7 @@
 
 Agents de migration enregistrés · MARN 0534230/2418663 · Australie et monde entier
 
-# Migration Agent in Melbourne
+# Agent de migration à Melbourne
 
 L'agent de migration enregistré **Sergey Vinnichenko** (MARN 2418663) est basé à Melbourne et travaille avec des clients de toute la Victoria et de toute l'Australie — et du monde entier via une consultation vidéo sécurisée. Des visas de compétences et de conjoint au parrainage employeur et aux refus de visa, nous construisons votre stratégie avant que vous ne payiez un centime.
 
@@ -16,13 +16,13 @@ Réserver une consultation →
 
 Explorer les services de visas
 
-## Services de visas pour les clients de Melbourne
+## visas de visas pour les clients de Melbourne
 
 - Partner Visas
 - Skilled Visas (189/190/491)
 - Employer Sponsorship (482/186)
 - Student Visas (500)
-- Visa Refusals & Cancellations
+- Refus et annulations de visa
 - Parent & Family Visas
 
 ## Pourquoi les clients choisissent Visa2AU à Melbourne

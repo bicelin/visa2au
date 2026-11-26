@@ -40,15 +40,15 @@ Le visa 494 permet aux employeurs régionaux de parrainer des travailleurs quali
 
 ## Questions fréquentes
 
-What is the DAMA and how does it help?   Designated Area Migration Agreements are region-specific labour agreements offering concessions — broader occupation lists, age concessions to 50–55 for some roles, lower English and salary thresholds. Each DAMA region has its own occupation list and endorsement process.
+Qu'est-ce que la DAMA et à quoi sert-elle ?   Les Designated Area Migration Agreements sont des accords régionaux de main-d'œuvre offrant des concessions : listes de métiers élargies, dispenses d'âge jusqu'à 50–55 ans pour certains postes, seuils de salaire et d'anglais abaissés. Chaque région DAMA a sa propre liste de métiers et procédure d'approbation.
 
 How does the 494 become permanent residency?   After three years living and working in the designated regional area on the 494 (with taxable income at or above the threshold), you can apply for the Permanent Residence (Skilled Regional) visa, subclass 191.
 
 À lire aussi
 
-Employer Sponsorship Employer Sponsorship Visas 482 & 186: What Employers Need to Know Australian employer sponsorship allows businesses to fill skilled positions with overseas talent. Learn about the TSS visa (482) and Employer Nomination Scheme (186). 28 mars 2025
+Employer Sponsorship Employer Sponsorship Visas 482 & 186: What Employeurs Need to Know Australian employer sponsorship allows businesses to fill skilled positions with overseas talent. Learn about the TSS visa (482) and Employer Nomination Scheme (186). 28 mars 2025
 
-Work Visas Working Holiday Visa 417 & 462: Your Guide to Working in Australia The Working Holiday visa lets young adults travel and work in Australia. Learn about eligibility, conditions, and how to extend your stay. 5 déc. 2024
+Work Visas Visa vacances-travail 417 & 462: Your Guide to Working in Australia Le visa Working Holiday permet aux jeunes adultes de voyager et de travailler en Australie. Découvrez les conditions d'éligibilité, les règles et comment prolonger votre séjour. 5 déc. 2024
 
 ### En bref
 

@@ -22,7 +22,7 @@ Visitor
 
 Other
 
-Start here      Partner Visa Australia 820/801 · 309/100 · 300   Which partner visa applies to you, what it costs and how long each stage takes.  Compare the streams Compare →
+Start here      Partner Visa Australia 820/801 · 309/100 · 300   Quel visa partenaire vous concerne, son coût et la durée de chaque étape.  Compare the streams Compare →
 
 Popular      Partner Visas 820/801   Pour les partenaires de citoyens australiens, résidents permanents ou citoyens NZ éligibles.  12–24 mois (en moyenne) Détails →
 
@@ -62,13 +62,13 @@ Visa de protection 866   Demandes de protection traitées avec soin et confident
 
 urgent cases — red accent card
 
-Urgent      Aide visa urgente s56 · Refusal · Cancellation   Des délais stricts — certains de seulement 7 jours. Que faire et à quelle vitesse, étape par étape.  Agir sous quelques jours Obtenir de l’aide →
+Urgent      Aide visa urgente s56 · Refus · Annulation   Des délais stricts — certains de seulement 7 jours. Que faire et à quelle vitesse, étape par étape.  Agir sous quelques jours Obtenir de l’aide →
 
 guide de parcours de visa
 
 ## Vous ne savez pas quel visa choisir ?
 
-Answer a few questions and we’ll tailor the visa options to you — with the reasoning behind each match, indicative costs and processing times.
+Répondez à quelques questions et nous adapterons les options de visa à votre profil — avec le raisonnement derrière chaque suggestion, des coûts indicatifs et des délais de traitement.
 
 Question 1 of 7
 
@@ -92,4 +92,4 @@ Réserver une consultation →
 
 Next steps
 
-- See visa fees and fixed-fee quotes
+- Voir les tarifs et devis à honoraires fixes

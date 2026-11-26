@@ -6,7 +6,7 @@
 
 Agents de migration enregistrés · MARN 0534230/2418663 · Australie et monde entier
 
-# Migration Agent in Sydney
+# Agent de migration à Sydney
 
 Nos agents de migration enregistrés (MARN 0534230 et 2418663) sont basés à North Sydney et servent des clients dans tout Sydney et en Nouvelle-Galles du Sud — ainsi que dans toute l'Australie et dans le monde entier via une consultation vidéo sécurisée. Stratégie d'abord, honoraires fixes indiqués à l'avance.
 
@@ -16,13 +16,13 @@ Réserver une consultation →
 
 Explorer les services de visas
 
-## Services de visas pour les clients de Sydney
+## visas de visas pour les clients de Sydney
 
 - Partner Visas
 - Skilled Visas (189/190/491)
 - Employer Sponsorship (482/186)
 - Student Visas (500)
-- Visa Refusals & Cancellations
+- Refus et annulations de visa
 - Parent & Family Visas
 
 ## Pourquoi les clients choisissent Visa2AU à Sydney

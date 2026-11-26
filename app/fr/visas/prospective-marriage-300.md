@@ -42,7 +42,7 @@ What happens after we marry on a 300 visa?   After marrying within the 9–15 mo
 
 À lire aussi
 
-Partner Visas Understanding the Partner Visa 820/801: A Complete Guide Navigating the partner visa process can be complex. This guide breaks down the two-stage process, requirements, and timeline for bringing your loved one to Australia. 15 avr. 2025
+Partner Visas Understanding the Partner Visa 820/801: A Complete Guide Le parcours du visa partenaire peut être complexe. Ce guide détaille les deux étapes, les conditions et les délais pour faire venir votre proche en Australie. 15 avr. 2025
 
 Partner Visas Prospective Marriage Visa 300: The Fiancé Visa Explained Planning to marry your Australian partner? The Prospective Marriage Visa (subclass 300) allows you to travel to Australia to marry your fiancé. 18 déc. 2024
 

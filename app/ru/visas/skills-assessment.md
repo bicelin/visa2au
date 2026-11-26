@@ -37,11 +37,11 @@
 
 ## Частые вопросы
 
-Which assessing authority handles my occupation?   It depends on the ANZSCO code: VETASSESS covers most professional and general occupations, TRA handles trades (with pathways like OSAP and MSA), Engineers Australia assesses engineering, and the ACS covers ICT. Choosing the right code is as important as the evidence itself.
+Какой орган оценивает мою профессию?   Зависит от кода ANZSCO: VETASSESS охватывает большинство профессиональных и общих профессий, TRA — рабочие специальности (включая OSAP и MSA), Engineers Australia — инженерию, ACS — ИТ. Правильный код не менее важен, чем сами документы.
 
 Читайте также
 
-Skills Assessment Skills Assessment for Australian Migration: A Step-by-Step Guide A skills assessment is a mandatory requirement for many skilled visas. Learn which assessing authority applies to your occupation and how to prepare. 20 февр. 2025 г.
+Skills Assessment Оценка квалификации для миграции в Австралию: пошаговое руководство Оценка квалификации обязательна для многих квалифицированных виз. Узнайте, какой оценивающий орган применяется к вашей профессии и как подготовиться. 20 февр. 2025 г.
 
 ### Кратко
 

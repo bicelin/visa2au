@@ -19,7 +19,7 @@
 
 ## Обзор
 
-Визы 400 (Temporary Work — Short Stay Specialist) и 408 (Temporary Activity) охватывают короткие высокоспециализированные задания, мероприятия и активности, не вписывающиеся в стандартное спонсорство.
+Визы 400 (Temporary Work — Краткосрочные специалисты) и 408 (Temporary Activity) охватывают короткие высокоспециализированные задания, мероприятия и активности, не вписывающиеся в стандартное спонсорство.
 
 ## Требования к заявителю
 
@@ -37,13 +37,13 @@
 
 ## Частые вопросы
 
-When is a 400 better than a 482?   For genuinely short, specialised assignments where full sponsorship is disproportionate — equipment installation, expert assessments, one-off projects. It cannot be used to fill ongoing positions.
+When is a 400 better than a 482?   Для действительно коротких узкоспециализированных задач, когда полное спонсорство несоразмерно — монтаж оборудования, экспертная оценка, разовые проекты. Не применяется для постоянных должностей.
 
 Читайте также
 
-Visitor Visas 5 Tips for a Successful Visitor Visa 600 Application Applying for an Australian visitor visa? Follow these essential tips to improve your chances of approval and avoid common pitfalls. 10 мар. 2025 г.
+Visitor Visas 5 Tips for a Successful Visitor Visa 600 Application Оформляете гостевую визу в Австралию? Следуйте этим ключевым советам, чтобы повысить шансы на одобрение и избежать типичных ошибок. 10 мар. 2025 г.
 
-Work Visas Working Holiday Visa 417 & 462: Your Guide to Working in Australia The Working Holiday visa lets young adults travel and work in Australia. Learn about eligibility, conditions, and how to extend your stay. 5 дек. 2024 г.
+Work Visas Рабочая отпускная виза 417 & 462: Your Guide to Working in Australia Виза Working Holiday позволяет молодым людям путешествовать и работать в Австралии. Узнайте о требованиях, условиях и продлении пребывания. 5 дек. 2024 г.
 
 ### Кратко
 

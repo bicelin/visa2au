@@ -172,9 +172,21 @@ export const onRequest: PagesFunction = async ({ request, next }) => {
   // Early Hints enabled this becomes a 103 preload (no page-weight cost and no
   // inlining); without it the browser still sees the hint as it reads headers.
   const cssPreload = "</_astro/index.DqolKn4r.css>; rel=preload; as=style";
+  // Agent discovery (RFC 8288 + RFC 9727 §3). The _headers file only advertises
+  // these on /llms.txt and friends, so a crawler that starts at the homepage saw
+  // a single preload and concluded the site publishes no machine-readable entry
+  // points. Registered relation types only, one per resource, no duplicates.
+  const agentLinks = [
+    '</.well-known/api-catalog>; rel="api-catalog"',
+    '</.well-known/mcp/server-card.json>; rel="service-desc"; type="application/json"',
+    '</llms.txt>; rel="service-doc"; type="text/plain"',
+    '</.well-known/ai-catalog.json>; rel="describedby"; type="application/json"',
+  ];
   const existingLink = r.headers.get("Link");
+  const agentOnly = agentLinks.filter((l) => !(existingLink || "").includes(l.split(";")[0].trim()));
   // The _headers file already advertises api-catalog / llms.txt / oauth relations
   // on every path; append instead of replacing, or HTML pages lose them.
-  r.headers.set("Link", existingLink ? existingLink + ", " + cssPreload : cssPreload);
+  const parts = [existingLink, ...agentOnly, cssPreload].filter(Boolean);
+  r.headers.set("Link", parts.join(", "));
   return r;
 };

@@ -39,11 +39,11 @@
 
 ## Частые вопросы
 
-How long can a 407 visa be granted for?   Up to two years, matching the length of the approved training program. It is not a work visa — the training plan controls what the visa holder does.
+How long can a 407 visa be granted for?   До двух лет — в соответствии со сроком утверждённой программы обучения. Это не рабочая виза: программу определяет утверждённый план обучения.
 
 Читайте также
 
-Work Visas Working Holiday Visa 417 & 462: Your Guide to Working in Australia The Working Holiday visa lets young adults travel and work in Australia. Learn about eligibility, conditions, and how to extend your stay. 5 дек. 2024 г.
+Work Visas Рабочая отпускная виза 417 & 462: Your Guide to Working in Australia Виза Working Holiday позволяет молодым людям путешествовать и работать в Австралии. Узнайте о требованиях, условиях и продлении пребывания. 5 дек. 2024 г.
 
 ### Кратко
 

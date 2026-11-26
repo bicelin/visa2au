@@ -37,13 +37,13 @@
 
 ## Частые вопросы
 
-How do I get a second year Working Holiday visa?   Complete three months (88 days) of specified work — typically regional work in agriculture, construction, tourism or bushfire recovery — while on your first 417/462 visa, with payslips as evidence.
+Как получить второй год визы Working Holiday?   Complete three months (88 days) of specified work — typically regional work in agriculture, construction, tourism or bushfire recovery — while on your first 417/462 visa, with payslips as evidence.
 
 Читайте также
 
-Visitor Visas 5 Tips for a Successful Visitor Visa 600 Application Applying for an Australian visitor visa? Follow these essential tips to improve your chances of approval and avoid common pitfalls. 10 мар. 2025 г.
+Visitor Visas 5 Tips for a Successful Visitor Visa 600 Application Оформляете гостевую визу в Австралию? Следуйте этим ключевым советам, чтобы повысить шансы на одобрение и избежать типичных ошибок. 10 мар. 2025 г.
 
-Work Visas Working Holiday Visa 417 & 462: Your Guide to Working in Australia The Working Holiday visa lets young adults travel and work in Australia. Learn about eligibility, conditions, and how to extend your stay. 5 дек. 2024 г.
+Work Visas Рабочая отпускная виза 417 & 462: Your Guide to Working in Australia Виза Working Holiday позволяет молодым людям путешествовать и работать в Австралии. Узнайте о требованиях, условиях и продлении пребывания. 5 дек. 2024 г.
 
 ### Кратко
 

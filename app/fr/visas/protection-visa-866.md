@@ -36,11 +36,11 @@ Les visas de protection (866) s’adressent aux personnes présentes en Australi
 
 ## Questions fréquentes
 
-Will my family overseas be told about my claim?   No. Protection applications are confidential and the Department does not contact your home country authorities about your claims.
+Ma famille à l'étranger sera-t-elle informée de ma demande ?   Non. Les demandes de protection sont confidentielles et le Department ne contacte pas les autorités de votre pays d'origine au sujet de vos motifs.
 
 À lire aussi
 
-Protection Visas Protection Visa 866: Seeking Asylum in Australia The Protection Visa (subclass 866) is for refugees and people in need of protection who are already in Australia. Learn about eligibility and the application process. 8 nov. 2024
+Visa de protections Visa de protection 866: Seeking Asylum in Australia The Visa de protection (subclass 866) is for refugees and people in need of protection who are already in Australia. Learn about eligibility and the application process. 8 nov. 2024
 
 ### En bref
 

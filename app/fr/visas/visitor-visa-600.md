@@ -43,7 +43,7 @@ Quelle durée de séjour avec un visa 600 ?   Des séjours de 3, 6 ou 12 mois pe
 
 À lire aussi
 
-Visitor Visas 5 Tips for a Successful Visitor Visa 600 Application Applying for an Australian visitor visa? Follow these essential tips to improve your chances of approval and avoid common pitfalls. 10 mars 2025
+Visitor Visas 5 Tips for a Successful Visitor Visa 600 Application Vous demandez un visa visiteur pour l'Australie ? Suivez ces conseils essentiels pour augmenter vos chances d'approbation et éviter les erreurs courantes. 10 mars 2025
 
 ### En bref
 

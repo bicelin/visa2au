@@ -6,7 +6,7 @@
 
 Agents de migration enregistrés · MARN 0534230/2418663 · Australie et monde entier
 
-# Migration Agent in Cairns
+# Agent de migration à Cairns
 
 L'agent de migration enregistré **Natasha Arens** (MARN 0534230, NAATI CPN0VW21W) travaille depuis Cairns et sert des clients dans tout le Far North Queensland et toute l'Australie — ainsi que dans le monde entier via une consultation vidéo sécurisée. Les visas familiaux et de conjoint sont une spécialité particulière.
 
@@ -16,13 +16,13 @@ Réserver une consultation →
 
 Explorer les services de visas
 
-## Services de visas pour les clients de Cairns
+## visas de visas pour les clients de Cairns
 
 - Partner Visas
 - Skilled Visas (189/190/491)
 - Employer Sponsorship (482/186)
 - Student Visas (500)
-- Visa Refusals & Cancellations
+- Refus et annulations de visa
 - Parent & Family Visas
 
 ## Pourquoi les clients choisissent Visa2AU à Cairns

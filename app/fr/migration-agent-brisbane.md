@@ -6,7 +6,7 @@
 
 Agents de migration enregistrés · MARN 0534230/2418663 · Australie et monde entier
 
-# Migration Agent in Brisbane
+# Agent de migration à Brisbane
 
 Des agents de migration enregistrés au service de Brisbane et de tout le Queensland — ainsi que de toute l'Australie et du monde entier via une consultation vidéo sécurisée. Qu'il s'agisse d'un visa de compétences, de conjoint, parrainé par un employeur, étudiant ou familial, nous traçons pour vous le chemin le plus clair.
 
@@ -16,13 +16,13 @@ Réserver une consultation →
 
 Explorer les services de visas
 
-## Services de visas pour les clients de Brisbane
+## visas de visas pour les clients de Brisbane
 
 - Partner Visas
 - Skilled Visas (189/190/491)
 - Employer Sponsorship (482/186)
 - Student Visas (500)
-- Visa Refusals & Cancellations
+- Refus et annulations de visa
 - Parent & Family Visas
 
 ## Pourquoi les clients choisissent Visa2AU à Brisbane

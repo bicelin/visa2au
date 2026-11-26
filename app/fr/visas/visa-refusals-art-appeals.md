@@ -40,7 +40,7 @@ Tout refus mérite-t-il un recours ?   Non. Nous obtenons et analysons d’abord
 
 À lire aussi
 
-Visa Refusals Your Visa Was Refused: What Are Your Options? A visa refusal is not the end of the road. Learn about appeal options, the AAT process, and when to reapply after a refusal. 10 janv. 2025
+Visa Refusals Votre visa a été refusé : quelles options ? Un refus de visa n'est pas la fin du parcours. Découvrez les recours, la procédure AAT et quand redéposer après un refus. 10 janv. 2025
 
 ### En bref
 

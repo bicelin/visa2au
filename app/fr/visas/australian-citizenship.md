@@ -39,11 +39,11 @@ La citoyenneté par conferral est accessible aux résidents permanents remplissa
 
 ## Questions fréquentes
 
-Can travel break my citizenship residence eligibility?   Yes — the two caps (12 months in 4 years, 90 days in the last year) catch many applicants out. Discretion exists for some circumstances; we calculate your exact eligible date before you apply.
+Un voyage peut-il compromettre mon éligibilité à la citoyenneté (résidence) ?   Oui — les deux plafonds (12 mois sur 4 ans, 90 jours sur la dernière année) surprennent beaucoup de candidats. Des dérogations existent selon les circonstances ; nous calculons votre date exacte avant de déposer.
 
 À lire aussi
 
-Citizenship How to Become an Australian Citizen: Eligibility and Process Australian citizenship is the final step in your migration journey. Learn about the eligibility requirements, citizenship test, and application process. 22 janv. 2025
+Citizenship Devenir citoyen australien : conditions et procédure La citoyenneté australienne est la dernière étape de votre parcours migratoire. Découvrez les conditions, le test de citoyenneté et la procédure. 22 janv. 2025
 
 ### En bref
 

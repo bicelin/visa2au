@@ -43,7 +43,7 @@ Les visas parents vont du 103 économique mais à longue file d’attente aux vo
 
 À lire aussi
 
-Family Visas Parent Visa Options for Australia: Which One is Right for You? Bringing parents to Australia involves several visa options with different costs, processing times, and requirements. We compare all the pathways. 5 févr. 2025
+Family Visas Les options de visa parent en Australie : laquelle choisir ? Faire venir ses parents en Australie implique plusieurs visas aux coûts, délais et conditions différents. Nous comparons toutes les voies. 5 févr. 2025
 
 Family Visas Sponsored Parent Visa 870: A Flexible Temporary Option The Sponsored Parent Visa (subclass 870) offers a faster pathway for parents to spend extended time with family in Australia. 20 nov. 2024
 

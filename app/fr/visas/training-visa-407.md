@@ -39,11 +39,11 @@ Le visa 407 soutient la formation professionnelle et le développement en Austra
 
 ## Questions fréquentes
 
-How long can a 407 visa be granted for?   Up to two years, matching the length of the approved training program. It is not a work visa — the training plan controls what the visa holder does.
+How long can a 407 visa be granted for?   Jusqu'à deux ans, selon la durée du programme de formation approuvé. Ce n'est pas un visa de travail : le plan de formation détermine ce que le titulaire peut faire.
 
 À lire aussi
 
-Work Visas Working Holiday Visa 417 & 462: Your Guide to Working in Australia The Working Holiday visa lets young adults travel and work in Australia. Learn about eligibility, conditions, and how to extend your stay. 5 déc. 2024
+Work Visas Visa vacances-travail 417 & 462: Your Guide to Working in Australia Le visa Working Holiday permet aux jeunes adultes de voyager et de travailler en Australie. Découvrez les conditions d'éligibilité, les règles et comment prolonger votre séjour. 5 déc. 2024
 
 ### En bref
 

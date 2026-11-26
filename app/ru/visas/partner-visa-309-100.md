@@ -44,7 +44,7 @@
 
 Читайте также
 
-Partner Visas Understanding the Partner Visa 820/801: A Complete Guide Navigating the partner visa process can be complex. This guide breaks down the two-stage process, requirements, and timeline for bringing your loved one to Australia. 15 апр. 2025 г.
+Partner Visas Understanding the Partner Visa 820/801: A Complete Guide Оформление партнёрской визы бывает сложным. В этом руководстве разобраны два этапа, требования и сроки переезда вашего близкого в Австралию. 15 апр. 2025 г.
 
 Partner Visas Prospective Marriage Visa 300: The Fiancé Visa Explained Planning to marry your Australian partner? The Prospective Marriage Visa (subclass 300) allows you to travel to Australia to marry your fiancé. 18 дек. 2024 г.
 

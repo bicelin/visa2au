@@ -40,7 +40,7 @@
 
 Читайте также
 
-Visa Refusals Your Visa Was Refused: What Are Your Options? A visa refusal is not the end of the road. Learn about appeal options, the AAT process, and when to reapply after a refusal. 10 янв. 2025 г.
+Visa Refusals Вам отказали в визе: какие есть варианты? Отказ в визе — не конец пути. Узнайте о вариантах обжалования, процессе AAT и о том, когда можно подаваться повторно. 10 янв. 2025 г.
 
 ### Кратко
 

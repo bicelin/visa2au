@@ -19,7 +19,7 @@ Travail hautement spécialisé de courte durée.
 
 ## Aperçu
 
-Les visas 400 (Temporary Work — Short Stay Specialist) et 408 (Temporary Activity) couvrent les missions courtes et hautement spécialisées, événements et activités qui ne relèvent pas du parrainage classique.
+Les visas 400 (Temporary Work — Spécialiste court séjour) et 408 (Temporary Activity) couvrent les missions courtes et hautement spécialisées, événements et activités qui ne relèvent pas du parrainage classique.
 
 ## Conditions d’éligibilité
 
@@ -37,13 +37,13 @@ Les visas 400 (Temporary Work — Short Stay Specialist) et 408 (Temporary Activ
 
 ## Questions fréquentes
 
-When is a 400 better than a 482?   For genuinely short, specialised assignments where full sponsorship is disproportionate — equipment installation, expert assessments, one-off projects. It cannot be used to fill ongoing positions.
+When is a 400 better than a 482?   Pour des missions réellement courtes et spécialisées où un parrainage complet est disproportionné — installation d'équipements, expertises, projets ponctuels. Ne peut servir à pourvoir un poste permanent.
 
 À lire aussi
 
-Visitor Visas 5 Tips for a Successful Visitor Visa 600 Application Applying for an Australian visitor visa? Follow these essential tips to improve your chances of approval and avoid common pitfalls. 10 mars 2025
+Visitor Visas 5 Tips for a Successful Visitor Visa 600 Application Vous demandez un visa visiteur pour l'Australie ? Suivez ces conseils essentiels pour augmenter vos chances d'approbation et éviter les erreurs courantes. 10 mars 2025
 
-Work Visas Working Holiday Visa 417 & 462: Your Guide to Working in Australia The Working Holiday visa lets young adults travel and work in Australia. Learn about eligibility, conditions, and how to extend your stay. 5 déc. 2024
+Work Visas Visa vacances-travail 417 & 462: Your Guide to Working in Australia Le visa Working Holiday permet aux jeunes adultes de voyager et de travailler en Australie. Découvrez les conditions d'éligibilité, les règles et comment prolonger votre séjour. 5 déc. 2024
 
 ### En bref
 

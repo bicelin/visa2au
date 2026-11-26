@@ -48,5 +48,5 @@ We are open about fees: a Stripe processing fee (4.55%) applies when you pay by 
 
 Next steps
 
-- See visa fees and fixed-fee quotes
-- Browse every visa service
+- Смотреть цены и фиксированные гонорары
+- Все визовые услуги

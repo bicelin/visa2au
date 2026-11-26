@@ -55,7 +55,7 @@ Si un élément de cette page diffère du contrat que vous avez signé, **le con
 | **3.2** | Практические системы, облачное хранение и автоматизированные/AI-инструменты | *Privacy Act 1988* (Cth) — APPs 1, 6, 8 and 11 (open and transparent management, use, cross-border disclosure, security); Code s 30 |
 | **4** | Обязанности клиента: достоверность, раскрытие сведений и документы | *Migration Regulations 1994* (Cth) Sch 4, PIC 4020 (bogus documents, false or misleading information); *Migration Act 1958* (Cth) |
 | **5** | Наши обязанности и страхование профессиональной ответственности | Code Part 2; *Migration Agents Regulations 2026* (Cth) (professional indemnity requirements); *Privacy Act 1988* (Cth) |
-| **6.1** | Фиксированный гонорар, GST и налоговый счёт | *A New Tax System (Goods and Services Tax) Act 1999* (Cth) (10% GST, tax invoice); Code Part 5 Div 3 |
+| **6.1** | Фиксированный гонорар, GST и налоговый счёт | *A New Tax System (Goods and visas Tax) Act 1999* (Cth) (10% GST, tax invoice); Code Part 5 Div 3 |
 | **6.2, 6.2.1–6.2.4** | Счёт клиентов, условия оплаты, способы оплаты и списания | Code ss 48–50 (clients’ account handling, receipting and withdrawals) |
 | **6.2.3** | Способы оплаты, комиссия за карту и вариант банковского перевода | *Competition and Consumer Act 2010* (Cth) Sch 2, s 18 (misleading conduct — surcharge must be disclosed before payment); Code Part 5 Div 3 |
 | **6.3** | Сторонние сборы, индексация VAC и сервисные сборы третьих лиц | Code Part 5 Div 3 (disbursements, disclosure and passing on third-party charges at cost); *Migration Regulations 1994* (Cth) (visa application charges) |
@@ -99,6 +99,6 @@ Le droit australien de l’immigration, le code de conduite et l’Australian Co
 
 Si vous détenez un exemplaire signé d’une version antérieure du contrat et souhaitez le tableau correspondant, écrivez-nous à info@visa2.au.
 
-Pages liées: [Tarifs](https://visa2.au/fr/pricing) · [Contact](https://visa2.au/fr/contact) · [Services de visas](https://visa2.au/fr/visas)
+Pages liées: [Tarifs](https://visa2.au/fr/pricing) · [Contact](https://visa2.au/fr/contact) · [visas de visas](https://visa2.au/fr/visas)
 
 *Cette page est un récapitulatif d’instruments législatifs publié pour la transparence envers les clients. Elle ne constitue pas un conseil juridique, ne modifie pas le contrat de service et n’exclut ni ne limite aucune garantie consommateur au titre de l’Australian Consumer Law.*

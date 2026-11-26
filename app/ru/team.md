@@ -89,5 +89,5 @@ Visa2AU Pty Ltd has guided individuals, families and employers through Australia
 
 Next steps
 
-- See visa fees and fixed-fee quotes
-- Browse every visa service
+- Смотреть цены и фиксированные гонорары
+- Все визовые услуги

@@ -22,7 +22,7 @@ Visitor
 
 Other
 
-Start here      Partner Visa Australia 820/801 · 309/100 · 300   Which partner visa applies to you, what it costs and how long each stage takes.  Compare the streams Compare →
+Start here      Partner Visa Australia 820/801 · 309/100 · 300   Какая партнёрская виза вам подходит, сколько она стоит и сколько занимает каждый этап.  Compare the streams Compare →
 
 Popular      Partner Visas 820/801   Для партнёров граждан Австралии, постоянных резидентов или eligible-граждан Новой Зеландии.  12–24 месяца (обычно) Подробнее →
 
@@ -62,7 +62,7 @@ Bridging Visas BVA–BVE   Сохраняйте легальный статус 
 
 urgent cases — red accent card
 
-Urgent      Срочная помощь по визе s56 · Refusal · Cancellation   Строгие дедлайны — некоторые всего 7 дней. Что делать и насколько быстро, шаг за шагом.  Действуйте в течение дней Получить помощь →
+Urgent      Срочная помощь по визе s56 · Отказ · Отмена   Строгие дедлайны — некоторые всего 7 дней. Что делать и насколько быстро, шаг за шагом.  Действуйте в течение дней Получить помощь →
 
 подбор визового маршрута
 
@@ -92,4 +92,4 @@ Urgent      Срочная помощь по визе s56 · Refusal · Cancella
 
 Next steps
 
-- See visa fees and fixed-fee quotes
+- Смотреть цены и фиксированные гонорары

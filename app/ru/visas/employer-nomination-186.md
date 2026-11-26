@@ -32,7 +32,7 @@
 ## Чек-лист документов
 
 - Заявление на номинацию с доказательствами подлинности позиции
-- Skills assessment (Direct Entry)
+- Оценка квалификации (Direct Entry)
 - Трудовой договор с рыночной зарплатой
 - Результаты теста английского
 - Личные документы, здоровье и характеристика
@@ -43,7 +43,7 @@ Direct Entry or TRT — which 186 stream fits me?   If you already work for your
 
 Читайте также
 
-Employer Sponsorship Employer Sponsorship Visas 482 & 186: What Employers Need to Know Australian employer sponsorship allows businesses to fill skilled positions with overseas talent. Learn about the TSS visa (482) and Employer Nomination Scheme (186). 28 мар. 2025 г.
+Employer Sponsorship Employer Sponsorship Visas 482 & 186: What Работодательs Need to Know Australian employer sponsorship allows businesses to fill skilled positions with overseas talent. Learn about the TSS visa (482) and Employer Nomination Scheme (186). 28 мар. 2025 г.
 
 ### Кратко
 

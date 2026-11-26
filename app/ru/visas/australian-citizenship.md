@@ -39,11 +39,11 @@
 
 ## Частые вопросы
 
-Can travel break my citizenship residence eligibility?   Yes — the two caps (12 months in 4 years, 90 days in the last year) catch many applicants out. Discretion exists for some circumstances; we calculate your exact eligible date before you apply.
+Может ли поездка нарушить требование о проживании для гражданства?   Да — два ограничения (12 месяцев за 4 года и 90 дней за последний год) часто упускают. Для отдельных обстоятельств есть исключения; мы рассчитываем вашу точную дату права на подачу заранее.
 
 Читайте также
 
-Citizenship How to Become an Australian Citizen: Eligibility and Process Australian citizenship is the final step in your migration journey. Learn about the eligibility requirements, citizenship test, and application process. 22 янв. 2025 г.
+Citizenship Как получить австралийское гражданство: требования и порядок Австралийское гражданство — завершающий этап миграции. Узнайте о требованиях, тесте на гражданство и порядке подачи. 22 янв. 2025 г.
 
 ### Кратко
 
