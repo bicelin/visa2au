@@ -77,8 +77,8 @@ RU_MAP = {
     "Click or drag files here": "Нажмите или перетащите файлы сюда",
     "Up to 20 files": "До 20 файлов",
     "90 MB total": "суммарно до 90 МБ",
-    "Files travel over an encrypted connection and reach the agent handling your enquiry via a one-time link that expires after 7 days.":
-    "Файлы передаются по зашифрованному соединению и попадают к агенту по одноразовой ссылке, действующей 7 дней.",
+    "Files up to 20 MB in total are attached to the enquiry email itself. Anything larger travels over an encrypted connection and is reachable through a link that expires after 90 days.":
+    "Файлы общим размером до 20 МБ прикрепляются прямо к письму с заявкой. Всё, что больше, передаётся по зашифрованному соединению и доступно по ссылке, действующей 90 дней.",
     "Uploading…": "Загрузка…",
     "Send Message": "Отправить сообщение",
     "Protected by Cloudflare Turnstile. Handled per our": "Защищено Cloudflare Turnstile. Обработка — согласно нашей",

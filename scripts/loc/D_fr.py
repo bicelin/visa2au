@@ -79,8 +79,8 @@ FR_MAP = {
     "Click or drag files here": "Cliquez ou faites glisser les fichiers ici",
     "Up to 20 files": "Jusqu’à 20 fichiers",
     "90 MB total": "90 Mo au total",
-    "Files travel over an encrypted connection and reach the agent handling your enquiry via a one-time link that expires after 7 days.":
-    "Les fichiers transitent par une connexion chiffrée et parviennent à l’agent via un lien à usage unique valable 7 jours.",
+    "Files up to 20 MB in total are attached to the enquiry email itself. Anything larger travels over an encrypted connection and is reachable through a link that expires after 90 days.":
+    "Les fichiers jusqu’à 20 Mo au total sont joints directement à l’e-mail de demande. Au-delà, ils transitent par une connexion chiffrée et sont accessibles par un lien valable 90 jours.",
     "Uploading…": "Téléversement…",
     "Send Message": "Envoyer le message",
     "Protected by Cloudflare Turnstile. Handled per our": "Protégé par Cloudflare Turnstile. Traité conformément à notre",

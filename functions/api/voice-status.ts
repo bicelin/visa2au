@@ -23,6 +23,8 @@ interface Env {
   CARTESIA_AGENT_EN?: string;
   CARTESIA_AGENT_RU?: string;
   CARTESIA_AGENT_FR?: string;
+  // One LiveKit room serves every language, so there is a single agent name.
+  LIVEKIT_AGENT_NAME?: string;
 }
 
 // adapter file + token endpoint + public label per lane (mirrors voice/lanes.json)
