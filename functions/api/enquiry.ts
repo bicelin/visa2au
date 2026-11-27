@@ -180,7 +180,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     return json({ ok: false, error: "Email delivery failed", detail: detail.slice(0, 200) }, 502);
   }
 
-  return json({ ok: true, id: enquiryId, files: links.length });
+  return json({ ok: true, id: enquiryId, files: links.length, attached: inline ? inline.length : 0 });
   } catch (err) {
     return json({ ok: false, error: "Internal error", step, detail: String(err).slice(0, 200) }, 500);
   }
