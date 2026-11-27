@@ -8,6 +8,16 @@
 
 Aucune surprise. Des honoraires professionnels fixes annoncés avant tout engagement, des frais gouvernementaux détaillés, et les frais de traitement Stripe sur /pay indiqués avant le paiement.
 
+answer-first:start
+
+## Combien coûte un visa partenaire, en une ligne
+
+**820/801 (sur place)** ou **309/100 (depuis l’étranger)** : frais gouvernementaux à partir de **$11,710** plus nos honoraires professionnels de **$5,500** — à partir de **$17,210** au total, avant les frais de tiers.
+
+Un deuxième demandeur de 18 ans ou plus ajoute des frais gouvernementaux à partir de **$5,855** ; un enfant de moins de 18 ans, à partir de **$2,930**. Les examens médicaux, certificats de police, traductions et évaluations des compétences sont payés aux tiers au coût réel et détaillés dans votre devis.
+
+answer-first:end
+
 ## Le coût d’un visa : frais gouvernementaux et nos honoraires
 
 Two numbers make up the cost of a visa: the **government charge** set by the Department of Home Affairs, and our **professional fee** for preparing and managing the application. Third-party costs — health examinations, police checks, translations and skills assessments — are separate and itemised in your quote.
