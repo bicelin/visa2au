@@ -105,8 +105,12 @@ async function findOrCreateMeeting(
   env: Env,
   json: (o: unknown, s?: number) => Response,
   title: string,
+  explicitId?: string,
 ): Promise<{ meetingId: string } | { error: Response }> {
-  const listRes = await rtk(env, "/meetings?per_page=50");
+  // A caller that already knows the room skips both the lookup and the create —
+  // that is how seats two to five join without spending CPU on a list parse.
+  if (explicitId) return { meetingId: explicitId };
+  const listRes = await rtk(env, "/meetings?per_page=10");
   if (listRes.ok) {
     const body = await listRes.json().catch(() => null);
     // The API can answer 200 with an error-shaped body, so never assume an array.
@@ -166,6 +170,11 @@ async function resolvePreset(env: Env, role: "host" | "member"): Promise<string 
     role === "member"
       ? env.RTK_PRESET_MEMBER || "consult-member"
       : env.RTK_PRESET || "consult";
+  // Fast path: a configured name needs no API call at all. A Pages Function on the
+  // free plan has ~10ms of CPU, and only the first request pays for the presets
+  // lookup — past that, one fetch plus a JSON parse is enough to blow the budget.
+  const explicitlySet = role === "member" ? env.RTK_PRESET_MEMBER : env.RTK_PRESET;
+  if (explicitlySet) return wanted;
   const res = await rtk(env, "/presets");
   if (!res.ok) return wanted; // let the API reject an unknown name with its own message
   const maybe = unwrap<unknown>(await res.json().catch(() => null));
@@ -214,7 +223,14 @@ const handlePost = async ({ request, env }: { request: Request; env: Env }) => {
     return json({ ok: false, error: "RTK_API_TOKEN or RTK_APP_ID not configured" }, 500);
   }
 
-  let body: { name?: string; passcode?: string; channel?: string; customId?: string; role?: string };
+  let body: {
+    name?: string;
+    passcode?: string;
+    channel?: string;
+    customId?: string;
+    role?: string;
+    meetingId?: string;
+  };
   try {
     body = await request.json();
   } catch {
@@ -244,7 +260,8 @@ const handlePost = async ({ request, env }: { request: Request; env: Env }) => {
   }
 
   const title = `${env.RTK_TITLE_PREFIX || "V2AU consult"} ${channel}`;
-  const meeting = await findOrCreateMeeting(env, json, title);
+  const known = String(body.meetingId || "").trim().slice(0, 64);
+  const meeting = await findOrCreateMeeting(env, json, title, known || undefined);
   if ("error" in meeting) return meeting.error;
 
   // One host, the rest clients: a five-seat consult must not hand every client the
