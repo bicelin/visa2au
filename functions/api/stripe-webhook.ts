@@ -90,6 +90,11 @@ const money = (cents: number | null | undefined, currency: string | null | undef
   return `${cur} ${(cents / 100).toLocaleString("en-AU", { minimumFractionDigits: 2 })}`;
 };
 
+// Names and emails come from Stripe, i.e. from whoever filled the checkout form.
+function escapeHtml(s: string): string {
+  return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] as string));
+}
+
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const json = (obj: unknown, status = 200) =>
     new Response(JSON.stringify(obj), { status, headers: { "Content-Type": "application/json" } });
@@ -128,6 +133,11 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   if (!handled.includes(type)) return json({ ok: true, ignored: type });
 
   const paid = s.payment_status === "paid";
+  // Two checkouts feed this endpoint: /pay (an invoice) and /donate (a gift of any
+  // amount). A donation carries kind=donation and no invoice number, so without this
+  // branch the office was told "Payment received — (no invoice number)" for every gift.
+  const isDonation = s.metadata?.kind === "donation";
+  const noun = isDonation ? "Donation" : "Payment";
   const invoice = s.metadata?.invoice || "(no invoice number)";
   const payer = s.customer_details?.name || s.metadata?.payer_name || "(no name)";
   const email = s.customer_details?.email || "(no email)";
@@ -143,6 +153,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       event: type,
       event_id: event.id,
       session_id: s.id,
+      kind: isDonation ? "donation" : "invoice",
       paid,
       invoice,
       payer,
@@ -161,20 +172,38 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     const from = env.FROM_EMAIL || "website@visa2.au";
     // Comma-separated so the office can notify several people (e.g. accounts + the agent).
     const recipients = env.NOTIFY_TO.split(",").map((t) => t.trim()).filter(Boolean);
-    const subject = paid
-      ? `✅ Payment received — ${invoice} — ${total}`
-      : `⚠️ Payment not completed — ${invoice}`;
+    const subject = isDonation
+      ? paid
+        ? `💚 Donation received — ${total} — ${payer}`
+        : `⚠️ Donation not completed — ${total}`
+      : paid
+        ? `✅ Payment received — ${invoice} — ${total}`
+        : `⚠️ Payment not completed — ${invoice}`;
+    const rows: [string, string][] = isDonation
+      ? [
+          ["Type", "Donation"],
+          ["Donor", payer],
+          ["Email", email],
+          ["Amount", total],
+        ]
+      : [
+          ["Type", "Invoice payment"],
+          ["Invoice", invoice],
+          ["Payer", payer],
+          ["Email", email],
+          ["Invoice amount", invoiced],
+          ["Card fee", fee],
+          ["Total charged", total],
+        ];
+    if (type === "checkout.session.async_payment_succeeded") {
+      rows.push(["Note", "Delayed payment method settled after checkout"]);
+    }
     const html = `
-      <h2>${paid ? "Payment received" : "Payment not completed"}</h2>
+      <h2>${paid ? `${noun} received` : `${noun} not completed`}</h2>
       <table cellpadding="6" style="border-collapse:collapse;font-family:system-ui,sans-serif;font-size:14px">
-        <tr><td><b>Invoice</b></td><td>${invoice}</td></tr>
-        <tr><td><b>Payer</b></td><td>${payer}</td></tr>
-        <tr><td><b>Email</b></td><td>${email}</td></tr>
-        <tr><td><b>Invoice amount</b></td><td>${invoiced}</td></tr>
-        <tr><td><b>Card fee</b></td><td>${fee}</td></tr>
-        <tr><td><b>Total charged</b></td><td>${total}</td></tr>
-        <tr><td><b>Stripe session</b></td><td><code>${s.id || ""}</code></td></tr>
-        <tr><td><b>Status</b></td><td>${s.payment_status || ""}</td></tr>
+        ${rows.map(([k, v]) => `<tr><td><b>${k}</b></td><td>${escapeHtml(v)}</td></tr>`).join("")}
+        <tr><td><b>Stripe session</b></td><td><code>${escapeHtml(s.id || "")}</code></td></tr>
+        <tr><td><b>Status</b></td><td>${escapeHtml(s.payment_status || "")}</td></tr>
       </table>
       <p style="font-family:system-ui,sans-serif;font-size:13px;color:#555">
         Reconcile in the Stripe dashboard. This notification is generated from a verified

@@ -47,7 +47,17 @@ they are done.
 |------|-------|--------|
 | ~~Live secret key~~ | Cloudflare Pages → `astra-staging` → **Production** → `STRIPE_SECRET_KEY` | ✅ **DONE** — live `sk_live_…` key bound (production only; preview retains the test key). |
 | ~~Donation Payment Link~~ | [app/donate.html](app/donate.html) + ru/fr | ✅ **DONE — differently.** A Payment Link cannot receive an amount through its URL, so the page's \$25–\$250 / custom picker was decorative and donors could be charged the wrong sum. Replaced with `POST /api/donate` (Checkout Session, A\$1–A\$10,000, no card surcharge). No dashboard object to maintain. |
-| **`STRIPE_WEBHOOK_SECRET`** | Stripe → Developers → Webhooks → Add endpoint `https://visa2.au/api/stripe-webhook` | ⬜ **OUTSTANDING** — the only remaining step. Copy the `whsec_…` signing secret and set it in Pages production. Until then the webhook returns 500 so Stripe retries rather than dropping payments. |
+| **`STRIPE_WEBHOOK_SECRET`** | Stripe → Developers → Webhooks → Add endpoint `https://visa2.au/api/stripe-webhook`, events `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed` | ⬜ **OUTSTANDING** — the only remaining step. Copy the `whsec_…` signing secret and set it in Pages production. Until then the webhook returns 500 so Stripe retries rather than dropping payments. |
+
+**What the webhook emails once the secret is set.** One message per completed or failed
+checkout, to every address in `NOTIFY_TO`: a paid invoice reads
+`✅ Payment received — INV-1042 — AUD 470.96` with invoice amount, card fee and total
+charged; a donation reads `💚 Donation received — AUD 250.00 — <donor>` with no invoice or
+fee rows, because `/donate` sets `metadata.kind=donation` and carries no invoice number. A
+failed payment is still reported (`⚠️ … not completed`) and a delayed method that settles
+later is marked as such. Verified against the real handler with signed synthetic events in
+[scripts/tests/stripe-webhook.test.mts](scripts/tests/stripe-webhook.test.mts) — 21 checks,
+including tampered and stale signatures rejected with 400 and a missing secret returning 500.
 | Statement descriptor | Stripe Dashboard → Settings → Public business information | ⬜ Set to `VISA2AU` (5–22 Latin chars, must reflect the DBA). Reduces chargebacks. |
 | Standard secret key hygiene | Stripe Dashboard → API keys | ⬜ The pre-existing account-wide `sk_live_` key is unused (no last-used). Expire it once you have confirmed no other tool (Odoo, Zapier, legacy plugin) holds it. Prefer a restricted key over an account-wide one for the site. |
 
