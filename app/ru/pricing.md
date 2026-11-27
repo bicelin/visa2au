@@ -8,6 +8,16 @@
 
 Никаких сюрпризов. Фиксированные профессиональные гонорары называются до начала работы, государственные сборы указаны отдельно, а комиссия Stripe за обработку платежа на /pay раскрывается до оплаты.
 
+answer-first:start
+
+## What a partner visa costs, in one line
+
+**820/801 (onshore)** or **309/100 (offshore)**: government charge from **$11,710** plus our professional fee **$5,500** — from **$17,210** in total before third-party costs.
+
+A second applicant 18 or over adds a government charge from **$5,855**; a child under 18, from **$2,930**. Health examinations, police certificates, translations and skills assessments are paid to third parties at cost and itemised in your quote.
+
+answer-first:end
+
 ## Из чего складывается стоимость визы: государственный сбор и наш гонорар
 
 Two numbers make up the cost of a visa: the **government charge** set by the Department of Home Affairs, and our **professional fee** for preparing and managing the application. Third-party costs — health examinations, police checks, translations and skills assessments — are separate and itemised in your quote.
