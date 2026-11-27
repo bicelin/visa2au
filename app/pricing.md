@@ -2,6 +2,12 @@
 
 > Transparent fixed professional fees quoted before engagement; government charges itemised separately.
 
+## What a partner visa costs, in one line
+
+**820/801 (onshore)** or **309/100 (offshore)**: government charge from **$11,710** plus our professional fee **$5,500** — from **$17,210** in total before third-party costs.
+
+A second applicant 18 or over adds a government charge from **$5,855**; a child under 18, from **$2,930**. Health examinations, police certificates, translations and skills assessments are paid to third parties at cost and itemised in your quote.
+
 ## Consultations
 - Online Consultation (1 hour): $330 AUD — Professional visa assessment and advice — pro rata fees may apply
 - DAMA Consultation (1 hour): $330 AUD — Designated Area Migration Agreement advice
