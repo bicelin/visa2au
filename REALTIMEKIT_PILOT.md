@@ -33,24 +33,34 @@ A 1080p consult therefore costs **~4.5× less** here than the Full HD tier on Ag
 
 ## Blocker (verified, not assumed)
 
+**The app already exists** — nothing to create:
+
 ```
-~/.hermes/secrets/cloudflare_api_token   → valid, status=active
-GET /accounts/…/realtime/kit/apps         → 10000 "Authentication error"
+App ID   b6cf201d-535c-46dc-a1ee-ae371a08af81
+Created  ~1 year ago (Realtime → RealtimeKit in the dashboard)
+Account  cf-e083bfeb02246c4cdc38abb254675f56
 ```
 
-The token is real but carries **no Realtime permission**. Wrangler's own OAuth token is
-rejected by `api.cloudflare.com` outright (`Authentication error`).
+The token on disk is real but carries no Realtime permission, and the label the
+docs tell you to look for **does not exist in the picker**:
 
-Needed: an API token with **Realtime → Realtime Admin** (Account → API Tokens → Create
-Token → Custom token). Enter it only in the Cloudflare dashboard or via
-`wrangler pages secret put RTK_API_TOKEN` from a 0600 file — never in the repo.
+| Docs say | Picker actually says |
+|---|---|
+| `Realtime` → `Realtime Admin` | **`Cloudflare Realtime`** → Read / **Edit** (account scope) |
+| — | permission-group API names: `Realtime Read` / `Realtime Write` |
+
+So search the picker for **`realtime`** — not "realtime admin" — and pick
+**Cloudflare Realtime → Edit**.
+
 
 ## Setup, in order
 
 ```bash
 # 1. secrets (astra-staging serves visa2.au)
-npx wrangler pages secret put RTK_API_TOKEN   --project-name astra-staging < ~/.hermes/secrets/rtk_api_token
-npx wrangler pages secret put RTK_APP_ID      --project-name astra-staging < /tmp/rtk_app_id
+#    APP_ID is not a secret — it is the existing app above.
+printf 'b6cf201d-535c-46dc-a1ee-ae371a08af81' > /tmp/rtk_app_id && chmod 600 /tmp/rtk_app_id
+npx wrangler pages secret put RTK_APP_ID       --project-name astra-staging < /tmp/rtk_app_id
+npx wrangler pages secret put RTK_API_TOKEN    --project-name astra-staging < ~/.hermes/secrets/rtk_api_token
 
 # 2. R2 keys — reuse the pair that already backs /api/agora-recording,
 #    so the pilot needs no new credentials (RTK_R2_* fall back to AGORA_R2_*).
