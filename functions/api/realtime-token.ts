@@ -6,7 +6,8 @@
 // never values) so a deployment can be verified before a real call is booked.
 //
 // Env: VIDEO_LOBBY_PASSCODE (shared with /api/video-join), RTK_API_TOKEN,
-//      RTK_APP_ID, RTK_PRESET (default "default"),
+//      RTK_APP_ID, RTK_PRESET (host, default "consult"),
+//      RTK_PRESET_MEMBER (client, default "consult-member"),
 //      RTK_TRANSCRIPTION_LANGUAGE (default "multi"), RTK_TITLE_PREFIX
 //      (default "V2AU consult"), and the R2 keys — RTK_R2_* fall back to the
 //      AGORA_R2_* pair that already backs /api/agora-recording, so a pilot needs
@@ -20,7 +21,8 @@ interface Env {
   VIDEO_LOBBY_PASSCODE?: string;
   RTK_API_TOKEN?: string;
   RTK_APP_ID?: string;
-  RTK_PRESET?: string;
+  RTK_PRESET?: string;        // host role — default "consult"
+  RTK_PRESET_MEMBER?: string; // client role — default "consult-member"
   RTK_TRANSCRIPTION_LANGUAGE?: string;
   RTK_TITLE_PREFIX?: string;
   RTK_R2_ACCESS_KEY_ID?: string;
@@ -151,15 +153,23 @@ async function findOrCreateMeeting(
   return { meetingId: created.id };
 }
 
-// Dashboard-created apps ship with default presets (the quickstart says to skip
-// preset creation), but their NAMES are not documented — so ask the API instead
-// of guessing "default", which is not a preset name on a dashboard app.
-async function resolvePreset(env: Env): Promise<string | undefined> {
-  if (env.RTK_PRESET) return env.RTK_PRESET;
+// Dashboard-created apps ship with default presets whose names are not
+// documented — group_call_host is 640x480 (vga), which is why this app carries its
+// own `consult` (720p, simulcast on, 5 tiles) and `consult-member` (same media,
+// no host controls) presets. Roles are explicit: a five-seat consult is one host
+// plus clients, not five hosts.
+async function resolvePreset(env: Env, role: "host" | "member"): Promise<string | undefined> {
+  const wanted =
+    role === "member"
+      ? env.RTK_PRESET_MEMBER || "consult-member"
+      : env.RTK_PRESET || "consult";
   const res = await rtk(env, "/presets");
-  if (!res.ok) return undefined;
-  const rows = unwrap<Array<{ name?: string }>>(await res.json().catch(() => null)) ?? [];
-  return rows.map((r) => r?.name).find((n): n is string => Boolean(n));
+  if (!res.ok) return wanted; // let the API reject an unknown name with its own message
+  const names = (unwrap<Array<{ name?: string }>>(await res.json().catch(() => null)) ?? [])
+    .map((r) => r?.name)
+    .filter((n): n is string => Boolean(n));
+  if (names.includes(wanted)) return wanted;
+  return names[0]; // last resort: whatever exists, so a rename cannot 500 the call
 }
 
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
@@ -199,7 +209,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return json({ ok: false, error: "RTK_API_TOKEN or RTK_APP_ID not configured" }, 500);
   }
 
-  let body: { name?: string; passcode?: string; channel?: string; customId?: string };
+  let body: { name?: string; passcode?: string; channel?: string; customId?: string; role?: string };
   try {
     body = await request.json();
   } catch {
@@ -219,10 +229,14 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const meeting = await findOrCreateMeeting(env, json, title);
   if ("error" in meeting) return meeting.error;
 
-  const preset = await resolvePreset(env);
+  // One host, the rest clients: a five-seat consult must not hand every client the
+  // host preset, which can kick and mute.
+  const role: "host" | "member" =
+    String(body.role || "host").trim().toLowerCase() === "member" ? "member" : "host";
+  const preset = await resolvePreset(env, role);
   if (!preset) {
     return json(
-      { ok: false, error: "No preset on this app and RTK_PRESET is unset" },
+      { ok: false, error: "No preset on this app and RTK_PRESET is unset", role },
       500,
     );
   }
@@ -259,6 +273,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     ok: true,
     meetingId: meeting.meetingId,
     participantId: participant.id,
+    role,
     preset,
     authToken,
     recording: Boolean(storageConfig(env, "realtime")),

@@ -31,6 +31,37 @@ the one quality limit to check before choosing this over Daily.
 flat, while Agora charges by resolution — HD $3.99 and Full HD $8.99 per 1,000 minutes.
 A 1080p consult therefore costs **~4.5× less** here than the Full HD tier on Agora.
 
+## Five seats changes the profile
+
+A consult is not always two people: it can be the agent, the client, a partner or a
+parent, and an interpreter — **up to five**. The docs' own table then says:
+
+| Session | Resolution | Simulcast | FPS |
+|---|---|---|---|
+| 1:1 | 720p–1080p | **off** | 24–30 |
+| 3×3 group (up to 9) | **480p** | **on** | 24 |
+| pinned speaker + gallery | 720p–1080p speaker, 240p others | **on** | 24 |
+
+So the 1080p/simulcast-off profile above is a **two-person** answer. What the app now
+carries:
+
+| Preset | Video | Screenshare | Tiles |
+|---|---|---|---|
+| `consult` (host) | **720p @30, simulcast on** | **1080p @15** | 5 desktop / 5 mobile |
+| `consult-member` (client) | same | same | same, **cannot kick** |
+
+Why 720p rather than 1080p with five: at 1080p each sender uploads 3.5–14 Mbps and
+every receiver pulls **four** such streams — up to 56 Mbps, which no Russian mobile
+line survives. Simulcast sends 720/360/180p layers and the SFU gives each receiver the
+one its line can carry, so the weak link degrades **itself** instead of the room.
+Documents stay readable because **screenshare is 1080p** — that is where a passport
+page is read, not the camera tile.
+
+**Cost at five people, one hour:** 300 participant-minutes per consult, so the 10,000
+free minutes cover **33 consults a month**; the composite recording is still 60 export
+minutes per call, so ~1.6 recorded hours a month are free.
+
+
 ## Blocker (verified, not assumed)
 
 **The app already exists** — nothing to create:
