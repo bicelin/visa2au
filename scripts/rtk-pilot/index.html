@@ -44,7 +44,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@cloudflare/realtimekit@latest/dist/browser.js"></script>
 
     <script>
-      const authToken = new URL(window.location.href).searchParams.get("authToken");
+      // Accept ?authToken= (as the quickstart does) or #authToken= — the hash
+      // never leaves the browser, so tokens stay out of any server log.
+      const q = new URL(window.location.href).searchParams.get("authToken");
+      const h = new URLSearchParams(window.location.hash.replace(/^#/, "")).get("authToken");
+      const authToken = q || h;
 
       if (!authToken) {
         document.getElementById("missing").hidden = false;

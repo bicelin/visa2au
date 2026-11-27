@@ -16,6 +16,7 @@ interface Env {
   RTK_API_TOKEN?: string;
   RTK_APP_ID?: string;
   RTK_AGENT_CODES?: string;
+  RTK_PILOT_TOKEN?: string; // same server-to-server token as /api/realtime-token
   VIDEO_LOBBY_PASSCODE?: string;
   RTK_R2_ACCESS_KEY_ID?: string;
   RTK_R2_SECRET_ACCESS_KEY?: string;
@@ -104,13 +105,21 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
     });
   }
 
-  const codes = (env.RTK_AGENT_CODES || env.VIDEO_LOBBY_PASSCODE || "")
-    .split(",")
-    .map((c) => c.trim())
-    .filter(Boolean);
-  const given = request.headers.get("x-agent-passcode") || "";
-  let allowed = false;
-  for (const c of codes) if (await safeEqual(given, c)) allowed = true;
+  // Either a booked staff code, or the pilot token that /api/realtime-token already
+  // uses — a server-side check of a recording should not need the client passcode.
+  const pilot = request.headers.get("x-pilot-token") || "";
+  let allowed =
+    Boolean(env.RTK_PILOT_TOKEN) &&
+    pilot.length > 0 &&
+    (await safeEqual(pilot, env.RTK_PILOT_TOKEN as string));
+  if (!allowed) {
+    const codes = (env.RTK_AGENT_CODES || env.VIDEO_LOBBY_PASSCODE || "")
+      .split(",")
+      .map((c) => c.trim())
+      .filter(Boolean);
+    const given = request.headers.get("x-agent-passcode") || "";
+    for (const c of codes) if (await safeEqual(given, c)) allowed = true;
+  }
   if (!allowed) return json({ ok: false, error: "Staff passcode required" }, 401);
 
   const meetingId = String(url.searchParams.get("meetingId") || "").trim();
