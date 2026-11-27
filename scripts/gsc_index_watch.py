@@ -25,6 +25,7 @@ Search Console access (sc-domain:visa2.au).
 from __future__ import annotations
 
 import argparse
+import base64
 import csv
 import datetime as dt
 import json
@@ -45,6 +46,19 @@ UA = (
 STATE = pathlib.Path.home() / ".hermes/cache/scratch/gsc_index_watch"
 SECRET = pathlib.Path.home() / ".hermes/secrets/gsc-service-account.json"
 INDEXED = "Submitted and indexed"
+
+# AI citation probe: Google's AI Overview answers "partner visa cost australia"
+# with our figure ($11,710) but cites Home Affairs and competitors. These four
+# queries are the ones that decision actually draws on; one DataForSEO SERP call
+# each ($0.002) reports whether the AI Overview exists and whether it cites us.
+DFS_SECRET = pathlib.Path.home() / ".hermes/secrets/dataforseo.json"
+AI_KEYWORDS = (
+    "partner visa cost australia",
+    "482 visa requirements",
+    "partner visa processing time",
+    "migration agent north sydney",
+)
+AI_STATE = STATE / "ai_citations.csv"
 
 
 def sitemap_urls() -> list[str]:
@@ -151,11 +165,61 @@ def save(rows: list[dict]) -> None:
             w.writerow({**row, "checked": stamp})
 
 
+def ai_citation_report() -> None:
+    """Does Google's AI Overview for the money queries cite visa2.au?"""
+    if not DFS_SECRET.exists():
+        print("  AI Overview citations: skipped (no dataforseo.json)")
+        return
+    creds = json.loads(DFS_SECRET.read_text())
+    auth = "Basic " + base64.b64encode(f"{creds['login']}:{creds['password']}".encode()).decode()
+    print(f"  AI Overview citations ({len(AI_KEYWORDS)} queries, DataForSEO):")
+    rows, spend = [], 0.0
+    for kw in AI_KEYWORDS:
+        body = json.dumps([{"keyword": kw, "location_code": 2036, "language_code": "en",
+                            "device": "desktop", "os": "windows", "depth": 20}]).encode()
+        req = urllib.request.Request(
+            "https://api.dataforseo.com/v3/serp/google/organic/live/advanced",
+            data=body, headers={"Authorization": auth, "Content-Type": "application/json"})
+        try:
+            r = json.load(urllib.request.urlopen(req, timeout=180))
+        except Exception as exc:
+            print(f"    {kw}: request failed ({exc})")
+            continue
+        spend += r.get("cost") or 0
+        res = (r["tasks"][0].get("result") or [{}])[0]
+        items = res.get("items") or []
+        aio = next((i for i in items if i.get("type") == "ai_overview"), None)
+        refs = [x.get("url") for x in (aio.get("references") or [])] if aio else []
+        cites = any("visa2.au" in (u or "") for u in refs)
+        organic = [i for i in items if i.get("type") == "organic"]
+        ours = min((i["rank_absolute"] for i in organic
+                    if "visa2.au" in (i.get("url") or "")), default=None)
+        rows.append({"keyword": kw, "checked": dt.date.today().isoformat(),
+                     "ai_overview": "yes" if aio else "no", "references": len(refs),
+                     "cites_us": "yes" if cites else "no", "our_rank": ours or "",
+                     "top_reference": refs[0] if refs else ""})
+        print(f"    AIO {'yes' if aio else 'no '} · {len(refs):2d} refs · "
+              f"{'cites us' if cites else 'not cited':10} · "
+              f"{('rank ' + str(ours)) if ours else 'not top 20':11} · {kw}")
+    if rows:
+        AI_STATE.parent.mkdir(parents=True, exist_ok=True)
+        new = not AI_STATE.exists()
+        with AI_STATE.open("a", newline="", encoding="utf-8") as fh:
+            w = csv.DictWriter(fh, fieldnames=list(rows[0]))
+            if new:
+                w.writeheader()
+            w.writerows(rows)
+        print(f"    spend ${spend:.4f} · appended to {AI_STATE}")
+    else:
+        print(f"    spend ${spend:.4f} · nothing recorded")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=0, help="inspect only the first N URLs")
     ap.add_argument("--no-save", action="store_true", help="do not update state files")
     ap.add_argument("--pages-days", type=int, default=28, help="window for the search-performance block")
+    ap.add_argument("--no-ai", action="store_true", help="skip the DataForSEO AI Overview citation probe")
     args = ap.parse_args()
 
     urls = sitemap_urls()
@@ -202,6 +266,11 @@ def main() -> int:
         pages_report(tok, days=args.pages_days)
     except Exception as exc:  # analytics permission is separate from inspection
         print(f"  search performance unavailable: {exc}")
+    if not args.no_ai:
+        try:
+            ai_citation_report()
+        except Exception as exc:
+            print(f"  AI citations unavailable: {exc}")
     return 0
 
 
