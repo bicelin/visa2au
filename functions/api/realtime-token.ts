@@ -109,9 +109,11 @@ async function findOrCreateMeeting(
   const listRes = await rtk(env, "/meetings?per_page=50");
   if (listRes.ok) {
     const body = await listRes.json().catch(() => null);
-    const meetings = unwrap<Meeting[]>(body) ?? [];
+    // The API can answer 200 with an error-shaped body, so never assume an array.
+    const maybe = unwrap<unknown>(body);
+    const meetings = Array.isArray(maybe) ? (maybe as Meeting[]) : [];
     const live = meetings.find(
-      (m) => m.title === title && String(m.status || "").toUpperCase() === "ACTIVE",
+      (m) => m && m.title === title && String(m.status || "").toUpperCase() === "ACTIVE",
     );
     if (live?.id) return { meetingId: live.id };
   }
@@ -166,8 +168,9 @@ async function resolvePreset(env: Env, role: "host" | "member"): Promise<string 
       : env.RTK_PRESET || "consult";
   const res = await rtk(env, "/presets");
   if (!res.ok) return wanted; // let the API reject an unknown name with its own message
-  const names = (unwrap<Array<{ name?: string }>>(await res.json().catch(() => null)) ?? [])
-    .map((r) => r?.name)
+  const maybe = unwrap<unknown>(await res.json().catch(() => null));
+  const names = (Array.isArray(maybe) ? maybe : [])
+    .map((r) => (r as { name?: string })?.name)
     .filter((n): n is string => Boolean(n));
   if (names.includes(wanted)) return wanted;
   return names[0]; // last resort: whatever exists, so a rename cannot 500 the call
@@ -203,7 +206,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   });
 };
 
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
+const handlePost = async ({ request, env }: { request: Request; env: Env }) => {
   const json = (obj: unknown, status = 200) =>
     new Response(JSON.stringify(obj), { status, headers: { "Content-Type": "application/json" } });
 
@@ -293,4 +296,21 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     authToken,
     recording: Boolean(storageConfig(env, "realtime")),
   });
+};
+
+// A thrown exception inside a Pages Function surfaces as an opaque 502 from the
+// edge, which is useless in a pilot. Turn it into JSON the caller can read.
+export const onRequestPost: PagesFunction<Env> = async (context) => {
+  try {
+    return await handlePost(context as unknown as { request: Request; env: Env });
+  } catch (err) {
+    return new Response(
+      JSON.stringify({
+        ok: false,
+        error: "Unhandled error in /api/realtime-token",
+        detail: String(err && (err as Error).message ? (err as Error).message : err).slice(0, 300),
+      }),
+      { status: 500, headers: { "Content-Type": "application/json" } },
+    );
+  }
 };
