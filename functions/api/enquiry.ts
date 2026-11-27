@@ -78,8 +78,12 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   if (!name || !email || !message) return json({ ok: false, error: "Name, email and message are required" }, 400);
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ ok: false, error: "Invalid email" }, 400);
 
-  // Turnstile verify (if a response token was submitted)
-  if (token) {
+  // Turnstile is REQUIRED, not "verified if a token happens to arrive": a bot
+  // that simply omits the field used to pass straight through and the endpoint
+  // would send its email. Probed on 2026-11-27: a POST with no token returned
+  // 200 and delivered a message, so this is the fix.
+  if (!token) return json({ ok: false, error: "Bot check missing — please complete the check and retry" }, 403);
+  {
     const vr = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
