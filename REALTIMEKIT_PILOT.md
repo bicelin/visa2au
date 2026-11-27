@@ -122,10 +122,22 @@ curl -s 'https://visa2.au/api/realtime-token?check=1'
    # each browser:  http://localhost:8788/?authToken=<that person's authToken>
    ```
 
+   Mint one token per seat — `"role":"host"` for the agent, `"role":"member"` for
+   everyone else, so only the agent can mute or remove anyone:
+
+   ```bash
+   curl -s -X POST https://visa2.au/api/realtime-token \
+     -H 'content-type: application/json' \
+     -d '{"name":"Natasha","passcode":"<lobby passcode>","role":"member"}'
+   ```
+
+   Five seats is the ceiling to test: agent + client + partner/parent + interpreter.
    `scripts/rtk-pilot/index.html` is the quickstart's own Web Components snippet
    (jsdelivr CDN, pinned only by `@latest` — pin it before production).
 
-3. Talk **in Russian for 3–5 minutes**, share one document on screen.
+3. Talk **in Russian for 3–5 minutes**, share one document on screen — and
+   deliberately have one participant on a weak connection (mobile data, not Wi-Fi)
+   to see simulcast do its job rather than the room stalling.
 4. `GET /api/realtime-recording?action=status&meetingId=…` with the
    `x-agent-passcode` header, then `action=list` for the download URL.
 5. Confirm the file is in **our** R2 under `realtime/`, not only in RealtimeKit's bucket.
