@@ -41,6 +41,11 @@ def main() -> int:
     for root, _, fs in os.walk(APP):
         for f in fs:
             if f.endswith(".html"):
+                # Search-engine ownership verification files (yandex_<code>.html,
+                # google<hash>.html …) are tokens, not pages: they have no head,
+                # no canonical and no hreflang, and must not be checked as content.
+                if re.match(r"^(yandex_|google)[0-9a-z]+\.html$", f):
+                    continue
                 files.append(os.path.join(root, f))
 
     pages = {}  # rel-path -> (canonical, {lang: hreflang_url})
@@ -62,6 +67,11 @@ def main() -> int:
                 # canonicalising a 404 tells Google a page exists that does not.
                 if rel not in noindex_pages:
                     errors.append(f"{rel}: error page must be noindex")
+                continue
+            if rel in noindex_pages:
+                # Verification and utility files (yandex_<code>.html, thank-you pages)
+                # are noindex on purpose and must not declare a canonical: a canonical
+                # would ask Google to index a page we just told it to drop.
                 continue
             errors.append(f"{rel}: missing canonical")
             continue
