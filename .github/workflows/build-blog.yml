@@ -17,6 +17,7 @@ on:
       - "scripts/update_csp_hashes.py"
       - "scripts/build_sitemap.py"
       - "scripts/check_seo_invariants.py"
+      - "scripts/sync_pricing_answer.py"
       - "scripts/build_locale_pages.py"
       - "scripts/localize_homepage_cards.py"
       - "scripts/fix_locale_links.py"
@@ -65,6 +66,11 @@ jobs:
       # from scripts/fees_data.py so the two can never show different numbers.
       - name: Sync homepage fees to pricing
         run: python3 scripts/sync_home_fees.py
+
+      # /pricing carries the one-sentence total ("from $17,210") that the AI
+      # Overview was missing a citation for; render it from fees_data.py too.
+      - name: Render the answer-first cost block on /pricing
+        run: python3 scripts/sync_pricing_answer.py
       - name: Align SEO meta (canonical/hreflang/og/perf)
         run: python3 scripts/align_seo_meta.py
 
