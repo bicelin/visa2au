@@ -45,6 +45,7 @@
 /ru/shop/*                /ru/pricing 301
 
 # legacy RU equivalents of the EN rules above
+/fr                       /fr/        301
 /ru                       /ru/        301
 /ru/fees                  /ru/pricing 301
 /ru/about-us              /ru/team    301
