@@ -120,7 +120,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
     const qs = meetingId ? `?meeting_id=${encodeURIComponent(meetingId)}` : "";
     const res = await rtk(env, `/recordings${qs}`);
     if (!res.ok) {
-      return json({ ok: false, error: "Could not list recordings", detail: (await res.text()).slice(0, 300) }, 502);
+      return json({ ok: false, error: "Could not list recordings", detail: (await res.text()).slice(0, 300) }, 500);
     }
     const rows = unwrap<Array<Record<string, unknown>>>(await res.json().catch(() => null)) ?? [];
     return json({
@@ -144,7 +144,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
     const res = await rtk(env, `/recordings/active-recording/${meetingId}`);
     if (res.status === 404) return json({ ok: true, recording: null, state: "not recording" });
     if (!res.ok) {
-      return json({ ok: false, error: "Could not read active recording", detail: (await res.text()).slice(0, 300) }, 502);
+      return json({ ok: false, error: "Could not read active recording", detail: (await res.text()).slice(0, 300) }, 500);
     }
     const r = unwrap<Record<string, unknown>>(await res.json().catch(() => null));
     return json({ ok: true, recording: r ?? null });
@@ -157,7 +157,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
       body: JSON.stringify({ meeting_id: meetingId, storage_config: storage }),
     });
     if (!res.ok) {
-      return json({ ok: false, error: "Could not start recording", detail: (await res.text()).slice(0, 300) }, 502);
+      return json({ ok: false, error: "Could not start recording", detail: (await res.text()).slice(0, 300) }, 500);
     }
     return json({ ok: true, started: unwrap(await res.json().catch(() => null)), landsInOurBucket: Boolean(storage) });
   }
@@ -169,7 +169,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
       body: JSON.stringify({ action }),
     });
     if (!res.ok) {
-      return json({ ok: false, error: `Could not ${action}`, detail: (await res.text()).slice(0, 300) }, 502);
+      return json({ ok: false, error: `Could not ${action}`, detail: (await res.text()).slice(0, 300) }, 500);
     }
     return json({ ok: true, action, result: unwrap(await res.json().catch(() => null)) });
   }

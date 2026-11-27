@@ -19,3 +19,7 @@ psilogs/
 # macOS
 .DS_Store
 **/.DS_Store
+
+# local secrets for `wrangler pages dev` — never commit
+.dev.vars
+.dev.vars.*

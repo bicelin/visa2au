@@ -122,6 +122,13 @@ async function findOrCreateMeeting(
     if (live?.id) return { meetingId: live.id };
   }
 
+  // `language` is shared by both transcribers: `multi` is valid for real-time
+  // Nova-3 but post-meeting Whisper rejects it, which fails the whole meeting
+  // create. Omit it and Whisper auto-detects per segment — the right default for
+  // a Russian/English consult. Set RTK_TRANSCRIPTION_LANGUAGE (e.g. `ru`) to force.
+  const lang = (env.RTK_TRANSCRIPTION_LANGUAGE || "").trim();
+  const aiConfig = lang ? { transcription: { language: lang } } : undefined;
+
   const path = env.RTK_R2_PATH || "realtime";
   const res = await rtk(env, "/meetings", {
     method: "POST",
@@ -132,9 +139,7 @@ async function findOrCreateMeeting(
       summarize_on_end: true,
       persist_chat: false,
       session_keep_alive_time_in_secs: 60,
-      ai_config: {
-        transcription: { language: env.RTK_TRANSCRIPTION_LANGUAGE || "multi" },
-      },
+      ai_config: aiConfig,
       recording_config: {
         storage_config: storageConfig(env, path),
         video_config: { codec: "H264", export_file: true, width: 1280, height: 720 },
@@ -144,10 +149,13 @@ async function findOrCreateMeeting(
   });
   if (!res.ok) {
     const detail = await res.text();
+    // 5xx bodies are replaced by the edge, so an upstream failure must answer 500
+    // with readable JSON or the caller sees only "error code: 502".
+    console.error("realtimekit meeting create failed", res.status, detail.slice(0, 300));
     return {
       error: json(
-        { ok: false, error: "Could not create meeting", detail: detail.slice(0, 300) },
-        502,
+        { ok: false, error: "Could not create meeting", upstream: res.status, detail: detail.slice(0, 300) },
+        500,
       ),
     };
   }
@@ -276,12 +284,18 @@ const handlePost = async ({ request, env }: { request: Request; env: Env }) => {
     );
   }
 
+  // custom_participant_id is REQUIRED (the docs present it as optional) — it is our
+  // own id for the person, so derive one from the name plus a short suffix.
+  const customId =
+    String(body.customId || "").trim().slice(0, 60) ||
+    `${name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40)}-${Date.now().toString(36)}`;
+
   const res = await rtk(env, `/meetings/${meeting.meetingId}/participants`, {
     method: "POST",
     body: JSON.stringify({
       name,
       preset_name: preset,
-      custom_participant_id: String(body.customId || "").slice(0, 80) || undefined,
+      custom_participant_id: customId,
       token: {
         expires_on: new Date(Date.now() + TOKEN_TTL_S * 1000).toISOString(),
       },
@@ -289,9 +303,16 @@ const handlePost = async ({ request, env }: { request: Request; env: Env }) => {
   });
   if (!res.ok) {
     const detail = await res.text();
+    console.error("realtimekit add participant failed", res.status, detail.slice(0, 300));
     return json(
-      { ok: false, error: "Could not add participant", preset, detail: detail.slice(0, 300) },
-      502,
+      {
+        ok: false,
+        error: "Could not add participant",
+        preset,
+        upstream: res.status,
+        detail: detail.slice(0, 300),
+      },
+      500,
     );
   }
   // The quickstart calls the returned field authToken; the API reference calls it
