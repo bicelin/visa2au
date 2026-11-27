@@ -56,6 +56,17 @@
         "ask Visa2AU about Australian visa pathways",
         "get an immigration consultation recommendation"
       ]
+    },
+    {
+      "identifier": "urn:air:visa2.au:mcp:ai-search",
+      "displayName": "Visa2AU AI Search (Cloudflare) — semantic search over site content",
+      "type": "application/json",
+      "url": "https://c9fb1b2b-fe94-4f69-ac72-96d3e351bf66.search.ai.cloudflare.com/mcp",
+      "representativeQueries": [
+        "what is the professional fee for a partner visa 820/801",
+        "which documents prove a genuine de facto relationship",
+        "how long does a bridging visa last after a refusal"
+      ]
     }
   ]
 }
