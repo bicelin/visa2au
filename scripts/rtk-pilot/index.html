@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>RealtimeKit pilot — default meeting UI</title>
+    <!--
+      Local pilot page, straight from the RealtimeKit quickstart (Web Components).
+      It is NOT part of the site: nothing links to it and the site's CSP does not
+      allow jsdelivr, so run it from this folder instead:
+
+        python3 -m http.server 8788 --directory scripts/rtk-pilot
+        # then, with a token from our own backend:
+        open "http://localhost:8788/?authToken=<authToken>"
+
+      Get <authToken> server-side (never in the browser):
+        curl -s -X POST https://visa2.au/api/realtime-token \
+          -H 'content-type: application/json' \
+          -d '{"name":"Sergey","passcode":"<lobby passcode>"}'
+      That returns meetingId, preset, authToken — recording on, transcripts on,
+      and the file destined for our own R2 bucket.
+    -->
+    <style>
+      html, body { margin: 0; height: 100%; background: #000; }
+      rtk-meeting { display: block; height: 100%; }
+      #missing { color: #fff; font: 16px/1.5 system-ui, sans-serif; padding: 24px; }
+    </style>
+  </head>
+  <body>
+    <div id="missing" hidden>
+      No authToken in the URL. Append <code>?authToken=&lt;token&gt;</code> — see the
+      comment at the top of this file.
+    </div>
+
+    <rtk-meeting id="my-meeting" show-setup-screen="true"></rtk-meeting>
+
+    <!-- UI Kit components + Core SDK, exactly as the quickstart loads them.
+         @latest is fine for a pilot; pin versions before production. -->
+    <script type="module">
+      import { defineCustomElements } from "https://cdn.jsdelivr.net/npm/@cloudflare/realtimekit-ui@latest/loader/index.es2017.js";
+      defineCustomElements();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@cloudflare/realtimekit@latest/dist/browser.js"></script>
+
+    <script>
+      const authToken = new URL(window.location.href).searchParams.get("authToken");
+
+      if (!authToken) {
+        document.getElementById("missing").hidden = false;
+        document.getElementById("my-meeting").hidden = true;
+      } else {
+        RealtimeKitClient.init({ authToken })
+          .then((meeting) => {
+            document.getElementById("my-meeting").meeting = meeting;
+            // Surface the meeting id so a screenshot proves which room was joined.
+            console.log("joined meeting", meeting.meta?.meetingId ?? "(unknown)");
+          })
+          .catch((err) => {
+            document.getElementById("missing").hidden = false;
+            document.getElementById("missing").textContent = "Could not join: " + err.message;
+            document.getElementById("my-meeting").hidden = true;
+          });
+      }
+    </script>
+  </body>
+</html>

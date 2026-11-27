@@ -73,16 +73,41 @@ curl -s 'https://visa2.au/api/realtime-token?check=1'
 ## The test itself
 
 1. `POST /api/realtime-token` with `{ name, passcode }` → returns `meetingId`,
-   `authToken`, `recording: true`. The meeting is created with
+   `preset`, `authToken`, `recording: true`. The meeting is created with
    `record_on_start`, `transcribe_on_end`, `summarize_on_end` and the R2
    `storage_config`.
-2. Two browsers join with that token — the official sample app is the fastest way
-   (`cloudflare/realtimekit-web-examples` → `html-examples/examples/default-meeting-ui`),
-   so the site's own CSP is untouched during the pilot.
+
+   ```bash
+   curl -s -X POST https://visa2.au/api/realtime-token \
+     -H 'content-type: application/json' \
+     -d '{"name":"Sergey","passcode":"<lobby passcode>"}'
+   ```
+
+2. Each person opens the pilot page **locally** — no npm, no build, and the site's
+   CSP is never touched, because the page is not served by the site:
+
+   ```bash
+   python3 -m http.server 8788 --directory scripts/rtk-pilot
+   # each browser:  http://localhost:8788/?authToken=<that person's authToken>
+   ```
+
+   `scripts/rtk-pilot/index.html` is the quickstart's own Web Components snippet
+   (jsdelivr CDN, pinned only by `@latest` — pin it before production).
+
 3. Talk **in Russian for 3–5 minutes**, share one document on screen.
 4. `GET /api/realtime-recording?action=status&meetingId=…` with the
    `x-agent-passcode` header, then `action=list` for the download URL.
 5. Confirm the file is in **our** R2 under `realtime/`, not only in RealtimeKit's bucket.
+
+## What the quickstart changed in the code
+
+| Quickstart point | What we did |
+|---|---|
+| "Skip this step if you created the app in the dashboard — default presets are already set up" | we no longer send `preset_name: "default"` (not a real preset name); the function lists presets and uses the first, or `RTK_PRESET` if set |
+| Response field is called `authToken` | accept `token` **or** `authToken` — the two docs pages disagree |
+| Web Components load from a CDN | that is the pilot page above, so no build step and no CSP work |
+| "Create different apps for staging and production" | the existing app `b6cf201d…` is a year old; create a **second app** before this leaves the pilot |
+
 
 ## Pass / fail
 

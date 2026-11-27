@@ -151,6 +151,17 @@ async function findOrCreateMeeting(
   return { meetingId: created.id };
 }
 
+// Dashboard-created apps ship with default presets (the quickstart says to skip
+// preset creation), but their NAMES are not documented — so ask the API instead
+// of guessing "default", which is not a preset name on a dashboard app.
+async function resolvePreset(env: Env): Promise<string | undefined> {
+  if (env.RTK_PRESET) return env.RTK_PRESET;
+  const res = await rtk(env, "/presets");
+  if (!res.ok) return undefined;
+  const rows = unwrap<Array<{ name?: string }>>(await res.json().catch(() => null)) ?? [];
+  return rows.map((r) => r?.name).find((n): n is string => Boolean(n));
+}
+
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   const json = (obj: unknown, status = 200) =>
     new Response(JSON.stringify(obj), { status, headers: { "Content-Type": "application/json" } });
@@ -208,11 +219,19 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const meeting = await findOrCreateMeeting(env, json, title);
   if ("error" in meeting) return meeting.error;
 
+  const preset = await resolvePreset(env);
+  if (!preset) {
+    return json(
+      { ok: false, error: "No preset on this app and RTK_PRESET is unset" },
+      500,
+    );
+  }
+
   const res = await rtk(env, `/meetings/${meeting.meetingId}/participants`, {
     method: "POST",
     body: JSON.stringify({
       name,
-      preset_name: env.RTK_PRESET || "default",
+      preset_name: preset,
       custom_participant_id: String(body.customId || "").slice(0, 80) || undefined,
       token: {
         expires_on: new Date(Date.now() + TOKEN_TTL_S * 1000).toISOString(),
@@ -222,20 +241,26 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   if (!res.ok) {
     const detail = await res.text();
     return json(
-      { ok: false, error: "Could not add participant", detail: detail.slice(0, 300) },
+      { ok: false, error: "Could not add participant", preset, detail: detail.slice(0, 300) },
       502,
     );
   }
-  const participant = unwrap<{ id?: string; token?: string }>(await res.json().catch(() => null));
-  if (!participant?.token) {
-    return json({ ok: false, error: "Participant added without a token" }, 502);
+  // The quickstart calls the returned field authToken; the API reference calls it
+  // token. Accept either so a docs change cannot break the join.
+  const participant = unwrap<{ id?: string; token?: string; authToken?: string }>(
+    await res.json().catch(() => null),
+  );
+  const authToken = participant?.token || participant?.authToken;
+  if (!authToken) {
+    return json({ ok: false, error: "Participant added without a token", preset }, 502);
   }
 
   return json({
     ok: true,
     meetingId: meeting.meetingId,
     participantId: participant.id,
-    authToken: participant.token,
+    preset,
+    authToken,
     recording: Boolean(storageConfig(env, "realtime")),
   });
 };
