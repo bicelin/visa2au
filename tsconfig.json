@@ -8,6 +8,8 @@
     "strict": true,
     "skipLibCheck": true,
     "noEmit": true,
+    // Explicit .ts specifiers so the same files run under node as well as esbuild.
+    "allowImportingTsExtensions": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   },

@@ -6,20 +6,32 @@
 // Why it exists: /pay?paid=1 is only a redirect — it proves nothing. Without a webhook
 // there is no durable record that money arrived, so a client could pay a A$30,000
 // invoice and the office would never be told if they closed the browser before the
-// redirect. This records every completed payment and emails the office.
+// redirect. This records every completed payment in R2 and emails the office.
+//
+// A webhook can also be missed (unset secret, failed delivery), so the record written
+// here is what /api/stripe-reconcile reads to find anything that slipped by.
 //
 // Signature: Stripe sends `Stripe-Signature: t=<unix>,v1=<hex>` where
 // v1 = HMAC-SHA256(secret, "<t>.<rawBody>"). This is the same scheme the existing
 // ElevenLabs webhook uses, so the helpers below match functions/api/voice-webhook.ts.
 //
-// Env: STRIPE_WEBHOOK_SECRET (required in production),
+// Env: STRIPE_WEBHOOK_SECRET (required in production), ENQUIRIES (R2),
 //      RESEND_API_KEY?, NOTIFY_TO?, FROM_EMAIL?
+
+import {
+  readRecord,
+  sendPaymentEmail,
+  toRecord,
+  writeRecord,
+  type SessionObject,
+} from "../lib/stripe-notify.ts";
 
 interface Env {
   STRIPE_WEBHOOK_SECRET?: string;
   RESEND_API_KEY?: string;
   NOTIFY_TO?: string;
   FROM_EMAIL?: string;
+  ENQUIRIES: R2Bucket;
 }
 
 // Stripe's default tolerance is 300s. A wider window would let a captured request be
@@ -75,26 +87,6 @@ async function verifySignature(
   return false;
 }
 
-interface SessionObject {
-  id?: string;
-  payment_status?: string;
-  amount_total?: number | null;
-  currency?: string | null;
-  customer_details?: { email?: string | null; name?: string | null };
-  metadata?: Record<string, string> | null;
-}
-
-const money = (cents: number | null | undefined, currency: string | null | undefined) => {
-  if (typeof cents !== "number") return "unknown";
-  const cur = (currency || "aud").toUpperCase();
-  return `${cur} ${(cents / 100).toLocaleString("en-AU", { minimumFractionDigits: 2 })}`;
-};
-
-// Names and emails come from Stripe, i.e. from whoever filled the checkout form.
-function escapeHtml(s: string): string {
-  return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] as string));
-}
-
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const json = (obj: unknown, status = 200) =>
     new Response(JSON.stringify(obj), { status, headers: { "Content-Type": "application/json" } });
@@ -132,99 +124,39 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   ];
   if (!handled.includes(type)) return json({ ok: true, ignored: type });
 
-  const paid = s.payment_status === "paid";
-  // Two checkouts feed this endpoint: /pay (an invoice) and /donate (a gift of any
-  // amount). A donation carries kind=donation and no invoice number, so without this
-  // branch the office was told "Payment received — (no invoice number)" for every gift.
-  const isDonation = s.metadata?.kind === "donation";
-  const noun = isDonation ? "Donation" : "Payment";
-  const invoice = s.metadata?.invoice || "(no invoice number)";
-  const payer = s.customer_details?.name || s.metadata?.payer_name || "(no name)";
-  const email = s.customer_details?.email || "(no email)";
-  const total = money(s.amount_total, s.currency);
-  const invoiced = s.metadata?.invoice_amount_aud ? `A$${s.metadata.invoice_amount_aud}` : "unknown";
-  const fee = s.metadata?.card_fee_aud ? `A$${s.metadata.card_fee_aud}` : "unknown";
-
-  // Structured log — visible in `wrangler pages deployment tail`. This is the durable
-  // record in the absence of a database.
-  console.log(
-    JSON.stringify({
-      tag: "stripe_payment",
-      event: type,
-      event_id: event.id,
-      session_id: s.id,
-      kind: isDonation ? "donation" : "invoice",
-      paid,
-      invoice,
-      payer,
-      email,
-      total,
-      invoiced,
-      fee,
-    })
-  );
-
-  // Notify the office. Best-effort: a mail failure must not make Stripe retry forever.
-  // Notify on BOTH outcomes: a failed A$30,000 payment is worth knowing about, and the
-  // subject/html below already branch on `paid`. Guarding on `paid` here made the
-  // failure branch unreachable.
-  if (env.RESEND_API_KEY && env.NOTIFY_TO) {
-    const from = env.FROM_EMAIL || "website@visa2.au";
-    // Comma-separated so the office can notify several people (e.g. accounts + the agent).
-    const recipients = env.NOTIFY_TO.split(",").map((t) => t.trim()).filter(Boolean);
-    const subject = isDonation
-      ? paid
-        ? `💚 Donation received — ${total} — ${payer}`
-        : `⚠️ Donation not completed — ${total}`
-      : paid
-        ? `✅ Payment received — ${invoice} — ${total}`
-        : `⚠️ Payment not completed — ${invoice}`;
-    const rows: [string, string][] = isDonation
-      ? [
-          ["Type", "Donation"],
-          ["Donor", payer],
-          ["Email", email],
-          ["Amount", total],
-        ]
-      : [
-          ["Type", "Invoice payment"],
-          ["Invoice", invoice],
-          ["Payer", payer],
-          ["Email", email],
-          ["Invoice amount", invoiced],
-          ["Card fee", fee],
-          ["Total charged", total],
-        ];
-    if (type === "checkout.session.async_payment_succeeded") {
-      rows.push(["Note", "Delayed payment method settled after checkout"]);
-    }
-    const html = `
-      <h2>${paid ? `${noun} received` : `${noun} not completed`}</h2>
-      <table cellpadding="6" style="border-collapse:collapse;font-family:system-ui,sans-serif;font-size:14px">
-        ${rows.map(([k, v]) => `<tr><td><b>${k}</b></td><td>${escapeHtml(v)}</td></tr>`).join("")}
-        <tr><td><b>Stripe session</b></td><td><code>${escapeHtml(s.id || "")}</code></td></tr>
-        <tr><td><b>Status</b></td><td>${escapeHtml(s.payment_status || "")}</td></tr>
-      </table>
-      <p style="font-family:system-ui,sans-serif;font-size:13px;color:#555">
-        Reconcile in the Stripe dashboard. This notification is generated from a verified
-        Stripe webhook, not from a browser redirect.
-      </p>`;
-    try {
-      const er = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${env.RESEND_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ from: `Visa2AU Payments <${from}>`, to: recipients, subject, html }),
-      });
-      if (!er.ok) {
-        console.log(JSON.stringify({ tag: "stripe_payment", mail_error: (await er.text()).slice(0, 200) }));
-      }
-    } catch (e) {
-      console.log(JSON.stringify({ tag: "stripe_payment", mail_exception: String(e).slice(0, 200) }));
-    }
+  // Stripe retries on any non-2xx and can deliver the same event twice. The record is
+  // the idempotency key: once a payment is marked notified, a repeat delivery
+  // acknowledges without sending a second email.
+  const existing = s.id ? await readRecord(env.ENQUIRIES, s.id) : null;
+  if (existing?.notified) {
+    console.log(
+      JSON.stringify({ tag: "stripe_payment", event: type, session_id: s.id, duplicate: true })
+    );
+    return json({ ok: true, received: type, duplicate: true, paid: existing.paid });
   }
 
-  return json({ ok: true, received: type, paid });
+  const rec = toRecord(s, type, event.id);
+  // Structured log — visible in `wrangler pages deployment tail`.
+  console.log(JSON.stringify({ tag: "stripe_payment", ...rec }));
+
+  // Notify on BOTH outcomes: a failed A$30,000 payment is worth knowing about, and the
+  // subject/html already branch on `paid`.
+  const mail = s.id ? await sendPaymentEmail(env, s, type) : { ok: false, error: "no session id" };
+  if (!mail.ok) {
+    console.log(
+      JSON.stringify({ tag: "stripe_payment", session_id: s.id, notify_error: mail.error })
+    );
+  }
+
+  // Record the payment either way: one the office could not be emailed about must still
+  // leave a trace, and notified=false lets the catch-up job retry it.
+  if (s.id) {
+    await writeRecord(env.ENQUIRIES, {
+      ...rec,
+      notified: mail.ok,
+      ...(mail.ok ? {} : { notify_error: mail.error }),
+    });
+  }
+
+  return json({ ok: true, received: type, paid: rec.paid, notified: mail.ok });
 };
