@@ -44,10 +44,16 @@ jobs:
         run: python3 scripts/build_blog.py
 
       - name: Build locale pages (if translation maps present)
-        run: python3 scripts/build_locale_pages.py || true
+        run: python3 scripts/build_locale_pages.py
+
+      # Pages outside build_locale_pages' PAGES list have no rebuild path, so a
+      # new English sentence never reaches them. This applies the same maps as a
+      # safety net; it can only match text that is still English.
+      - name: Translate leftover English in static locale twins
+        run: python3 scripts/localize_leftovers.py
 
       - name: Localize homepage cards (carousel EN names + localized blog cards)
-        run: python3 scripts/localize_homepage_cards.py || true
+        run: python3 scripts/localize_homepage_cards.py
 
       - name: Rewrite locale links to localized twins (must run after every rebuild)
         run: python3 scripts/fix_locale_links.py
