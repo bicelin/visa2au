@@ -25,15 +25,24 @@
       html, body { margin: 0; height: 100%; background: #000; }
       rtk-meeting { display: block; height: 100%; }
       #missing { color: #fff; font: 16px/1.5 system-ui, sans-serif; padding: 24px; }
+      #status {
+        position: fixed; left: 12px; bottom: 12px; z-index: 10;
+        color: #fff; background: rgba(0,0,0,.72); border: 1px solid #444;
+        border-radius: 6px; padding: 6px 10px;
+        font: 12px/1.4 ui-monospace, monospace; max-width: 70ch;
+      }
     </style>
   </head>
   <body>
+    <div id="status">starting…</div>
     <div id="missing" hidden>
       No authToken in the URL. Append <code>?authToken=&lt;token&gt;</code> — see the
       comment at the top of this file.
     </div>
 
-    <rtk-meeting id="my-meeting" show-setup-screen="true"></rtk-meeting>
+    <!-- No show-setup-screen: init() already connects, and the setup screen added a
+         second join step that landed on "You left the meeting." with no preview. -->
+    <rtk-meeting id="my-meeting"></rtk-meeting>
 
     <!-- UI Kit components + Core SDK, exactly as the quickstart loads them.
          @latest is fine for a pilot; pin versions before production. -->
@@ -49,21 +58,55 @@
       const q = new URL(window.location.href).searchParams.get("authToken");
       const h = new URLSearchParams(window.location.hash.replace(/^#/, "")).get("authToken");
       const authToken = q || h;
+      const el = document.getElementById("my-meeting");
+      // The UI Kit's loader upgrades <rtk-meeting> asynchronously. Setting .meeting
+      // before that upgrade is silently discarded (Stencil has no setter yet), which
+      // leaves the element spinning with no self-view — so wait for the upgrade.
+      const uiReady = customElements.whenDefined("rtk-meeting");
+      const setStatus = (msg) => {
+        const s = document.getElementById("status");
+        if (s) s.textContent = msg;
+        console.log("rtk-pilot:", msg);
+      };
 
       if (!authToken) {
         document.getElementById("missing").hidden = false;
-        document.getElementById("my-meeting").hidden = true;
+        el.hidden = true;
+        setStatus("no authToken in the URL");
       } else {
+        // A pixel-perfect diagnostic path: every step lands on screen, so a
+        // screenshot answers "why is there no video" without DevTools.
+        setStatus("token ok (" + authToken.length + " chars) — connecting…");
         RealtimeKitClient.init({ authToken })
-          .then((meeting) => {
-            document.getElementById("my-meeting").meeting = meeting;
-            // Surface the meeting id so a screenshot proves which room was joined.
-            console.log("joined meeting", meeting.meta?.meetingId ?? "(unknown)");
+          .then(async (meeting) => {
+            const id = meeting.meta?.meetingId ?? "(unknown)";
+            setStatus("joined " + String(id).slice(0, 8) + " as " + (meeting.self?.name || "?") + " — waiting for the UI kit");
+            await uiReady;
+            el.meeting = meeting;
+            // The kit keeps its own reference; if it re-renders without the property,
+            // put it back. (Do not try to detect "rendered" by selector — the kit's
+            // internal element names are not API surface, and guessing them produced
+            // a false "still empty" alarm while the room was in fact fully rendered.)
+            for (const ms of [400, 1500]) {
+              setTimeout(() => {
+                if (el.meeting !== meeting) el.meeting = meeting;
+              }, ms);
+            }
+            el.addEventListener("rtkMeetingLeft", () =>
+              setStatus("left the meeting — reload this tab to rejoin"),
+            );
+            try {
+              meeting.self?.on("videoUpdate", (v) => setStatus("video " + (v ? "on" : "off")));
+              meeting.self?.on("audioUpdate", (a) => setStatus("audio " + (a ? "on" : "off")));
+            } catch (e) {
+              setStatus("joined; live media events unavailable: " + e.message);
+            }
           })
           .catch((err) => {
             document.getElementById("missing").hidden = false;
-            document.getElementById("missing").textContent = "Could not join: " + err.message;
-            document.getElementById("my-meeting").hidden = true;
+            document.getElementById("missing").textContent = "Could not join: " + (err?.message || err);
+            el.hidden = true;
+            setStatus("init failed: " + (err?.message || err));
           });
       }
     </script>
