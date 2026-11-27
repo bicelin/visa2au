@@ -23,6 +23,7 @@ interface Env {
   RTK_APP_ID?: string;
   RTK_PRESET?: string;        // host role — default "consult"
   RTK_PRESET_MEMBER?: string; // client role — default "consult-member"
+  RTK_PILOT_TOKEN?: string;   // single-purpose server-to-server token
   RTK_TRANSCRIPTION_LANGUAGE?: string;
   RTK_TITLE_PREFIX?: string;
   RTK_R2_ACCESS_KEY_ID?: string;
@@ -185,10 +186,11 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
     rtk_app_id: Boolean(env.RTK_APP_ID),
     video_lobby_passcode: Boolean(env.VIDEO_LOBBY_PASSCODE),
     recording_bucket: Boolean(k.accessKey && k.secret && k.bucket),
+    pilot_token: Boolean(env.RTK_PILOT_TOKEN),
   };
-  const missing = Object.entries(configured)
-    .filter(([, v]) => !v)
-    .map(([k2]) => k2);
+  // The pilot token is optional — it must not make a healthy deployment look broken.
+  const required = ["rtk_api_token", "rtk_app_id", "video_lobby_passcode", "recording_bucket"];
+  const missing = required.filter((key) => !configured[key as keyof typeof configured]);
   return json({
     ok: missing.length === 0,
     configured,
@@ -219,9 +221,22 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const name = String(body.name || "").trim().slice(0, 80);
   const passcode = String(body.passcode || "");
   const channel = String(body.channel || "lobby").trim().toLowerCase().replace(/[^a-z0-9-]/g, "").slice(0, 40) || "lobby";
-  if (!name || !passcode) return json({ ok: false, error: "Name and passcode are required" }, 400);
+  if (!name) return json({ ok: false, error: "Name is required" }, 400);
 
-  if (!env.VIDEO_LOBBY_PASSCODE || !(await safeEqual(passcode, env.VIDEO_LOBBY_PASSCODE))) {
+  // Two ways in, both constant-time: the client-facing lobby passcode, or a
+  // single-purpose pilot token so a server-side test (or the 4 Dec watchdog) can
+  // mint a seat without anyone having to handle the passcode clients type.
+  const pilot = request.headers.get("x-pilot-token") || "";
+  const pilotOk =
+    Boolean(env.RTK_PILOT_TOKEN) &&
+    pilot.length > 0 &&
+    (await safeEqual(pilot, env.RTK_PILOT_TOKEN as string));
+  if (
+    !pilotOk &&
+    (!env.VIDEO_LOBBY_PASSCODE ||
+      !passcode ||
+      !(await safeEqual(passcode, env.VIDEO_LOBBY_PASSCODE)))
+  ) {
     return json({ ok: false, error: "Incorrect passcode" }, 401);
   }
 
