@@ -49,6 +49,20 @@ they are done.
 | ~~Donation Payment Link~~ | [app/donate.html](app/donate.html) + ru/fr | ✅ **DONE — differently.** A Payment Link cannot receive an amount through its URL, so the page's \$25–\$250 / custom picker was decorative and donors could be charged the wrong sum. Replaced with `POST /api/donate` (Checkout Session, A\$1–A\$10,000, no card surcharge). No dashboard object to maintain. |
 | **`STRIPE_WEBHOOK_SECRET`** | Stripe → Developers → Webhooks → Add endpoint `https://visa2.au/api/stripe-webhook`, events `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed` | ⬜ **OUTSTANDING** — the only remaining step. Copy the `whsec_…` signing secret and set it in Pages production. Until then the webhook returns 500 so Stripe retries rather than dropping payments. |
 
+**Every payment is now also recorded here, not only in Stripe.** A handled event writes
+`payments/<session>.json` to the R2 `ENQUIRIES` bucket (amount, currency, payer, email,
+kind, invoice, `notified`). That record is the idempotency key: Stripe retries on any
+non-2xx and can deliver twice, so a session already marked `notified` is acknowledged
+without a second email.
+
+**`GET|POST /api/stripe-reconcile`** covers the case the webhook cannot: it asks Stripe
+which checkouts were paid (last 7 days by default, max 30), compares them with those
+records, and records + emails anything with no notified record. `?dry=1` reports without
+sending or writing. It is guarded by `RECONCILE_TOKEN` (already set): unset means 500,
+wrong token means 401, and running it twice is safe. This is how the A$330 invoice
+(`V2AU-NURT0001`, A$345.01 with the card fee) that went through on 26 Nov was finally
+recorded and reported, a day late, after the webhook had returned 500 for it.
+
 **What the webhook emails once the secret is set.** One message per completed or failed
 checkout, to every address in `NOTIFY_TO`: a paid invoice reads
 `✅ Payment received — INV-1042 — AUD 470.96` with invoice amount, card fee and total
