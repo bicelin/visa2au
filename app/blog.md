@@ -28,6 +28,8 @@ Protection Visas
 
 Skilled Visas
 
+![An almost empty savings jar and loose coins on a pale table](https://visa2.au/cdn-cgi/image/width=756,quality=72,format=auto,onerror=redirect/imgs/blog/onshore-application-charge-1500-2026.jpg)   Visa Fees Three Days' Notice, $1,500 More: the Onshore Application Charge The regulations were made on 26 November, registered on 27 November and took effect on 28 November. For families who had spent months preparing an onshore application, the extra $1,500 per person arrived with almost no warning. Here is exactly who pays, who does not, and what to do next. Sergey Vinnichenko · 29 Nov 2026 · 9 min read
+
 ![A couple holding a certificate beside Sydney Harbour at golden hour](https://visa2.au/cdn-cgi/image/width=756,quality=72,format=auto,onerror=redirect/imgs/blog-partner-visa.jpg)   Partner Visas Family Violence & Your Partner Visa: The Provisions Your relationship ended because of domestic or family violence — and now you fear losing your visa. The family violence provisions may let you keep your partner visa without your sponsor's cooperation. Here's how they work. Natasha Arens · 13 Aug 2026 · 7 min read
 
 ![Sandstone cliffs and surf under a storm-lit sunset sky](https://visa2.au/cdn-cgi/image/width=756,quality=72,format=auto,onerror=redirect/imgs/hero-coast.jpg)   News & Policy Visa Fees Rise Sharply from 1 July 2026 Student visas now cost $2,500, partner visas $11,710, and Bridging Visa B has tripled. Here's what the 1 July 2026 fee increases mean in practice — and what we'd tell our own clients. Sergey Vinnichenko · 24 Jul 2026 · 6 min read

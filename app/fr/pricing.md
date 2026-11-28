@@ -12,7 +12,7 @@ answer-first:start
 
 ## Combien coûte un visa partenaire, en une ligne
 
-**820/801 (sur place)** ou **309/100 (depuis l’étranger)** : frais gouvernementaux à partir de **$11,710** plus nos honoraires professionnels de **$5,500** — à partir de **$17,210** au total, avant les frais de tiers.
+**820/801 (sur place)** ou **309/100 (depuis l’étranger)** : frais gouvernementaux à partir de **$13,210** en Australie depuis le 28 novembre 2026 (**$11,710** depuis l’étranger) plus nos honoraires professionnels de **$5,500** — à partir de **$17,210** au total, avant les frais de tiers.
 
 Un deuxième demandeur de 18 ans ou plus ajoute des frais gouvernementaux à partir de **$5,855** ; un enfant de moins de 18 ans, à partir de **$2,930**. Les examens médicaux, certificats de police, traductions et évaluations des compétences sont payés aux tiers au coût réel et détaillés dans votre devis.
 
