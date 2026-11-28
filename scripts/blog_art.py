@@ -62,6 +62,11 @@ ALT: dict[str, dict[str, str]] = {
         "ru": "Документы без надписей и ручка на столе при дневном свете",
         "fr": "Documents vierges et un stylo sur un bureau à la lumière du jour",
     },
+    "imgs/blog/condition-8503-no-further-stay-2026.jpg": {
+        "en": "A traveller waiting alone in an empty airport departure lounge at night",
+        "ru": "Одинокий пассажир в пустом зале ожидания аэропорта ночью",
+        "fr": "Un voyageur seul dans une salle d’embarquement vide, la nuit",
+    },
     "imgs/blog/onshore-application-charge-1500-2026.jpg": {
         "en": "An almost empty savings jar and loose coins on a pale table",
         "ru": "Почти пустая банка для сбережений и монеты на светлом столе",
