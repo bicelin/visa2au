@@ -77,6 +77,26 @@ def main() -> int:
         if image.startswith("imgs/blog/") and len(used) > 1:
             problems.append(f"{image}: shared by posts {sorted(used)} (post-specific art must be unique)")
 
+    # 0 — the rendered hero must be the image the CMS actually names. CI rebuilt
+    # this page from a stale checkout once and shipped yesterday's picture while
+    # the front matter already pointed at the new one; nothing caught it.
+    for key, fm in posts().items():
+        slug = pathlib.Path(key).stem
+        lang = ("" if key.startswith("cms/blog/") else
+                key.split("/")[1].replace("blog-", "") + "/")
+        page = APP / lang / "blog" / f"{slug}.html"
+        if not page.exists():
+            continue
+        want = (fm.get("image") or "").lstrip("/")
+        html = page.read_text(encoding="utf-8")
+        hero = next((t for t in IMG_TAG.findall(html) if 'fetchpriority="high"' in t), "")
+        got = ""
+        m = re.search(r"/imgs/[^\"?]+", attrs(hero).get("src", "")) if hero else None
+        if m:
+            got = m.group(0).lstrip("/")
+        if want and got and got != want:
+            problems.append(f"{page.relative_to(ROOT)}: hero shows {got} but the CMS names {want}")
+
     # 1-4 — rendered pages
     titles: dict[str, str] = {}
     for folder in PAGES:
