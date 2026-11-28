@@ -1,5 +1,5 @@
 ---
-title: "Three Days' Notice, $1,500 More: the Onshore Application Charge"
+title: "No Warning, $1,500 More: the Onshore Application Charge"
 slug: onshore-application-charge-1500-2026
 date: 2026-11-29
 category: "Visa Fees"

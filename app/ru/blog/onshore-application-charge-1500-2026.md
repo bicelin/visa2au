@@ -1,5 +1,5 @@
 ---
-title: "Три дня предупреждения, плюс $1 500: новый Onshore Application Charge"
+title: "Без предупреждения, плюс $1 500: Onshore Application Charge"
 slug: onshore-application-charge-1500-2026
 date: 2026-11-29
 category: "Visa Fees"

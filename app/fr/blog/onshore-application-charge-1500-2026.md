@@ -1,5 +1,5 @@
 ---
-title: "Trois jours de préavis, 1 500 $ de plus : l’Onshore Application Charge"
+title: "Sans préavis, 1 500 $ de plus : l’Onshore Application Charge"
 slug: onshore-application-charge-1500-2026
 date: 2026-11-29
 category: "Visa Fees"
