@@ -83,6 +83,16 @@
             setStatus("joined " + String(id).slice(0, 8) + " as " + (meeting.self?.name || "?") + " — waiting for the UI kit");
             await uiReady;
             el.meeting = meeting;
+            // Without the setup screen the kit joins with the camera OFF, which shows a
+            // black stage even when the camera itself is fine (a recording proves the
+            // capture path works). Turn media on explicitly, then report what happened.
+            try {
+              await meeting.self.enableVideo();
+              await meeting.self.enableAudio();
+              setStatus("joined " + String(id).slice(0, 8) + " — camera and mic ON");
+            } catch (e) {
+              setStatus("joined " + String(id).slice(0, 8) + " — media refused: " + (e?.message || e));
+            }
             // The kit keeps its own reference; if it re-renders without the property,
             // put it back. (Do not try to detect "rendered" by selector — the kit's
             // internal element names are not API surface, and guessing them produced

@@ -35,8 +35,9 @@ COPY = {
         "h2": "What a partner visa costs, in one line",
         "lead": (
             "<strong>820/801 (onshore)</strong> or <strong>309/100 (offshore)</strong>: government charge from "
-            "<strong>{gov}</strong> plus our professional fee <strong>{fee}</strong> — from <strong>{total}</strong> "
-            "in total before third-party costs."
+            "<strong>{gov_onshore}</strong> in Australia since 28 November 2026 (<strong>{gov}</strong> offshore) "
+            "plus our professional fee <strong>{fee}</strong> — from <strong>{total}</strong> in total before "
+            "third-party costs."
         ),
         "detail": (
             "A second applicant 18 or over adds a government charge from <strong>{second}</strong>; a child under "
@@ -49,7 +50,8 @@ COPY = {
         "h2": "Сколько стоит партнёрская виза — одной строкой",
         "lead": (
             "<strong>820/801 (в Австралии)</strong> или <strong>309/100 (за рубежом)</strong>: государственный "
-            "сбор от <strong>{gov}</strong> плюс наш профессиональный гонорар <strong>{fee}</strong> — от "
+            "сбор от <strong>{gov_onshore}</strong> при подаче в Австралии с 28 ноября 2026 года "
+            "(<strong>{gov}</strong> за рубежом) плюс наш профессиональный гонорар <strong>{fee}</strong> — от "
             "<strong>{total}</strong> в сумме, до расходов третьих сторон."
         ),
         "detail": (
@@ -64,8 +66,9 @@ COPY = {
         "h2": "Combien coûte un visa partenaire, en une ligne",
         "lead": (
             "<strong>820/801 (sur place)</strong> ou <strong>309/100 (depuis l’étranger)</strong> : frais "
-            "gouvernementaux à partir de <strong>{gov}</strong> plus nos honoraires professionnels de "
-            "<strong>{fee}</strong> — à partir de <strong>{total}</strong> au total, avant les frais de tiers."
+            "gouvernementaux à partir de <strong>{gov_onshore}</strong> en Australie depuis le 28 novembre 2026 "
+            "(<strong>{gov}</strong> depuis l’étranger) plus nos honoraires professionnels de <strong>{fee}</strong> "
+            "— à partir de <strong>{total}</strong> au total, avant les frais de tiers."
         ),
         "detail": (
             "Un deuxième demandeur de 18 ans ou plus ajoute des frais gouvernementaux à partir de "
@@ -86,6 +89,7 @@ def figures() -> dict[str, str]:
     total = money(fees_data.PARTNER_GOV["main"]) + money(fee)
     return {
         "gov": fees_data.PARTNER_GOV["main"],
+        "gov_onshore": fees_data.PARTNER_GOV["main_onshore"],
         "fee": fee,
         "total": f"${total:,}",
         "second": fees_data.PARTNER_GOV["secondary"],

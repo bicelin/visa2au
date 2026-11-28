@@ -62,6 +62,11 @@ ALT: dict[str, dict[str, str]] = {
         "ru": "Документы без надписей и ручка на столе при дневном свете",
         "fr": "Documents vierges et un stylo sur un bureau à la lumière du jour",
     },
+    "imgs/blog/onshore-application-charge-1500-2026.jpg": {
+        "en": "An almost empty savings jar and loose coins on a pale table",
+        "ru": "Почти пустая банка для сбережений и монеты на светлом столе",
+        "fr": "Un bocal d’épargne presque vide et des pièces sur une table claire",
+    },
     "imgs/blog/visa-refusal-what-to-do.jpg": {
         "en": "A sealed envelope on a desk beside a window",
         "ru": "Запечатанный конверт на столе рядом с окном",

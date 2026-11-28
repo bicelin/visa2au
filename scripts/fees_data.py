@@ -42,6 +42,10 @@ PARTNER_GOV = {
     "main": "$11,710",
     "secondary": "$5,855",
     "child": "$2,930",
+    # From 28 November 2026 the Onshore Application Charge adds $1,500 per
+    # person to applications lodged in Australia (F2026L01607). The partner visa
+    # is the figure visitors compare, so it is stated rather than implied.
+    "main_onshore": "$13,210",
 }
 
 DISCLAIMER = (
