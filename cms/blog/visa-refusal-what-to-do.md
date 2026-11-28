@@ -6,7 +6,7 @@ category: "Visa Refusals"
 description: "Visa refused? Learn about your appeal options including AAT tribunal, ministerial intervention, and when to reapply. Expert advice from migration agents."
 excerpt: "A visa refusal is not the end of the road. Learn about appeal options, the AAT process, and when to reapply after a refusal."
 author: "Denis Kosachev"
-image: /imgs/hero-outback.jpg
+image: /imgs/blog/visa-refusal-what-to-do.jpg
 reading_time: 5
 lang: en
 ---
