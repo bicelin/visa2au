@@ -6,7 +6,7 @@ category: "Refus de visa"
 description: "Visa refusé ? Vos recours : tribunal AAT, intervention ministérielle et nouveau dépôt de demande. Conseils d'agents agréés."
 excerpt: "Un refus de visa n'est pas une fin en soi. Découvrez les options de recours, la procédure devant l'AAT et les cas où redéposer une demande après un refus."
 author: "Denis Kosachev"
-image: /imgs/blog/visa-refusal-what-to-do.jpg
+image: /imgs/hero-outback.jpg
 reading_time: 5
 lang: fr
 ---

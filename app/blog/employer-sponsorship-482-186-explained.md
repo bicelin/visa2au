@@ -6,7 +6,7 @@ category: "Employer Sponsorship"
 description: "Guide to Australian employer sponsorship visas 482 and 186. Learn about TSS visa requirements, the sponsorship process, and how to hire overseas talent."
 excerpt: "Australian employer sponsorship allows businesses to fill skilled positions with overseas talent. Learn about the TSS visa (482) and Employer Nomination Scheme (186)."
 author: "Sergey Vinnichenko"
-image: /imgs/blog/employer-sponsorship-482-186-explained.jpg
+image: /imgs/blog-employer.jpg
 reading_time: 7
 lang: en
 ---

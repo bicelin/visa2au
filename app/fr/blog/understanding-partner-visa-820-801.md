@@ -6,7 +6,7 @@ category: "Visas partenaires"
 description: "Guide complet du visa partenaire 820/801 : processus en deux étapes, conditions, délais et appui d'un agent MARN."
 excerpt: "Le processus de visa partenaire peut s'avérer complexe. Ce guide détaille les deux étapes, les conditions et le calendrier pour faire venir votre proche en Australie."
 author: "Natasha Arens"
-image: /imgs/blog/understanding-partner-visa-820-801.jpg
+image: /imgs/blog-partner-visa.jpg
 reading_time: 6
 lang: fr
 ---
