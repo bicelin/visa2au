@@ -25,6 +25,8 @@ import os
 import re
 import shutil
 
+import blog_art  # noqa: E402  (alt text per image, per language)
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://visa2.au"
 
@@ -43,6 +45,33 @@ def cdn_img(path, width, quality=72):
     """Cloudflare Image Resizing URL for a zone-relative asset path."""
     return (f"/cdn-cgi/image/width={width},quality={quality},format=auto,"
             f"onerror=redirect/{path.lstrip('/')}")
+
+
+HERO_WIDTHS = (768, 1152, 1536)          # 1x / 1.5x / 2x of the 768px column
+HERO_SIZES = "(min-width: 1024px) 768px, 92vw"
+
+
+def hero_tag(img, lang, width, height):
+    """The article hero is the LCP element: served through Cloudflare Image
+    Resizing (a 122 KB JPEG becomes ~27 KB AVIF at this size), eager,
+    high-priority, with real width/height so nothing shifts while it loads."""
+    path = img.lstrip("/")
+    src = cdn_img(path, 1152, quality=78)
+    srcset = ", ".join(f"{cdn_img(path, w, quality=78)} {w}w" for w in HERO_WIDTHS)
+    alt = blog_art.alt_for(path, lang)
+    return (
+        f'<img src="{src}" srcset="{srcset}" sizes="{HERO_SIZES}" '
+        f'alt="{html.escape(alt, quote=True)}" class="mt-8 w-full rounded-2xl object-cover" '
+        f'loading="eager" fetchpriority="high" decoding="async" '
+        f'width="{width}" height="{height}">'
+    )
+
+
+def hero_preload(img):
+    path = img.lstrip("/")
+    srcset = ", ".join(f"{cdn_img(path, w, quality=78)} {w}w" for w in HERO_WIDTHS)
+    return (f'<link rel="preload" as="image" imagesrcset="{srcset}" '
+            f'imagesizes="{HERO_SIZES}" fetchpriority="high">')
 
 
 def card_img_attrs(first):
@@ -297,6 +326,10 @@ def render_post(template, fm, body_html, cfg):
     w, h = img_size(os.path.join(ROOT, "app", img))
     page = page.replace("{{IMAGE_W}}", str(w or 1344))
     page = page.replace("{{IMAGE_H}}", str(h or 768))
+    # hero: edge-resized srcset, real alt text per language, and a preload so
+    # the LCP image is discovered in the head instead of after the markup
+    page = page.replace("{{IMAGE_TAG}}", hero_tag(img, cfg["lang"], w or 1536, h or 864))
+    page = page.replace("{{IMAGE_PRELOAD}}", hero_preload(img))
     return page
 
 
@@ -306,7 +339,7 @@ CARD = (
     " hover:shadow-lg dark:border-white/10 dark:bg-navy-900\"> "
     '<div class="h-48 overflow-hidden bg-navy-800"> '
     '<img src="{img_src}" srcset="{img_srcset}" sizes="{img_sizes}" {img_attrs}'
-    ' alt="Feature image for: {title}" class="h-full w-full'
+    ' alt="{img_alt_text}" class="h-full w-full'
     ' object-cover transition group-hover:scale-105"> </div> '
     '<div class="flex flex-1 flex-col p-5"> '
     '<p class="font-tech text-xs font-semibold uppercase tracking-wider'
@@ -327,7 +360,7 @@ CARD_LOC = (
     " hover:shadow-lg dark:border-white/10 dark:bg-navy-900\"> "
     '<div class="h-48 overflow-hidden bg-navy-800"> '
     '<img src="{img_src}" srcset="{img_srcset}" sizes="{img_sizes}" {img_attrs}'
-    ' alt="{img_alt}: {title}" class="h-full w-full'
+    ' alt="{img_alt_text}" class="h-full w-full'
     ' object-cover transition group-hover:scale-105"> </div> '
     '<div class="flex flex-1 flex-col p-5"> '
     '<p class="font-tech text-xs font-semibold uppercase tracking-wider'
@@ -419,7 +452,7 @@ def main():
             cards = "".join(
                 CARD_LOC.format(
                     slug=fm["slug"],
-                    img_alt=cfg["index_img_alt"],
+                    img_alt_text=blog_art.alt_for(fm["image"], cfg["lang"]),
                     **card_fields(fm["image"], i == 0),
                     title=html.escape(fm["title"], quote=False),
                     category=fm["category"],
@@ -447,6 +480,7 @@ def main():
         CARD.format(
             slug=fm["slug"],
             **card_fields(fm["image"], i == 0),
+            img_alt_text=blog_art.alt_for(fm["image"], "en"),
             title=html.escape(fm["title"], quote=False),
             category=fm["category"],
             desc=html.escape(fm["excerpt"], quote=False),

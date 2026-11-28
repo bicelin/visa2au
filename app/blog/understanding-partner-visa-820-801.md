@@ -6,7 +6,7 @@ category: "Partner Visas"
 description: "Complete guide to Partner Visa 820/801 in Australia. Learn about the two-stage process, requirements, timeline, and how a MARN registered agent can help."
 excerpt: "Navigating the partner visa process can be complex. This guide breaks down the two-stage process, requirements, and timeline for bringing your loved one to Australia."
 author: "Natasha Arens"
-image: /imgs/blog-partner-visa.jpg
+image: /imgs/blog/understanding-partner-visa-820-801.jpg
 reading_time: 6
 lang: en
 ---
